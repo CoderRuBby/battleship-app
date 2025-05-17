@@ -7,6 +7,7 @@ export default class GameBoard {
   Cruiser: object;
   Submarine: object;
   Destroyer: object;
+  selectedShip: string | object;
 
   constructor() {
     this.gameboard = {};
@@ -16,11 +17,20 @@ export default class GameBoard {
     this.Cruiser = SHIPS.Cruiser;
     this.Submarine = SHIPS.Submarine;
     this.Destroyer = SHIPS.Destroyer;
+    this.selectedShip = 'none';
   }
 
   initialize() {
     for (let i = 0; i < 100; i++) {
       this.gameboard[i] = new Set();
+    }
+  }
+
+  selectShip(ship: object) {
+    if (ship === this.selectedShip) {
+      this.selectedShip = 'none';
+    } else {
+      this.selectedShip = ship;
     }
   }
 }
