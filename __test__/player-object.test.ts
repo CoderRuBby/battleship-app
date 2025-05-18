@@ -1,18 +1,29 @@
 import { describe, it, expect } from 'vitest';
-import GameBoard from '~/utils/player-object';
+import GameBoard from '~/utils/gameboard-object';
 
 describe('GameBoard', () => {
-  describe('possibleShipEndPoints', () => {
-    const testGameBoard = new GameBoard();
+  const testGameBoard = new GameBoard();
 
-    it('can correctly output 4 endpoints', () => {
-      expect(testGameBoard.possibleShipEndPoints(45, 3)).toEqual([
-        47, 43, 65, 25,
-      ]);
+  describe('possibleShipEndPoints', () => {
+    it('can output 4 endpoints', () => {
+      const shipLength = 3;
+      const shipStartPoint = 45;
+
+      expect(
+        testGameBoard.possibleShipEndPoints(shipStartPoint, shipLength),
+      ).toEqual([47, 43, 65, 25]);
     });
 
     it('can correctly output 2 endpoints', () => {
-      expect(testGameBoard.possibleShipEndPoints(0, 2)).toEqual([1, 10]);
+      const shipLength = 2;
+      const shipStartPoint = 0;
+
+      expect(
+        testGameBoard.possibleShipEndPoints(shipStartPoint, shipLength),
+      ).toEqual([1, 10]);
+    });
+  });
+
     });
   });
 });
