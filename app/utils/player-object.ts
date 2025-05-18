@@ -33,4 +33,32 @@ export default class GameBoard {
       this.selectedShip = ship;
     }
   }
+
+  possibleShipEndPoints(initialSquare: number, shipLength: number): number[] {
+    const possibleEndPoints: number[] = [];
+    const row = Math.floor(initialSquare / 10);
+    const col = initialSquare % 10;
+
+    // Check right direction
+    if (col + shipLength - 1 < 10) {
+      possibleEndPoints.push(initialSquare + (shipLength - 1));
+    }
+
+    // Check left direction
+    if (col - (shipLength - 1) >= 0) {
+      possibleEndPoints.push(initialSquare - (shipLength - 1));
+    }
+
+    // Check down direction
+    if (row + shipLength - 1 < 10) {
+      possibleEndPoints.push(initialSquare + (shipLength - 1) * 10);
+    }
+
+    // Check up direction
+    if (row - (shipLength - 1) >= 0) {
+      possibleEndPoints.push(initialSquare - (shipLength - 1) * 10);
+    }
+
+    return possibleEndPoints;
+  }
 }
