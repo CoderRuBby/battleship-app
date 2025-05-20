@@ -69,6 +69,15 @@ export default class GameBoard {
   ): number[] {
     const shipPath: number[] = [];
 
+    if (
+      shipEndPoint < 0 ||
+      shipStartPoint < 0 ||
+      shipEndPoint > 99 ||
+      shipStartPoint > 99
+    ) {
+      return shipPath;
+    }
+
     if (shipEndPoint - shipStartPoint === (shipLength - 1) * 10) {
       for (let i = shipStartPoint; i <= shipEndPoint; i += 10) {
         shipPath.push(i);
