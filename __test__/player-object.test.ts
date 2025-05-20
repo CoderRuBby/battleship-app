@@ -24,6 +24,18 @@ describe('GameBoard', () => {
     });
   });
 
+  describe('possibleShipPath', () => {
+    const shipLength = 2;
+    const shipStartPoint = 0;
+    const shipEndPoint = 1;
+    it('can output ship path', () => {
+      expect(
+        testGameBoard.possibleShipPath(
+          shipLength,
+          shipStartPoint,
+          shipEndPoint,
+        ),
+      ).toEqual([0, 1]);
     });
   });
 });
