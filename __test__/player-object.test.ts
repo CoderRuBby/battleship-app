@@ -25,10 +25,11 @@ describe('GameBoard', () => {
   });
 
   describe('possibleShipPath', () => {
-    const shipLength = 2;
-    const shipStartPoint = 0;
-    const shipEndPoint = 1;
     it('can output ship path', () => {
+      const shipLength = 2;
+      const shipStartPoint = 0;
+      const shipEndPoint = 1;
+
       expect(
         testGameBoard.possibleShipPath(
           shipLength,
@@ -36,6 +37,34 @@ describe('GameBoard', () => {
           shipEndPoint,
         ),
       ).toEqual([0, 1]);
+    });
+
+    it('will output an empty array for invalid path', () => {
+      const shipLength = 3;
+      const shipStartPoint = 0;
+      const shipEndPoint = -2;
+
+      expect(
+        testGameBoard.possibleShipPath(
+          shipLength,
+          shipStartPoint,
+          shipEndPoint,
+        ),
+      ).toEqual([]);
+    });
+
+    it('will output an empty array for invalid path', () => {
+      const shipLength = 3;
+      const shipStartPoint = 99;
+      const shipEndPoint = 101;
+
+      expect(
+        testGameBoard.possibleShipPath(
+          shipLength,
+          shipStartPoint,
+          shipEndPoint,
+        ),
+      ).toEqual([]);
     });
   });
 });
