@@ -61,4 +61,32 @@ export default class GameBoard {
 
     return possibleEndPoints;
   }
+
+  possibleShipPath(
+    shipLength: number,
+    shipStartPoint: number,
+    shipEndPoint: number,
+  ): number[] {
+    const shipPath: number[] = [];
+
+    if (shipEndPoint - shipStartPoint === (shipLength - 1) * 10) {
+      for (let i = shipStartPoint; i <= shipEndPoint; i += 10) {
+        shipPath.push(i);
+      }
+    } else if (shipStartPoint - shipEndPoint === (shipLength - 1) * 10) {
+      for (let i = shipEndPoint; i <= shipStartPoint; i += 10) {
+        shipPath.push(i);
+      }
+    } else if (shipStartPoint - shipEndPoint === shipLength - 1) {
+      for (let i = shipEndPoint; i <= shipStartPoint; i += 1) {
+        shipPath.push(i);
+      }
+    } else if (shipEndPoint - shipStartPoint === shipLength - 1) {
+      for (let i = shipStartPoint; i <= shipEndPoint; i += 1) {
+        shipPath.push(i);
+      }
+    }
+
+    return shipPath;
+  }
 }
