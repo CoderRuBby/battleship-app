@@ -89,4 +89,21 @@ export default class GameBoard {
 
     return shipPath;
   }
+
+  getShipPaths(shipLength: number, shipStartPoint: number): number[][] {
+    const shipPaths: number[][] = [];
+
+    const shipEndPoints = this.possibleShipEndPoints(
+      shipStartPoint,
+      shipLength,
+    );
+
+    shipEndPoints.forEach((endPoint) => {
+      shipPaths.push(
+        this.possibleShipPath(shipLength, shipStartPoint, endPoint),
+      );
+    });
+
+    return shipPaths;
+  }
 }
