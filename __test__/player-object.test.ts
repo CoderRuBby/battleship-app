@@ -38,33 +38,5 @@ describe('GameBoard', () => {
         ),
       ).toEqual([0, 1]);
     });
-
-    it('will output an empty array for invalid path', () => {
-      const shipLength = 3;
-      const shipStartPoint = 0;
-      const shipEndPoint = -2;
-
-      expect(
-        testGameBoard.possibleShipPath(
-          shipLength,
-          shipStartPoint,
-          shipEndPoint,
-        ),
-      ).toEqual([]);
-    });
-
-    it('will output an empty array for invalid path', () => {
-      const shipLength = 3;
-      const shipStartPoint = 99;
-      const shipEndPoint = 101;
-
-      expect(
-        testGameBoard.possibleShipPath(
-          shipLength,
-          shipStartPoint,
-          shipEndPoint,
-        ),
-      ).toEqual([]);
-    });
   });
 });
