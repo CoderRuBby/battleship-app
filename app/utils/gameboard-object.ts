@@ -1,13 +1,14 @@
 import { SHIPS } from './game-ships';
+import type Ship from './ship-object';
 
 export default class GameBoard {
-  gameboard: { [key: number]: Set<number | string> };
-  Carrier: object;
-  Battleship: object;
-  Cruiser: object;
-  Submarine: object;
-  Destroyer: object;
-  selectedShip: string | object;
+  gameboard: { [key: number]: Set<number | string | Ship> };
+  Carrier: Ship;
+  Battleship: Ship;
+  Cruiser: Ship;
+  Submarine: Ship;
+  Destroyer: Ship;
+  selectedShip: string | Ship;
 
   constructor() {
     this.gameboard = {};
@@ -26,7 +27,7 @@ export default class GameBoard {
     }
   }
 
-  selectShip(ship: object) {
+  selectShip(ship: Ship) {
     if (ship === this.selectedShip) {
       this.selectedShip = 'none';
     } else {
