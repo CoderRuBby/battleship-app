@@ -107,4 +107,19 @@ export default class GameBoard {
 
     return shipPaths;
   }
+
+  placeShipOnGameBoard(
+    ship: Ship,
+    shipStartPoint: number,
+    shipEndPoint: number,
+  ) {
+    const path = this.possibleShipPath(
+      ship.length,
+      shipStartPoint,
+      shipEndPoint,
+    );
+    path.forEach((location) => {
+      this.gameboard[location].add(ship);
+    });
+  }
 }
