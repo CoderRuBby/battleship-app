@@ -122,4 +122,8 @@ export default class GameBoard {
       this.gameboard[location].add(ship);
     });
   }
+
+  shipOnClick(ship: Ship) {
+    this.selectShip(ship);
+  }
 }

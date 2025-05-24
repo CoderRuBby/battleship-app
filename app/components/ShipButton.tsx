@@ -2,9 +2,15 @@ interface ShipButtonProps {
   className: string;
   buttonImg: string;
   testId?: string;
+  shipOnClick: () => void;
 }
 
-export function ShipButton({ className, buttonImg, testId }: ShipButtonProps) {
+export function ShipButton({
+  className,
+  buttonImg,
+  testId,
+  shipOnClick,
+}: ShipButtonProps) {
   return (
     <button
       className={className}
@@ -16,6 +22,7 @@ export function ShipButton({ className, buttonImg, testId }: ShipButtonProps) {
         height: '100px',
         width: '100px',
       }}
+      onClick={shipOnClick}
     ></button>
   );
 }
