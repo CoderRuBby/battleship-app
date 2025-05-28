@@ -45,5 +45,26 @@ describe('GameBoard', () => {
 
       expect(testGameBoard.selectedShip).toEqual(SecondTestShip);
     });
+
+    test('de-selecting a ship will clear shipStartPoint', () => {
+      const TestShip = new Ship('foo', 3);
+      const shipStartPoint = 45;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.selectShip(TestShip);
+      expect(TestShip.shipStartPoint).toBe('none');
+    });
+
+    test('selecting a different ship will clear old ship shipStartPoint', () => {
+      const TestShip = new Ship('foo', 3);
+      const shipStartPoint = 45;
+      const TestShipTwo = new Ship('fum', 4);
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.selectShip(TestShipTwo);
+      expect(TestShip.shipStartPoint).toBe('none');
+    });
+  });
+
   });
 });
