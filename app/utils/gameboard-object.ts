@@ -1,5 +1,5 @@
 import { SHIPS } from './game-ships';
-import type Ship from './ship-object';
+import Ship from './ship-object';
 
 export default class GameBoard {
   gameboard: { [key: number]: Set<number | string | Ship> };
@@ -29,8 +29,12 @@ export default class GameBoard {
 
   selectShip(ship: Ship) {
     if (ship === this.selectedShip) {
+      this.selectedShip.shipStartPoint = 'none';
       this.selectedShip = 'none';
     } else {
+      if (this.selectedShip !== 'none') {
+        this.selectedShip.shipStartPoint = 'none';
+      }
       this.selectedShip = ship;
     }
   }
