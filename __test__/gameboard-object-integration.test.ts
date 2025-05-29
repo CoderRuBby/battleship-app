@@ -96,5 +96,41 @@ describe('GameBoard', () => {
       expect(testGameBoard.gameboard[10].ship).toEqual(TestShip);
       expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);
     });
+
+    it('will not assign shipStartPoint if already being used', () => {
+      const TestShip = new Ship('bar', 3);
+      const shipStartPoint = 0;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.squareOnClick(2);
+
+      const TestShip2 = new Ship('foo', 4);
+      testGameBoard.selectShip(TestShip2);
+      testGameBoard.squareOnClick(shipStartPoint);
+      expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
+      expect(TestShip2.shipStartPoint).toBe('none');
+    });
+
+    it('will not place a ship in the same location', () => {
+      const TestShip = new Ship('bar', 3);
+      const shipStartPoint = 0;
+      const shipEndPoint = 20;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.squareOnClick(shipEndPoint);
+      console.log(TestShip);
+
+      const TestShip2 = new Ship('foo', 4);
+      const shipStartPoint2 = 13;
+      const shipEndPoint2 = 10;
+      testGameBoard.selectShip(TestShip2);
+      testGameBoard.squareOnClick(shipStartPoint2);
+      testGameBoard.squareOnClick(shipEndPoint2);
+      //!shipStartPoint is none
+      console.log(TestShip);
+      expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
+      expect(testGameBoard.gameboard[10].ship).toEqual(TestShip);
+      expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);
+    });
   });
 });
