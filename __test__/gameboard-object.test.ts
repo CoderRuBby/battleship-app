@@ -48,9 +48,9 @@ describe('GameBoard', () => {
 
       testGameBoard.placeShipOnGameBoard(Ship, shipStartPoint, shipEndPoint);
 
-      expect(testGameBoard.gameboard[0]).toEqual(Ship);
-      expect(testGameBoard.gameboard[1]).toEqual(Ship);
-      expect(testGameBoard.gameboard[2]).toEqual(Ship);
+      expect(testGameBoard.gameboard[0].ship).toEqual(Ship);
+      expect(testGameBoard.gameboard[1].ship).toEqual(Ship);
+      expect(testGameBoard.gameboard[2].ship).toEqual(Ship);
     });
   });
 });

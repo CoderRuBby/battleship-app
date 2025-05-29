@@ -92,9 +92,9 @@ describe('GameBoard', () => {
       testGameBoard.selectShip(TestShip);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
-      expect(testGameBoard.gameboard[0]).toEqual(TestShip);
-      expect(testGameBoard.gameboard[10]).toEqual(TestShip);
-      expect(testGameBoard.gameboard[20]).toEqual(TestShip);
+      expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
+      expect(testGameBoard.gameboard[10].ship).toEqual(TestShip);
+      expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);
     });
   });
 });

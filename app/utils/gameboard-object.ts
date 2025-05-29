@@ -2,7 +2,7 @@ import { SHIPS } from './game-ships';
 import Ship from './ship-object';
 
 export default class GameBoard {
-  gameboard: { [key: number]: object };
+  gameboard: { [key: number]: { ship: Ship | null } };
   Carrier: Ship;
   Battleship: Ship;
   Cruiser: Ship;
@@ -23,7 +23,9 @@ export default class GameBoard {
 
   initialize() {
     for (let i = 0; i < 100; i++) {
-      this.gameboard[i] = new Object();
+      this.gameboard[i] = {
+        ship: null,
+      };
     }
   }
 
@@ -123,7 +125,7 @@ export default class GameBoard {
       shipEndPoint,
     );
     path.forEach((location) => {
-      this.gameboard[location] = ship;
+      this.gameboard[location].ship = ship;
     });
   }
 
