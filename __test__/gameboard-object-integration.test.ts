@@ -97,6 +97,16 @@ describe('GameBoard', () => {
       expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);
     });
 
+    it('will reset selectedShip after ship is placed', () => {
+      const TestShip = new Ship('bar', 3);
+      const shipStartPoint = 0;
+      const shipEndPoint = 20;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.squareOnClick(shipEndPoint);
+      expect(testGameBoard.selectedShip).toBe('none');
+    });
+
     it('will not assign shipStartPoint if already being used', () => {
       const TestShip = new Ship('bar', 3);
       const shipStartPoint = 0;
@@ -118,7 +128,6 @@ describe('GameBoard', () => {
       testGameBoard.selectShip(TestShip);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
-      console.log(TestShip);
 
       const TestShip2 = new Ship('foo', 4);
       const shipStartPoint2 = 13;
@@ -126,8 +135,7 @@ describe('GameBoard', () => {
       testGameBoard.selectShip(TestShip2);
       testGameBoard.squareOnClick(shipStartPoint2);
       testGameBoard.squareOnClick(shipEndPoint2);
-      //!shipStartPoint is none
-      console.log(TestShip);
+
       expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
       expect(testGameBoard.gameboard[10].ship).toEqual(TestShip);
       expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);

@@ -151,6 +151,7 @@ export default class GameBoard {
         this.selectedShip.shipStartPoint,
         squareNumber,
       );
+      this.resetSelectedShip();
     }
   }
 
@@ -183,5 +184,9 @@ export default class GameBoard {
     }
 
     return canPlace;
+  }
+
+  resetSelectedShip() {
+    this.selectedShip = 'none';
   }
 }
