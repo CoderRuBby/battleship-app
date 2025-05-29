@@ -130,4 +130,23 @@ export default class GameBoard {
   shipOnClick(ship: Ship) {
     this.selectShip(ship);
   }
+
+  squareOnClick(squareNumber: number) {
+    if (
+      this.selectedShip !== 'none' &&
+      this.selectedShip.shipStartPoint === 'none'
+    ) {
+      this.selectedShip.shipStartPoint = squareNumber;
+    } else if (
+      this.selectedShip !== 'none' &&
+      this.selectedShip.shipStartPoint !== 'none'
+    ) {
+      this.selectedShip.addShipEndPoint(squareNumber);
+      this.placeShipOnGameBoard(
+        this.selectedShip,
+        this.selectedShip.shipStartPoint,
+        squareNumber,
+      );
+    }
+  }
 }

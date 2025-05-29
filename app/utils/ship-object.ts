@@ -30,4 +30,7 @@ export default class Ship {
     this.shipStartPoint = squareNumber;
   }
 
+  addShipEndPoint(squareNumber: number) {
+    this.shipEndPoint = squareNumber;
+  }
 }
