@@ -1,5 +1,5 @@
 import { beforeEach } from 'vitest';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, test } from 'vitest';
 import GameBoard from '~/utils/gameboard-object';
 import Ship from '~/utils/ship-object';
 
@@ -66,5 +66,35 @@ describe('GameBoard', () => {
     });
   });
 
+  describe('squareOnclick', () => {
+    it('will assign shipStartPoint if ship is selected', () => {
+      const TestShip = new Ship('foo', 3);
+      const shipStartPoint = 0;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      expect(TestShip.shipStartPoint).toEqual(0);
+    });
+
+    it('will assign shipEndPoint if shipStartPoint is assigned', () => {
+      const TestShip = new Ship('bar', 3);
+      const shipStartPoint = 0;
+      const shipEndPoint = 20;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.squareOnClick(shipEndPoint);
+      expect(TestShip.shipEndPoint).toBe(20);
+    });
+
+    it('will place ship on gameboard', () => {
+      const TestShip = new Ship('bar', 3);
+      const shipStartPoint = 0;
+      const shipEndPoint = 20;
+      testGameBoard.selectShip(TestShip);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.squareOnClick(shipEndPoint);
+      expect(testGameBoard.gameboard[0]).toEqual(TestShip);
+      expect(testGameBoard.gameboard[10]).toEqual(TestShip);
+      expect(testGameBoard.gameboard[20]).toEqual(TestShip);
+    });
   });
 });
