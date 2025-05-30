@@ -145,7 +145,7 @@ export default class GameBoard {
       this.selectedShip.shipStartPoint !== 'none' &&
       this.canPlaceShip(squareNumber) === true
     ) {
-      this.selectedShip.addShipEndPoint(squareNumber);
+      this.assignShipEndPoint(this.selectedShip, squareNumber);
       this.placeShipOnGameBoard(
         this.selectedShip,
         this.selectedShip.shipStartPoint,
@@ -192,5 +192,9 @@ export default class GameBoard {
 
   assignShipStartPoint(ship: Ship, square: number) {
     ship.addShipStart(square);
+  }
+
+  assignShipEndPoint(ship: Ship, square: number) {
+    ship.addShipEndPoint(square);
   }
 }
