@@ -21,6 +21,14 @@ class AiGameBoard extends GameBoard {
     this.assignShipStartPoint(ship, startPoint);
   }
 
+  getShipEndPoint(
+    ship: Ship,
+    possibleEndPointsArray: number[],
+    arrayIndex: number,
+  ) {
+    this.assignShipEndPoint(ship, possibleEndPointsArray[arrayIndex]);
+  }
+
   }
 }
 
