@@ -45,10 +45,21 @@ class AiGameBoard extends GameBoard {
       }
       if (ship.shipStartPoint !== 'none' && ship.shipEndPoint !== 'none') {
         this.placeShipOnGameBoard(ship, ship.shipStartPoint, ship.shipEndPoint);
+        this.removePathFromAvailableSquares(
+          this.possibleShipPath(
+            ship.length,
+            ship.shipStartPoint,
+            ship.shipEndPoint,
+          ),
+        );
       }
     });
   }
 
+  removePathFromAvailableSquares(path: number[]) {
+    path.forEach((number) => {
+      this.availableSquares.delete(number);
+    });
   }
 }
 
