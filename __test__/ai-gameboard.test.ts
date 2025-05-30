@@ -48,5 +48,14 @@ describe('AiGameBoard', () => {
       expect(Ai.gameboard[0].ship).toEqual(Ship1);
       expect(Ai.gameboard[1].ship).toEqual(Ship1);
     });
+
+    it('will remove placed ship path squares from available squares', () => {
+      const availableSquareIndex = 0;
+      const endPointIndex = 0;
+      Ai.placeShip([Ship1], availableSquareIndex, endPointIndex);
+
+      expect(Ai.availableSquares).not.toContain(0);
+      expect(Ai.availableSquares).not.toContain(1);
+    });
   });
 });
