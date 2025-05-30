@@ -17,6 +17,18 @@ describe('AiGameBoard', () => {
     });
   });
 
+  describe('getShipEndPoint', () => {
+    it('can assign shipEndPoint to a ship', () => {
+      const Ship1 = new Ship('foo', 2);
+      const possibleEndPoints = [1, 10];
+      const arrayIndex = 1;
+
+      Ai.getShipEndPoint(Ship1, possibleEndPoints, arrayIndex);
+
+      expect(Ship1.shipEndPoint).toBe(10);
+    });
+  });
+
   describe('placeShip', () => {
     it('can place a single ship on the gameboard', () => {
       Ai.placeShip(Ship1, 0, 1);
