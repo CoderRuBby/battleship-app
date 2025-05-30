@@ -29,6 +29,26 @@ class AiGameBoard extends GameBoard {
     this.assignShipEndPoint(ship, possibleEndPointsArray[arrayIndex]);
   }
 
+  placeShip(
+    shipsArray: Ship[],
+    availableSquareIndex: number,
+    endPointIndex: number,
+  ) {
+    shipsArray.forEach((ship) => {
+      this.getShipStartPoint(ship, availableSquareIndex);
+      if (ship.shipStartPoint !== 'none' && ship.shipEndPoint === 'none') {
+        const possibleEndPoints = this.possibleShipEndPoints(
+          ship.shipStartPoint,
+          ship.length,
+        );
+        this.getShipEndPoint(ship, possibleEndPoints, endPointIndex);
+      }
+      if (ship.shipStartPoint !== 'none' && ship.shipEndPoint !== 'none') {
+        this.placeShipOnGameBoard(ship, ship.shipStartPoint, ship.shipEndPoint);
+      }
+    });
+  }
+
   }
 }
 
