@@ -38,7 +38,12 @@ describe('AiGameBoard', () => {
 
   describe('placeShip', () => {
     it('can place a single ship on the gameboard', () => {
-      Ai.placeShip(Ship1, 0, 1);
+      //selects 0 as shipStartPoint
+      const availableSquareIndex = 0;
+      //selects 1 as shipEndPoint
+      const endPointIndex = 0;
+      //places ship at 0 and 1 on gameboard
+      Ai.placeShip([Ship1], availableSquareIndex, endPointIndex);
 
       expect(Ai.gameboard[0].ship).toEqual(Ship1);
       expect(Ai.gameboard[1].ship).toEqual(Ship1);
