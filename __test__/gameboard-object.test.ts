@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import GameBoard from '~/utils/gameboard-object';
+import Ship from '~/utils/ship-object';
 
 describe('GameBoard', () => {
   const testGameBoard = new GameBoard();
@@ -51,6 +52,18 @@ describe('GameBoard', () => {
       expect(testGameBoard.gameboard[0].ship).toEqual(Ship);
       expect(testGameBoard.gameboard[1].ship).toEqual(Ship);
       expect(testGameBoard.gameboard[2].ship).toEqual(Ship);
+    });
+  });
+
+  describe('assignShipStartPoint', () => {
+    it('can assign a shipStartPoint to a ship', () => {
+      const Ship1 = new Ship('foo', 2);
+
+      const square = 4;
+
+      testGameBoard.assignShipStartPoint(Ship1, square);
+
+      expect(Ship1.shipStartPoint).toBe(4);
     });
   });
 });
