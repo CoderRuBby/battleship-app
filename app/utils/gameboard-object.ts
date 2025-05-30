@@ -139,7 +139,7 @@ export default class GameBoard {
       this.selectedShip.shipStartPoint === 'none' &&
       this.isAvailableSquare(squareNumber) === true
     ) {
-      this.selectedShip.shipStartPoint = squareNumber;
+      this.assignShipStartPoint(this.selectedShip, squareNumber);
     } else if (
       this.selectedShip !== 'none' &&
       this.selectedShip.shipStartPoint !== 'none' &&
@@ -188,5 +188,9 @@ export default class GameBoard {
 
   resetSelectedShip() {
     this.selectedShip = 'none';
+  }
+
+  assignShipStartPoint(ship: Ship, square: number) {
+    ship.addShipStart(square);
   }
 }
