@@ -66,4 +66,15 @@ describe('GameBoard', () => {
       expect(Ship1.shipStartPoint).toBe(4);
     });
   });
+
+  describe('assignShipStartPoint', () => {
+    it('can assign a shipEndPoint to a ship', () => {
+      const Ship1 = new Ship('bar', 2);
+      const square = 5;
+
+      testGameBoard.assignShipEndPoint(Ship1, square);
+
+      expect(Ship1.shipEndPoint).toBe(5);
+    });
+  });
 });
