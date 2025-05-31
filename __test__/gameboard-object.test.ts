@@ -5,10 +5,12 @@ import Ship from '~/utils/ship-object';
 describe('GameBoard', () => {
   let testGameBoard: GameBoard;
   let Ship1: Ship;
+  let Ship2: Ship;
 
   beforeEach(() => {
     testGameBoard = new GameBoard();
     Ship1 = new Ship('foo', 3);
+    Ship2 = new Ship('bar', 4);
   });
 
   describe('possibleShipEndPoints', () => {
@@ -89,6 +91,23 @@ describe('GameBoard', () => {
       expect(testGameBoard.gameboard[0].ship).toEqual(expectShip);
       expect(testGameBoard.gameboard[1].ship).toEqual(expectShip);
       expect(testGameBoard.gameboard[2].ship).toEqual(expectShip);
+    });
+
+    it('will not place a ship in un-available locations', () => {
+      const expectShip = new Ship('foo', 3);
+
+      testGameBoard.gameboard[4].ship = Ship1;
+      testGameBoard.gameboard[5].ship = Ship1;
+      testGameBoard.gameboard[6].ship = Ship1;
+
+      const shipStartPoint = 4;
+      const shipEndPoint = 7;
+      testGameBoard.placeShipOnGameBoard(Ship2, shipStartPoint, shipEndPoint);
+
+      expect(testGameBoard.gameboard[4].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[5].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[6].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[7].ship).toBe(null);
     });
   });
 });
