@@ -29,6 +29,19 @@ describe('GameBoard', () => {
         testGameBoard.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([1, 10]);
     });
+
+    it('will not output used endPoints', () => {
+      testGameBoard.gameboard[0].ship = Ship1;
+      testGameBoard.gameboard[1].ship = Ship1;
+      testGameBoard.gameboard[2].ship = Ship1;
+
+      const shipLength = 4;
+      const shipStartPoint = 4;
+
+      expect(
+        testGameBoard.possibleShipEndPoints(shipStartPoint, shipLength),
+      ).toEqual([7, 34]);
+    });
   });
 
   describe('possibleShipPath', () => {
