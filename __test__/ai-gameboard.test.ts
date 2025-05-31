@@ -74,5 +74,19 @@ describe('AiGameBoard', () => {
       expect(Ai.gameboard[52].ship).toEqual(Ship2);
     });
 
+    it('will not place ships in the same location', () => {
+      const availableSquareIndex = 4;
+      const endPointIndex = 0;
+      Ai.placeShip(Ship1, availableSquareIndex, endPointIndex);
+
+      const availableSquareIndex2 = 4;
+      const endPointIndex2 = 0;
+      Ai.placeShip(Ship2, availableSquareIndex2, endPointIndex2);
+
+      expect(Ai.gameboard[4].ship).toEqual(Ship1);
+      expect(Ai.gameboard[5].ship).toEqual(Ship1);
+      expect(Ai.gameboard[4].ship).not.toEqual(Ship2);
+      expect(Ai.gameboard[5].ship).not.toEqual(Ship2);
+    });
   });
 });
