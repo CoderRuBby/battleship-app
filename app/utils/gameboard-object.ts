@@ -107,7 +107,20 @@ export default class GameBoard {
       }
     }
 
+    if (this.pathIsAvailable(shipPath) === false) return [];
+
     return shipPath;
+  }
+
+  pathIsAvailable(path: number[]) {
+    let isAvailable = true;
+    path.forEach((square) => {
+      if (this.isAvailableSquare(square) === false) {
+        isAvailable = false;
+      }
+    });
+
+    return isAvailable;
   }
 
   getShipPaths(shipLength: number, shipStartPoint: number): number[][] {
