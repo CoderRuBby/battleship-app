@@ -132,9 +132,10 @@ export default class GameBoard {
     );
 
     shipEndPoints.forEach((endPoint) => {
-      shipPaths.push(
-        this.possibleShipPath(shipLength, shipStartPoint, endPoint),
-      );
+      const path = this.possibleShipPath(shipLength, shipStartPoint, endPoint);
+      if (path.length !== 0) {
+        shipPaths.push(path);
+      }
     });
 
     return shipPaths;
