@@ -5,9 +5,13 @@ import Ship from '~/utils/ship-object';
 
 describe('GameBoard', () => {
   let testGameBoard: GameBoard;
+  let Ship1: Ship;
+  let Ship2: Ship;
 
   beforeEach(() => {
     testGameBoard = new GameBoard();
+    Ship1 = new Ship('foo', 2);
+    Ship2 = new Ship('bar', 3);
   });
 
   describe('getShipPaths', () => {
@@ -21,124 +25,134 @@ describe('GameBoard', () => {
     });
   });
   describe('shipOnClick', () => {
-    const TestShip = new Ship('foo', 3);
-    const SecondTestShip = new Ship('bar', 5);
-
     it('can select a ship', () => {
-      testGameBoard.shipOnClick(TestShip);
+      const expectShip = new Ship('foo', 2);
+      testGameBoard.shipOnClick(Ship1);
 
-      expect(testGameBoard.selectedShip).toEqual(TestShip);
+      expect(testGameBoard.selectedShip).toEqual(expectShip);
     });
 
     it('can deselect the ship if clicked again', () => {
-      testGameBoard.shipOnClick(TestShip);
-      expect(testGameBoard.selectedShip).toEqual(TestShip);
+      const expectShip = new Ship('foo', 2);
 
-      testGameBoard.shipOnClick(TestShip);
+      testGameBoard.shipOnClick(Ship1);
+      expect(testGameBoard.selectedShip).toEqual(expectShip);
+
+      testGameBoard.shipOnClick(Ship1);
 
       expect(testGameBoard.selectedShip).toEqual('none');
     });
 
     it('can select a different ship', () => {
-      testGameBoard.shipOnClick(TestShip);
-      testGameBoard.shipOnClick(SecondTestShip);
+      const expectShip = new Ship('bar', 3);
 
-      expect(testGameBoard.selectedShip).toEqual(SecondTestShip);
+      testGameBoard.shipOnClick(Ship1);
+      testGameBoard.shipOnClick(Ship2);
+
+      expect(testGameBoard.selectedShip).toEqual(expectShip);
     });
 
     test('de-selecting a ship will clear shipStartPoint', () => {
-      const TestShip = new Ship('foo', 3);
       const shipStartPoint = 45;
-      testGameBoard.selectShip(TestShip);
+      testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
-      testGameBoard.selectShip(TestShip);
-      expect(TestShip.shipStartPoint).toBe('none');
+      testGameBoard.selectShip(Ship1);
+      expect(Ship1.shipStartPoint).toBe('none');
     });
 
     test('selecting a different ship will clear old ship shipStartPoint', () => {
-      const TestShip = new Ship('foo', 3);
       const shipStartPoint = 45;
-      const TestShipTwo = new Ship('fum', 4);
-      testGameBoard.selectShip(TestShip);
+      testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
-      testGameBoard.selectShip(TestShipTwo);
-      expect(TestShip.shipStartPoint).toBe('none');
+      testGameBoard.selectShip(Ship2);
+      expect(Ship1.shipStartPoint).toBe('none');
     });
   });
 
   describe('squareOnclick', () => {
     it('will assign shipStartPoint if ship is selected', () => {
-      const TestShip = new Ship('foo', 3);
       const shipStartPoint = 0;
-      testGameBoard.selectShip(TestShip);
+      testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
-      expect(TestShip.shipStartPoint).toEqual(0);
+      expect(Ship1.shipStartPoint).toEqual(0);
     });
 
     it('will assign shipEndPoint if shipStartPoint is assigned', () => {
-      const TestShip = new Ship('bar', 3);
       const shipStartPoint = 0;
       const shipEndPoint = 20;
-      testGameBoard.selectShip(TestShip);
+      testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
-      expect(TestShip.shipEndPoint).toBe(20);
+      expect(Ship1.shipEndPoint).toBe(20);
     });
 
     it('will place ship on gameboard', () => {
-      const TestShip = new Ship('bar', 3);
       const shipStartPoint = 0;
       const shipEndPoint = 20;
-      testGameBoard.selectShip(TestShip);
+      const expectShip = new Ship('bar', 3);
+      expectShip.addShipStart(shipStartPoint);
+      expectShip.addShipEndPoint(shipEndPoint);
+
+      testGameBoard.selectShip(Ship2);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
-      expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
-      expect(testGameBoard.gameboard[10].ship).toEqual(TestShip);
-      expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);
+
+      expect(testGameBoard.gameboard[0].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[10].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[20].ship).toEqual(expectShip);
     });
 
     it('will reset selectedShip after ship is placed', () => {
-      const TestShip = new Ship('bar', 3);
       const shipStartPoint = 0;
       const shipEndPoint = 20;
-      testGameBoard.selectShip(TestShip);
+      const expectShip = new Ship('bar', 3);
+      expectShip.addShipStart(shipStartPoint);
+      expectShip.addShipEndPoint(shipEndPoint);
+
+      testGameBoard.selectShip(Ship2);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
+
       expect(testGameBoard.selectedShip).toBe('none');
     });
 
     it('will not assign shipStartPoint if already being used', () => {
-      const TestShip = new Ship('bar', 3);
       const shipStartPoint = 0;
-      testGameBoard.selectShip(TestShip);
-      testGameBoard.squareOnClick(shipStartPoint);
-      testGameBoard.squareOnClick(2);
+      const shipEndPoint = 1;
+      const expectShip = new Ship('foo', 2);
+      expectShip.addShipStart(shipStartPoint);
+      expectShip.addShipEndPoint(shipEndPoint);
 
-      const TestShip2 = new Ship('foo', 4);
-      testGameBoard.selectShip(TestShip2);
-      testGameBoard.squareOnClick(shipStartPoint);
-      expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
-      expect(TestShip2.shipStartPoint).toBe('none');
-    });
-
-    it('will not place a ship in the same location', () => {
-      const TestShip = new Ship('bar', 3);
-      const shipStartPoint = 0;
-      const shipEndPoint = 20;
-      testGameBoard.selectShip(TestShip);
+      testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
 
-      const TestShip2 = new Ship('foo', 4);
-      const shipStartPoint2 = 13;
+      testGameBoard.selectShip(Ship2);
+      testGameBoard.squareOnClick(shipStartPoint);
+
+      expect(testGameBoard.gameboard[0].ship).toEqual(expectShip);
+      expect(Ship2.shipStartPoint).toBe('none');
+    });
+
+    it('will not place a ship in the same location', () => {
+      const shipStartPoint = 0;
+      const shipEndPoint = 10;
+      const expectShip = new Ship('foo', 2);
+      expectShip.addShipStart(shipStartPoint);
+      expectShip.addShipEndPoint(shipEndPoint);
+
+      testGameBoard.selectShip(Ship1);
+      testGameBoard.squareOnClick(shipStartPoint);
+      testGameBoard.squareOnClick(shipEndPoint);
+
+      const shipStartPoint2 = 12;
       const shipEndPoint2 = 10;
-      testGameBoard.selectShip(TestShip2);
+      testGameBoard.selectShip(Ship2);
       testGameBoard.squareOnClick(shipStartPoint2);
       testGameBoard.squareOnClick(shipEndPoint2);
 
-      expect(testGameBoard.gameboard[0].ship).toEqual(TestShip);
-      expect(testGameBoard.gameboard[10].ship).toEqual(TestShip);
-      expect(testGameBoard.gameboard[20].ship).toEqual(TestShip);
+      expect(testGameBoard.gameboard[0].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[10].ship).toEqual(expectShip);
     });
   });
 });
