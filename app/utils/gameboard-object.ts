@@ -45,25 +45,38 @@ export default class GameBoard {
     const possibleEndPoints: number[] = [];
     const row = Math.floor(initialSquare / 10);
     const col = initialSquare % 10;
+    let endPoint: number;
 
     // Check right direction
     if (col + shipLength - 1 < 10) {
-      possibleEndPoints.push(initialSquare + (shipLength - 1));
+      endPoint = initialSquare + (shipLength - 1);
+      if (this.isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
     }
 
     // Check left direction
     if (col - (shipLength - 1) >= 0) {
-      possibleEndPoints.push(initialSquare - (shipLength - 1));
+      endPoint = initialSquare - (shipLength - 1);
+      if (this.isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
     }
 
     // Check down direction
     if (row + shipLength - 1 < 10) {
-      possibleEndPoints.push(initialSquare + (shipLength - 1) * 10);
+      endPoint = initialSquare + (shipLength - 1) * 10;
+      if (this.isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
     }
 
     // Check up direction
     if (row - (shipLength - 1) >= 0) {
-      possibleEndPoints.push(initialSquare - (shipLength - 1) * 10);
+      endPoint = initialSquare - (shipLength - 1) * 10;
+      if (this.isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
     }
 
     return possibleEndPoints;
