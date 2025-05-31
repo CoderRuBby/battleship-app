@@ -58,6 +58,24 @@ describe('GameBoard', () => {
         ),
       ).toEqual([0, 1]);
     });
+
+    it('will return an empty array if any square in path is used', () => {
+      testGameBoard.gameboard[4].ship = Ship1;
+      testGameBoard.gameboard[14].ship = Ship1;
+      testGameBoard.gameboard[24].ship = Ship1;
+
+      const shipLength = 3;
+      const shipStartPoint = 4;
+      const shipEndPoint = 24;
+
+      expect(
+        testGameBoard.possibleShipPath(
+          shipLength,
+          shipStartPoint,
+          shipEndPoint,
+        ),
+      ).toEqual([]);
+    });
   });
 
   describe('placeShipOnGameBoard', () => {
