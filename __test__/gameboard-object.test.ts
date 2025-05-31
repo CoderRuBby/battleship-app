@@ -1,8 +1,15 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import GameBoard from '~/utils/gameboard-object';
+import Ship from '~/utils/ship-object';
 
 describe('GameBoard', () => {
-  const testGameBoard = new GameBoard();
+  let testGameBoard: GameBoard;
+  let Ship1: Ship;
+
+  beforeEach(() => {
+    testGameBoard = new GameBoard();
+    Ship1 = new Ship('foo', 3);
+  });
 
   describe('possibleShipEndPoints', () => {
     it('can output 4 endpoints', () => {
@@ -44,13 +51,13 @@ describe('GameBoard', () => {
     it('can place a ship on the gameboard', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 2;
-      const Ship = testGameBoard.Cruiser;
+      const expectShip = new Ship('foo', 3);
 
-      testGameBoard.placeShipOnGameBoard(Ship, shipStartPoint, shipEndPoint);
+      testGameBoard.placeShipOnGameBoard(Ship1, shipStartPoint, shipEndPoint);
 
-      expect(testGameBoard.gameboard[0].ship).toEqual(Ship);
-      expect(testGameBoard.gameboard[1].ship).toEqual(Ship);
-      expect(testGameBoard.gameboard[2].ship).toEqual(Ship);
+      expect(testGameBoard.gameboard[0].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[1].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[2].ship).toEqual(expectShip);
     });
   });
 });
