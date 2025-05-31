@@ -23,6 +23,21 @@ describe('GameBoard', () => {
         [0, 10, 20],
       ]);
     });
+
+    it('will output available paths only', () => {
+      testGameBoard.gameboard[25].ship = Ship1;
+      testGameBoard.gameboard[35].ship = Ship1;
+
+      testGameBoard.gameboard[27].ship = Ship2;
+      testGameBoard.gameboard[37].ship = Ship2;
+      testGameBoard.gameboard[47].ship = Ship2;
+
+      const shipLength = 4;
+      const shipStartPoint = 26;
+      expect(testGameBoard.getShipPaths(shipLength, shipStartPoint)).toEqual([
+        [26, 36, 46, 56],
+      ]);
+    });
   });
   describe('shipOnClick', () => {
     it('can select a ship', () => {
