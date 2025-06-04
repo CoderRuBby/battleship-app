@@ -5,6 +5,21 @@ class AiGameBoard extends GameBoard {
     super();
   }
 
+  randomSquare(max: number, recursionCount = 0): number {
+    if (recursionCount > max * 2) {
+      throw new Error('Could not find a valid square');
+    }
+
+    const square = Math.floor(Math.random() * max);
+    const paths = this.getShipPaths(this.selectedShip.length, square);
+
+    if (this.isAvailableSquare(square) || paths.length > 0) {
+      return square;
+    }
+
+    return this.randomSquare(max, recursionCount + 1);
+  }
+
   assignShipStartPoint(square: number) {
     if (
       this.selectedShip !== 'none' &&
@@ -12,6 +27,38 @@ class AiGameBoard extends GameBoard {
     ) {
       this.selectedShip.addShipStart(square);
     }
+  }
+
+  assignShipEndPoint(square: number) {
+    if (
+      this.selectedShip !== 'none' &&
+      this.selectedShip.shipEndPoint !== 'none'
+    ) {
+      this.selectedShip.addShipEndPoint(square);
+    }
+  }
+
+  placeShipOnGameBoard() {
+    const ships = [
+      this.Carrier,
+      this.Battleship,
+      this.Cruiser,
+      this.Submarine,
+      this.Destroyer,
+    ];
+
+    ships.forEach((ship) => {
+      const square = this.randomSquare(100);
+      this.selectShip(ship);
+      this.assignShipStartPoint(square);
+      const endPoints = this.possibleShipEndPoints(square, ship.length);
+      const endPoint = endPoints[Math.floor(Math.random() * endPoints.length)];
+      this.assignShipEndPoint(endPoint);
+      const shipPath = this.possibleShipPath(ship.length, square, endPoint);
+      shipPath.forEach((location) => {
+        this.gameboard[location].ship = ship;
+      });
+    });
   }
 }
 
