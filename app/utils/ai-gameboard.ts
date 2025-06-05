@@ -57,7 +57,12 @@ class AiGameBoard extends GameBoard {
       const shipPath = this.possibleShipPath(ship.length, square, endPoint);
       shipPath.forEach((location) => {
         this.gameboard[location].ship = ship;
+        ship.isPlaced = true;
       });
+
+      if (this.areAllShipsPlaced(ships) === true) {
+        this.allShipsPlaced = true;
+      }
     });
   }
 }

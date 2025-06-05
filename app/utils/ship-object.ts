@@ -5,6 +5,7 @@ export default class Ship {
   sunk: boolean;
   shipStartPoint: number | 'none';
   shipEndPoint: number | 'none';
+  isPlaced: boolean;
 
   constructor(name: string, length: number) {
     this.name = name;
@@ -13,6 +14,7 @@ export default class Ship {
     this.sunk = false;
     this.shipStartPoint = 'none';
     this.shipEndPoint = 'none';
+    this.isPlaced = false;
   }
 
   isHit() {
