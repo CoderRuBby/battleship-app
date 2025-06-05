@@ -85,6 +85,7 @@ describe('GameBoard', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 2;
       const expectShip = new Ship('foo', 3);
+      expectShip.isPlaced = true;
 
       testGameBoard.placeShipOnGameBoard(Ship1, shipStartPoint, shipEndPoint);
 

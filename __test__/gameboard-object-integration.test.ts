@@ -107,6 +107,7 @@ describe('GameBoard', () => {
       const expectShip = new Ship('bar', 3);
       expectShip.addShipStart(shipStartPoint);
       expectShip.addShipEndPoint(shipEndPoint);
+      expectShip.isPlaced = true;
 
       testGameBoard.selectShip(Ship2);
       testGameBoard.squareOnClick(shipStartPoint);
@@ -137,6 +138,7 @@ describe('GameBoard', () => {
       const expectShip = new Ship('foo', 2);
       expectShip.addShipStart(shipStartPoint);
       expectShip.addShipEndPoint(shipEndPoint);
+      expectShip.isPlaced = true;
 
       testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
@@ -155,6 +157,7 @@ describe('GameBoard', () => {
       const expectShip = new Ship('foo', 2);
       expectShip.addShipStart(shipStartPoint);
       expectShip.addShipEndPoint(shipEndPoint);
+      expectShip.isPlaced = true;
 
       testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
