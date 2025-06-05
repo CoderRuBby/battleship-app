@@ -57,4 +57,12 @@ describe('AiGameboard', () => {
       expect(Ship2).toEqual(expectShip);
     });
   });
+
+  describe('placeShipOnGameboard', () => {
+    it('can place all ships on the gameboard', () => {
+      Ai.placeShipOnGameBoard();
+
+      expect(Ai.allShipsPlaced).toBe(true);
+    });
+  });
 });
