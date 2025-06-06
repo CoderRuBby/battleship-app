@@ -2,7 +2,7 @@ import { SHIPS } from './game-ships';
 import Ship from './ship-object';
 
 export default class GameBoard {
-  gameboard: { [key: number]: { ship: Ship | null } };
+  gameboard: { [key: number]: { ship: Ship | null; isHit: boolean } };
   Carrier: Ship;
   Battleship: Ship;
   Cruiser: Ship;
@@ -35,6 +35,7 @@ export default class GameBoard {
     for (let i = 0; i < 100; i++) {
       this.gameboard[i] = {
         ship: null,
+        isHit: false,
       };
     }
   }
@@ -241,5 +242,12 @@ export default class GameBoard {
       }
     });
     return placed;
+  }
+
+  isAttacked(square: number) {
+    if (this.gameboard[square].ship !== null) {
+      this.gameboard[square].isHit = true;
+      this.gameboard[square].ship?.isHit();
+    }
   }
 }
