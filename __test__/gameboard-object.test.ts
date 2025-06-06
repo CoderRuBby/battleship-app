@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, test } from 'vitest';
 import GameBoard from '~/utils/gameboard-object';
 import Ship from '~/utils/ship-object';
 
@@ -109,6 +109,21 @@ describe('GameBoard', () => {
       expect(testGameBoard.gameboard[5].ship).toEqual(expectShip);
       expect(testGameBoard.gameboard[6].ship).toEqual(expectShip);
       expect(testGameBoard.gameboard[7].ship).toBe(null);
+    });
+
+    test('all ships can be placed on the gameboard', () => {
+      testGameBoard.Battleship.isPlaced = true;
+      testGameBoard.Carrier.isPlaced = true;
+      testGameBoard.Cruiser.isPlaced = true;
+      testGameBoard.Destroyer.isPlaced = true;
+
+      const startSquare = 30;
+      const endSquare = 31;
+      testGameBoard.Submarine.addShipStart(startSquare);
+      testGameBoard.selectShip(testGameBoard.Submarine);
+      testGameBoard.squareOnClick(endSquare);
+
+      expect(testGameBoard.allShipsPlaced).toBe(true);
     });
   });
 });
