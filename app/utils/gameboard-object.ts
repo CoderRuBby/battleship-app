@@ -10,7 +10,7 @@ export default class GameBoard {
   Cruiser: Ship;
   Submarine: Ship;
   Destroyer: Ship;
-  selectedShip: 'none' | Ship;
+  selectedShip: null | Ship;
   allShipsPlaced: boolean;
   allShips: Ship[];
 
@@ -22,7 +22,7 @@ export default class GameBoard {
     this.Cruiser = SHIPS.Cruiser;
     this.Submarine = SHIPS.Submarine;
     this.Destroyer = SHIPS.Destroyer;
-    this.selectedShip = 'none';
+    this.selectedShip = null;
     this.allShipsPlaced = false;
     this.allShips = [
       this.Battleship,
@@ -46,9 +46,9 @@ export default class GameBoard {
   selectShip(ship: Ship) {
     if (ship === this.selectedShip) {
       this.selectedShip.shipStartPoint = 'none';
-      this.selectedShip = 'none';
+      this.selectedShip = null;
     } else {
-      if (this.selectedShip !== 'none') {
+      if (this.selectedShip !== null) {
         this.selectedShip.shipStartPoint = 'none';
       }
       this.selectedShip = ship;
@@ -182,13 +182,13 @@ export default class GameBoard {
 
   squareOnClick(squareNumber: number) {
     if (
-      this.selectedShip !== 'none' &&
+      this.selectedShip !== null &&
       this.selectedShip.shipStartPoint === 'none' &&
       this.isAvailableSquare(squareNumber) === true
     ) {
       this.selectedShip.shipStartPoint = squareNumber;
     } else if (
-      this.selectedShip !== 'none' &&
+      this.selectedShip !== null &&
       this.selectedShip.shipStartPoint !== 'none' &&
       this.canPlaceShip(squareNumber) === true
     ) {
@@ -213,7 +213,7 @@ export default class GameBoard {
   canPlaceShip(square: number): boolean {
     let canPlace = true;
     if (
-      this.selectedShip !== 'none' &&
+      this.selectedShip !== null &&
       this.selectedShip.shipStartPoint !== 'none'
     ) {
       const shipPath = this.possibleShipPath(
@@ -234,7 +234,7 @@ export default class GameBoard {
   }
 
   resetSelectedShip() {
-    this.selectedShip = 'none';
+    this.selectedShip = null;
   }
 
   areAllShipsPlaced(shipsArray: Ship[]) {

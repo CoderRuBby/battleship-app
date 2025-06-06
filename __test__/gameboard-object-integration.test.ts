@@ -55,7 +55,7 @@ describe('GameBoard', () => {
 
       testGameBoard.shipOnClick(Ship1);
 
-      expect(testGameBoard.selectedShip).toEqual('none');
+      expect(testGameBoard.selectedShip).toEqual(null);
     });
 
     it('can select a different ship', () => {
@@ -129,7 +129,7 @@ describe('GameBoard', () => {
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.squareOnClick(shipEndPoint);
 
-      expect(testGameBoard.selectedShip).toBe('none');
+      expect(testGameBoard.selectedShip).toBe(null);
     });
 
     it('will not assign shipStartPoint if already being used', () => {

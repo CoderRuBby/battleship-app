@@ -11,27 +11,25 @@ class AiGameBoard extends GameBoard {
     }
 
     const square = Math.floor(Math.random() * max);
-    const paths = this.getShipPaths(this.selectedShip.length, square);
-
-    if (this.isAvailableSquare(square) || paths.length > 0) {
-      return square;
+    if (this.selectedShip) {
+      const paths = this.getShipPaths(this.selectedShip.length, square);
+      if (this.isAvailableSquare(square) || paths.length > 0) {
+        return square;
+      }
     }
 
     return this.randomSquare(max, recursionCount + 1);
   }
 
   assignShipStartPoint(square: number) {
-    if (
-      this.selectedShip !== 'none' &&
-      this.isAvailableSquare(square) === true
-    ) {
+    if (this.selectedShip !== null && this.isAvailableSquare(square) === true) {
       this.selectedShip.addShipStart(square);
     }
   }
 
   assignShipEndPoint(square: number) {
     if (
-      this.selectedShip !== 'none' &&
+      this.selectedShip !== null &&
       this.selectedShip.shipEndPoint !== 'none'
     ) {
       this.selectedShip.addShipEndPoint(square);
@@ -48,8 +46,8 @@ class AiGameBoard extends GameBoard {
     ];
 
     ships.forEach((ship) => {
-      const square = this.randomSquare(100);
       this.selectShip(ship);
+      const square = this.randomSquare(100);
       this.assignShipStartPoint(square);
       const endPoints = this.possibleShipEndPoints(square, ship.length);
       const endPoint = endPoints[Math.floor(Math.random() * endPoints.length)];
