@@ -180,18 +180,17 @@ export default class GameBoard {
     this.selectShip(ship);
   }
 
-  squareOnClick(squareNumber: number) {
-    if (
-      this.selectedShip !== null &&
-      this.selectedShip.shipStartPoint === null &&
-      this.isAvailableSquare(squareNumber) === true
-    ) {
-      this.selectedShip.shipStartPoint = squareNumber;
-    } else if (
-      this.selectedShip !== null &&
-      this.selectedShip.shipStartPoint !== null &&
-      this.canPlaceShip(squareNumber) === true
-    ) {
+  shipPlacement(squareNumber: number) {
+    if (!this.selectedShip) return;
+
+    if (this.selectedShip.shipStartPoint === null) {
+      if (this.isAvailableSquare(squareNumber)) {
+        this.selectedShip.shipStartPoint = squareNumber;
+      }
+      return;
+    }
+
+    if (this.canPlaceShip(squareNumber) === true) {
       this.selectedShip.addShipEndPoint(squareNumber);
       this.placeShipOnGameBoard(
         this.selectedShip,

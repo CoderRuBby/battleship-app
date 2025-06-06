@@ -121,7 +121,7 @@ describe('GameBoard', () => {
       const endSquare = 31;
       testGameBoard.Submarine.addShipStart(startSquare);
       testGameBoard.selectShip(testGameBoard.Submarine);
-      testGameBoard.squareOnClick(endSquare);
+      testGameBoard.shipPlacement(endSquare);
 
       expect(testGameBoard.allShipsPlaced).toBe(true);
     });
