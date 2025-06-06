@@ -139,5 +139,13 @@ describe('GameBoard', () => {
       expect(testGameBoard.gameboard[square].ship).toEqual(expectShip);
       expect(testGameBoard.gameboard[square].isHit).toBe(true);
     });
+
+    it('can attack a square with no ship', () => {
+      const square = 62;
+
+      testGameBoard.isAttacked(square);
+
+      expect(testGameBoard.gameboard[square].isMiss).toBe(true);
+    });
   });
 });
