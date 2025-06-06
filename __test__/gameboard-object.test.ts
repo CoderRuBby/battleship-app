@@ -126,4 +126,18 @@ describe('GameBoard', () => {
       expect(testGameBoard.allShipsPlaced).toBe(true);
     });
   });
+
+  describe('isAttacked', () => {
+    it('can hit a ship on the gameboard', () => {
+      const square = 45;
+      const expectShip = new Ship('foo', 3);
+      expectShip.isHit();
+
+      testGameBoard.gameboard[square].ship = Ship1;
+      testGameBoard.isAttacked(square);
+
+      expect(testGameBoard.gameboard[square].ship).toEqual(expectShip);
+      expect(testGameBoard.gameboard[square].isHit).toBe(true);
+    });
+  });
 });
