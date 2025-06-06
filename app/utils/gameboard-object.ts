@@ -2,7 +2,9 @@ import { SHIPS } from './game-ships';
 import Ship from './ship-object';
 
 export default class GameBoard {
-  gameboard: { [key: number]: { ship: Ship | null; isHit: boolean } };
+  gameboard: {
+    [key: number]: { ship: Ship | null; isHit: boolean; isMiss: boolean };
+  };
   Carrier: Ship;
   Battleship: Ship;
   Cruiser: Ship;
@@ -36,6 +38,7 @@ export default class GameBoard {
       this.gameboard[i] = {
         ship: null,
         isHit: false,
+        isMiss: false,
       };
     }
   }
@@ -248,6 +251,8 @@ export default class GameBoard {
     if (this.gameboard[square].ship !== null) {
       this.gameboard[square].isHit = true;
       this.gameboard[square].ship?.isHit();
+    } else {
+      this.gameboard[square].isMiss = true;
     }
   }
 }
