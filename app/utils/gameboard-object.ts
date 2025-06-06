@@ -248,11 +248,15 @@ export default class GameBoard {
   }
 
   isAttacked(square: number) {
-    if (this.gameboard[square].ship !== null) {
-      this.gameboard[square].isHit = true;
-      this.gameboard[square].ship?.isHit();
-    } else {
-      this.gameboard[square].isMiss = true;
+    const hasShip = this.gameboard[square].ship !== null;
+    switch (hasShip) {
+      case true:
+        this.gameboard[square].isHit = true;
+        this.gameboard[square].ship?.isHit();
+        break;
+      case false:
+        this.gameboard[square].isMiss = true;
+        break;
     }
   }
 }
