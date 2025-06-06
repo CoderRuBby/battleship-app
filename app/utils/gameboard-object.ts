@@ -10,6 +10,7 @@ export default class GameBoard {
   Destroyer: Ship;
   selectedShip: 'none' | Ship;
   allShipsPlaced: boolean;
+  allShips: Ship[];
 
   constructor() {
     this.gameboard = {};
@@ -21,6 +22,13 @@ export default class GameBoard {
     this.Destroyer = SHIPS.Destroyer;
     this.selectedShip = 'none';
     this.allShipsPlaced = false;
+    this.allShips = [
+      this.Battleship,
+      this.Carrier,
+      this.Cruiser,
+      this.Destroyer,
+      this.Submarine,
+    ];
   }
 
   initialize() {
@@ -158,6 +166,10 @@ export default class GameBoard {
     });
 
     ship.isPlaced = true;
+
+    if (this.areAllShipsPlaced(this.allShips) === true) {
+      this.allShipsPlaced = true;
+    }
   }
 
   shipOnClick(ship: Ship) {
