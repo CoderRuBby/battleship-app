@@ -45,11 +45,11 @@ export default class GameBoard {
 
   selectShip(ship: Ship) {
     if (ship === this.selectedShip) {
-      this.selectedShip.shipStartPoint = 'none';
+      this.selectedShip.shipStartPoint = null;
       this.selectedShip = null;
     } else {
       if (this.selectedShip !== null) {
-        this.selectedShip.shipStartPoint = 'none';
+        this.selectedShip.shipStartPoint = null;
       }
       this.selectedShip = ship;
     }
@@ -183,13 +183,13 @@ export default class GameBoard {
   squareOnClick(squareNumber: number) {
     if (
       this.selectedShip !== null &&
-      this.selectedShip.shipStartPoint === 'none' &&
+      this.selectedShip.shipStartPoint === null &&
       this.isAvailableSquare(squareNumber) === true
     ) {
       this.selectedShip.shipStartPoint = squareNumber;
     } else if (
       this.selectedShip !== null &&
-      this.selectedShip.shipStartPoint !== 'none' &&
+      this.selectedShip.shipStartPoint !== null &&
       this.canPlaceShip(squareNumber) === true
     ) {
       this.selectedShip.addShipEndPoint(squareNumber);
@@ -214,7 +214,7 @@ export default class GameBoard {
     let canPlace = true;
     if (
       this.selectedShip !== null &&
-      this.selectedShip.shipStartPoint !== 'none'
+      this.selectedShip.shipStartPoint !== null
     ) {
       const shipPath = this.possibleShipPath(
         this.selectedShip.length,

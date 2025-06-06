@@ -72,7 +72,7 @@ describe('GameBoard', () => {
       testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.selectShip(Ship1);
-      expect(Ship1.shipStartPoint).toBe('none');
+      expect(Ship1.shipStartPoint).toBe(null);
     });
 
     test('selecting a different ship will clear old ship shipStartPoint', () => {
@@ -80,7 +80,7 @@ describe('GameBoard', () => {
       testGameBoard.selectShip(Ship1);
       testGameBoard.squareOnClick(shipStartPoint);
       testGameBoard.selectShip(Ship2);
-      expect(Ship1.shipStartPoint).toBe('none');
+      expect(Ship1.shipStartPoint).toBe(null);
     });
   });
 
@@ -148,7 +148,7 @@ describe('GameBoard', () => {
       testGameBoard.squareOnClick(shipStartPoint);
 
       expect(testGameBoard.gameboard[0].ship).toEqual(expectShip);
-      expect(Ship2.shipStartPoint).toBe('none');
+      expect(Ship2.shipStartPoint).toBe(null);
     });
 
     it('will not place a ship in the same location', () => {

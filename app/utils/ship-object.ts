@@ -3,8 +3,8 @@ export default class Ship {
   length: number;
   hit: number;
   sunk: boolean;
-  shipStartPoint: number | 'none';
-  shipEndPoint: number | 'none';
+  shipStartPoint: number | null;
+  shipEndPoint: number | null;
   isPlaced: boolean;
 
   constructor(name: string, length: number) {
@@ -12,8 +12,8 @@ export default class Ship {
     this.length = length;
     this.hit = 0;
     this.sunk = false;
-    this.shipStartPoint = 'none';
-    this.shipEndPoint = 'none';
+    this.shipStartPoint = null;
+    this.shipEndPoint = null;
     this.isPlaced = false;
   }
 
