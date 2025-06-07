@@ -246,15 +246,15 @@ export default class GameBoard {
     return placed;
   }
 
-  isAttacked(square: number) {
-    const hasShip = this.gameboard[square].ship !== null;
+  attack(square: number, opponent: GameBoard) {
+    const hasShip = opponent.gameboard[square].ship !== null;
     switch (hasShip) {
       case true:
-        this.gameboard[square].isHit = true;
-        this.gameboard[square].ship?.isHit();
+        opponent.gameboard[square].isHit = true;
+        opponent.gameboard[square].ship?.isHit();
         break;
       case false:
-        this.gameboard[square].isMiss = true;
+        opponent.gameboard[square].isMiss = true;
         break;
     }
   }

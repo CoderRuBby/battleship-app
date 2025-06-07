@@ -6,11 +6,13 @@ describe('GameBoard', () => {
   let testGameBoard: GameBoard;
   let Ship1: Ship;
   let Ship2: Ship;
+  let Opponent: GameBoard;
 
   beforeEach(() => {
     testGameBoard = new GameBoard();
     Ship1 = new Ship('foo', 3);
     Ship2 = new Ship('bar', 4);
+    Opponent = new GameBoard();
   });
 
   describe('possibleShipEndPoints', () => {
@@ -127,25 +129,27 @@ describe('GameBoard', () => {
     });
   });
 
-  describe('isAttacked', () => {
-    it('can hit a ship on the gameboard', () => {
+  describe('attack', () => {
+    it('can hit a ship on the opponents gameboard', () => {
       const square = 45;
+      Opponent.gameboard[square].ship = Ship1;
       const expectShip = new Ship('foo', 3);
       expectShip.isHit();
 
-      testGameBoard.gameboard[square].ship = Ship1;
-      testGameBoard.isAttacked(square);
+      testGameBoard.attack(square, Opponent);
 
-      expect(testGameBoard.gameboard[square].ship).toEqual(expectShip);
-      expect(testGameBoard.gameboard[square].isHit).toBe(true);
+      expect(Opponent.gameboard[square].isHit).toBe(true);
+      expect(Opponent.gameboard[square].ship).toEqual(expectShip);
     });
 
-    it('can attack a square with no ship', () => {
+    it('can attack a square with no ship on the opponents board', () => {
       const square = 62;
+      const ExpectOpponent = new GameBoard();
+      ExpectOpponent.gameboard[square].isMiss = true;
 
-      testGameBoard.isAttacked(square);
+      testGameBoard.attack(square, Opponent);
 
-      expect(testGameBoard.gameboard[square].isMiss).toBe(true);
+      expect(Opponent.gameboard[square].isMiss).toBe(true);
     });
   });
 });
