@@ -6,14 +6,15 @@ class AiGameBoard extends GameBoard {
   }
 
   randomSquare(max: number, recursionCount = 0): number {
+    const square = Math.floor(Math.random() * max);
+
     if (recursionCount > max * 2) {
       throw new Error('Could not find a valid square');
     }
 
-    const square = Math.floor(Math.random() * max);
     if (this.selectedShip) {
-      const paths = this.getShipPaths(this.selectedShip.length, square);
-      if (this.isAvailableSquare(square) || paths.length > 0) {
+      const shipPaths = this.getShipPaths(this.selectedShip.length, square);
+      if (this.isAvailableSquare(square) && shipPaths.length !== 0) {
         return square;
       }
     }
@@ -37,28 +38,27 @@ class AiGameBoard extends GameBoard {
   }
 
   placeShipOnGameBoard() {
-    const ships = [
-      this.Carrier,
-      this.Battleship,
-      this.Cruiser,
-      this.Submarine,
-      this.Destroyer,
-    ];
+    this.allShips.forEach((ship) => {
+      this.selectedShip = ship;
 
-    ships.forEach((ship) => {
-      this.selectShip(ship);
       const square = this.randomSquare(100);
-      this.assignShipStartPoint(square);
-      const endPoints = this.possibleShipEndPoints(square, ship.length);
-      const endPoint = endPoints[Math.floor(Math.random() * endPoints.length)];
-      this.assignShipEndPoint(endPoint);
-      const shipPath = this.possibleShipPath(ship.length, square, endPoint);
-      shipPath.forEach((location) => {
+      ship.addShipStart(square);
+
+      const shipPaths = this.getShipPaths(ship.length, square);
+
+      const chosenPath =
+        shipPaths[Math.floor(Math.random() * shipPaths.length)];
+
+      const endPoint = chosenPath[chosenPath.length - 1];
+      ship.addShipEndPoint(endPoint);
+
+      chosenPath.forEach((location) => {
         this.gameboard[location].ship = ship;
-        ship.isPlaced = true;
       });
 
-      if (this.areAllShipsPlaced(ships) === true) {
+      ship.isPlaced = true;
+
+      if (this.areAllShipsPlaced(this.allShips) === true) {
         this.allShipsPlaced = true;
       }
     });
