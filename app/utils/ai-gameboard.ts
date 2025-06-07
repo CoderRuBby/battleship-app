@@ -22,21 +22,6 @@ class AiGameBoard extends GameBoard {
     return this.randomSquare(max, recursionCount + 1);
   }
 
-  assignShipStartPoint(square: number) {
-    if (this.selectedShip !== null && this.isAvailableSquare(square) === true) {
-      this.selectedShip.addShipStart(square);
-    }
-  }
-
-  assignShipEndPoint(square: number) {
-    if (
-      this.selectedShip !== null &&
-      this.selectedShip.shipEndPoint !== 'none'
-    ) {
-      this.selectedShip.addShipEndPoint(square);
-    }
-  }
-
   placeShipOnGameBoard() {
     this.allShips.forEach((ship) => {
       this.selectedShip = ship;
