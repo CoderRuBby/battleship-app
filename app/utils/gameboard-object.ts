@@ -1,4 +1,3 @@
-import { SHIPS } from './game-ships';
 import Ship from './ship-object';
 
 export default class GameBoard {
@@ -17,11 +16,11 @@ export default class GameBoard {
   constructor() {
     this.gameboard = {};
     this.initialize();
-    this.Carrier = SHIPS.Carrier;
-    this.Battleship = SHIPS.Battleship;
-    this.Cruiser = SHIPS.Cruiser;
-    this.Submarine = SHIPS.Submarine;
-    this.Destroyer = SHIPS.Destroyer;
+    this.Carrier = new Ship('carrier', 5);
+    this.Battleship = new Ship('battleship', 4);
+    this.Cruiser = new Ship('cruiser', 3);
+    this.Submarine = new Ship('submarine', 3);
+    this.Destroyer = new Ship('destroyer', 2);
     this.selectedShip = null;
     this.allShipsPlaced = false;
     this.allShips = [
@@ -256,6 +255,14 @@ export default class GameBoard {
       case false:
         opponent.gameboard[square].isMiss = true;
         break;
+    }
+  }
+
+  turn(square: number, opponent?: GameBoard) {
+    if (!opponent) {
+      this.shipPlacement(square);
+    } else {
+      this.attack(square, opponent);
     }
   }
 }
