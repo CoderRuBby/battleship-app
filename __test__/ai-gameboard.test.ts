@@ -63,6 +63,16 @@ describe('AiGameboard', () => {
       Ai.placeShipOnGameBoard();
 
       expect(Ai.allShipsPlaced).toBe(true);
+      expect(Number.isInteger(Ai.Carrier.shipStartPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Carrier.shipEndPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Battleship.shipStartPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Battleship.shipEndPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Destroyer.shipStartPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Destroyer.shipEndPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Submarine.shipStartPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Submarine.shipEndPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Cruiser.shipStartPoint)).toBe(true);
+      expect(Number.isInteger(Ai.Cruiser.shipEndPoint)).toBe(true);
     });
   });
 });
