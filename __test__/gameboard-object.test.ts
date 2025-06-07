@@ -302,5 +302,24 @@ describe('GameBoard', () => {
       expect(Player.gameboard[49].ship).toEqual(Carrier);
       expect(Player.selectedShip).toBe(null);
     });
+
+    it('will attack opponent after all ships have been placed', () => {
+      const square = 35;
+      testGameBoard.allShipsPlaced = true;
+
+      testGameBoard.turn(square, Opponent);
+
+      expect(Opponent.gameboard[square].isMiss).toBe(true);
+    });
+
+    it('will do nothing if a square was previously attacked', () => {
+      const square = 35;
+      testGameBoard.allShipsPlaced = true;
+
+      testGameBoard.turn(square, Opponent);
+
+      expect(Opponent.gameboard[square].isMiss).toBe(true);
+      expect(testGameBoard.turn(square, Opponent)).toBe(true);
+    });
   });
 });
