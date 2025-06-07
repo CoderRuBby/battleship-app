@@ -259,9 +259,16 @@ export default class GameBoard {
   }
 
   turn(square: number, opponent?: GameBoard) {
+    const redoAttack =
+      opponent?.gameboard[square].isHit === true ||
+      opponent?.gameboard[square].isMiss === true;
+
     if (!opponent) {
       this.shipPlacement(square);
     } else {
+      if (redoAttack) {
+        return redoAttack;
+      }
       this.attack(square, opponent);
     }
   }
