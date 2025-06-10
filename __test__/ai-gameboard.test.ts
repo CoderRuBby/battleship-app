@@ -25,4 +25,12 @@ describe('AiGameboard', () => {
       expect(Number.isInteger(Ai.Cruiser.shipEndPoint)).toBe(true);
     });
   });
+
+  describe('turn', () => {
+    it('will place ships on gameboard for the first turn', () => {
+      Ai.aiTurn();
+
+      expect(Ai.allShipsPlaced).toBe(true);
+    });
+  });
 });
