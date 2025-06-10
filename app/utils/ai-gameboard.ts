@@ -48,6 +48,12 @@ class AiGameBoard extends GameBoard {
       }
     });
   }
+
+  aiTurn() {
+    if (!this.allShipsPlaced) {
+      this.placeShipOnGameBoard();
+    }
+  }
 }
 
 export default AiGameBoard;
