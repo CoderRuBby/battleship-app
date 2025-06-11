@@ -1,11 +1,14 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import AiGameBoard from '~/utils/ai-gameboard';
+import GameBoard from '~/utils/gameboard-object';
 
 describe('AiGameboard', () => {
   let Ai: AiGameBoard;
+  let Player: GameBoard;
 
   beforeEach(() => {
     Ai = new AiGameBoard();
+    Player = new GameBoard();
   });
 
   describe('placeShipOnGameboard', () => {
@@ -28,9 +31,23 @@ describe('AiGameboard', () => {
 
   describe('turn', () => {
     it('will place ships on gameboard for the first turn', () => {
-      Ai.aiTurn();
+      Ai.turn();
 
       expect(Ai.allShipsPlaced).toBe(true);
+    });
+
+    it('will attack opponents gameboard after ships have been placed', () => {
+      const square = 45;
+      const square2 = 74;
+      Player.gameboard[square2].ship = Player.Battleship;
+
+      Ai.turn();
+      Ai.turn(square, Player);
+      Ai.turn(square2, Player);
+
+      expect(Ai.allShipsPlaced).toBe(true);
+      expect(Player.gameboard[square].isMiss).toBe(true);
+      expect(Player.gameboard[square2].isHit).toBe(true);
     });
   });
 });
