@@ -49,8 +49,10 @@ class AiGameBoard extends GameBoard {
     });
   }
 
-  aiTurn() {
-    if (!this.allShipsPlaced) {
+  turn(square?: number, opponent?: GameBoard) {
+    if (square && opponent) {
+      this.attack(square, opponent);
+    } else {
       this.placeShipOnGameBoard();
     }
   }
