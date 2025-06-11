@@ -12,6 +12,7 @@ export default class GameBoard {
   selectedShip: null | Ship;
   allShipsPlaced: boolean;
   allShips: Ship[];
+  winner: boolean;
 
   constructor() {
     this.gameboard = {};
@@ -30,6 +31,7 @@ export default class GameBoard {
       this.Destroyer,
       this.Submarine,
     ];
+    this.winner = false;
   }
 
   initialize() {
@@ -251,6 +253,7 @@ export default class GameBoard {
       case true:
         opponent.gameboard[square].isHit = true;
         opponent.gameboard[square].ship?.isHit();
+        this.isWinner(opponent);
         break;
       case false:
         opponent.gameboard[square].isMiss = true;
@@ -263,6 +266,18 @@ export default class GameBoard {
       this.attack(square, opponent);
     } else if (square) {
       this.shipPlacement(square);
+    }
+  }
+
+  isWinner(Opponent: GameBoard) {
+    if (
+      Opponent.Battleship.sunk &&
+      Opponent.Carrier.sunk &&
+      Opponent.Submarine.sunk &&
+      Opponent.Destroyer.sunk &&
+      Opponent.Cruiser.sunk
+    ) {
+      this.winner = true;
     }
   }
 }
