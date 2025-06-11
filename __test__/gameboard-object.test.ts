@@ -311,5 +311,19 @@ describe('GameBoard', () => {
 
       expect(Opponent.gameboard[square].isMiss).toBe(true);
     });
+
+    it('will declare a winner if all ships are sunk', () => {
+      Opponent.Battleship.sunk = true;
+      Opponent.Carrier.sunk = true;
+      Opponent.Cruiser.sunk = true;
+      Opponent.Submarine.sunk = true;
+      Opponent.gameboard[45].ship = Opponent.Destroyer;
+      Opponent.gameboard[46].ship = Opponent.Destroyer;
+
+      testGameBoard.attack(45, Opponent);
+      testGameBoard.attack(45, Opponent);
+
+      expect(testGameBoard.winner).toBe(true);
+    });
   });
 });
