@@ -34,5 +34,20 @@ describe('GamePlay', () => {
       expect(Ai.allShipsPlaced).toBe(true);
       expect(Player.allShipsPlaced).toBe(true);
     });
+
+    it('can let both players attack', () => {
+      const attackSquare = 45;
+      Player.allShipsPlaced = true;
+      Ai.allShipsPlaced = true;
+
+      Game.turn(attackSquare);
+
+      const playerWasAttacked = Object.values(Player.gameboard).some(
+        (square) => square.isMiss || square.isHit,
+      );
+
+      expect(Ai.gameboard[attackSquare].isMiss).toBe(true);
+      expect(playerWasAttacked).toBe(true);
+    });
   });
 });
