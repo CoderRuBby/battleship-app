@@ -49,6 +49,15 @@ class AiGameBoard extends GameBoard {
     });
   }
 
+  randomAttackLocation(Player: GameBoard): number {
+    const location = Math.floor(Math.random() * 100);
+    if (Player.gameboard[location].isHit || Player.gameboard[location].isMiss) {
+      return this.randomAttackLocation(Player);
+    }
+
+    return location;
+  }
+
   turn(square?: number, opponent?: GameBoard) {
     if (square && opponent) {
       this.attack(square, opponent);
