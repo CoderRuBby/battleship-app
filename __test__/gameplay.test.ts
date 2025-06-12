@@ -13,6 +13,22 @@ describe('GamePlay', () => {
     Player = new GameBoard();
     Game = new GamePlay(Player, Ai);
   });
+
+  describe('isWinner', () => {
+    it('will return true if there is a winner', () => {
+      Player.winner = true;
+      const winner = Game.isWinner();
+
+      expect(winner).toBe(true);
+    });
+
+    it('will return false if there is no winner', () => {
+      const winner = Game.isWinner();
+
+      expect(winner).toBe(false);
+    });
+  });
+
   describe('turn', () => {
     it('can let both players place ships on gameboard', () => {
       Player.selectedShip = Player.Battleship;
