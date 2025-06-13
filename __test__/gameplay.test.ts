@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import GamePlay from '~/utils/gameplay';
-import GameBoard from '~/utils/gameboard-object';
-import AiGameBoard from '~/utils/ai-gameboard';
+import GamePlay from '~/utils/GamePlay';
+import GameBoard from '~/utils/GameBoard';
+import AiGameBoard from '~/utils/AiGameBoard';
 
 describe('GamePlay', () => {
   let Ai: AiGameBoard;

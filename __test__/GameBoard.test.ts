@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, test } from 'vitest';
-import GameBoard from '~/utils/gameboard-object';
-import Ship from '~/utils/ship-object';
+import GameBoard from '~/utils/GameBoard';
+import Ship from '~/utils/Ship';
 
 describe('GameBoard', () => {
   let testGameBoard: GameBoard;

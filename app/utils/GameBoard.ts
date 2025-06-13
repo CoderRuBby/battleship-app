@@ -1,4 +1,4 @@
-import Ship from './ship-object';
+import Ship from './Ship';
 
 export default class GameBoard {
   gameboard: {

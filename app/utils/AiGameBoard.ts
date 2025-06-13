@@ -1,4 +1,4 @@
-import GameBoard from './gameboard-object';
+import GameBoard from './GameBoard';
 
 class AiGameBoard extends GameBoard {
   constructor() {

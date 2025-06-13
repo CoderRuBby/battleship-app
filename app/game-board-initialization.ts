@@ -1,3 +1,3 @@
-import GameBoard from './utils/gameboard-object';
+import GameBoard from './utils/GameBoard';
 
 export const NewGameBoard = new GameBoard();

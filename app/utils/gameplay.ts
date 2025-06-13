@@ -1,5 +1,5 @@
-import type AiGameBoard from './ai-gameboard';
-import GameBoard from './gameboard-object';
+import AiGameBoard from './AiGameBoard';
+import GameBoard from './GameBoard';
 
 class GamePlay {
   Player: GameBoard;
