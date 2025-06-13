@@ -9,6 +9,13 @@ class GamePlay {
     this.Ai = Ai;
   }
 
+  isWinner(): boolean {
+    if (this.Player.winner || this.Ai.winner) {
+      return true;
+    }
+    return false;
+  }
+
   turn(square: number) {
     if (!this.Player.allShipsPlaced) {
       this.Player.turn(square);
