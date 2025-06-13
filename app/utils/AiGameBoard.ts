@@ -58,6 +58,28 @@ class AiGameBoard extends GameBoard {
     return location;
   }
 
+  isOpponentSquareAvailable(square: number, Opponent: GameBoard): boolean {
+    if (Opponent.gameboard[square].isHit) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  getAdjacentSquares(square: number, Opponent: GameBoard): number[] {
+    const availableSquares: number[] = [];
+    const squares = this.possibleShipEndPoints(square, 2);
+
+    squares.forEach((s) => {
+      const available = this.isOpponentSquareAvailable(s, Opponent);
+      if (available) {
+        availableSquares.push(s);
+      }
+    });
+
+    return availableSquares;
+  }
+
   turn(square?: number, opponent?: GameBoard) {
     if (square && opponent) {
       this.attack(square, opponent);
