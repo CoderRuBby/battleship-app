@@ -29,6 +29,59 @@ describe('AiGameboard', () => {
     });
   });
 
+  describe('getAdjacentSquares', () => {
+    it('will return [22, 24, 33, 13], adjacent square to 23', () => {
+      const attackedSquare = 23;
+      const adjacentSquares = [22, 24, 33, 13];
+
+      adjacentSquares.forEach((location) => {
+        expect(Ai.getAdjacentSquares(attackedSquare, Player)).toContain(
+          location,
+        );
+      });
+    });
+
+    it('will return [1, 10], adjacent square to 0', () => {
+      const attackedSquare = 0;
+      const adjacentSquares = [1, 10];
+
+      adjacentSquares.forEach((location) => {
+        expect(Ai.getAdjacentSquares(attackedSquare, Player)).toContain(
+          location,
+        );
+      });
+      expect(Ai.getAdjacentSquares(attackedSquare, Player)).not.toContain(-1);
+      expect(Ai.getAdjacentSquares(attackedSquare, Player)).not.toContain(-10);
+    });
+
+    it('will not return squares that have been hit', () => {
+      Player.gameboard[57].isHit = true;
+
+      const attackedSquare = 56;
+      const adjacentSquares = [55, 66, 46];
+
+      adjacentSquares.forEach((location) => {
+        expect(Ai.getAdjacentSquares(attackedSquare, Player)).toContain(
+          location,
+        );
+      });
+      expect(Ai.getAdjacentSquares(attackedSquare, Player)).not.toContain(57);
+    });
+
+    it('will return squares that have an opponents ship, not hit', () => {
+      const attackedSquare = 55;
+      const adjacentSquares = [54, 56, 65, 45];
+
+      Player.gameboard[56].ship = Player.Battleship;
+
+      adjacentSquares.forEach((location) => {
+        expect(Ai.getAdjacentSquares(attackedSquare, Player)).toContain(
+          location,
+        );
+      });
+    });
+  });
+
   describe('turn', () => {
     it('will place ships on gameboard for the first turn', () => {
       Ai.turn();
