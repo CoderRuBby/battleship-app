@@ -17,6 +17,10 @@ class GamePlay {
   }
 
   turn(square: number) {
+    if (this.isWinner()) {
+      return;
+    }
+
     if (!this.Player.allShipsPlaced) {
       this.Player.turn(square);
     }
@@ -28,6 +32,7 @@ class GamePlay {
     if (this.Player.allShipsPlaced && this.Ai.allShipsPlaced) {
       const aiAttackLocation = this.Ai.randomAttackLocation(this.Player);
       this.Player.turn(square, this.Ai);
+      if (this.isWinner()) return;
       this.Ai.turn(aiAttackLocation, this.Player);
     }
   }
