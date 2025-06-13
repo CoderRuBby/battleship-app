@@ -65,5 +65,14 @@ describe('GamePlay', () => {
       expect(Ai.gameboard[attackSquare].isMiss).toBe(true);
       expect(playerWasAttacked).toBe(true);
     });
+
+    it('can prevent further game turns if there is a winner', () => {
+      const square = 45;
+      Player.winner = true;
+
+      Game.turn(square);
+
+      expect(Ai.gameboard[square].isMiss).toBe(false);
+    });
   });
 });
