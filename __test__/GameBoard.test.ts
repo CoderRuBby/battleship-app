@@ -159,8 +159,8 @@ describe('GameBoard', () => {
       expect(Ship1.shipStartPoint).toBe(null);
     });
   });
-  //!rename
-  describe('squareOnclick', () => {
+
+  describe('shipPlacement', () => {
     it('will assign shipStartPoint if ship is selected', () => {
       const shipStartPoint = 0;
 
