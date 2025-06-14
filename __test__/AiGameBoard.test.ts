@@ -120,10 +120,6 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('smartAttackLogic() after opponent ship is hit', () => {
-    it('');
-  });
-
   describe('turn', () => {
     it('will place ships on gameboard for the first turn', () => {
       Ai.turn();
