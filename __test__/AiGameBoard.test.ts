@@ -80,6 +80,20 @@ describe('AiGameboard', () => {
         );
       });
     });
+
+    it('will update adjacentSquares property if ship is hit', () => {
+      const attackedSquare = 35;
+
+      Player.gameboard[attackedSquare].ship = Player.Battleship;
+
+      Ai.getAdjacentSquares(attackedSquare, Player);
+
+      expect(Ai.adjacentSquares.has(34)).toBe(true);
+      expect(Ai.adjacentSquares.has(36)).toBe(true);
+      expect(Ai.adjacentSquares.has(25)).toBe(true);
+      expect(Ai.adjacentSquares.has(45)).toBe(true);
+      expect(Ai.adjacentSquares.size).toBe(4);
+    });
   });
 
   describe('turn', () => {
