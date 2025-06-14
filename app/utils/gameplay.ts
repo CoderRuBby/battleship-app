@@ -30,10 +30,9 @@ class GamePlay {
     }
 
     if (this.Player.allShipsPlaced && this.Ai.allShipsPlaced) {
-      const aiAttackLocation = this.Ai.randomAttackLocation(this.Player);
       this.Player.turn(square, this.Ai);
       if (this.isWinner()) return;
-      this.Ai.turn(aiAttackLocation, this.Player);
+      this.Ai.turn(null, this.Player);
     }
   }
 }

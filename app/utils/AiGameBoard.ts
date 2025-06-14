@@ -101,11 +101,21 @@ class AiGameBoard extends GameBoard {
     }
   }
 
-  turn(square?: number, opponent?: GameBoard) {
-    if (square && opponent) {
-      this.attack(square, opponent);
-    } else {
+  turn(testSquare?: number | null, Opponent?: GameBoard) {
+    let square: number;
+
+    if (!testSquare && !Opponent) {
       this.placeShipOnGameBoard();
+    }
+
+    if (Opponent) {
+      if (testSquare) {
+        square = testSquare;
+      } else {
+        square = this.randomAttackLocation(Opponent);
+      }
+
+      this.attack(square, Opponent);
     }
   }
 }
