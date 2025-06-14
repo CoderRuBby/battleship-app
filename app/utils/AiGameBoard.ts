@@ -84,11 +84,9 @@ class AiGameBoard extends GameBoard {
     return availableSquares;
   }
 
-  getAdjacentAttack() {
-    if (this.adjacentSquares) {
-      const index = Math.floor(Math.random() * this.adjacentSquares.length);
-      return this.adjacentSquares[index];
-    }
+  getAdjacentAttack(): number {
+    const index = Math.floor(Math.random() * this.adjacentSquares.length);
+    return this.adjacentSquares[index];
   }
 
   attack(square: number, Opponent: GameBoard) {
@@ -111,8 +109,10 @@ class AiGameBoard extends GameBoard {
     if (Opponent) {
       if (testSquare) {
         square = testSquare;
-      } else {
+      } else if (!testSquare && this.adjacentSquares.length === 0) {
         square = this.randomAttackLocation(Opponent);
+      } else {
+        square = this.getAdjacentAttack();
       }
 
       this.attack(square, Opponent);
