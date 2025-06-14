@@ -140,5 +140,23 @@ describe('AiGameboard', () => {
       expect(Player.gameboard[square].isMiss).toBe(true);
       expect(Player.gameboard[square2].isHit).toBe(true);
     });
+
+    it('will attack adjacent squares after a ship has been hit', () => {
+      const attackedSquare = 35;
+      const adjacentSquares = [34, 36, 25, 45];
+
+      Player.gameboard[attackedSquare].ship = Player.Battleship;
+
+      Ai.turn();
+      Ai.turn(attackedSquare, Player);
+      Ai.turn(null, Player);
+
+      const isAttacked = adjacentSquares.some(
+        (square) =>
+          Player.gameboard[square].isHit || Player.gameboard[square].isMiss,
+      );
+
+      expect(isAttacked).toBe(true);
+    });
   });
 });
