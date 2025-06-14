@@ -89,6 +89,17 @@ class AiGameBoard extends GameBoard {
     return this.adjacentSquares[index];
   }
 
+  removeAdjacentSquare(square: number) {
+    const squares: number[] = [];
+    this.adjacentSquares.forEach((s) => {
+      if (s !== square) {
+        squares.push(s);
+      }
+    });
+
+    this.adjacentSquares = squares;
+  }
+
   attack(square: number, Opponent: GameBoard) {
     const hasShip = Opponent.gameboard[square].ship !== null;
 
@@ -96,6 +107,10 @@ class AiGameBoard extends GameBoard {
 
     if (hasShip) {
       this.getAdjacentSquares(square, Opponent);
+    }
+
+    if (this.adjacentSquares.length > 0) {
+      this.removeAdjacentSquare(square);
     }
   }
 
