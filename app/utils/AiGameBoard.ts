@@ -1,11 +1,11 @@
 import GameBoard from './GameBoard';
 
 class AiGameBoard extends GameBoard {
-  adjacentSquares: Set<number>;
+  adjacentSquares: number[];
 
   constructor() {
     super();
-    this.adjacentSquares = new Set();
+    this.adjacentSquares = [];
   }
 
   randomSquare(max: number, recursionCount = 0): number {
@@ -77,11 +77,18 @@ class AiGameBoard extends GameBoard {
       const available = this.isOpponentSquareAvailable(s, Opponent);
       if (available) {
         availableSquares.push(s);
-        this.adjacentSquares.add(s);
+        this.adjacentSquares.push(s);
       }
     });
 
     return availableSquares;
+  }
+
+  getAdjacentAttack() {
+    if (this.adjacentSquares) {
+      const index = Math.floor(Math.random() * this.adjacentSquares.length);
+      return this.adjacentSquares[index];
+    }
   }
 
   attack(square: number, Opponent: GameBoard) {
