@@ -88,11 +88,11 @@ describe('AiGameboard', () => {
 
       Ai.getAdjacentSquares(attackedSquare, Player);
 
-      expect(Ai.adjacentSquares.has(34)).toBe(true);
-      expect(Ai.adjacentSquares.has(36)).toBe(true);
-      expect(Ai.adjacentSquares.has(25)).toBe(true);
-      expect(Ai.adjacentSquares.has(45)).toBe(true);
-      expect(Ai.adjacentSquares.size).toBe(4);
+      expect(Ai.adjacentSquares).toContain(34);
+      expect(Ai.adjacentSquares).toContain(36);
+      expect(Ai.adjacentSquares).toContain(25);
+      expect(Ai.adjacentSquares).toContain(45);
+      expect(Ai.adjacentSquares.length).toBe(4);
     });
   });
 
@@ -104,14 +104,25 @@ describe('AiGameboard', () => {
 
       Ai.attack(attackedSquare, Player);
 
-      expect(Ai.adjacentSquares.has(34)).toBe(true);
-      expect(Ai.adjacentSquares.has(36)).toBe(true);
-      expect(Ai.adjacentSquares.has(25)).toBe(true);
-      expect(Ai.adjacentSquares.has(45)).toBe(true);
-      expect(Ai.adjacentSquares.size).toBe(4);
+      expect(Ai.adjacentSquares).toContain(34);
+      expect(Ai.adjacentSquares).toContain(36);
+      expect(Ai.adjacentSquares).toContain(25);
+      expect(Ai.adjacentSquares).toContain(45);
+      expect(Ai.adjacentSquares.length).toBe(4);
     });
   });
 
+  describe('getAdjacentAttack()', () => {
+    it('will return a random adjacent square from adjacentSquares', () => {
+      Ai.adjacentSquares = [34, 36, 25, 45];
+
+      expect(Ai.adjacentSquares).toContain(Ai.getAdjacentAttack());
+    });
+  });
+
+  describe('smartAttackLogic() after opponent ship is hit', () => {
+    it('');
+  });
 
   describe('turn', () => {
     it('will place ships on gameboard for the first turn', () => {
