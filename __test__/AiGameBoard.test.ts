@@ -111,7 +111,7 @@ describe('AiGameboard', () => {
       expect(Ai.adjacentSquares.length).toBe(4);
     });
 
-    it('will remove the attacked adjacent square from adjacentSquare prop', () => {
+    it('will remove a missed adjacent square from adjacentSquare prop', () => {
       const attackedSquare = 64;
       const adjacentAttack = 65;
 
