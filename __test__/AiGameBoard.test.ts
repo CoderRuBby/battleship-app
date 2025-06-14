@@ -110,6 +110,18 @@ describe('AiGameboard', () => {
       expect(Ai.adjacentSquares).toContain(45);
       expect(Ai.adjacentSquares.length).toBe(4);
     });
+
+    it('will remove the attacked adjacent square from adjacentSquare prop', () => {
+      const attackedSquare = 64;
+      const adjacentAttack = 65;
+
+      Player.gameboard[attackedSquare].ship = Player.Battleship;
+
+      Ai.attack(attackedSquare, Player);
+      Ai.attack(adjacentAttack, Player);
+
+      expect(Ai.adjacentSquares).not.toContain(65);
+    });
   });
 
   describe('getAdjacentAttack()', () => {
