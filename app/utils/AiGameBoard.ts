@@ -84,6 +84,16 @@ class AiGameBoard extends GameBoard {
     return availableSquares;
   }
 
+  attack(square: number, Opponent: GameBoard) {
+    const hasShip = Opponent.gameboard[square].ship !== null;
+
+    super.attack(square, Opponent);
+
+    if (hasShip) {
+      this.getAdjacentSquares(square, Opponent);
+    }
+  }
+
   turn(square?: number, opponent?: GameBoard) {
     if (square && opponent) {
       this.attack(square, opponent);
