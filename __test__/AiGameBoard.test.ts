@@ -122,6 +122,40 @@ describe('AiGameboard', () => {
 
       expect(Ai.adjacentSquares).not.toContain(65);
     });
+
+    it('will remove horizontal squares if attacking vertically', () => {
+      const attackedSquare = 35;
+      const adjacentAttack = 45;
+
+      Player.gameboard[attackedSquare].ship = Player.Battleship;
+      Player.gameboard[adjacentAttack].ship = Player.Battleship;
+
+      Ai.attack(attackedSquare, Player);
+      Ai.attack(adjacentAttack, Player);
+
+      expect(Ai.adjacentSquares).not.toContain(attackedSquare);
+      expect(Ai.adjacentSquares).not.toContain(adjacentAttack);
+      expect(Ai.adjacentSquares).not.toContain(34);
+      expect(Ai.adjacentSquares).not.toContain(36);
+      expect(Ai.adjacentSquares.length).toBe(1);
+    });
+
+    it('will remove vertical squares if attacking horizontally', () => {
+      const attackedSquare = 35;
+      const adjacentAttack = 36;
+
+      Player.gameboard[attackedSquare].ship = Player.Battleship;
+      Player.gameboard[adjacentAttack].ship = Player.Battleship;
+
+      Ai.attack(attackedSquare, Player);
+      Ai.attack(adjacentAttack, Player);
+
+      expect(Ai.adjacentSquares).not.toContain(attackedSquare);
+      expect(Ai.adjacentSquares).not.toContain(adjacentAttack);
+      expect(Ai.adjacentSquares).not.toContain(25);
+      expect(Ai.adjacentSquares).not.toContain(45);
+      expect(Ai.adjacentSquares.length).toBe(1);
+    });
   });
 
   describe('getAdjacentAttack()', () => {
