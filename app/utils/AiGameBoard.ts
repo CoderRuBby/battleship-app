@@ -2,10 +2,12 @@ import GameBoard from './GameBoard';
 
 class AiGameBoard extends GameBoard {
   adjacentSquares: number[];
+  initialSquareHit: number | null;
 
   constructor() {
     super();
     this.adjacentSquares = [];
+    this.initialSquareHit = null;
   }
 
   randomSquare(max: number, recursionCount = 0): number {
@@ -100,13 +102,37 @@ class AiGameBoard extends GameBoard {
     this.adjacentSquares = squares;
   }
 
+  isRowAttack(initialSquare: number, square: number) {
+    return Math.abs(initialSquare - square) === 1;
+  }
+
+  isColAttack(initialSquare: number, square: number) {
+    return Math.abs(initialSquare - square) === 10;
+  }
+
   attack(square: number, Opponent: GameBoard) {
     const hasShip = Opponent.gameboard[square].ship !== null;
 
     super.attack(square, Opponent);
 
-    if (hasShip) {
+    // Ai logic after its second hit on an opponents ship
+    if (this.adjacentSquares.length > 0 && hasShip && this.initialSquareHit) {
+      // Filter adjacent squares to only those in the same orientation as our hits
+      this.adjacentSquares = this.adjacentSquares.filter((adjacentSquare) => {
+        // Check if ai is attacking horizontally
+        if (this.isRowAttack(this.initialSquareHit!, square)) {
+          // Keep horizontal squares
+          return this.isRowAttack(this.initialSquareHit!, adjacentSquare);
+        } else {
+          // Keep vertical squares
+          return this.isColAttack(this.initialSquareHit!, adjacentSquare);
+        }
+      });
+    }
+
+    if (hasShip && this.adjacentSquares.length === 0) {
       this.getAdjacentSquares(square, Opponent);
+      this.initialSquareHit = square;
     }
 
     if (this.adjacentSquares.length > 0) {
