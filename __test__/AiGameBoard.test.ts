@@ -208,6 +208,19 @@ describe('AiGameboard', () => {
       expect(Ai.adjacentSquares).toContain(37);
     });
 
+    it('will add the appropriate adjacent square to adjacentSquares', () => {
+      const attackedSquare = 35;
+      const adjacentAttack = 36;
+
+      Player.gameboard[attackedSquare].ship = Player.Battleship;
+      Player.gameboard[adjacentAttack].ship = Player.Battleship;
+
+      Ai.attack(attackedSquare, Player);
+      Ai.attack(adjacentAttack, Player);
+
+      expect(Ai.adjacentSquares).toContain(34);
+      expect(Ai.adjacentSquares).toContain(37);
+      expect(Ai.adjacentSquares.length).toBe(2);
     });
   });
 
