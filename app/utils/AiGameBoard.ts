@@ -124,6 +124,19 @@ class AiGameBoard extends GameBoard {
     });
   }
 
+  addRowColSquare(square: number) {
+    let adjSquares = this.possibleShipEndPoints(square, 2);
+    adjSquares = adjSquares.filter((adjSquare) => {
+      if (this.isRowAttack(this.initialSquareHit!, square)) {
+        return this.isRowAttack(square, adjSquare);
+      } else {
+        return this.isColAttack(square, adjSquare);
+      }
+    });
+
+    this.adjacentSquares.push(adjSquares[0]);
+  }
+
     }
 
     if (hasShip && this.adjacentSquares.length === 0) {
