@@ -137,6 +137,15 @@ class AiGameBoard extends GameBoard {
     this.adjacentSquares.push(adjSquares[0]);
   }
 
+  attack(square: number, Opponent: GameBoard) {
+    const hasShip = Opponent.gameboard[square].ship !== null;
+
+    super.attack(square, Opponent);
+
+    // Ai logic after its second hit on an opponents ship
+    if (this.adjacentSquares.length > 0 && hasShip && this.initialSquareHit) {
+      this.getAttackOrientation(square);
+      this.addRowColSquare(square);
     }
 
     if (hasShip && this.adjacentSquares.length === 0) {
