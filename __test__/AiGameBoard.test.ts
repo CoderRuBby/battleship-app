@@ -130,6 +130,18 @@ describe('AiGameboard', () => {
     });
   });
 
+  describe('addRowColSquare', () => {
+    it('will add the appropriate adjacent square to adjacentSquares', () => {
+      const attackedSquare = 35;
+      const adjacentAttack = 36;
+
+      Ai.initialSquareHit = attackedSquare;
+      Ai.addRowColSquare(adjacentAttack);
+
+      expect(Ai.adjacentSquares).toContain(37);
+      expect(Ai.adjacentSquares.length).toBe(1);
+    });
+  });
 
   describe('attack()', () => {
     it('will update adjacentSquares when hitting a ship', () => {
