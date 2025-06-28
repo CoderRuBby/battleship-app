@@ -13,33 +13,6 @@ describe('GameBoard', () => {
     Opponent = new GameBoard();
   });
 
-  describe('attack', () => {
-    it('can hit a ship on the opponents gameboard', () => {
-      const square = 45;
-      const expectShip = new Ship('foo', 3);
-
-      Opponent.gameboard[square].ship = Ship1;
-
-      expectShip.isHit();
-
-      testGameBoard.attack(square, Opponent);
-
-      expect(Opponent.gameboard[square].isHit).toBe(true);
-      expect(Opponent.gameboard[square].ship).toEqual(expectShip);
-    });
-
-    it('can attack a square with no ship on the opponents board', () => {
-      const square = 62;
-      const ExpectOpponent = new GameBoard();
-
-      ExpectOpponent.gameboard[square].isMiss = true;
-
-      testGameBoard.attack(square, Opponent);
-
-      expect(Opponent.gameboard[square].isMiss).toBe(true);
-    });
-  });
-
   describe('turn', () => {
     it('will let player place ships if all ships have not been placed', () => {
       const Player = new GameBoard();

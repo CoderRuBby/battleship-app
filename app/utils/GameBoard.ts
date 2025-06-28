@@ -42,20 +42,6 @@ export default class GameBoard {
     }
   }
 
-  attack(square: number, opponent: GameBoard) {
-    const hasShip = opponent.gameboard[square].ship !== null;
-    switch (hasShip) {
-      case true:
-        opponent.gameboard[square].isHit = true;
-        opponent.gameboard[square].ship?.isHit();
-        this.isWinner(opponent);
-        break;
-      case false:
-        opponent.gameboard[square].isMiss = true;
-        break;
-    }
-  }
-
   turn(square: number, opponent?: GameBoard) {
     if (square && opponent) {
       this.attack(square, opponent);
