@@ -1,7 +1,7 @@
 import GameBoard from './GameBoard';
 import Ship from './Ship';
 
-class PlaceShip {
+class PlaceShips {
   PlayerGameBoard: GameBoard;
   selectedShip: null | Ship;
 
@@ -212,4 +212,4 @@ class PlaceShip {
   }
 }
 
-export default PlaceShip;
+export default PlaceShips;

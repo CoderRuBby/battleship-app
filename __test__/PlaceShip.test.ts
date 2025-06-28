@@ -1,17 +1,17 @@
 import { describe, it, beforeEach, expect, test } from 'vitest';
-import PlaceShip from '~/utils/PlaceShip';
+import PlaceShips from '~/utils/PlaceShips';
 import GameBoard from '~/utils/GameBoard';
 import Ship from '~/utils/Ship';
 
-describe('PlaceShip', () => {
+describe('PlaceShips', () => {
   let Player: GameBoard;
-  let PlayerPlaceShip: PlaceShip;
+  let PlayerPlaceShip: PlaceShips;
   let Ship1: Ship;
   let Ship2: Ship;
 
   beforeEach(() => {
     Player = new GameBoard();
-    PlayerPlaceShip = new PlaceShip(Player);
+    PlayerPlaceShip = new PlaceShips(Player);
     Ship1 = new Ship('foo', 3);
     Ship2 = new Ship('bar', 2);
   });
