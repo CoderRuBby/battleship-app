@@ -27,5 +27,15 @@ describe('AiAttack', () => {
 
       expect(randomLocation).not.toBe(testLocation);
     });
+
+    it('will not get a location that has a hit', () => {
+      const testLocation = 45;
+
+      Player.gameboard[testLocation].isHit = true;
+
+      const randomLocation = Ai.randomAttackLocation(Player, testLocation);
+
+      expect(randomLocation).not.toBe(testLocation);
+    });
   });
 });
