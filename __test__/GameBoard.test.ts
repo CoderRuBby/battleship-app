@@ -21,6 +21,16 @@ describe('GameBoard', () => {
     });
   });
 
+  describe('shipPlacement', () => {
+    it('can assign a shipStartPoint to a ship', () => {
+      const startPoint = 45;
+      testGameBoard.selectShip(testGameBoard.Battleship);
+      testGameBoard.shipPlacement(startPoint);
+
+      expect(testGameBoard.Battleship.shipStartPoint).toBe(startPoint);
+    });
+  });
+
   describe('turn', () => {
     it.skip('will let player place ships if all ships have not been placed', () => {
       const Player = new GameBoard();
