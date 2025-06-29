@@ -72,6 +72,17 @@ describe('GameBoard', () => {
 
       expect(Opponent.gameboard[attackLocation].isMiss).toBe(true);
     });
+
+    it('can attack an opponents ship', () => {
+      const attackLocation = 34;
+
+      Opponent.gameboard[attackLocation].ship = Opponent.Battleship;
+
+      testGameBoard.NewAttack.attack(attackLocation, Opponent);
+
+      expect(Opponent.gameboard[attackLocation].isHit).toBe(true);
+      expect(Opponent.Battleship.hit).toBe(1);
+    });
   });
 
   describe('turn', () => {
