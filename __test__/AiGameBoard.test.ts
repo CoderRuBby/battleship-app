@@ -11,6 +11,14 @@ describe('AiGameboard', () => {
     Player = new GameBoard();
   });
 
+  describe('placeShips', () => {
+    it('can place all ships on game board', () => {
+      Ai.placeAll();
+
+      expect(Ai.allShipsPlaced).toBe(true);
+    });
+  });
+
   describe('getAdjacentSquares', () => {
     it('will return [22, 24, 33, 13], adjacent square to 23', () => {
       const attackedSquare = 23;
