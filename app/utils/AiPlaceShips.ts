@@ -9,21 +9,26 @@ class AiPlaceShips extends PlaceShips {
     this.AiGameBoard = AiGameBoard;
   }
 
-  randomSquare(max: number, recursionCount = 0): number {
-    const square = Math.floor(Math.random() * max);
+  randomSquare(max: number, testNumber?: number): number {
+    let square;
 
-    if (recursionCount > max * 2) {
-      throw new Error('Could not find a valid square');
+    if (testNumber) {
+      square = testNumber;
+    } else {
+      square = Math.floor(Math.random() * max);
     }
 
-    if (this.selectedShip) {
-      const shipPaths = this.getShipPaths(this.selectedShip.length, square);
+    if (this.AiGameBoard.selectedShip) {
+      const shipPaths = this.getShipPaths(
+        this.AiGameBoard.selectedShip.length,
+        square,
+      );
       if (this.isAvailableSquare(square) && shipPaths.length !== 0) {
         return square;
       }
     }
 
-    return this.randomSquare(max, recursionCount + 1);
+    return this.randomSquare(max);
   }
 
   placeShipOnGameBoard() {
