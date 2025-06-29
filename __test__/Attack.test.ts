@@ -10,7 +10,7 @@ describe('Attack', () => {
 
   beforeEach(() => {
     Opponent = new GameBoard();
-    PlayerAttack = new Attack(Opponent);
+    PlayerAttack = new Attack();
     Ship1 = new Ship('foo', 3);
   });
 
@@ -23,7 +23,7 @@ describe('Attack', () => {
 
       expectShip.isHit();
 
-      PlayerAttack.attack(square);
+      PlayerAttack.attack(square, Opponent);
 
       expect(Opponent.gameboard[square].isHit).toBe(true);
       expect(Opponent.gameboard[square].ship).toEqual(expectShip);
@@ -35,7 +35,7 @@ describe('Attack', () => {
 
       ExpectOpponent.gameboard[square].isMiss = true;
 
-      PlayerAttack.attack(square);
+      PlayerAttack.attack(square, Opponent);
 
       expect(Opponent.gameboard[square].isMiss).toBe(true);
     });
