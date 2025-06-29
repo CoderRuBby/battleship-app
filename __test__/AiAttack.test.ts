@@ -17,5 +17,15 @@ describe('AiAttack', () => {
 
       expect(Number.isInteger(randomLocation)).toBe(true);
     });
+
+    it('will not get a location that has a miss', () => {
+      const testLocation = 45;
+
+      Player.gameboard[testLocation].isMiss = true;
+
+      const randomLocation = Ai.randomAttackLocation(Player, testLocation);
+
+      expect(randomLocation).not.toBe(testLocation);
+    });
   });
 });
