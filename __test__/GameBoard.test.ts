@@ -29,6 +29,39 @@ describe('GameBoard', () => {
 
       expect(testGameBoard.Battleship.shipStartPoint).toBe(startPoint);
     });
+
+    it('can assign a shipEndPoint', () => {
+      const startPoint = 45;
+      const endPoint = 48;
+
+      testGameBoard.selectShip(testGameBoard.Battleship);
+      testGameBoard.shipPlacement(startPoint);
+      testGameBoard.shipPlacement(endPoint);
+
+      expect(testGameBoard.Battleship.shipEndPoint).toBe(endPoint);
+    });
+
+    it('place the ship on the game board', () => {
+      const startPoint = 45;
+      const endPoint = 48;
+
+      testGameBoard.selectShip(testGameBoard.Battleship);
+      testGameBoard.shipPlacement(startPoint);
+      testGameBoard.shipPlacement(endPoint);
+
+      expect(testGameBoard.gameboard[45].ship).toEqual(
+        testGameBoard.Battleship,
+      );
+      expect(testGameBoard.gameboard[46].ship).toEqual(
+        testGameBoard.Battleship,
+      );
+      expect(testGameBoard.gameboard[47].ship).toEqual(
+        testGameBoard.Battleship,
+      );
+      expect(testGameBoard.gameboard[48].ship).toEqual(
+        testGameBoard.Battleship,
+      );
+    });
   });
 
   describe('turn', () => {
