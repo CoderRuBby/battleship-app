@@ -3,22 +3,20 @@ import Ship from './Ship';
 
 class PlaceShips {
   PlayerGameBoard: GameBoard;
-  selectedShip: null | Ship;
 
   constructor(PlayerGameBoard: GameBoard) {
     this.PlayerGameBoard = PlayerGameBoard;
-    this.selectedShip = null;
   }
 
   selectShip(ship: Ship) {
-    if (ship === this.selectedShip) {
-      this.selectedShip.shipStartPoint = null;
-      this.selectedShip = null;
+    if (ship === this.PlayerGameBoard.selectedShip) {
+      this.PlayerGameBoard.selectedShip.shipStartPoint = null;
+      this.PlayerGameBoard.selectedShip = null;
     } else {
-      if (this.selectedShip !== null) {
-        this.selectedShip.shipStartPoint = null;
+      if (this.PlayerGameBoard.selectedShip !== null) {
+        this.PlayerGameBoard.selectedShip.shipStartPoint = null;
       }
-      this.selectedShip = ship;
+      this.PlayerGameBoard.selectedShip = ship;
     }
   }
 

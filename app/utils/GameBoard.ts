@@ -1,4 +1,5 @@
 import Ship from './Ship';
+import PlaceShips from './PlaceShips';
 
 export default class GameBoard {
   gameboard: {
@@ -12,6 +13,8 @@ export default class GameBoard {
   allShipsPlaced: boolean;
   allShips: Ship[];
   winner: boolean;
+  placeShips: PlaceShips;
+  selectedShip: null | Ship;
 
   constructor() {
     this.gameboard = {};
@@ -30,6 +33,8 @@ export default class GameBoard {
       this.Submarine,
     ];
     this.winner = false;
+    this.placeShips = new PlaceShips(this);
+    this.selectedShip = null;
   }
 
   initialize() {
@@ -40,6 +45,10 @@ export default class GameBoard {
         isMiss: false,
       };
     }
+  }
+
+  selectShip(ship: Ship) {
+    this.placeShips.selectShip(ship);
   }
 
   turn(square: number, opponent?: GameBoard) {
