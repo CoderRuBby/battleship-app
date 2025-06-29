@@ -82,12 +82,12 @@ describe('GameBoard', () => {
       const Battleship = Player.Battleship;
 
       Player.selectShip(Battleship);
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       expect(Player.Battleship.shipStartPoint).toBe(square);
       expect(Player.selectedShip).toEqual(Battleship);
 
-      Player.turn(square2);
+      Player.turn(square2, Opponent);
 
       expect(Battleship.shipEndPoint).toBe(square2);
       expect(Battleship.isPlaced).toBe(true);
@@ -102,12 +102,12 @@ describe('GameBoard', () => {
       const Carrier = Player.Carrier;
 
       Player.selectShip(Carrier);
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       expect(Carrier.shipStartPoint).toBe(square);
       expect(Player.selectedShip).toEqual(Carrier);
 
-      Player.turn(square2);
+      Player.turn(square2, Opponent);
 
       expect(Carrier.shipEndPoint).toBe(square2);
       expect(Carrier.isPlaced).toBe(true);
@@ -123,12 +123,12 @@ describe('GameBoard', () => {
       square2 = 17;
 
       Player.selectShip(Cruiser);
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       expect(Cruiser.shipStartPoint).toBe(square);
       expect(Player.selectedShip).toEqual(Cruiser);
 
-      Player.turn(square2);
+      Player.turn(square2, Opponent);
 
       expect(Cruiser.shipEndPoint).toBe(square2);
       expect(Cruiser.isPlaced).toBe(true);
@@ -142,12 +142,12 @@ describe('GameBoard', () => {
       square2 = 48;
 
       Player.selectShip(Submarine);
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       expect(Player.selectedShip).toEqual(Submarine);
       expect(Submarine.shipStartPoint).toBe(square);
 
-      Player.turn(square2);
+      Player.turn(square2, Opponent);
 
       expect(Submarine.shipEndPoint).toBe(square2);
       expect(Submarine.isPlaced).toBe(true);
@@ -161,12 +161,12 @@ describe('GameBoard', () => {
       square2 = 80;
 
       Player.selectShip(Destroyer);
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       expect(Player.selectedShip).toEqual(Destroyer);
       expect(Destroyer.shipStartPoint).toBe(square);
 
-      Player.turn(square2);
+      Player.turn(square2, Opponent);
 
       expect(Destroyer.shipEndPoint).toBe(square2);
       expect(Destroyer.isPlaced).toBe(true);
@@ -183,12 +183,12 @@ describe('GameBoard', () => {
       const Battleship = Player.Battleship;
 
       Player.selectShip(Battleship);
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       expect(Player.Battleship.shipStartPoint).toBe(square);
       expect(Player.selectedShip).toEqual(Battleship);
 
-      Player.turn(square2);
+      Player.turn(square2, Opponent);
 
       expect(Battleship.shipEndPoint).toBe(square2);
       expect(Battleship.isPlaced).toBe(true);
@@ -205,7 +205,7 @@ describe('GameBoard', () => {
       Player.selectShip(Carrier);
 
       //chooses square already chosen
-      Player.turn(square);
+      Player.turn(square, Opponent);
 
       //does nothing
       expect(Player.gameboard[square].ship).toEqual(Battleship);
@@ -213,8 +213,8 @@ describe('GameBoard', () => {
       expect(Player.selectedShip).toEqual(Carrier);
 
       //continue turn like normal
-      Player.turn(square3);
-      Player.turn(square4);
+      Player.turn(square3, Opponent);
+      Player.turn(square4, Opponent);
 
       expect(Carrier.shipStartPoint).toBe(square3);
       expect(Carrier.shipEndPoint).toBe(square4);
@@ -236,7 +236,8 @@ describe('GameBoard', () => {
       expect(Opponent.gameboard[square].isMiss).toBe(true);
     });
 
-    it.skip('will declare a winner if all ships are sunk', () => {
+    it('will declare a winner if all ships are sunk', () => {
+      Player.allShipsPlaced = true;
       Opponent.Battleship.sunk = true;
       Opponent.Carrier.sunk = true;
       Opponent.Cruiser.sunk = true;
@@ -244,8 +245,8 @@ describe('GameBoard', () => {
       Opponent.gameboard[45].ship = Opponent.Destroyer;
       Opponent.gameboard[46].ship = Opponent.Destroyer;
 
-      Player.attack(45, Opponent);
-      Player.attack(45, Opponent);
+      Player.turn(45, Opponent);
+      Player.turn(46, Opponent);
 
       expect(Player.winner).toBe(true);
     });

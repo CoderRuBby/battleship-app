@@ -8,8 +8,6 @@ class Attack {
       case true:
         Opponent.gameboard[square].isHit = true;
         Opponent.gameboard[square].ship?.isHit();
-        //! isWinner needs to be moved to turn()
-        //this.isWinner(opponent);
         break;
       case false:
         Opponent.gameboard[square].isMiss = true;

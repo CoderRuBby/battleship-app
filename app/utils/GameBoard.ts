@@ -62,14 +62,6 @@ export default class GameBoard {
     this.NewAttack.attack(square, Opponent);
   }
 
-  turn(square: number, opponent?: GameBoard) {
-    if (square && opponent) {
-      this.attack(square, opponent);
-    } else if (square) {
-      this.shipPlacement(square);
-    }
-  }
-
   isWinner(Opponent: GameBoard) {
     if (
       Opponent.Battleship.sunk &&
@@ -79,6 +71,15 @@ export default class GameBoard {
       Opponent.Cruiser.sunk
     ) {
       this.winner = true;
+    }
+  }
+
+  turn(square: number, opponent: GameBoard) {
+    if (this.allShipsPlaced) {
+      this.attack(square, opponent);
+      this.isWinner(opponent);
+    } else if (square) {
+      this.shipPlacement(square);
     }
   }
 }
