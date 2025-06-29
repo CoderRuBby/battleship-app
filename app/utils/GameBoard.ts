@@ -58,8 +58,8 @@ export default class GameBoard {
     this.placeShips.shipPlacement(square);
   }
 
-  attack(square: number) {
-    this.NewAttack.attack(square);
+  attack(square: number, Opponent: GameBoard) {
+    this.NewAttack.attack(square, Opponent);
   }
 
   turn(square: number, opponent?: GameBoard) {
