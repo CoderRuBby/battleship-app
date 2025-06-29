@@ -22,7 +22,7 @@ class GamePlay {
     }
 
     if (!this.Player.allShipsPlaced) {
-      this.Player.turn(square);
+      this.Player.turn(square, this.Ai);
     }
 
     if (this.Player.allShipsPlaced && !this.Ai.allShipsPlaced) {

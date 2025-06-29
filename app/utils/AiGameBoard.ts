@@ -125,7 +125,7 @@ class AiGameBoard extends GameBoard {
     let square: number;
 
     if (!testSquare && !Opponent) {
-      this.placeShipOnGameBoard();
+      this.placeAll();
     }
 
     if (Opponent) {
