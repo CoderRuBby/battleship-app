@@ -6,8 +6,15 @@ class AiAttack extends Attack {
     super();
   }
 
-  randomAttackLocation(Player: GameBoard): number {
-    const location = Math.floor(Math.random() * 100);
+  randomAttackLocation(Player: GameBoard, testNumber?: number): number {
+    let location;
+
+    if (testNumber) {
+      location = testNumber;
+    } else {
+      location = Math.floor(Math.random() * 100);
+    }
+
     if (Player.gameboard[location].isHit || Player.gameboard[location].isMiss) {
       return this.randomAttackLocation(Player);
     }
