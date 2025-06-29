@@ -131,12 +131,12 @@ class PlaceShips {
   canPlaceShip(square: number): boolean {
     let canPlace = true;
     if (
-      this.selectedShip !== null &&
-      this.selectedShip.shipStartPoint !== null
+      this.PlayerGameBoard.selectedShip !== null &&
+      this.PlayerGameBoard.selectedShip.shipStartPoint !== null
     ) {
       const shipPath = this.possibleShipPath(
-        this.selectedShip.length,
-        this.selectedShip.shipStartPoint,
+        this.PlayerGameBoard.selectedShip.length,
+        this.PlayerGameBoard.selectedShip.shipStartPoint,
         square,
       );
       shipPath.forEach((path) => {
@@ -153,7 +153,7 @@ class PlaceShips {
 
   //! Unnecessary function
   resetSelectedShip() {
-    this.selectedShip = null;
+    this.PlayerGameBoard.selectedShip = null;
   }
 
   areAllShipsPlaced(shipsArray: Ship[]) {
@@ -188,21 +188,21 @@ class PlaceShips {
   }
 
   shipPlacement(squareNumber: number) {
-    if (!this.selectedShip) return;
+    if (!this.PlayerGameBoard.selectedShip) return;
 
-    if (this.selectedShip.shipStartPoint === null) {
+    if (this.PlayerGameBoard.selectedShip.shipStartPoint === null) {
       if (this.isAvailableSquare(squareNumber)) {
-        this.selectedShip.shipStartPoint = squareNumber;
+        this.PlayerGameBoard.selectedShip.shipStartPoint = squareNumber;
       }
       return;
     }
 
     if (this.canPlaceShip(squareNumber) === true) {
-      this.selectedShip.addShipEndPoint(squareNumber);
+      this.PlayerGameBoard.selectedShip.addShipEndPoint(squareNumber);
       //! Remove following function
       this.placeShipOnGameBoard(
-        this.selectedShip,
-        this.selectedShip.shipStartPoint,
+        this.PlayerGameBoard.selectedShip,
+        this.PlayerGameBoard.selectedShip.shipStartPoint,
         squareNumber,
       );
       this.resetSelectedShip();
