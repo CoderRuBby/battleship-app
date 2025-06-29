@@ -64,6 +64,16 @@ describe('GameBoard', () => {
     });
   });
 
+  describe('attack', () => {
+    it('can attack opponents game board as a miss', () => {
+      const attackLocation = 34;
+
+      testGameBoard.NewAttack.attack(attackLocation, Opponent);
+
+      expect(Opponent.gameboard[attackLocation].isMiss).toBe(true);
+    });
+  });
+
   describe('turn', () => {
     it.skip('will let player place ships if all ships have not been placed', () => {
       const Player = new GameBoard();
