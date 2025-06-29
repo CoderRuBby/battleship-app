@@ -117,7 +117,7 @@ describe('PlaceShips', () => {
 
       PlayerPlaceShip.selectShip(Ship1);
 
-      expect(PlayerPlaceShip.selectedShip).toEqual(expectShip);
+      expect(Player.selectedShip).toEqual(expectShip);
     });
 
     it('can deselect the ship if clicked again', () => {
@@ -125,11 +125,11 @@ describe('PlaceShips', () => {
 
       PlayerPlaceShip.selectShip(Ship1);
 
-      expect(PlayerPlaceShip.selectedShip).toEqual(expectShip);
+      expect(Player.selectedShip).toEqual(expectShip);
 
       PlayerPlaceShip.selectShip(Ship1);
 
-      expect(PlayerPlaceShip.selectedShip).toEqual(null);
+      expect(Player.selectedShip).toEqual(null);
     });
 
     it('can select a different ship', () => {
@@ -138,7 +138,7 @@ describe('PlaceShips', () => {
       PlayerPlaceShip.selectShip(Ship1);
       PlayerPlaceShip.selectShip(Ship2);
 
-      expect(PlayerPlaceShip.selectedShip).toEqual(expectShip);
+      expect(Player.selectedShip).toEqual(expectShip);
     });
 
     test('de-selecting a ship will clear shipStartPoint', () => {
@@ -214,7 +214,7 @@ describe('PlaceShips', () => {
       PlayerPlaceShip.shipPlacement(shipStartPoint);
       PlayerPlaceShip.shipPlacement(shipEndPoint);
 
-      expect(PlayerPlaceShip.selectedShip).toBe(null);
+      expect(Player.selectedShip).toBe(null);
     });
 
     it('will not assign shipStartPoint if already being used', () => {
