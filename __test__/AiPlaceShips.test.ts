@@ -11,6 +11,19 @@ describe('AiPlaceShips', () => {
     AiPlayerPlaceShips = new AiPlaceShips(Ai);
   });
 
+  describe('randomSquare', () => {
+    it('will not return a square that has a ship placed', () => {
+      const testSquare = 45;
+
+      Ai.gameboard[testSquare].ship = Ai.Battleship;
+      Ai.selectedShip = Ai.Battleship;
+
+      const randomSquare = AiPlayerPlaceShips.randomSquare(100, testSquare);
+
+      expect(randomSquare).not.toBe(testSquare);
+    });
+  });
+
   describe('placeShipOnGameboard', () => {
     it('can place all ships on the gameboard', () => {
       AiPlayerPlaceShips.placeShipOnGameBoard();
