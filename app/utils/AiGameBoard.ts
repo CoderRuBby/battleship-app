@@ -1,13 +1,20 @@
+import AiPlaceShips from './AiPlaceShips';
 import GameBoard from './GameBoard';
 
 class AiGameBoard extends GameBoard {
   adjacentSquares: number[];
   initialSquareHit: number | null;
+  PlaceShips: AiPlaceShips;
 
   constructor() {
     super();
     this.adjacentSquares = [];
     this.initialSquareHit = null;
+    this.PlaceShips = new AiPlaceShips(this);
+  }
+
+  placeAll() {
+    this.PlaceShips.placeShipOnGameBoard();
   }
 
   randomAttackLocation(Player: GameBoard): number {
