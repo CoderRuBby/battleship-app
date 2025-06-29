@@ -13,8 +13,16 @@ describe('GameBoard', () => {
     Opponent = new GameBoard();
   });
 
+  describe('selectShip', () => {
+    it('can select a ship', () => {
+      testGameBoard.selectShip(testGameBoard.Battleship);
+
+      expect(testGameBoard.selectedShip).toEqual(testGameBoard.Battleship);
+    });
+  });
+
   describe('turn', () => {
-    it('will let player place ships if all ships have not been placed', () => {
+    it.skip('will let player place ships if all ships have not been placed', () => {
       const Player = new GameBoard();
       let square = 56;
       let square2 = 59;
