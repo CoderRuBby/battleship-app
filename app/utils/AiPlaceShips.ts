@@ -33,7 +33,7 @@ class AiPlaceShips extends PlaceShips {
 
   placeShipOnGameBoard() {
     this.AiGameBoard.allShips.forEach((ship) => {
-      this.selectedShip = ship;
+      this.AiGameBoard.selectedShip = ship;
 
       const square = this.randomSquare(100);
       ship.addShipStart(square);
