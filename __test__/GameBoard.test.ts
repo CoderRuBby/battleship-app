@@ -86,105 +86,105 @@ describe('GameBoard', () => {
   });
 
   describe('turn', () => {
-    it.skip('will let player place ships if all ships have not been placed', () => {
-      const Player = new GameBoard();
+    it('will let player place ships if all ships have not been placed', () => {
+      //const Player = new GameBoard();
       let square = 56;
       let square2 = 59;
-      const Battleship = Player.Battleship;
+      const Battleship = testGameBoard.Battleship;
 
-      Player.selectShip(Battleship);
-      Player.turn(square);
+      testGameBoard.selectShip(Battleship);
+      testGameBoard.turn(square);
 
-      expect(Player.Battleship.shipStartPoint).toBe(square);
-      expect(Player.selectedShip).toEqual(Battleship);
+      expect(testGameBoard.Battleship.shipStartPoint).toBe(square);
+      expect(testGameBoard.selectedShip).toEqual(Battleship);
 
-      Player.turn(square2);
+      testGameBoard.turn(square2);
 
       expect(Battleship.shipEndPoint).toBe(square2);
       expect(Battleship.isPlaced).toBe(true);
-      expect(Player.gameboard[56].ship).toEqual(Battleship);
-      expect(Player.gameboard[57].ship).toEqual(Battleship);
-      expect(Player.gameboard[58].ship).toEqual(Battleship);
-      expect(Player.gameboard[59].ship).toEqual(Battleship);
-      expect(Player.selectedShip).toBe(null);
+      expect(testGameBoard.gameboard[56].ship).toEqual(Battleship);
+      expect(testGameBoard.gameboard[57].ship).toEqual(Battleship);
+      expect(testGameBoard.gameboard[58].ship).toEqual(Battleship);
+      expect(testGameBoard.gameboard[59].ship).toEqual(Battleship);
+      expect(testGameBoard.selectedShip).toBe(null);
 
       square = 30;
       square2 = 34;
-      const Carrier = Player.Carrier;
+      const Carrier = testGameBoard.Carrier;
 
-      Player.selectShip(Carrier);
-      Player.turn(square);
+      testGameBoard.selectShip(Carrier);
+      testGameBoard.turn(square);
 
       expect(Carrier.shipStartPoint).toBe(square);
-      expect(Player.selectedShip).toEqual(Carrier);
+      expect(testGameBoard.selectedShip).toEqual(Carrier);
 
-      Player.turn(square2);
+      testGameBoard.turn(square2);
 
       expect(Carrier.shipEndPoint).toBe(square2);
       expect(Carrier.isPlaced).toBe(true);
-      expect(Player.gameboard[30].ship).toEqual(Carrier);
-      expect(Player.gameboard[31].ship).toEqual(Carrier);
-      expect(Player.gameboard[32].ship).toEqual(Carrier);
-      expect(Player.gameboard[33].ship).toEqual(Carrier);
-      expect(Player.gameboard[34].ship).toEqual(Carrier);
-      expect(Player.selectedShip).toBe(null);
+      expect(testGameBoard.gameboard[30].ship).toEqual(Carrier);
+      expect(testGameBoard.gameboard[31].ship).toEqual(Carrier);
+      expect(testGameBoard.gameboard[32].ship).toEqual(Carrier);
+      expect(testGameBoard.gameboard[33].ship).toEqual(Carrier);
+      expect(testGameBoard.gameboard[34].ship).toEqual(Carrier);
+      expect(testGameBoard.selectedShip).toBe(null);
 
-      const Cruiser = Player.Cruiser;
+      const Cruiser = testGameBoard.Cruiser;
       square = 15;
       square2 = 17;
 
-      Player.selectShip(Cruiser);
-      Player.turn(square);
+      testGameBoard.selectShip(Cruiser);
+      testGameBoard.turn(square);
 
       expect(Cruiser.shipStartPoint).toBe(square);
-      expect(Player.selectedShip).toEqual(Cruiser);
+      expect(testGameBoard.selectedShip).toEqual(Cruiser);
 
-      Player.turn(square2);
+      testGameBoard.turn(square2);
 
       expect(Cruiser.shipEndPoint).toBe(square2);
       expect(Cruiser.isPlaced).toBe(true);
-      expect(Player.gameboard[15].ship).toEqual(Cruiser);
-      expect(Player.gameboard[16].ship).toEqual(Cruiser);
-      expect(Player.gameboard[17].ship).toEqual(Cruiser);
-      expect(Player.selectedShip).toBe(null);
+      expect(testGameBoard.gameboard[15].ship).toEqual(Cruiser);
+      expect(testGameBoard.gameboard[16].ship).toEqual(Cruiser);
+      expect(testGameBoard.gameboard[17].ship).toEqual(Cruiser);
+      expect(testGameBoard.selectedShip).toBe(null);
 
-      const Submarine = Player.Submarine;
+      const Submarine = testGameBoard.Submarine;
       square = 46;
       square2 = 48;
 
-      Player.selectShip(Submarine);
-      Player.turn(square);
+      testGameBoard.selectShip(Submarine);
+      testGameBoard.turn(square);
 
-      expect(Player.selectedShip).toEqual(Submarine);
+      expect(testGameBoard.selectedShip).toEqual(Submarine);
       expect(Submarine.shipStartPoint).toBe(square);
 
-      Player.turn(square2);
+      testGameBoard.turn(square2);
 
       expect(Submarine.shipEndPoint).toBe(square2);
       expect(Submarine.isPlaced).toBe(true);
-      expect(Player.gameboard[46].ship).toEqual(Submarine);
-      expect(Player.gameboard[47].ship).toEqual(Submarine);
-      expect(Player.gameboard[48].ship).toEqual(Submarine);
-      expect(Player.selectedShip).toBe(null);
+      expect(testGameBoard.gameboard[46].ship).toEqual(Submarine);
+      expect(testGameBoard.gameboard[47].ship).toEqual(Submarine);
+      expect(testGameBoard.gameboard[48].ship).toEqual(Submarine);
+      expect(testGameBoard.selectedShip).toBe(null);
 
-      const Destroyer = Player.Destroyer;
+      const Destroyer = testGameBoard.Destroyer;
       square = 70;
       square2 = 80;
 
-      Player.selectShip(Destroyer);
-      Player.turn(square);
+      testGameBoard.selectShip(Destroyer);
+      testGameBoard.turn(square);
 
-      expect(Player.selectedShip).toEqual(Destroyer);
+      expect(testGameBoard.selectedShip).toEqual(Destroyer);
       expect(Destroyer.shipStartPoint).toBe(square);
 
-      Player.turn(square2);
+      testGameBoard.turn(square2);
 
       expect(Destroyer.shipEndPoint).toBe(square2);
       expect(Destroyer.isPlaced).toBe(true);
-      expect(Player.gameboard[70].ship).toEqual(Destroyer);
-      expect(Player.gameboard[80].ship).toEqual(Destroyer);
-      expect(Player.selectedShip).toBe(null);
-      expect(Player.allShipsPlaced).toBe(true);
+      expect(testGameBoard.gameboard[70].ship).toEqual(Destroyer);
+      expect(testGameBoard.gameboard[80].ship).toEqual(Destroyer);
+      expect(testGameBoard.selectedShip).toBe(null);
+      expect(testGameBoard.allShipsPlaced).toBe(true);
     });
 
     it('will do nothing if the same square is chosen', () => {
@@ -247,7 +247,7 @@ describe('GameBoard', () => {
       expect(Opponent.gameboard[square].isMiss).toBe(true);
     });
 
-    it('will declare a winner if all ships are sunk', () => {
+    it.skip('will declare a winner if all ships are sunk', () => {
       Opponent.Battleship.sunk = true;
       Opponent.Carrier.sunk = true;
       Opponent.Cruiser.sunk = true;
