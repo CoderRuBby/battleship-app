@@ -38,4 +38,12 @@ describe('AiNormalAttack', () => {
       expect(randomLocation).not.toBe(testLocation);
     });
   });
+
+  describe('normalAttack', () => {
+    it('can attack opponent', () => {
+      const attack = Ai.normalAttack(Player);
+
+      expect(Player.gameboard[attack].isMiss).toBe(true);
+    });
+  });
 });
