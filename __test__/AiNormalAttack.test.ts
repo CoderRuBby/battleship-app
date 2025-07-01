@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import AiAttack from '~/utils/AiAttack';
+import AiAttack from '~/utils/AiNormalAttack';
 import GameBoard from '~/utils/GameBoard';
 
 describe('AiAttack', () => {
