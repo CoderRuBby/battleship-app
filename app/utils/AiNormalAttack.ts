@@ -1,7 +1,7 @@
 import Attack from './Attack';
 import GameBoard from './GameBoard';
 
-class AiAttack extends Attack {
+class AiNormalAttack extends Attack {
   constructor() {
     super();
   }
@@ -23,4 +23,4 @@ class AiAttack extends Attack {
   }
 }
 
-export default AiAttack;
+export default AiNormalAttack;

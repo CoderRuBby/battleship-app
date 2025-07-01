@@ -1,14 +1,14 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import AiAttack from '~/utils/AiNormalAttack';
+import AiNormalAttack from '~/utils/AiNormalAttack';
 import GameBoard from '~/utils/GameBoard';
 
-describe('AiAttack', () => {
-  let Ai: AiAttack;
+describe('AiNormalAttack', () => {
+  let Ai: AiNormalAttack;
   let Player: GameBoard;
 
   beforeEach(() => {
     Player = new GameBoard();
-    Ai = new AiAttack();
+    Ai = new AiNormalAttack();
   });
 
   describe('randomAttackLocation', () => {
