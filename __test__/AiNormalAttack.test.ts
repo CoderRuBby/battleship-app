@@ -2,11 +2,7 @@ import { describe, it, beforeEach, expect } from 'vitest';
 import AiNormalAttack from '~/utils/AiNormalAttack';
 import GameBoard from '~/utils/GameBoard';
 
-<<<<<<< HEAD
 describe('AiNormalAttack', () => {
-=======
-describe('AiAttack', () => {
->>>>>>> 0680e7d639eb1404bf48bb7a064f057cb1e1abec
   let Ai: AiNormalAttack;
   let Player: GameBoard;
 
