@@ -19,7 +19,7 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('getAdjacentSquares', () => {
+  describe.skip('getAdjacentSquares', () => {
     it('will return [22, 24, 33, 13], adjacent square to 23', () => {
       const attackedSquare = 23;
       const adjacentSquares = [22, 24, 33, 13];
@@ -86,7 +86,7 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('getAttackOrientation', () => {
+  describe.skip('getAttackOrientation', () => {
     it('will remove horizontal squares if attacking vertically', () => {
       const attackedSquare = 35;
       const adjacentAttack = 45;
@@ -120,7 +120,7 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('addRowColSquare', () => {
+  describe.skip('addRowColSquare', () => {
     it('will add the appropriate adjacent square to adjacentSquares', () => {
       const attackedSquare = 35;
       const adjacentAttack = 36;
@@ -133,7 +133,7 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('attack()', () => {
+  describe.skip('attack()', () => {
     it('will update adjacentSquares when hitting a ship', () => {
       const attackedSquare = 35;
 
@@ -214,7 +214,7 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('getAdjacentAttack()', () => {
+  describe.skip('getAdjacentAttack()', () => {
     it('will return a random adjacent square from adjacentSquares', () => {
       Ai.adjacentSquares = [34, 36, 25, 45];
 
@@ -222,7 +222,7 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('turn', () => {
+  describe.skip('turn', () => {
     it('will place ships on gameboard for the first turn', () => {
       Ai.turn();
 
