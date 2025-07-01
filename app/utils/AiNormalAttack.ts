@@ -21,6 +21,14 @@ class AiNormalAttack extends Attack {
 
     return location;
   }
+
+  normalAttack(Player: GameBoard) {
+    const randomLocation = this.randomAttackLocation(Player);
+
+    super.attack(randomLocation, Player);
+
+    return randomLocation;
+  }
 }
 
 export default AiNormalAttack;
