@@ -98,6 +98,22 @@ describe('AiGameboard', () => {
         expect(Player.gameboard[attackLocation].isHit).toBe(true);
         expect(Player.gameboard[attackLocation].isMiss).toBe(false);
       });
+
+      describe('when attack is a hit', () => {
+        it('will generate/add adjSquares property', () => {});
+        it('will add hit ship to hitShips set', () => {});
+      });
+    });
+
+    describe('attackLogic after first ship is hit', () => {
+      it('will attack a random adjacent location', () => {});
+      describe('when attack is a miss', () => {
+        it('will remove the attacked location from adjSquares property', () => {});
+      });
+      describe('when attack is a hit', () => {
+        it('will generate/add an attackPath property', () => {});
+        it('will remove the attacked location from attackPath property', () => {});
+      });
     });
   });
 
