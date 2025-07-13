@@ -45,6 +45,7 @@ describe('GamePlay', () => {
       Game.turn(21);
       Player.selectedShip = Player.Submarine;
       Game.turn(63);
+      //! occasionally gets error: this.possibleShipEndPoints is not a function
       Game.turn(65);
 
       expect(Ai.allShipsPlaced).toBe(true);
