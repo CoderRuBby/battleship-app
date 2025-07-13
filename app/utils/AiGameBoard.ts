@@ -33,6 +33,17 @@ class AiGameBoard extends GameBoard {
     return location;
   }
 
+  attackLogic(Opponent: GameBoard, testNumber?: number) {
+    let attackLocation;
+    if (testNumber) {
+      attackLocation = testNumber;
+    } else {
+      attackLocation = this.randomAttackLocation(Opponent);
+    }
+
+    this.attack(attackLocation, Opponent);
+  }
+
   isOpponentSquareAvailable(square: number, Opponent: GameBoard): boolean {
     if (Opponent.gameboard[square].isHit) {
       return false;
@@ -41,6 +52,7 @@ class AiGameBoard extends GameBoard {
     }
   }
 
+  /*
   getAdjacentSquares(square: number, Opponent: GameBoard): number[] {
     const availableSquares: number[] = [];
     const squares = this.possibleShipEndPoints(square, 2);
@@ -147,6 +159,7 @@ class AiGameBoard extends GameBoard {
       this.attack(square, Opponent);
     }
   }
+    */
 }
 
 export default AiGameBoard;
