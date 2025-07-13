@@ -47,6 +47,28 @@ describe('AiGameboard', () => {
     });
   });
 
+  describe('attackLogic', () => {
+    it('attacks Player location which can result in a miss', () => {
+      const attackLocation = 45;
+
+      Ai.attackLogic(Player, attackLocation);
+
+      expect(Player.gameboard[attackLocation].isMiss).toBe(true);
+      expect(Player.gameboard[attackLocation].isHit).toBe(false);
+    });
+
+    it('attacks Player location which can result in a hit', () => {
+      const attackLocation = 45;
+
+      Player.gameboard[attackLocation].ship = Player.Battleship;
+
+      Ai.attackLogic(Player, attackLocation);
+
+      expect(Player.gameboard[attackLocation].isHit).toBe(true);
+      expect(Player.gameboard[attackLocation].isMiss).toBe(false);
+    });
+  });
+
   describe.skip('getAdjacentSquares', () => {
     it('will return [22, 24, 33, 13], adjacent square to 23', () => {
       const attackedSquare = 23;
