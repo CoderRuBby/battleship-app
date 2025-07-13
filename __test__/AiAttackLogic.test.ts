@@ -12,7 +12,7 @@ describe('aiAttackLogic', () => {
   });
 
   describe('randomAttackLocation', () => {
-    it('will return a number', () => {
+    it('will return a possible square to be attacked', () => {
       const randomLocation = Ai.randomAttackLocation(Player);
 
       expect(Number.isInteger(randomLocation)).toBe(true);
