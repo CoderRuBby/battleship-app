@@ -53,7 +53,7 @@ describe('AiGameboard', () => {
     it('attacks Player location which can result in a miss', () => {
       const attackLocation = 45;
 
-      Ai.attackLogic(Player, attackLocation);
+      Ai.attack(attackLocation, Player);
 
       expect(Player.gameboard[attackLocation].isMiss).toBe(true);
       expect(Player.gameboard[attackLocation].isHit).toBe(false);
@@ -64,7 +64,7 @@ describe('AiGameboard', () => {
 
       Player.gameboard[attackLocation].ship = Player.Battleship;
 
-      Ai.attackLogic(Player, attackLocation);
+      Ai.attack(attackLocation, Player);
 
       expect(Player.gameboard[attackLocation].isHit).toBe(true);
       expect(Player.gameboard[attackLocation].isMiss).toBe(false);
