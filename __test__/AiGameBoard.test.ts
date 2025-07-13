@@ -47,7 +47,9 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('attackLogic', () => {
+  describe('attack', () => {
+    // Since AiGameBoard extends GameBoard, it inherits the attack method
+    // Test that it properly calls the attack functionality
     it('attacks Player location which can result in a miss', () => {
       const attackLocation = 45;
 
@@ -68,6 +70,8 @@ describe('AiGameboard', () => {
       expect(Player.gameboard[attackLocation].isMiss).toBe(false);
     });
   });
+
+  describe('attackLogic', () => {});
 
   describe.skip('getAdjacentSquares', () => {
     it('will return [22, 24, 33, 13], adjacent square to 23', () => {
