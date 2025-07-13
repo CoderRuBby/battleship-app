@@ -1,16 +1,19 @@
 import AiPlaceShips from './AiPlaceShips';
 import GameBoard from './GameBoard';
+import type Ship from './Ship';
 
 class AiGameBoard extends GameBoard {
   adjacentSquares: number[];
   initialSquareHit: number | null;
   PlaceShips: AiPlaceShips;
+  hitShips: Set<Ship>;
 
   constructor() {
     super();
     this.adjacentSquares = [];
     this.initialSquareHit = null;
     this.PlaceShips = new AiPlaceShips(this);
+    this.hitShips = new Set();
   }
 
   placeAll() {
@@ -45,6 +48,7 @@ class AiGameBoard extends GameBoard {
 
     if (Opponent.gameboard[attackLocation].isHit) {
       this.getAdjacentSquares(attackLocation, Opponent);
+      this.hitShips.add(Opponent.gameboard[attackLocation].ship!);
     }
   }
 
