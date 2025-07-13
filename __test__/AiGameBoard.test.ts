@@ -109,11 +109,11 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
 
           expect(Player.gameboard[attackLocation].isHit).toBe(true);
-          expect(Ai.adjacentSquares).toContain(46);
-          expect(Ai.adjacentSquares).toContain(44);
-          expect(Ai.adjacentSquares).toContain(55);
-          expect(Ai.adjacentSquares).toContain(35);
-          expect(Ai.adjacentSquares.length).toBe(4);
+          expect(Ai.TargetingSystem.squaresArray).toContain(46);
+          expect(Ai.TargetingSystem.squaresArray).toContain(44);
+          expect(Ai.TargetingSystem.squaresArray).toContain(55);
+          expect(Ai.TargetingSystem.squaresArray).toContain(35);
+          expect(Ai.TargetingSystem.squaresArray.length).toBe(4);
         });
         it('will add hit ship to hitShips set', () => {
           const attackLocation = 45;

@@ -1,19 +1,20 @@
 import AiPlaceShips from './AiPlaceShips';
 import GameBoard from './GameBoard';
 import type Ship from './Ship';
+import AdjacentSquares from './AdjacentSquares';
 
 class AiGameBoard extends GameBoard {
-  adjacentSquares: number[];
   initialSquareHit: number | null;
   PlaceShips: AiPlaceShips;
   hitShips: Set<Ship>;
+  TargetingSystem: AdjacentSquares;
 
   constructor() {
     super();
-    this.adjacentSquares = [];
     this.initialSquareHit = null;
     this.PlaceShips = new AiPlaceShips(this);
     this.hitShips = new Set();
+    this.TargetingSystem = new AdjacentSquares();
   }
 
   placeAll() {
@@ -47,16 +48,8 @@ class AiGameBoard extends GameBoard {
     this.attack(attackLocation, Opponent);
 
     if (Opponent.gameboard[attackLocation].isHit) {
-      this.getAdjacentSquares(attackLocation, Opponent);
+      this.TargetingSystem.getSquares(attackLocation, Opponent);
       this.hitShips.add(Opponent.gameboard[attackLocation].ship!);
-    }
-  }
-
-  isAvailableSquare(square: number, Opponent: GameBoard): boolean {
-    if (Opponent.gameboard[square].ship === null) {
-      return true;
-    } else {
-      return false;
     }
   }
 
@@ -69,74 +62,6 @@ class AiGameBoard extends GameBoard {
     });
 
     return isAvailable;
-  }
-
-  possibleShipEndPoints(
-    initialSquare: number,
-    shipLength: number,
-    Opponent: GameBoard,
-  ): number[] {
-    const possibleEndPoints: number[] = [];
-    const row = Math.floor(initialSquare / 10);
-    const col = initialSquare % 10;
-    let endPoint: number;
-
-    // Check right direction
-    if (col + shipLength - 1 < 10) {
-      endPoint = initialSquare + (shipLength - 1);
-      if (this.isAvailableSquare(endPoint, Opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    // Check left direction
-    if (col - (shipLength - 1) >= 0) {
-      endPoint = initialSquare - (shipLength - 1);
-      if (this.isAvailableSquare(endPoint, Opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    // Check down direction
-    if (row + shipLength - 1 < 10) {
-      endPoint = initialSquare + (shipLength - 1) * 10;
-      if (this.isAvailableSquare(endPoint, Opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    // Check up direction
-    if (row - (shipLength - 1) >= 0) {
-      endPoint = initialSquare - (shipLength - 1) * 10;
-      if (this.isAvailableSquare(endPoint, Opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    return possibleEndPoints;
-  }
-
-  getAdjacentSquares(square: number, Opponent: GameBoard): number[] {
-    const availableSquares: number[] = [];
-    const squares = this.possibleShipEndPoints(square, 2, Opponent);
-
-    squares.forEach((s) => {
-      const available = this.isOpponentSquareAvailable(s, Opponent);
-      if (available) {
-        availableSquares.push(s);
-        this.adjacentSquares.push(s);
-      }
-    });
-
-    return availableSquares;
-  }
-
-  isOpponentSquareAvailable(square: number, Opponent: GameBoard): boolean {
-    if (Opponent.gameboard[square].isHit) {
-      return false;
-    } else {
-      return true;
-    }
   }
 
   /*
