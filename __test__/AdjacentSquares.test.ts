@@ -41,8 +41,9 @@ describe('AdjacentSquares', () => {
       expect(adjacentSquares.length).toBe(2);
     });
 
-    it('will not return squares that have been hit', () => {
+    it('will not return squares that have hit/miss', () => {
       Player.gameboard[57].isHit = true;
+      Player.gameboard[55].isMiss = true;
 
       const attackedSquare = 56;
 
@@ -51,10 +52,11 @@ describe('AdjacentSquares', () => {
         Player,
       );
 
-      expect(adjacentSquares).toContain(55);
       expect(adjacentSquares).toContain(46);
       expect(adjacentSquares).toContain(66);
+      expect(adjacentSquares).not.toContain(55);
       expect(adjacentSquares).not.toContain(57);
+      expect(adjacentSquares.length).toBe(2);
     });
 
     it('will return squares that have an opponents ship, not hit', () => {
