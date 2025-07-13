@@ -144,33 +144,6 @@ describe('AiGameboard', () => {
   });
 
   describe.skip('getAdjacentSquares', () => {
-    it('will not return squares that have been hit', () => {
-      Player.gameboard[57].isHit = true;
-
-      const attackedSquare = 56;
-      const adjacentSquares = [55, 66, 46];
-
-      adjacentSquares.forEach((location) => {
-        expect(Ai.getAdjacentSquares(attackedSquare, Player)).toContain(
-          location,
-        );
-      });
-      expect(Ai.getAdjacentSquares(attackedSquare, Player)).not.toContain(57);
-    });
-
-    it('will return squares that have an opponents ship, not hit', () => {
-      const attackedSquare = 55;
-      const adjacentSquares = [54, 56, 65, 45];
-
-      Player.gameboard[56].ship = Player.Battleship;
-
-      adjacentSquares.forEach((location) => {
-        expect(Ai.getAdjacentSquares(attackedSquare, Player)).toContain(
-          location,
-        );
-      });
-    });
-
     it('will update adjacentSquares property if ship is hit', () => {
       const attackedSquare = 35;
 
