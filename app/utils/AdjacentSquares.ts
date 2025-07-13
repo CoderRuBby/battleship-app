@@ -16,14 +16,9 @@ class AdjacentSquares {
   }
 
   isAvailableSquare(square: number, Opponent: GameBoard): boolean {
-    if (
-      !Opponent.gameboard[square].ship?.isHit ||
-      Opponent.gameboard[square].ship
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    return (
+      !Opponent.gameboard[square].isHit && !Opponent.gameboard[square].isMiss
+    );
   }
 
   possibleShipEndPoints(
