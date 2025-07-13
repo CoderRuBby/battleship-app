@@ -25,5 +25,20 @@ describe('AdjacentSquares', () => {
       expect(adjacentSquares).toContain(33);
       expect(adjacentSquares.length).toBe(4);
     });
+
+    it('will return [1, 10], given location #0', () => {
+      const attackedSquare = 0;
+
+      const adjacentSquares = TargetingSystem.getSquares(
+        attackedSquare,
+        Player,
+      );
+
+      expect(adjacentSquares).toContain(1);
+      expect(adjacentSquares).toContain(10);
+      expect(adjacentSquares).not.toContain(-1);
+      expect(adjacentSquares).not.toContain(-10);
+      expect(adjacentSquares.length).toBe(2);
+    });
   });
 });
