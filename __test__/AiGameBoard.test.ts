@@ -19,6 +19,36 @@ describe('AiGameboard', () => {
     });
   });
 
+  describe('attackLogic', () => {
+    describe('randomAttackLocation', () => {
+      it('will return a possible square to be attacked', () => {
+        const randomLocation = Ai.randomAttackLocation(Player);
+
+        expect(Number.isInteger(randomLocation)).toBe(true);
+      });
+
+      it('will not get a location that has a miss', () => {
+        const testLocation = 45;
+
+        Player.gameboard[testLocation].isMiss = true;
+
+        const randomLocation = Ai.randomAttackLocation(Player, testLocation);
+
+        expect(randomLocation).not.toBe(testLocation);
+      });
+
+      it('will not get a location that has a hit', () => {
+        const testLocation = 45;
+
+        Player.gameboard[testLocation].isHit = true;
+
+        const randomLocation = Ai.randomAttackLocation(Player, testLocation);
+
+        expect(randomLocation).not.toBe(testLocation);
+      });
+    });
+  });
+
   describe.skip('getAdjacentSquares', () => {
     it('will return [22, 24, 33, 13], adjacent square to 23', () => {
       const attackedSquare = 23;
