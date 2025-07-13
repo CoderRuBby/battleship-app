@@ -72,6 +72,7 @@ describe('AiGameboard', () => {
   });
 
   describe('attackLogic', () => {
+    //!refactor block into beforeFirstHit
     describe('attackLogic when no opponent ships are hit', () => {
       it('will attack random locations that can result in a miss', () => {
         const attackLocation = 45;
@@ -105,6 +106,7 @@ describe('AiGameboard', () => {
       });
     });
 
+    //!refactor block into afterFirstHit
     describe('attackLogic after first ship is hit', () => {
       it('will attack a random adjacent location', () => {});
       describe('when attack is a miss', () => {
