@@ -115,7 +115,15 @@ describe('AiGameboard', () => {
           expect(Ai.adjacentSquares).toContain(35);
           expect(Ai.adjacentSquares.length).toBe(4);
         });
-        it('will add hit ship to hitShips set', () => {});
+        it('will add hit ship to hitShips set', () => {
+          const attackLocation = 45;
+
+          Player.gameboard[attackLocation].ship = Player.Battleship;
+
+          Ai.attackLogic(Player, attackLocation);
+
+          expect(Ai.hitShips).toEqual(new Set().add(Player.Battleship));
+        });
       });
     });
 
