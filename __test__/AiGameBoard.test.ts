@@ -115,6 +115,9 @@ describe('AiGameboard', () => {
       describe('when attack is a hit', () => {
         it('will generate/add an attackPath property', () => {});
         it('will remove the attacked location from attackPath property', () => {});
+        describe('when attack results in a sunk ship', () => {
+          it('will remove ship from hitShips property', () => {});
+        });
       });
     });
   });
