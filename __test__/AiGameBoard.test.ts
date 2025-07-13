@@ -101,7 +101,20 @@ describe('AiGameboard', () => {
       });
 
       describe('when attack is a hit', () => {
-        it('will generate/add adjSquares property', () => {});
+        it('will generate/add adjSquares property', () => {
+          const attackLocation = 45;
+
+          Player.gameboard[attackLocation].ship = Player.Battleship;
+
+          Ai.attackLogic(Player, attackLocation);
+
+          expect(Player.gameboard[attackLocation].isHit).toBe(true);
+          expect(Ai.adjacentSquares).toContain(46);
+          expect(Ai.adjacentSquares).toContain(44);
+          expect(Ai.adjacentSquares).toContain(55);
+          expect(Ai.adjacentSquares).toContain(35);
+          expect(Ai.adjacentSquares.length).toBe(4);
+        });
         it('will add hit ship to hitShips set', () => {});
       });
     });
