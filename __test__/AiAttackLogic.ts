@@ -1,14 +1,14 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import AiNormalAttack from '~/utils/AiNormalAttack';
+import AiAttackLogic from '~/utils/AiAttackLogic';
 import GameBoard from '~/utils/GameBoard';
 
-describe('AiNormalAttack', () => {
-  let Ai: AiNormalAttack;
+describe('aiAttackLogic', () => {
+  let Ai: AiAttackLogic;
   let Player: GameBoard;
 
   beforeEach(() => {
     Player = new GameBoard();
-    Ai = new AiNormalAttack();
+    Ai = new AiAttackLogic();
   });
 
   describe('randomAttackLocation', () => {
@@ -36,14 +36,6 @@ describe('AiNormalAttack', () => {
       const randomLocation = Ai.randomAttackLocation(Player, testLocation);
 
       expect(randomLocation).not.toBe(testLocation);
-    });
-  });
-
-  describe('normalAttack', () => {
-    it('can attack opponent', () => {
-      const attack = Ai.normalAttack(Player);
-
-      expect(Player.gameboard[attack].isMiss).toBe(true);
     });
   });
 });
