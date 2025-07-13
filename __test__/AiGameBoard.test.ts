@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import AiGameBoard from '~/utils/AiGameBoard';
 import GameBoard from '~/utils/GameBoard';
 
@@ -71,7 +71,35 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe('attackLogic', () => {});
+  describe('attackLogic', () => {
+    describe('attackLogic when no opponent ships are hit', () => {
+      it('will attack random locations that can result in a miss', () => {
+        const attackLocation = 45;
+        const attackSpy = vi.spyOn(Ai, 'attack');
+
+        Ai.attackLogic(Player, attackLocation);
+
+        expect(Ai.attack).toHaveBeenCalled();
+        expect(attackSpy).toHaveBeenCalledWith(attackLocation, Player);
+        expect(Player.gameboard[attackLocation].isMiss).toBe(true);
+        expect(Player.gameboard[attackLocation].isHit).toBe(false);
+      });
+
+      it('will attack random locations that can result in a hit', () => {
+        const attackLocation = 45;
+        const attackSpy = vi.spyOn(Ai, 'attack');
+
+        Player.gameboard[attackLocation].ship = Player.Battleship;
+
+        Ai.attackLogic(Player, attackLocation);
+
+        expect(Ai.attack).toHaveBeenCalled();
+        expect(attackSpy).toHaveBeenCalledWith(attackLocation, Player);
+        expect(Player.gameboard[attackLocation].isHit).toBe(true);
+        expect(Player.gameboard[attackLocation].isMiss).toBe(false);
+      });
+    });
+  });
 
   describe.skip('getAdjacentSquares', () => {
     it('will return [22, 24, 33, 13], adjacent square to 23', () => {
