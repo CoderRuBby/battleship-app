@@ -143,22 +143,6 @@ describe('AiGameboard', () => {
     });
   });
 
-  describe.skip('getAdjacentSquares', () => {
-    it('will update adjacentSquares property if ship is hit', () => {
-      const attackedSquare = 35;
-
-      Player.gameboard[attackedSquare].ship = Player.Battleship;
-
-      Ai.getAdjacentSquares(attackedSquare, Player);
-
-      expect(Ai.adjacentSquares).toContain(34);
-      expect(Ai.adjacentSquares).toContain(36);
-      expect(Ai.adjacentSquares).toContain(25);
-      expect(Ai.adjacentSquares).toContain(45);
-      expect(Ai.adjacentSquares.length).toBe(4);
-    });
-  });
-
   describe.skip('getAttackOrientation', () => {
     it('will remove horizontal squares if attacking vertically', () => {
       const attackedSquare = 35;
