@@ -21,7 +21,7 @@ describe('AiGameboard', () => {
 
   describe('randomAttackLocation', () => {
     it('will return a possible square to be attacked', () => {
-      const randomLocation = Ai.randomAttackLocation(Player);
+      const randomLocation = Ai.randomAttackLocation(Player, 100);
 
       expect(Number.isInteger(randomLocation)).toBe(true);
     });
@@ -31,7 +31,7 @@ describe('AiGameboard', () => {
 
       Player.gameboard[testLocation].isMiss = true;
 
-      const randomLocation = Ai.randomAttackLocation(Player, testLocation);
+      const randomLocation = Ai.randomAttackLocation(Player, 100, testLocation);
 
       expect(randomLocation).not.toBe(testLocation);
     });
@@ -41,7 +41,7 @@ describe('AiGameboard', () => {
 
       Player.gameboard[testLocation].isHit = true;
 
-      const randomLocation = Ai.randomAttackLocation(Player, testLocation);
+      const randomLocation = Ai.randomAttackLocation(Player, 100, testLocation);
 
       expect(randomLocation).not.toBe(testLocation);
     });
@@ -129,7 +129,23 @@ describe('AiGameboard', () => {
 
     //!refactor block into afterFirstHit
     describe('attackLogic after first ship is hit', () => {
-      it('will attack a random adjacent location', () => {});
+      it('will attack a random adjacent location', () => {
+        const attackLocation = 45;
+
+        Player.gameboard[attackLocation].ship = Player.Battleship;
+
+        Ai.attackLogic(Player, attackLocation);
+        Ai.attackLogic(Player);
+
+        const isAttacked =
+          Player.gameboard[46].isMiss === true ||
+          Player.gameboard[44].isMiss === true ||
+          Player.gameboard[55].isMiss === true ||
+          Player.gameboard[35].isMiss === true;
+
+        expect(isAttacked).toBe(true);
+      });
+
       describe('when attack is a miss', () => {
         it('will remove the attacked location from adjSquares property', () => {});
       });
