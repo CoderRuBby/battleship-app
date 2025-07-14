@@ -21,17 +21,21 @@ class AiGameBoard extends GameBoard {
     this.PlaceShips.placeShipOnGameBoard();
   }
 
-  randomAttackLocation(Player: GameBoard, testNumber?: number): number {
+  randomAttackLocation(
+    Player: GameBoard,
+    max: number,
+    testNumber?: number,
+  ): number {
     let location;
 
     if (testNumber) {
       location = testNumber;
     } else {
-      location = Math.floor(Math.random() * 100);
+      location = Math.floor(Math.random() * max);
     }
 
     if (Player.gameboard[location].isHit || Player.gameboard[location].isMiss) {
-      return this.randomAttackLocation(Player);
+      return this.randomAttackLocation(Player, 100);
     }
 
     return location;
@@ -41,8 +45,16 @@ class AiGameBoard extends GameBoard {
     let attackLocation;
     if (testNumber) {
       attackLocation = testNumber;
+    } else if (this.hitShips.size > 0) {
+      attackLocation =
+        this.TargetingSystem.squaresArray[
+          this.randomAttackLocation(
+            Opponent,
+            this.TargetingSystem.squaresArray.length,
+          )
+        ];
     } else {
-      attackLocation = this.randomAttackLocation(Opponent);
+      attackLocation = this.randomAttackLocation(Opponent, 100);
     }
 
     this.attack(attackLocation, Opponent);
