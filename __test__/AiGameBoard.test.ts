@@ -147,7 +147,16 @@ describe('AiGameboard', () => {
       });
 
       describe('when attack is a miss', () => {
-        it('will remove the attacked location from adjSquares property', () => {});
+        it('will remove the attacked location from adjSquares property', () => {
+          const attackLocation = 45;
+
+          Player.gameboard[attackLocation].ship = Player.Battleship;
+
+          Ai.attackLogic(Player, attackLocation);
+          const secondAttack = Ai.attackLogic(Player);
+
+          expect(Ai.TargetingSystem.squaresArray).not.toContain(secondAttack);
+        });
       });
       describe('when attack is a hit', () => {
         it('will generate/add an attackPath property', () => {});
@@ -157,6 +166,7 @@ describe('AiGameboard', () => {
         });
       });
     });
+    //!refactor block into afterFirstHit
   });
 
   describe.skip('getAttackOrientation', () => {
@@ -219,18 +229,6 @@ describe('AiGameboard', () => {
       expect(Ai.adjacentSquares).toContain(25);
       expect(Ai.adjacentSquares).toContain(45);
       expect(Ai.adjacentSquares.length).toBe(4);
-    });
-
-    it('will remove a missed adjacent square from adjacentSquare prop', () => {
-      const attackedSquare = 64;
-      const adjacentAttack = 65;
-
-      Player.gameboard[attackedSquare].ship = Player.Battleship;
-
-      Ai.attack(attackedSquare, Player);
-      Ai.attack(adjacentAttack, Player);
-
-      expect(Ai.adjacentSquares).not.toContain(65);
     });
 
     it('will remove horizontal squares if attacking vertically', () => {
