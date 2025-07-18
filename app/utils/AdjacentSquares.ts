@@ -80,6 +80,17 @@ class AdjacentSquares {
 
     return availableSquares;
   }
+
+  removeAdjacentSquare(square: number) {
+    const squares: number[] = [];
+    this.squaresArray.forEach((s) => {
+      if (s !== square) {
+        squares.push(s);
+      }
+    });
+
+    this.squaresArray = squares;
+  }
 }
 
 export default AdjacentSquares;

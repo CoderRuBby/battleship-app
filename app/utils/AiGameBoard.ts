@@ -53,6 +53,7 @@ class AiGameBoard extends GameBoard {
             this.TargetingSystem.squaresArray.length,
           )
         ];
+      this.TargetingSystem.removeAdjacentSquare(attackLocation);
     } else {
       attackLocation = this.randomAttackLocation(Opponent, 100);
     }
@@ -63,6 +64,8 @@ class AiGameBoard extends GameBoard {
       this.TargetingSystem.getSquares(attackLocation, Opponent);
       this.hitShips.add(Opponent.gameboard[attackLocation].ship!);
     }
+
+    return attackLocation;
   }
 
   pathIsAvailable(path: number[]) {
@@ -97,16 +100,6 @@ class AiGameBoard extends GameBoard {
     return this.adjacentSquares[index];
   }
 
-  removeAdjacentSquare(square: number) {
-    const squares: number[] = [];
-    this.adjacentSquares.forEach((s) => {
-      if (s !== square) {
-        squares.push(s);
-      }
-    });
-
-    this.adjacentSquares = squares;
-  }
 
   isRowAttack(initialSquare: number, square: number) {
     return Math.abs(initialSquare - square) === 1;
