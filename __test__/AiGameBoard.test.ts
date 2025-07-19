@@ -189,7 +189,6 @@ describe('AiGameboard', () => {
           expect(Ai.TargetingSystem.attackPath.size).toBe(2);
         });
 
-        it('will remove the attacked location from attackPath property', () => {});
         describe('when attack results in a sunk ship', () => {
           it('will remove ship from hitShips property', () => {});
         });
