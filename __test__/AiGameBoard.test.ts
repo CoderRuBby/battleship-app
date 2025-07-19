@@ -190,7 +190,25 @@ describe('AiGameboard', () => {
         });
 
         describe('when attack results in a sunk ship', () => {
-          it('will remove ship from hitShips property', () => {});
+          it('will remove ship from hitShips property', () => {
+            const firstAttack = 45;
+            const secondAttack = 55;
+            const thirdAttack = 65;
+            const fourthAttack = 35;
+
+            Player.gameboard[firstAttack].ship = Player.Battleship;
+            Player.gameboard[secondAttack].ship = Player.Battleship;
+            Player.gameboard[thirdAttack].ship = Player.Battleship;
+            Player.gameboard[fourthAttack].ship = Player.Battleship;
+
+            Ai.attackLogic(Player, firstAttack);
+            Ai.attackLogic(Player, secondAttack);
+            Ai.attackLogic(Player, thirdAttack);
+            Ai.attackLogic(Player, fourthAttack);
+
+            expect(Player.Battleship.sunk).toBe(true);
+            expect(Ai.hitShips.size).toBe(0);
+          });
         });
       });
     });
