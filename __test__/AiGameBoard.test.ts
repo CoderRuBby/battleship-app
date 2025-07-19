@@ -101,7 +101,7 @@ describe('AiGameboard', () => {
       });
 
       describe('when attack is a hit', () => {
-        it('will generate/add adjSquares property', () => {
+        it('will generate/add squaresArray property', () => {
           const attackLocation = 45;
 
           Player.gameboard[attackLocation].ship = Player.Battleship;
