@@ -159,7 +159,36 @@ describe('AiGameboard', () => {
         });
       });
       describe('when attack is a hit', () => {
-        it('will generate/add an attackPath property', () => {});
+        it('can generate a horizontal attackPath', () => {
+          const attackLocation = 45;
+          const secondAttackLocation = 46;
+
+          Player.gameboard[attackLocation].ship = Player.Battleship;
+          Player.gameboard[secondAttackLocation].ship = Player.Battleship;
+
+          Ai.attackLogic(Player, attackLocation);
+          Ai.attackLogic(Player, secondAttackLocation);
+
+          expect(Ai.TargetingSystem.attackPath).toContain(44);
+          expect(Ai.TargetingSystem.attackPath).toContain(47);
+          expect(Ai.TargetingSystem.attackPath.size).toBe(2);
+        });
+
+        it('can generate a vertical attackPath', () => {
+          const attackLocation = 45;
+          const secondAttackLocation = 55;
+
+          Player.gameboard[attackLocation].ship = Player.Battleship;
+          Player.gameboard[secondAttackLocation].ship = Player.Battleship;
+
+          Ai.attackLogic(Player, attackLocation);
+          Ai.attackLogic(Player, secondAttackLocation);
+
+          expect(Ai.TargetingSystem.attackPath).toContain(35);
+          expect(Ai.TargetingSystem.attackPath).toContain(65);
+          expect(Ai.TargetingSystem.attackPath.size).toBe(2);
+        });
+
         it('will remove the attacked location from attackPath property', () => {});
         describe('when attack results in a sunk ship', () => {
           it('will remove ship from hitShips property', () => {});
@@ -167,130 +196,6 @@ describe('AiGameboard', () => {
       });
     });
     //!refactor block into afterFirstHit
-  });
-
-  describe.skip('getAttackOrientation', () => {
-    it('will remove horizontal squares if attacking vertically', () => {
-      const attackedSquare = 35;
-      const adjacentAttack = 45;
-
-      Ai.initialSquareHit = attackedSquare;
-      Ai.adjacentSquares = [45, 36, 34, 25];
-      Ai.getAttackOrientation(adjacentAttack);
-
-      expect(Ai.adjacentSquares).not.toContain(attackedSquare);
-      expect(Ai.adjacentSquares).not.toContain(34);
-      expect(Ai.adjacentSquares).not.toContain(36);
-      expect(Ai.adjacentSquares.length).toBe(2);
-      expect(Ai.adjacentSquares).toContain(25);
-      expect(Ai.adjacentSquares).toContain(45);
-    });
-
-    it('will remove vertical squares if attacking horizontally', () => {
-      const attackedSquare = 35;
-      const adjacentAttack = 36;
-
-      Ai.initialSquareHit = attackedSquare;
-      Ai.adjacentSquares = [45, 36, 34, 25];
-      Ai.getAttackOrientation(adjacentAttack);
-
-      expect(Ai.adjacentSquares).not.toContain(attackedSquare);
-      expect(Ai.adjacentSquares).not.toContain(25);
-      expect(Ai.adjacentSquares).not.toContain(45);
-      expect(Ai.adjacentSquares.length).toBe(2);
-      expect(Ai.adjacentSquares).toContain(34);
-      expect(Ai.adjacentSquares).toContain(36);
-    });
-  });
-
-  describe.skip('addRowColSquare', () => {
-    it('will add the appropriate adjacent square to adjacentSquares', () => {
-      const attackedSquare = 35;
-      const adjacentAttack = 36;
-
-      Ai.initialSquareHit = attackedSquare;
-      Ai.addRowColSquare(adjacentAttack);
-
-      expect(Ai.adjacentSquares).toContain(37);
-      expect(Ai.adjacentSquares.length).toBe(1);
-    });
-  });
-
-  describe.skip('attack()', () => {
-    it('will update adjacentSquares when hitting a ship', () => {
-      const attackedSquare = 35;
-
-      Player.gameboard[attackedSquare].ship = Player.Battleship;
-
-      Ai.attack(attackedSquare, Player);
-
-      expect(Ai.adjacentSquares).toContain(34);
-      expect(Ai.adjacentSquares).toContain(36);
-      expect(Ai.adjacentSquares).toContain(25);
-      expect(Ai.adjacentSquares).toContain(45);
-      expect(Ai.adjacentSquares.length).toBe(4);
-    });
-
-    it('will remove horizontal squares if attacking vertically', () => {
-      const attackedSquare = 35;
-      const adjacentAttack = 45;
-
-      Player.gameboard[attackedSquare].ship = Player.Battleship;
-      Player.gameboard[adjacentAttack].ship = Player.Battleship;
-
-      Ai.attack(attackedSquare, Player);
-      Ai.attack(adjacentAttack, Player);
-
-      expect(Ai.adjacentSquares).not.toContain(attackedSquare);
-      expect(Ai.adjacentSquares).not.toContain(adjacentAttack);
-      expect(Ai.adjacentSquares).not.toContain(34);
-      expect(Ai.adjacentSquares).not.toContain(36);
-      expect(Ai.adjacentSquares.length).toBe(2);
-      expect(Ai.adjacentSquares).toContain(25);
-      expect(Ai.adjacentSquares).toContain(55);
-    });
-
-    it('will remove vertical squares if attacking horizontally', () => {
-      const attackedSquare = 35;
-      const adjacentAttack = 36;
-
-      Player.gameboard[attackedSquare].ship = Player.Battleship;
-      Player.gameboard[adjacentAttack].ship = Player.Battleship;
-
-      Ai.attack(attackedSquare, Player);
-      Ai.attack(adjacentAttack, Player);
-
-      expect(Ai.adjacentSquares).not.toContain(attackedSquare);
-      expect(Ai.adjacentSquares).not.toContain(adjacentAttack);
-      expect(Ai.adjacentSquares).not.toContain(25);
-      expect(Ai.adjacentSquares).not.toContain(45);
-      expect(Ai.adjacentSquares.length).toBe(2);
-      expect(Ai.adjacentSquares).toContain(34);
-      expect(Ai.adjacentSquares).toContain(37);
-    });
-
-    it('will add the appropriate adjacent square to adjacentSquares', () => {
-      const attackedSquare = 35;
-      const adjacentAttack = 36;
-
-      Player.gameboard[attackedSquare].ship = Player.Battleship;
-      Player.gameboard[adjacentAttack].ship = Player.Battleship;
-
-      Ai.attack(attackedSquare, Player);
-      Ai.attack(adjacentAttack, Player);
-
-      expect(Ai.adjacentSquares).toContain(34);
-      expect(Ai.adjacentSquares).toContain(37);
-      expect(Ai.adjacentSquares.length).toBe(2);
-    });
-  });
-
-  describe.skip('getAdjacentAttack()', () => {
-    it('will return a random adjacent square from adjacentSquares', () => {
-      Ai.adjacentSquares = [34, 36, 25, 45];
-
-      expect(Ai.adjacentSquares).toContain(Ai.getAdjacentAttack());
-    });
   });
 
   describe.skip('turn', () => {
