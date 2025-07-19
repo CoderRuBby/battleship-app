@@ -2,9 +2,15 @@ import GameBoard from './GameBoard';
 
 class AdjacentSquares {
   squaresArray: number[];
+  attackPath: Set<number>;
+  initialHitSquare: number | null;
+  attackOrientation: 'row' | 'column' | null;
 
   constructor() {
     this.squaresArray = [];
+    this.attackPath = new Set();
+    this.initialHitSquare = null;
+    this.attackOrientation = null;
   }
 
   isOpponentSquareAvailable(square: number, Opponent: GameBoard): boolean {
@@ -90,6 +96,47 @@ class AdjacentSquares {
     });
 
     this.squaresArray = squares;
+  }
+
+  setAttackOrientation(square: number) {
+    if (
+      square - this.initialHitSquare! === 10 ||
+      this.initialHitSquare! - square === 10
+    ) {
+      this.attackOrientation = 'column';
+    } else {
+      this.attackOrientation = 'row';
+    }
+  }
+
+  isRowAttack(square: number, adjacentSquare: number) {
+    const firstExpression = Math.abs(square - adjacentSquare);
+    const isFirstTrue = firstExpression / 1 === 1;
+    const secondExpression = Math.abs(this.initialHitSquare! - adjacentSquare);
+    const isSecondTrue = secondExpression / 1 === 1;
+    return isFirstTrue || isSecondTrue;
+  }
+
+  isColAttack(square: number, adjacentSquare: number) {
+    const firstExpression = square - adjacentSquare;
+    const isFirstTrue = firstExpression % 10 === 0;
+    const secondExpression = adjacentSquare - square;
+    const isSecondTrue = secondExpression % 10 === 0;
+    return isFirstTrue || isSecondTrue;
+  }
+
+  getAttackPath(square: number) {
+    this.squaresArray.forEach((adjacentSquare) => {
+      if (this.attackOrientation === 'column') {
+        if (this.isColAttack(square, adjacentSquare)) {
+          this.attackPath.add(adjacentSquare);
+        }
+      } else {
+        if (this.isRowAttack(square, adjacentSquare)) {
+          this.attackPath.add(adjacentSquare);
+        }
+      }
+    });
   }
 }
 

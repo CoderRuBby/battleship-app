@@ -53,16 +53,23 @@ class AiGameBoard extends GameBoard {
             this.TargetingSystem.squaresArray.length,
           )
         ];
-      this.TargetingSystem.removeAdjacentSquare(attackLocation);
     } else {
       attackLocation = this.randomAttackLocation(Opponent, 100);
     }
 
+    this.TargetingSystem.removeAdjacentSquare(attackLocation);
     this.attack(attackLocation, Opponent);
+
+    if (Opponent.gameboard[attackLocation].isHit && this.hitShips.size > 0) {
+      this.TargetingSystem.setAttackOrientation(attackLocation);
+      this.TargetingSystem.getSquares(attackLocation, Opponent);
+      this.TargetingSystem.getAttackPath(attackLocation);
+    }
 
     if (Opponent.gameboard[attackLocation].isHit) {
       this.TargetingSystem.getSquares(attackLocation, Opponent);
       this.hitShips.add(Opponent.gameboard[attackLocation].ship!);
+      this.TargetingSystem.initialHitSquare = attackLocation;
     }
 
     return attackLocation;
