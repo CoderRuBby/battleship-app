@@ -62,6 +62,7 @@ class AiGameBoard extends GameBoard {
 
     if (Opponent.gameboard[attackLocation].ship?.sunk) {
       this.hitShips.delete(Opponent.gameboard[attackLocation].ship!);
+      this.TargetingSystem.resetProperties();
       return attackLocation;
     }
 

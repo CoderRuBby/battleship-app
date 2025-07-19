@@ -138,6 +138,13 @@ class AdjacentSquares {
       }
     });
   }
+
+  resetProperties() {
+    this.squaresArray = [];
+    this.attackPath.clear();
+    this.initialHitSquare = null;
+    this.attackOrientation = null;
+  }
 }
 
 export default AdjacentSquares;
