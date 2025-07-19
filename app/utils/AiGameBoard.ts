@@ -60,6 +60,11 @@ class AiGameBoard extends GameBoard {
     this.TargetingSystem.removeAdjacentSquare(attackLocation);
     this.attack(attackLocation, Opponent);
 
+    if (Opponent.gameboard[attackLocation].ship?.sunk) {
+      this.hitShips.delete(Opponent.gameboard[attackLocation].ship!);
+      return attackLocation;
+    }
+
     if (Opponent.gameboard[attackLocation].isHit && this.hitShips.size > 0) {
       this.TargetingSystem.setAttackOrientation(attackLocation);
       this.TargetingSystem.getSquares(attackLocation, Opponent);
