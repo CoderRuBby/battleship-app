@@ -209,6 +209,28 @@ describe('AiGameboard', () => {
             expect(Player.Battleship.sunk).toBe(true);
             expect(Ai.hitShips.size).toBe(0);
           });
+
+          it('will reset TargetingSystem properties', () => {
+            const firstAttack = 45;
+            const secondAttack = 55;
+            const thirdAttack = 65;
+            const fourthAttack = 35;
+
+            Player.gameboard[firstAttack].ship = Player.Battleship;
+            Player.gameboard[secondAttack].ship = Player.Battleship;
+            Player.gameboard[thirdAttack].ship = Player.Battleship;
+            Player.gameboard[fourthAttack].ship = Player.Battleship;
+
+            Ai.attackLogic(Player, firstAttack);
+            Ai.attackLogic(Player, secondAttack);
+            Ai.attackLogic(Player, thirdAttack);
+            Ai.attackLogic(Player, fourthAttack);
+
+            expect(Ai.TargetingSystem.squaresArray.length).toBe(0);
+            expect(Ai.TargetingSystem.attackPath.size).toBe(0);
+            expect(Ai.TargetingSystem.initialHitSquare).toBe(null);
+            expect(Ai.TargetingSystem.attackOrientation).toBe(null);
+          });
         });
       });
     });
