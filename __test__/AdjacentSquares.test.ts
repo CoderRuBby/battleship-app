@@ -23,7 +23,7 @@ describe('AdjacentSquares', () => {
       expect(adjacentSquares).toContain(22);
       expect(adjacentSquares).toContain(13);
       expect(adjacentSquares).toContain(33);
-      expect(adjacentSquares.length).toBe(4);
+      expect(adjacentSquares.size).toBe(4);
     });
 
     it('will return [1, 10], given location #0', () => {
@@ -38,7 +38,7 @@ describe('AdjacentSquares', () => {
       expect(adjacentSquares).toContain(10);
       expect(adjacentSquares).not.toContain(-1);
       expect(adjacentSquares).not.toContain(-10);
-      expect(adjacentSquares.length).toBe(2);
+      expect(adjacentSquares.size).toBe(2);
     });
 
     it('will not return squares that have hit/miss', () => {
@@ -56,7 +56,7 @@ describe('AdjacentSquares', () => {
       expect(adjacentSquares).toContain(66);
       expect(adjacentSquares).not.toContain(55);
       expect(adjacentSquares).not.toContain(57);
-      expect(adjacentSquares.length).toBe(2);
+      expect(adjacentSquares.size).toBe(2);
     });
 
     it('will return squares that have an opponents ship, not hit', () => {
@@ -73,7 +73,7 @@ describe('AdjacentSquares', () => {
       expect(adjacentSquares).toContain(56);
       expect(adjacentSquares).toContain(65);
       expect(adjacentSquares).toContain(45);
-      expect(adjacentSquares.length).toBe(4);
+      expect(adjacentSquares.size).toBe(4);
     });
   });
 });

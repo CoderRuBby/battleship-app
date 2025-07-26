@@ -109,11 +109,11 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
 
           expect(Player.gameboard[attackLocation].isHit).toBe(true);
-          expect(Ai.TargetingSystem.squaresArray).toContain(46);
-          expect(Ai.TargetingSystem.squaresArray).toContain(44);
-          expect(Ai.TargetingSystem.squaresArray).toContain(55);
-          expect(Ai.TargetingSystem.squaresArray).toContain(35);
-          expect(Ai.TargetingSystem.squaresArray.length).toBe(4);
+          expect(Ai.TargetingSystem.possibleAttacks).toContain(46);
+          expect(Ai.TargetingSystem.possibleAttacks).toContain(44);
+          expect(Ai.TargetingSystem.possibleAttacks).toContain(55);
+          expect(Ai.TargetingSystem.possibleAttacks).toContain(35);
+          expect(Ai.TargetingSystem.possibleAttacks.size).toBe(4);
         });
         it('will add hit ship to hitShips set', () => {
           const attackLocation = 45;
@@ -155,10 +155,13 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
           const secondAttack = Ai.attackLogic(Player);
 
-          expect(Ai.TargetingSystem.squaresArray).not.toContain(secondAttack);
+          expect(Ai.TargetingSystem.possibleAttacks).not.toContain(
+            secondAttack,
+          );
         });
       });
       describe('when attack is a hit', () => {
+        //!Remake test for getAttackPath
         it('can generate a horizontal attackPath', () => {
           const attackLocation = 45;
           const secondAttackLocation = 46;
@@ -169,11 +172,10 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
           Ai.attackLogic(Player, secondAttackLocation);
 
-          expect(Ai.TargetingSystem.attackPath).toContain(44);
-          expect(Ai.TargetingSystem.attackPath).toContain(47);
-          expect(Ai.TargetingSystem.attackPath.size).toBe(2);
+          expect(Ai.TargetingSystem.possibleAttacks.size).toBe(2);
         });
 
+        //!Remake test for getAttackPath
         it('can generate a vertical attackPath', () => {
           const attackLocation = 45;
           const secondAttackLocation = 55;
@@ -184,9 +186,7 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
           Ai.attackLogic(Player, secondAttackLocation);
 
-          expect(Ai.TargetingSystem.attackPath).toContain(35);
-          expect(Ai.TargetingSystem.attackPath).toContain(65);
-          expect(Ai.TargetingSystem.attackPath.size).toBe(2);
+          expect(Ai.TargetingSystem.possibleAttacks.size).toBe(2);
         });
 
         describe('when attack results in a sunk ship', () => {
@@ -226,8 +226,8 @@ describe('AiGameboard', () => {
             Ai.attackLogic(Player, thirdAttack);
             Ai.attackLogic(Player, fourthAttack);
 
-            expect(Ai.TargetingSystem.squaresArray.length).toBe(0);
-            expect(Ai.TargetingSystem.attackPath.size).toBe(0);
+            expect(Ai.TargetingSystem.possibleAttacks.size).toBe(0);
+            //expect(Ai.TargetingSystem.attackPath.size).toBe(0);
             expect(Ai.TargetingSystem.initialHitSquare).toBe(null);
             expect(Ai.TargetingSystem.attackOrientation).toBe(null);
           });

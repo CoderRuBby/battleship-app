@@ -1,14 +1,12 @@
 import GameBoard from './GameBoard';
 
 class AdjacentSquares {
-  squaresArray: number[];
-  attackPath: Set<number>;
+  possibleAttacks: Set<number>;
   initialHitSquare: number | null;
   attackOrientation: 'row' | 'column' | null;
 
   constructor() {
-    this.squaresArray = [];
-    this.attackPath = new Set();
+    this.possibleAttacks = new Set();
     this.initialHitSquare = null;
     this.attackOrientation = null;
   }
@@ -72,15 +70,14 @@ class AdjacentSquares {
     return possibleEndPoints;
   }
 
-  getSquares(square: number, Opponent: GameBoard): number[] {
-    const availableSquares: number[] = [];
+  getSquares(square: number, Opponent: GameBoard): Set<number> {
+    const availableSquares: Set<number> = new Set();
     const squares = this.possibleShipEndPoints(square, 2, Opponent);
 
     squares.forEach((s) => {
       const available = this.isOpponentSquareAvailable(s, Opponent);
       if (available) {
-        availableSquares.push(s);
-        this.squaresArray.push(s);
+        availableSquares.add(s);
       }
     });
 
@@ -88,14 +85,7 @@ class AdjacentSquares {
   }
 
   removeAdjacentSquare(square: number) {
-    const squares: number[] = [];
-    this.squaresArray.forEach((s) => {
-      if (s !== square) {
-        squares.push(s);
-      }
-    });
-
-    this.squaresArray = squares;
+    this.possibleAttacks.delete(square);
   }
 
   setAttackOrientation(square: number) {
@@ -125,23 +115,25 @@ class AdjacentSquares {
     return isFirstTrue || isSecondTrue;
   }
 
-  getAttackPath(square: number) {
-    this.squaresArray.forEach((adjacentSquare) => {
+  getAttackPath(square: number): Set<number> {
+    const attackPath: Set<number> = new Set();
+    this.possibleAttacks.forEach((adjacentSquare) => {
       if (this.attackOrientation === 'column') {
         if (this.isColAttack(square, adjacentSquare)) {
-          this.attackPath.add(adjacentSquare);
+          attackPath.add(adjacentSquare);
         }
       } else {
         if (this.isRowAttack(square, adjacentSquare)) {
-          this.attackPath.add(adjacentSquare);
+          attackPath.add(adjacentSquare);
         }
       }
     });
+
+    return attackPath;
   }
 
   resetProperties() {
-    this.squaresArray = [];
-    this.attackPath.clear();
+    this.possibleAttacks.clear();
     this.initialHitSquare = null;
     this.attackOrientation = null;
   }

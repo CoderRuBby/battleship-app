@@ -46,18 +46,21 @@ class AiGameBoard extends GameBoard {
     if (testNumber) {
       attackLocation = testNumber;
     } else if (this.hitShips.size > 0) {
+      const array = [...this.TargetingSystem.possibleAttacks];
       attackLocation =
-        this.TargetingSystem.squaresArray[
+        array[
           this.randomAttackLocation(
             Opponent,
-            this.TargetingSystem.squaresArray.length,
+            this.TargetingSystem.possibleAttacks.size,
           )
         ];
     } else {
       attackLocation = this.randomAttackLocation(Opponent, 100);
     }
 
-    this.TargetingSystem.removeAdjacentSquare(attackLocation);
+    if (this.TargetingSystem.possibleAttacks.size > 0) {
+      this.TargetingSystem.removeAdjacentSquare(attackLocation);
+    }
     this.attack(attackLocation, Opponent);
 
     if (Opponent.gameboard[attackLocation].ship?.sunk) {
@@ -68,12 +71,17 @@ class AiGameBoard extends GameBoard {
 
     if (Opponent.gameboard[attackLocation].isHit && this.hitShips.size > 0) {
       this.TargetingSystem.setAttackOrientation(attackLocation);
-      this.TargetingSystem.getSquares(attackLocation, Opponent);
-      this.TargetingSystem.getAttackPath(attackLocation);
+      const squares = this.TargetingSystem.getSquares(attackLocation, Opponent);
+      squares.forEach((square) => {
+        this.TargetingSystem.possibleAttacks.add(square);
+      });
+      const attackPath = this.TargetingSystem.getAttackPath(attackLocation);
+      this.TargetingSystem.possibleAttacks = attackPath;
     }
 
-    if (Opponent.gameboard[attackLocation].isHit) {
-      this.TargetingSystem.getSquares(attackLocation, Opponent);
+    if (Opponent.gameboard[attackLocation].isHit && this.hitShips.size === 0) {
+      const squares = this.TargetingSystem.getSquares(attackLocation, Opponent);
+      this.TargetingSystem.possibleAttacks = squares;
       this.hitShips.add(Opponent.gameboard[attackLocation].ship!);
       this.TargetingSystem.initialHitSquare = attackLocation;
     }
