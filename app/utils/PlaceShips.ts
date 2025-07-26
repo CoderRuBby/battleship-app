@@ -151,11 +151,6 @@ class PlaceShips {
     return canPlace;
   }
 
-  //! Unnecessary function
-  resetSelectedShip() {
-    this.PlayerGameBoard.selectedShip = null;
-  }
-
   areAllShipsPlaced(shipsArray: Ship[]) {
     let placed = true;
     shipsArray.forEach((ship) => {
@@ -187,7 +182,7 @@ class PlaceShips {
     }
   }
 
-  shipPlacement(squareNumber: number) {
+  shipPlacementLogic(squareNumber: number) {
     if (!this.PlayerGameBoard.selectedShip) return;
 
     if (this.PlayerGameBoard.selectedShip.shipStartPoint === null) {
@@ -199,13 +194,12 @@ class PlaceShips {
 
     if (this.canPlaceShip(squareNumber) === true) {
       this.PlayerGameBoard.selectedShip.addShipEndPoint(squareNumber);
-      //! Remove following function
       this.placeShipOnGameBoard(
         this.PlayerGameBoard.selectedShip,
         this.PlayerGameBoard.selectedShip.shipStartPoint,
         squareNumber,
       );
-      this.resetSelectedShip();
+      this.PlayerGameBoard.selectedShip = null;
     }
   }
 }

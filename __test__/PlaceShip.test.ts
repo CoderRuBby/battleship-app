@@ -162,14 +162,12 @@ describe('PlaceShips', () => {
     });
   });
 
-  //! Rename to assignPlacementPoints
-  //! Only include following two tests
-  describe('shipPlacement', () => {
+  describe('shipPlacementLogic', () => {
     it('will assign shipStartPoint if ship is selected', () => {
       const shipStartPoint = 0;
 
       PlayerPlaceShip.selectShip(Ship1);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
 
       expect(Ship1.shipStartPoint).toEqual(0);
     });
@@ -179,8 +177,8 @@ describe('PlaceShips', () => {
       const shipEndPoint = 20;
 
       PlayerPlaceShip.selectShip(Ship1);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
-      PlayerPlaceShip.shipPlacement(shipEndPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipEndPoint);
       expect(Ship1.shipEndPoint).toBe(20);
     });
 
@@ -194,8 +192,8 @@ describe('PlaceShips', () => {
       expectShip.isPlaced = true;
 
       PlayerPlaceShip.selectShip(Ship1);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
-      PlayerPlaceShip.shipPlacement(shipEndPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipEndPoint);
 
       expect(Player.gameboard[0].ship).toEqual(expectShip);
       expect(Player.gameboard[10].ship).toEqual(expectShip);
@@ -211,8 +209,8 @@ describe('PlaceShips', () => {
       expectShip.addShipEndPoint(shipEndPoint);
 
       PlayerPlaceShip.selectShip(Ship2);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
-      PlayerPlaceShip.shipPlacement(shipEndPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipEndPoint);
 
       expect(Player.selectedShip).toBe(null);
     });
@@ -227,11 +225,11 @@ describe('PlaceShips', () => {
       expectShip.isPlaced = true;
 
       PlayerPlaceShip.selectShip(Ship1);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
-      PlayerPlaceShip.shipPlacement(shipEndPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipEndPoint);
 
       PlayerPlaceShip.selectShip(Ship2);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
 
       expect(Player.gameboard[0].ship).toEqual(expectShip);
       expect(Ship2.shipStartPoint).toBe(null);
@@ -247,15 +245,15 @@ describe('PlaceShips', () => {
       expectShip.isPlaced = true;
 
       PlayerPlaceShip.selectShip(Ship1);
-      PlayerPlaceShip.shipPlacement(shipStartPoint);
-      PlayerPlaceShip.shipPlacement(shipEndPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint);
+      PlayerPlaceShip.shipPlacementLogic(shipEndPoint);
 
       const shipStartPoint2 = 12;
       const shipEndPoint2 = 10;
 
       PlayerPlaceShip.selectShip(Ship2);
-      PlayerPlaceShip.shipPlacement(shipStartPoint2);
-      PlayerPlaceShip.shipPlacement(shipEndPoint2);
+      PlayerPlaceShip.shipPlacementLogic(shipStartPoint2);
+      PlayerPlaceShip.shipPlacementLogic(shipEndPoint2);
 
       expect(Player.gameboard[0].ship).toEqual(expectShip);
       expect(Player.gameboard[10].ship).toEqual(expectShip);
@@ -306,7 +304,7 @@ describe('PlaceShips', () => {
 
       Player.Submarine.addShipStart(startSquare);
       PlayerPlaceShip.selectShip(Player.Submarine);
-      PlayerPlaceShip.shipPlacement(endSquare);
+      PlayerPlaceShip.shipPlacementLogic(endSquare);
 
       expect(Player.allShipsPlaced).toBe(true);
     });

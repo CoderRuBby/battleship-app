@@ -55,7 +55,7 @@ export default class GameBoard {
   }
 
   shipPlacement(square: number) {
-    this.placeShips.shipPlacement(square);
+    this.placeShips.shipPlacementLogic(square);
   }
 
   attack(Opponent: GameBoard, square: number) {
