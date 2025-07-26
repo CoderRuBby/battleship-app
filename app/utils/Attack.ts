@@ -7,7 +7,7 @@ class Attack {
     switch (hasShip) {
       case true:
         Opponent.gameboard[square].isHit = true;
-        Opponent.gameboard[square].ship?.isHit();
+        Opponent.gameboard[square].ship?.isHit(square);
         break;
       case false:
         Opponent.gameboard[square].isMiss = true;
