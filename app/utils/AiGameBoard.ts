@@ -32,9 +32,8 @@ class AiGameBoard extends GameBoard {
     return attackLocation;
   }
 
-  /*
-  turn(testSquare?: number | null, Opponent?: GameBoard) {
-    let square: number;
+  turn(testSquare?: number | null, Opponent?: GameBoard): number {
+    let attackLocation: number;
 
     if (!testSquare && !Opponent) {
       this.placeAll();
@@ -42,17 +41,14 @@ class AiGameBoard extends GameBoard {
 
     if (Opponent) {
       if (testSquare) {
-        square = testSquare;
-      } else if (!testSquare && this.adjacentSquares.length === 0) {
-        square = this.randomAttackLocation(Opponent);
+        attackLocation = this.attack(Opponent, testSquare);
       } else {
-        square = this.getAdjacentAttack();
+        attackLocation = this.attack(Opponent);
       }
-
-      this.attack(square, Opponent);
     }
+
+    return attackLocation!;
   }
-    */
 }
 
 export default AiGameBoard;
