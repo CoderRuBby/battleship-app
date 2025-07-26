@@ -232,6 +232,37 @@ describe('AiGameboard', () => {
             expect(Ai.NewTargetingSystem.attackOrientation).toBe(null);
           });
         });
+
+        describe('attackLogic when possibleAttacks has no possibilities', () => {
+          describe('getMorePossibleAttacks', () => {
+            it('will get new possibilities for possibleAttacks', () => {
+              const Ship1 = Player.Battleship;
+              const Ship2 = Player.Cruiser;
+              Player.placeShips.placeShipOnGameBoard(Ship1, 45, 75);
+              Player.placeShips.placeShipOnGameBoard(Ship2, 46, 66);
+
+              const firstAttack = 45;
+              const secondAttack = 46;
+
+              Ai.attackLogic(Player, firstAttack);
+              Ai.attackLogic(Player, secondAttack);
+
+              expect(Ai.hitShips.size).toBe(2);
+
+              Ai.attackLogic(Player);
+              Ai.attackLogic(Player);
+
+              expect(Ai.NewTargetingSystem.possibleAttacks.size).toBe(0);
+
+              Ai.attackLogic(Player, 36);
+
+              expect(Ai.NewTargetingSystem.possibleAttacks.size).toBe(3);
+              expect(Ai.NewTargetingSystem.possibleAttacks).toContain(35);
+              expect(Ai.NewTargetingSystem.possibleAttacks).toContain(55);
+              expect(Ai.NewTargetingSystem.possibleAttacks).toContain(56);
+            });
+          });
+        });
       });
     });
     //!refactor block into afterFirstHit
