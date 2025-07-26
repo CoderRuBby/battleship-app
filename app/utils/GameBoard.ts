@@ -58,7 +58,7 @@ export default class GameBoard {
     this.placeShips.shipPlacement(square);
   }
 
-  attack(square: number, Opponent: GameBoard) {
+  attack(Opponent: GameBoard, square: number) {
     this.NewAttack.attack(square, Opponent);
   }
 
@@ -76,7 +76,7 @@ export default class GameBoard {
 
   turn(square: number, opponent: GameBoard) {
     if (this.allShipsPlaced) {
-      this.attack(square, opponent);
+      this.attack(opponent, square);
       this.isWinner(opponent);
     } else if (square) {
       this.shipPlacement(square);

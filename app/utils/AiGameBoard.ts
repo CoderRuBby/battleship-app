@@ -18,10 +18,18 @@ class AiGameBoard extends GameBoard {
     this.PlaceShips.placeShipOnGameBoard();
   }
 
-  attack(square: number, opponent: GameBoard) {
-    super.attack(square, opponent);
+  attack(opponent: GameBoard, square?: number): number {
+    let attackLocation: number;
 
-    this.NewTargetingSystem.attackLogic(opponent);
+    if (square) {
+      attackLocation = square;
+    } else {
+      attackLocation = this.NewTargetingSystem.attackLogic(opponent);
+    }
+
+    super.attack(opponent, attackLocation);
+
+    return attackLocation;
   }
 
   /*

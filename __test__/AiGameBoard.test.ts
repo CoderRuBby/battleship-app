@@ -20,12 +20,8 @@ describe('AiGameboard', () => {
   });
 
   describe('attack', () => {
-    // Since AiGameBoard extends GameBoard, it inherits the attack method
-    // Test that it properly calls the attack functionality
     it('attacks Player location which can result in a miss', () => {
-      const attackLocation = 45;
-
-      Ai.attack(attackLocation, Player);
+      const attackLocation = Ai.attack(Player);
 
       expect(Player.gameboard[attackLocation].isMiss).toBe(true);
       expect(Player.gameboard[attackLocation].isHit).toBe(false);
@@ -36,7 +32,7 @@ describe('AiGameboard', () => {
 
       Player.gameboard[attackLocation].ship = Player.Battleship;
 
-      Ai.attack(attackLocation, Player);
+      Ai.attack(Player, attackLocation);
 
       expect(Player.gameboard[attackLocation].isHit).toBe(true);
       expect(Player.gameboard[attackLocation].isMiss).toBe(false);
