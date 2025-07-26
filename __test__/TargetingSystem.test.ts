@@ -268,7 +268,6 @@ describe('AdjacentSquares', () => {
             NewTargetingSystem.attackLogic(Player, fourthAttack);
 
             expect(NewTargetingSystem.possibleAttacks.size).toBe(0);
-            //expect(Ai.TargetingSystem.attackPath.size).toBe(0);
             expect(NewTargetingSystem.initialHitSquare).toBe(null);
             expect(NewTargetingSystem.attackOrientation).toBe(null);
           });

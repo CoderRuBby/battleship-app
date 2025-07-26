@@ -1,14 +1,11 @@
 import { describe, beforeEach, it, expect } from 'vitest';
-import GameBoard from '~/utils/GameBoard';
 import Ship from '~/utils/Ship';
 
 describe('Ship', () => {
   let Ship1: Ship;
-  let NewGameBoard: GameBoard;
 
   beforeEach(() => {
     Ship1 = new Ship('Ship1', 4);
-    NewGameBoard = new GameBoard();
   });
 
   describe('isHit', () => {
