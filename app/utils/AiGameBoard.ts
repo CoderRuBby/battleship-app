@@ -41,8 +41,33 @@ class AiGameBoard extends GameBoard {
     return location;
   }
 
+  getMorePossibleAttacks(opponent: GameBoard): Set<number> {
+    const possibleAttacks: Set<number> = new Set();
+    this.hitShips.forEach((ship) => {
+      ship.hitLocations.forEach((location) => {
+        const adjacentSquares = this.NewTargetingSystem.getSquares(
+          location,
+          opponent,
+        );
+        adjacentSquares.forEach((square) => {
+          possibleAttacks.add(square);
+        });
+      });
+    });
+    return possibleAttacks;
+  }
+
   attackLogic(Opponent: GameBoard, testNumber?: number) {
     let attackLocation;
+
+    if (
+      this.hitShips.size > 0 &&
+      this.NewTargetingSystem.possibleAttacks.size === 0
+    ) {
+      this.NewTargetingSystem.possibleAttacks =
+        this.getMorePossibleAttacks(Opponent);
+    }
+
     if (testNumber) {
       attackLocation = testNumber;
     } else if (this.hitShips.size > 0) {
@@ -80,6 +105,7 @@ class AiGameBoard extends GameBoard {
       });
       const attackPath = this.NewTargetingSystem.getAttackPath(attackLocation);
       this.NewTargetingSystem.possibleAttacks = attackPath;
+      this.hitShips.add(Opponent.gameboard[attackLocation].ship!);
     }
 
     if (Opponent.gameboard[attackLocation].isHit && this.hitShips.size === 0) {
