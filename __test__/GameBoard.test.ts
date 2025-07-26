@@ -76,7 +76,6 @@ describe('GameBoard', () => {
 
   describe('turn', () => {
     it('will let player place ships if all ships have not been placed', () => {
-      //const Player = new GameBoard();
       let square = 56;
       let square2 = 59;
       const Battleship = Player.Battleship;
