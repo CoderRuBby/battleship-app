@@ -1,6 +1,6 @@
 import GameBoard from './GameBoard';
 
-class AdjacentSquares {
+class TargetingSystem {
   possibleAttacks: Set<number>;
   initialHitSquare: number | null;
   attackOrientation: 'row' | 'column' | null;
@@ -139,4 +139,4 @@ class AdjacentSquares {
   }
 }
 
-export default AdjacentSquares;
+export default TargetingSystem;

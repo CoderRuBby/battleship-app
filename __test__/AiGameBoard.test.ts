@@ -109,11 +109,11 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
 
           expect(Player.gameboard[attackLocation].isHit).toBe(true);
-          expect(Ai.TargetingSystem.possibleAttacks).toContain(46);
-          expect(Ai.TargetingSystem.possibleAttacks).toContain(44);
-          expect(Ai.TargetingSystem.possibleAttacks).toContain(55);
-          expect(Ai.TargetingSystem.possibleAttacks).toContain(35);
-          expect(Ai.TargetingSystem.possibleAttacks.size).toBe(4);
+          expect(Ai.NewTargetingSystem.possibleAttacks).toContain(46);
+          expect(Ai.NewTargetingSystem.possibleAttacks).toContain(44);
+          expect(Ai.NewTargetingSystem.possibleAttacks).toContain(55);
+          expect(Ai.NewTargetingSystem.possibleAttacks).toContain(35);
+          expect(Ai.NewTargetingSystem.possibleAttacks.size).toBe(4);
         });
         it('will add hit ship to hitShips set', () => {
           const attackLocation = 45;
@@ -155,7 +155,7 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
           const secondAttack = Ai.attackLogic(Player);
 
-          expect(Ai.TargetingSystem.possibleAttacks).not.toContain(
+          expect(Ai.NewTargetingSystem.possibleAttacks).not.toContain(
             secondAttack,
           );
         });
@@ -172,7 +172,7 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
           Ai.attackLogic(Player, secondAttackLocation);
 
-          expect(Ai.TargetingSystem.possibleAttacks.size).toBe(2);
+          expect(Ai.NewTargetingSystem.possibleAttacks.size).toBe(2);
         });
 
         //!Remake test for getAttackPath
@@ -186,7 +186,7 @@ describe('AiGameboard', () => {
           Ai.attackLogic(Player, attackLocation);
           Ai.attackLogic(Player, secondAttackLocation);
 
-          expect(Ai.TargetingSystem.possibleAttacks.size).toBe(2);
+          expect(Ai.NewTargetingSystem.possibleAttacks.size).toBe(2);
         });
 
         describe('when attack results in a sunk ship', () => {
@@ -226,10 +226,10 @@ describe('AiGameboard', () => {
             Ai.attackLogic(Player, thirdAttack);
             Ai.attackLogic(Player, fourthAttack);
 
-            expect(Ai.TargetingSystem.possibleAttacks.size).toBe(0);
+            expect(Ai.NewTargetingSystem.possibleAttacks.size).toBe(0);
             //expect(Ai.TargetingSystem.attackPath.size).toBe(0);
-            expect(Ai.TargetingSystem.initialHitSquare).toBe(null);
-            expect(Ai.TargetingSystem.attackOrientation).toBe(null);
+            expect(Ai.NewTargetingSystem.initialHitSquare).toBe(null);
+            expect(Ai.NewTargetingSystem.attackOrientation).toBe(null);
           });
         });
       });

@@ -1,20 +1,20 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import AdjacentSquares from '~/utils/AdjacentSquares';
+import TargetingSystem from '~/utils/TargetingSystem';
 import GameBoard from '~/utils/GameBoard';
 
 describe('AdjacentSquares', () => {
   let Player: GameBoard;
-  let TargetingSystem: AdjacentSquares;
+  let NewTargetingSystem: TargetingSystem;
 
   beforeEach(() => {
     Player = new GameBoard();
-    TargetingSystem = new AdjacentSquares();
+    NewTargetingSystem = new TargetingSystem();
   });
 
-  describe('getAdjacentSquares', () => {
+  describe('TargetingSystem', () => {
     it('will return [22, 24, 33, 13] given location #23', () => {
       const attackedSquare = 23;
-      const adjacentSquares = TargetingSystem.getSquares(
+      const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
         Player,
       );
@@ -29,7 +29,7 @@ describe('AdjacentSquares', () => {
     it('will return [1, 10], given location #0', () => {
       const attackedSquare = 0;
 
-      const adjacentSquares = TargetingSystem.getSquares(
+      const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
         Player,
       );
@@ -47,7 +47,7 @@ describe('AdjacentSquares', () => {
 
       const attackedSquare = 56;
 
-      const adjacentSquares = TargetingSystem.getSquares(
+      const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
         Player,
       );
@@ -64,7 +64,7 @@ describe('AdjacentSquares', () => {
 
       Player.gameboard[56].ship = Player.Battleship;
 
-      const adjacentSquares = TargetingSystem.getSquares(
+      const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
         Player,
       );
