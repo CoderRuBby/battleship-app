@@ -21,7 +21,7 @@ describe('Attack', () => {
 
       Opponent.gameboard[square].ship = Ship1;
 
-      expectShip.isHit();
+      expectShip.isHit(square);
 
       PlayerAttack.attack(square, Opponent);
 
