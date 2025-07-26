@@ -1,9 +1,9 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import GamePlay from '~/utils/GamePlay';
+import GamePlay from '~/utils/gameplay';
 import GameBoard from '~/utils/GameBoard';
 import AiGameBoard from '~/utils/AiGameBoard';
 
-describe.skip('GamePlay', () => {
+describe('GamePlay', () => {
   let Ai: AiGameBoard;
   let Player: GameBoard;
   let Game: GamePlay;
@@ -45,7 +45,6 @@ describe.skip('GamePlay', () => {
       Game.turn(21);
       Player.selectedShip = Player.Submarine;
       Game.turn(63);
-      //! occasionally gets error: this.possibleShipEndPoints is not a function
       Game.turn(65);
 
       expect(Ai.allShipsPlaced).toBe(true);
