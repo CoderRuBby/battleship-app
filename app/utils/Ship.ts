@@ -6,6 +6,8 @@ export default class Ship {
   shipStartPoint: number | null;
   shipEndPoint: number | null;
   isPlaced: boolean;
+  placedLocations: number[];
+  hitLocations: number[];
 
   constructor(name: string, length: number) {
     this.name = name;
@@ -15,9 +17,12 @@ export default class Ship {
     this.shipStartPoint = null;
     this.shipEndPoint = null;
     this.isPlaced = false;
+    this.placedLocations = [];
+    this.hitLocations = [];
   }
 
-  isHit() {
+  isHit(location: number) {
+    this.hitLocations.push(location);
     this.hit++;
     this.isSunk();
   }
@@ -34,5 +39,9 @@ export default class Ship {
 
   addShipEndPoint(squareNumber: number) {
     this.shipEndPoint = squareNumber;
+  }
+
+  getHitLocations(): number[] {
+    return this.hitLocations;
   }
 }
