@@ -1,11 +1,18 @@
 import React from 'react';
 
-export function ButtonContainer({ children }: { children?: React.ReactNode }) {
+//!Add interface
+export function ButtonContainer({
+  ariaLabel,
+  children,
+}: {
+  ariaLabel?: string;
+  children?: React.ReactNode;
+}) {
   return (
-    <nav role='navigation' className='button-container'>
+    <section role='region' aria-label={ariaLabel} className='button-container'>
       {React.Children.toArray(children).map((child, index) => (
         <React.Fragment key={index}>{child}</React.Fragment>
       ))}
-    </nav>
+    </section>
   );
 }

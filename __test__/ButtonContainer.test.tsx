@@ -29,7 +29,7 @@ describe('ButtonContainer', () => {
   it('can render a container', () => {
     render(<ButtonContainer />);
 
-    const container = screen.getByRole('navigation');
+    const container = screen.getByRole('region');
 
     expect(container).toBeInTheDocument();
   });

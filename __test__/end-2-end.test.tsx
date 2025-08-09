@@ -36,7 +36,10 @@ describe('Layout', () => {
       />
     );
     gameButtons = (
-      <ButtonContainer>{[button1, button2, button3]}</ButtonContainer>
+      <ButtonContainer ariaLabel='The game ship buttons'>
+        {[button1, button2, button3]}
+      </ButtonContainer>
+    );
     );
   });
 
@@ -51,7 +54,9 @@ describe('Layout', () => {
   it('can render a button container with ship buttons', () => {
     render(<Main>{gameButtons}</Main>);
 
-    const buttonContainer = screen.getByRole('navigation');
+    const buttonContainer = screen.getByRole('region', {
+      name: 'The game ship buttons',
+    });
     const buttonOne = screen.getByTestId('button1');
     const buttonTwo = screen.getByTestId('button2');
     const buttonThree = screen.getByTestId('button3');
