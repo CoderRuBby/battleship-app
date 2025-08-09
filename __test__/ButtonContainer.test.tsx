@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ButtonContainer } from '~/components/ButtonContainer';
-import { ShipButton } from '~/components/ShipButton';
+import { Button } from '~/components/Button';
 
 describe('ButtonContainer', () => {
   let ButtonOne: React.ReactElement;
@@ -9,7 +9,7 @@ describe('ButtonContainer', () => {
 
   beforeEach(() => {
     ButtonOne = (
-      <ShipButton
+      <Button
         className='button'
         buttonImg='test.png'
         testId='button-one'
@@ -17,7 +17,7 @@ describe('ButtonContainer', () => {
       />
     );
     ButtonTwo = (
-      <ShipButton
+      <Button
         className='button'
         buttonImg='test.png'
         testId='button-two'

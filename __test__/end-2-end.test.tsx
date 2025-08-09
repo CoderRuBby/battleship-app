@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ButtonContainer } from '~/components/ButtonContainer';
 import { Main } from '~/components/Main';
-import { ShipButton } from '~/components/ShipButton';
+import { Button } from '~/components/Button';
 
 describe('Layout', () => {
   let button1: React.ReactElement;
@@ -16,7 +16,7 @@ describe('Layout', () => {
 
   beforeEach(() => {
     button1 = (
-      <ShipButton
+      <Button
         className='ship-button'
         testId='button1'
         buttonImg='button1.png'
@@ -24,7 +24,7 @@ describe('Layout', () => {
       />
     );
     button2 = (
-      <ShipButton
+      <Button
         className='ship-button'
         testId='button2'
         buttonImg='button2.png'
@@ -32,7 +32,7 @@ describe('Layout', () => {
       />
     );
     button3 = (
-      <ShipButton
+      <Button
         className='ship-button'
         testId='button3'
         buttonImg='button3.png'
@@ -45,7 +45,7 @@ describe('Layout', () => {
       </ButtonContainer>
     );
     boardButton1 = (
-      <ShipButton
+      <Button
         className='board-button'
         testId='board1'
         buttonImg='board1.png'
@@ -53,7 +53,7 @@ describe('Layout', () => {
       />
     );
     boardButton2 = (
-      <ShipButton
+      <Button
         className='board-button'
         testId='board2'
         buttonImg='board2.png'
@@ -61,7 +61,7 @@ describe('Layout', () => {
       />
     );
     boardButton3 = (
-      <ShipButton
+      <Button
         className='board-button'
         testId='board3'
         buttonImg='board3.png'

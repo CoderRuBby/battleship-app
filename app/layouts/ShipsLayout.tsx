@@ -1,4 +1,4 @@
-import { ShipButton } from '../components/ShipButton';
+import { ShipButton } from '../components/Button';
 import { NewGameBoard } from '~/game-board-initialization';
 
 export function ShipsLayout() {
