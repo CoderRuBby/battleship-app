@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Main({ children }: { children?: React.ReactNode }) {
+export function GameComponent({ children }: { children?: React.ReactNode }) {
   return (
     <main>
       {React.Children.toArray(children).map((child, index) => (
