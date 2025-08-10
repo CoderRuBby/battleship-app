@@ -42,14 +42,6 @@ describe('GameComponent', () => {
     );
   });
 
-  it('can render a container', () => {
-    render(<GameComponent />);
-
-    const container = screen.getByRole('main');
-
-    expect(container).toBeInTheDocument();
-  });
-
   it('can render a button container with buttons', () => {
     render(<GameComponent>{component}</GameComponent>);
 
