@@ -1,5 +1,4 @@
-import { ShipsLayout } from '~/layouts/ShipsLayout';
-
+import { App } from '~/layouts/app';
 export default function Index() {
-  return <ShipsLayout />;
+  return <App />;
 }

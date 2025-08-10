@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ButtonContainer } from '~/components/ButtonContainer';
-import { GameComponent } from '~/components/GameComponent';
+import { App } from '~/layouts/app';
 import { Button } from '~/components/Button';
 
-describe('GameComponent', () => {
+describe('App', () => {
   let button1: React.ReactElement;
   let button2: React.ReactElement;
   let button3: React.ReactElement;
@@ -76,7 +76,7 @@ describe('GameComponent', () => {
   });
 
   it('can render a container', () => {
-    render(<GameComponent />);
+    render(<App />);
 
     const container = screen.getByRole('main');
 
@@ -84,7 +84,7 @@ describe('GameComponent', () => {
   });
 
   it('can render a button container with ship buttons', () => {
-    render(<GameComponent>{gameButtons}</GameComponent>);
+    render(<App>{gameButtons}</App>);
 
     const buttonContainer = screen.getByRole('region', {
       name: 'The game ship buttons',
@@ -100,7 +100,7 @@ describe('GameComponent', () => {
   });
 
   it('can also render a game board container with board buttons', () => {
-    render(<GameComponent>{[gameButtons, gameBoardButtons]}</GameComponent>);
+    render(<App>{[gameButtons, gameBoardButtons]}</App>);
 
     const buttonContainer = screen.getByRole('region', {
       name: 'The game board',
