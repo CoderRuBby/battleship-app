@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ButtonContainer } from '~/components/ButtonContainer';
-import { App } from '~/layouts/app';
+import { App } from '~/layouts/App';
 import { Button } from '~/components/Button';
 
 describe('App', () => {
