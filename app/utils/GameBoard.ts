@@ -1,78 +1,63 @@
 import Ship from './Ship';
-import PlaceShips from './PlaceShips';
-import Attack from './Attack';
 
-export default class GameBoard {
-  gameboard: {
-    [key: number]: { ship: Ship | null; isHit: boolean; isMiss: boolean };
+export default function GameBoard() {
+  const gameBoard: {
+    lose: boolean;
+    selectedShip: null | Ship;
+    allShipsPlaced: boolean;
+    board: null | boardType;
+  } = {
+    lose: true,
+    selectedShip: null,
+    board: null,
+    allShipsPlaced: false,
   };
-  Carrier: Ship;
-  Battleship: Ship;
-  Cruiser: Ship;
-  Submarine: Ship;
-  Destroyer: Ship;
-  allShipsPlaced: boolean;
-  allShips: Ship[];
-  winner: boolean;
-  placeShips: PlaceShips;
-  selectedShip: null | Ship;
-  NewAttack: Attack;
+  const Carrier: Ship = new Ship('carrier', 5);
+  const Battleship: Ship = new Ship('battleship', 4);
+  const Cruiser: Ship = new Ship('cruiser', 3);
+  const Submarine: Ship = new Ship('submarine', 3);
+  const Destroyer: Ship = new Ship('destroyer', 2);
+  const allShips: Ship[] = [Battleship, Carrier, Cruiser, Destroyer, Submarine];
 
-  constructor() {
-    this.gameboard = {};
-    this.initialize();
-    this.Carrier = new Ship('carrier', 5);
-    this.Battleship = new Ship('battleship', 4);
-    this.Cruiser = new Ship('cruiser', 3);
-    this.Submarine = new Ship('submarine', 3);
-    this.Destroyer = new Ship('destroyer', 2);
-    this.allShipsPlaced = false;
-    this.allShips = [
-      this.Battleship,
-      this.Carrier,
-      this.Cruiser,
-      this.Destroyer,
-      this.Submarine,
-    ];
-    this.winner = false;
-    this.placeShips = new PlaceShips(this);
-    this.selectedShip = null;
-    this.NewAttack = new Attack();
-  }
-
-  initialize() {
-    for (let i = 0; i < 100; i++) {
-      this.gameboard[i] = {
-        ship: null,
-        isHit: false,
-        isMiss: false,
+  const initialize = () => {
+    const board: {
+      [key: number]: {
+        ship: Ship | null;
+        isHit: boolean;
+        isMiss: boolean;
       };
+    } = {};
+
+    for (let i = 0; i < 100; i++) {
+      if (board) {
+        board[i] = {
+          ship: null,
+          isHit: false,
+          isMiss: false,
+        };
+      }
     }
-  }
 
-  selectShip(ship: Ship) {
-    this.placeShips.selectShip(ship);
-  }
+    gameBoard.board = board;
+  };
 
-  shipPlacement(square: number) {
-    this.placeShips.shipPlacementLogic(square);
-  }
+  const isLoser = () => {
+    if (gameBoard)
+      if (
+        Battleship.sunk &&
+        Carrier.sunk &&
+        Submarine.sunk &&
+        Destroyer.sunk &&
+        Cruiser.sunk
+      ) {
+        gameBoard.lose = true;
+      }
+  };
 
-  attack(Opponent: GameBoard, square: number) {
-    this.NewAttack.attack(square, Opponent);
-  }
+  initialize();
 
-  isWinner(Opponent: GameBoard) {
-    if (
-      Opponent.Battleship.sunk &&
-      Opponent.Carrier.sunk &&
-      Opponent.Submarine.sunk &&
-      Opponent.Destroyer.sunk &&
-      Opponent.Cruiser.sunk
-    ) {
-      this.winner = true;
-    }
-  }
+  /*
+
 
   turn(square: number, opponent: GameBoard) {
     if (this.allShipsPlaced) {
@@ -82,4 +67,12 @@ export default class GameBoard {
       this.shipPlacement(square);
     }
   }
+
+  */
+
+  return {
+    allShips,
+    gameBoard,
+    isLoser,
+  };
 }
