@@ -3,6 +3,8 @@ interface ButtonProps {
   buttonImg: string;
   testId?: string;
   shipOnClick: () => void;
+  highlightedImg: string;
+  isSelected: boolean;
 }
 
 export function Button({
@@ -10,13 +12,15 @@ export function Button({
   buttonImg,
   testId,
   shipOnClick,
+  highlightedImg,
+  isSelected,
 }: ButtonProps) {
   return (
     <button
       className={className}
       data-testid={testId}
       style={{
-        background: buttonImg,
+        background: `url(${isSelected ? highlightedImg : buttonImg})`,
         //!put css into own component to be passed as prop
         backgroundColor: 'blue',
         height: '100px',
