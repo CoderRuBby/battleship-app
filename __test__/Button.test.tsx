@@ -6,6 +6,7 @@ import { Button } from '~/components/Button';
 describe('Button', () => {
   let onClick: () => void;
   let button: React.ReactElement;
+  let highlightedButton: React.ReactElement;
 
   beforeEach(() => {
     onClick = vi.fn();
@@ -15,6 +16,18 @@ describe('Button', () => {
         buttonImg='primary.png'
         testId='test-button'
         shipOnClick={onClick}
+        isSelected={false}
+        highlightedImg='highlighted.png'
+      />
+    );
+    highlightedButton = (
+      <Button
+        className='button'
+        buttonImg='primary.png'
+        testId='test-button'
+        shipOnClick={onClick}
+        isSelected={true}
+        highlightedImg='highlighted.png'
       />
     );
   });
@@ -36,5 +49,14 @@ describe('Button', () => {
     await user.click(buttonElement);
 
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('will render a button with second background image', () => {
+    render(<>{highlightedButton}</>);
+
+    const buttonElement = screen.getByTestId('test-button');
+    const style = getComputedStyle(buttonElement);
+
+    expect(style.backgroundImage).toContain('highlighted.png');
   });
 });
