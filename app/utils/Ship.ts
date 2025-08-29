@@ -1,4 +1,4 @@
-export default class Ship {
+export type ShipType = {
   name: string;
   length: number;
   hit: number;
@@ -8,40 +8,48 @@ export default class Ship {
   isPlaced: boolean;
   placedLocations: number[];
   hitLocations: number[];
+  isHit: (location: number) => void;
+  isSunk: () => void;
+  addShipStart: (squareNumber: number) => void;
+  addShipEndPoint: (squareNumber: number) => void;
+  getHitLocations: () => number[];
+};
 
-  constructor(name: string, length: number) {
-    this.name = name;
-    this.length = length;
-    this.hit = 0;
-    this.sunk = false;
-    this.shipStartPoint = null;
-    this.shipEndPoint = null;
-    this.isPlaced = false;
-    this.placedLocations = [];
-    this.hitLocations = [];
-  }
+export const Ship: (name: string, length: number) => ShipType = (
+  name,
+  length,
+) => {
+  const ship: ShipType = {
+    name: name,
+    length: length,
+    hit: 0 as number,
+    sunk: false as boolean,
+    shipStartPoint: null as number | null,
+    shipEndPoint: null as number | null,
+    isPlaced: false as boolean,
+    placedLocations: [] as number[],
+    hitLocations: [] as number[],
+    isHit: (location: number) => {
+      ship.hitLocations.push(location);
+      ship.hit++;
+      ship.isSunk();
+    },
+    isSunk: () => {
+      if (ship.hit === ship.length) {
+        ship.sunk = true;
+      }
+    },
+    addShipStart: (squareNumber: number) => {
+      ship.shipStartPoint = squareNumber;
+    },
 
-  isHit(location: number) {
-    this.hitLocations.push(location);
-    this.hit++;
-    this.isSunk();
-  }
+    addShipEndPoint: (squareNumber: number) => {
+      ship.shipEndPoint = squareNumber;
+    },
 
-  isSunk() {
-    if (this.hit === this.length) {
-      this.sunk = true;
-    }
-  }
-
-  addShipStart(squareNumber: number) {
-    this.shipStartPoint = squareNumber;
-  }
-
-  addShipEndPoint(squareNumber: number) {
-    this.shipEndPoint = squareNumber;
-  }
-
-  getHitLocations(): number[] {
-    return this.hitLocations;
-  }
-}
+    getHitLocations: (): number[] => {
+      return ship.hitLocations;
+    },
+  };
+  return ship;
+};
