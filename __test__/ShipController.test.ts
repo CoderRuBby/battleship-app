@@ -1,13 +1,12 @@
-//! Rename to ShipController
 import { describe, it, beforeEach, expect, test } from 'vitest';
-import type { ShipControllerType } from '~/utils/PlaceShips';
-import { ShipController } from '~/utils/PlaceShips';
+import type { ShipControllerType } from '~/utils/ShipController';
+import { ShipController } from '~/utils/ShipController';
 import type { GameBoardType } from '~/utils/GameBoard';
 import { GameBoard } from '~/utils/GameBoard';
 import type { ShipType } from '~/utils/Ship';
 import { Ship } from '~/utils/Ship';
 
-describe('PlaceShip', () => {
+describe('ShipController', () => {
   let Ship1: ShipType;
   let Ship2: ShipType;
   let Player: GameBoardType;

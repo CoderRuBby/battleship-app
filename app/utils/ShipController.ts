@@ -1,4 +1,3 @@
-//! Rename to ShipController
 import type { GameBoardType } from './GameBoard';
 import type { ShipType } from './Ship';
 
