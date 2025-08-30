@@ -71,5 +71,7 @@ export const GameBoard: (ships: ShipType[]) => GameBoardType = (ships) => {
     },*/
   };
 
+  gameboard.initialize();
+
   return gameboard;
 };

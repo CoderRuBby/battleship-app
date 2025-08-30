@@ -16,7 +16,6 @@ describe('ShipController', () => {
     Ship1 = Ship('foo', 3);
     Ship2 = Ship('bar', 2);
     Player = GameBoard([Ship1, Ship2]);
-    Player.initialize();
     PlayerPlaceShip = ShipController(Player);
   });
 

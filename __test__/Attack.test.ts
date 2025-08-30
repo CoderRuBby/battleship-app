@@ -14,7 +14,6 @@ describe('Attack', () => {
   beforeEach(() => {
     Ship1 = Ship('foo', 3);
     Opponent = GameBoard([Ship1]);
-    Opponent.initialize();
     PlayerAttack = Attack();
   });
 
