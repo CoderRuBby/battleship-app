@@ -1,19 +1,24 @@
-import GameBoard from './GameBoard';
+import type { GameBoardType } from './GameBoard';
 
-class Attack {
-  constructor() {}
-  attack(square: number, Opponent: GameBoard) {
-    const hasShip = Opponent.gameboard[square].ship !== null;
-    switch (hasShip) {
-      case true:
-        Opponent.gameboard[square].isHit = true;
-        Opponent.gameboard[square].ship?.isHit(square);
-        break;
-      case false:
-        Opponent.gameboard[square].isMiss = true;
-        break;
-    }
-  }
-}
+export type AttackType = {
+  attack: (square: number, Opponent: GameBoardType) => void;
+};
 
-export default Attack;
+export const Attack: () => AttackType = () => {
+  const controller: AttackType = {
+    attack: (square: number, Opponent: GameBoardType) => {
+      const hasShip = Opponent.board[square].ship !== null;
+      switch (hasShip) {
+        case true:
+          Opponent.board[square].isHit = true;
+          Opponent.board[square].ship?.isHit(square);
+          break;
+        case false:
+          Opponent.board[square].isMiss = true;
+          break;
+      }
+    },
+  };
+
+  return controller;
+};
