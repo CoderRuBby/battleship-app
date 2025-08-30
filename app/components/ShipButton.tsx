@@ -1,16 +1,16 @@
-interface ButtonProps {
+interface ShipButtonProps {
   className: string;
   buttonImg: string;
   testId?: string;
   shipOnClick: () => void;
 }
 
-export function Button({
+export function ShipButton({
   className,
   buttonImg,
   testId,
   shipOnClick,
-}: ButtonProps) {
+}: ShipButtonProps) {
   return (
     <button
       className={className}

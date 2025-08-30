@@ -1,12 +1,12 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Button } from '~/components/Button';
+import { ShipButton } from '~/components/ShipButton';
 
-describe('Button', () => {
+describe('ShipButton', () => {
   it('should render a button', () => {
     render(
-      <Button
+      <ShipButton
         className='ship-button'
         buttonImg='test.png'
         testId='test-button'
@@ -24,7 +24,7 @@ describe('Button', () => {
     const user = userEvent.setup();
 
     render(
-      <Button
+      <ShipButton
         className='ship-button'
         buttonImg='test.png'
         testId='carrier'
