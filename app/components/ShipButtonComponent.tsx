@@ -1,4 +1,5 @@
 import React from 'react';
+import { ShipButton } from './ShipButton';
 
 export function ShipButtonComponent({
   ariaLabel,
@@ -17,5 +18,60 @@ export function ShipButtonComponent({
         <React.Fragment key={index}>{child}</React.Fragment>
       ))}
     </section>
+  );
+}
+
+export function ShipButtons() {
+  const DestroyerButton = (
+    <ShipButton
+      className='ship-button'
+      testId='destroyer-button'
+      buttonImg='test.png'
+      shipOnClick={() => {}}
+    />
+  );
+  const BattleshipButton = (
+    <ShipButton
+      className='ship-button'
+      testId='battleship-button'
+      buttonImg='test.png'
+      shipOnClick={() => {}}
+    />
+  );
+  const CarrierButton = (
+    <ShipButton
+      className='ship-button'
+      testId='carrier-button'
+      buttonImg='test.png'
+      shipOnClick={() => {}}
+    />
+  );
+  const SubmarineButton = (
+    <ShipButton
+      className='ship-button'
+      testId='Submarine-button'
+      buttonImg='test.png'
+      shipOnClick={() => {}}
+    />
+  );
+  const CruiserButton = (
+    <ShipButton
+      className='ship-button'
+      testId='destroyer-button'
+      buttonImg='test.png'
+      shipOnClick={() => {}}
+    />
+  );
+
+  return (
+    <ShipButtonComponent ariaLabel='The game ship buttons'>
+      {[
+        DestroyerButton,
+        BattleshipButton,
+        CarrierButton,
+        SubmarineButton,
+        CruiserButton,
+      ]}
+    </ShipButtonComponent>
   );
 }
