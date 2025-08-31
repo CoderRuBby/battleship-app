@@ -27,6 +27,8 @@ export function ShipButtons() {
       className='ship-button'
       testId='destroyer-button'
       buttonImg='test.png'
+      highlightedImg='test.png'
+      isSelected={false}
       shipOnClick={() => {}}
     />
   );
@@ -35,6 +37,8 @@ export function ShipButtons() {
       className='ship-button'
       testId='battleship-button'
       buttonImg='test.png'
+      highlightedImg='test.png'
+      isSelected={false}
       shipOnClick={() => {}}
     />
   );
@@ -43,6 +47,8 @@ export function ShipButtons() {
       className='ship-button'
       testId='carrier-button'
       buttonImg='test.png'
+      highlightedImg='test.png'
+      isSelected={false}
       shipOnClick={() => {}}
     />
   );
@@ -51,6 +57,8 @@ export function ShipButtons() {
       className='ship-button'
       testId='Submarine-button'
       buttonImg='test.png'
+      highlightedImg='test.png'
+      isSelected={false}
       shipOnClick={() => {}}
     />
   );
@@ -59,6 +67,8 @@ export function ShipButtons() {
       className='ship-button'
       testId='destroyer-button'
       buttonImg='test.png'
+      highlightedImg='test.png'
+      isSelected={false}
       shipOnClick={() => {}}
     />
   );
