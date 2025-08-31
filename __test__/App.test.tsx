@@ -20,6 +20,8 @@ describe('App', () => {
         className='ship-button'
         testId='button1'
         buttonImg='button1.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -28,6 +30,8 @@ describe('App', () => {
         className='ship-button'
         testId='button2'
         buttonImg='button2.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -36,6 +40,8 @@ describe('App', () => {
         className='ship-button'
         testId='button3'
         buttonImg='button3.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -49,6 +55,8 @@ describe('App', () => {
         className='board-button'
         testId='board1'
         buttonImg='board1.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -57,6 +65,8 @@ describe('App', () => {
         className='board-button'
         testId='board2'
         buttonImg='board2.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -65,6 +75,8 @@ describe('App', () => {
         className='board-button'
         testId='board3'
         buttonImg='board3.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );

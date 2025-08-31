@@ -15,6 +15,8 @@ describe('ShipButtonComponent', () => {
         className='ship-button'
         testId='button1'
         buttonImg='button1.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -23,6 +25,8 @@ describe('ShipButtonComponent', () => {
         className='ship-button'
         testId='button2'
         buttonImg='button2.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );
@@ -31,6 +35,8 @@ describe('ShipButtonComponent', () => {
         className='ship-button'
         testId='button3'
         buttonImg='button3.png'
+        highlightedImg='test.png'
+        isSelected={false}
         shipOnClick={() => {}}
       />
     );

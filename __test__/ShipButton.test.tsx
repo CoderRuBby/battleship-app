@@ -1,40 +1,62 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ShipButton } from '~/components/ShipButton';
 
 describe('ShipButton', () => {
-  it('should render a button', () => {
-    render(
+  let onClick: () => void;
+  let button: React.ReactElement;
+  let highlightedButton: React.ReactElement;
+
+  beforeEach(() => {
+    onClick = vi.fn();
+    button = (
       <ShipButton
-        className='ship-button'
-        buttonImg='test.png'
+        className='button'
+        buttonImg='primary.png'
         testId='test-button'
-        shipOnClick={() => {}}
-      />,
+        shipOnClick={onClick}
+        isSelected={false}
+        highlightedImg='highlighted.png'
+      />
     );
+    highlightedButton = (
+      <ShipButton
+        className='button'
+        buttonImg='primary.png'
+        testId='test-button'
+        shipOnClick={onClick}
+        isSelected={true}
+        highlightedImg='highlighted.png'
+      />
+    );
+  });
 
-    const button = screen.getByTestId('test-button');
+  it('should render a button', () => {
+    render(<>{button}</>);
 
-    expect(button).toBeInTheDocument();
+    const buttonElement = screen.getByTestId('test-button');
+
+    expect(buttonElement).toBeInTheDocument();
   });
 
   it('will call the onClick function when clicked', async () => {
-    const onClick = vi.fn();
     const user = userEvent.setup();
 
-    render(
-      <ShipButton
-        className='ship-button'
-        buttonImg='test.png'
-        testId='carrier'
-        shipOnClick={onClick}
-      />,
-    );
+    render(<>{button}</>);
 
-    const button = screen.getByTestId('carrier');
-    await user.click(button);
+    const buttonElement = screen.getByTestId('test-button');
+    await user.click(buttonElement);
 
     expect(onClick).toHaveBeenCalled();
+  });
+
+  it('will render a button with second background image', () => {
+    render(<>{highlightedButton}</>);
+
+    const buttonElement = screen.getByTestId('test-button');
+    const style = getComputedStyle(buttonElement);
+
+    expect(style.backgroundImage).toContain('highlighted.png');
   });
 });
