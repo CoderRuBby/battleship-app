@@ -1,7 +1,6 @@
 import React from 'react';
 
-//!Add interface
-export function ButtonContainer({
+export function ShipButtonComponent({
   ariaLabel,
   children,
 }: {
@@ -9,7 +8,11 @@ export function ButtonContainer({
   children?: React.ReactNode;
 }) {
   return (
-    <section role='region' aria-label={ariaLabel} className='button-container'>
+    <section
+      role='region'
+      aria-label={ariaLabel}
+      className='ship-button-container'
+    >
       {React.Children.toArray(children).map((child, index) => (
         <React.Fragment key={index}>{child}</React.Fragment>
       ))}

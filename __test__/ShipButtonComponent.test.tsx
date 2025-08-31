@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ButtonContainer } from '~/components/ButtonContainer';
-import { GameComponent } from '~/components/GameComponent';
+import { ShipButtonComponent } from '~/components/ShipButtonComponent';
 import { ShipButton } from '~/components/ShipButton';
 
-describe('GameComponent', () => {
+describe('ShipButtonComponent', () => {
   let button1: React.ReactElement;
   let button2: React.ReactElement;
   let button3: React.ReactElement;
@@ -36,14 +35,14 @@ describe('GameComponent', () => {
       />
     );
     component = (
-      <ButtonContainer ariaLabel='The game ship buttons'>
+      <ShipButtonComponent ariaLabel='The game ship buttons'>
         {[button1, button2, button3]}
-      </ButtonContainer>
+      </ShipButtonComponent>
     );
   });
 
   it('can render a button container with buttons', () => {
-    render(<GameComponent>{component}</GameComponent>);
+    render(<ShipButtonComponent>{component}</ShipButtonComponent>);
 
     const buttonContainer = screen.getByRole('region', {
       name: 'The game ship buttons',

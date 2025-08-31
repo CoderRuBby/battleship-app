@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { ButtonContainer } from '~/components/ButtonContainer';
+import { ShipButtonComponent } from '~/components/ShipButtonComponent';
 import { App } from '~/layouts/app';
 import { ShipButton } from '~/components/ShipButton';
 
@@ -40,9 +40,9 @@ describe('App', () => {
       />
     );
     gameButtons = (
-      <ButtonContainer ariaLabel='The game ship buttons'>
+      <ShipButtonComponent ariaLabel='The game ship buttons'>
         {[button1, button2, button3]}
-      </ButtonContainer>
+      </ShipButtonComponent>
     );
     boardButton1 = (
       <ShipButton
@@ -69,9 +69,9 @@ describe('App', () => {
       />
     );
     gameBoardButtons = (
-      <ButtonContainer ariaLabel='The game board'>
+      <ShipButtonComponent ariaLabel='The game board'>
         {[boardButton1, boardButton2, boardButton3]}
-      </ButtonContainer>
+      </ShipButtonComponent>
     );
   });
 
