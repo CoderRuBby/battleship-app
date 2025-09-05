@@ -1,5 +1,4 @@
 interface ShipButtonProps {
-  className: string;
   buttonImg: string;
   testId?: string;
   shipOnClick: () => void;

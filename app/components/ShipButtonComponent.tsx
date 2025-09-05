@@ -24,7 +24,6 @@ export function ShipButtonComponent({
 export function ShipButtons() {
   const DestroyerButton = (
     <ShipButton
-      className='ship-button'
       testId='destroyer-button'
       buttonImg='test.png'
       highlightedImg='test.png'
@@ -34,7 +33,6 @@ export function ShipButtons() {
   );
   const BattleshipButton = (
     <ShipButton
-      className='ship-button'
       testId='battleship-button'
       buttonImg='test.png'
       highlightedImg='test.png'
@@ -44,7 +42,6 @@ export function ShipButtons() {
   );
   const CarrierButton = (
     <ShipButton
-      className='ship-button'
       testId='carrier-button'
       buttonImg='test.png'
       highlightedImg='test.png'
@@ -54,7 +51,6 @@ export function ShipButtons() {
   );
   const SubmarineButton = (
     <ShipButton
-      className='ship-button'
       testId='Submarine-button'
       buttonImg='test.png'
       highlightedImg='test.png'
@@ -64,7 +60,6 @@ export function ShipButtons() {
   );
   const CruiserButton = (
     <ShipButton
-      className='ship-button'
       testId='destroyer-button'
       buttonImg='test.png'
       highlightedImg='test.png'

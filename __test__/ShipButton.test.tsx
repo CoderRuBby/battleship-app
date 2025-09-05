@@ -12,7 +12,6 @@ describe('ShipButton', () => {
     onClick = vi.fn();
     button = (
       <ShipButton
-        className='button'
         buttonImg='primary.png'
         testId='test-button'
         shipOnClick={onClick}
@@ -22,7 +21,6 @@ describe('ShipButton', () => {
     );
     highlightedButton = (
       <ShipButton
-        className='button'
         buttonImg='primary.png'
         testId='test-button'
         shipOnClick={onClick}

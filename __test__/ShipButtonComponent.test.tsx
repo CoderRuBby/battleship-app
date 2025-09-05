@@ -12,7 +12,6 @@ describe('ShipButtonComponent', () => {
   beforeEach(() => {
     button1 = (
       <ShipButton
-        className='ship-button'
         testId='button1'
         buttonImg='button1.png'
         highlightedImg='highlighted.png'
@@ -22,7 +21,6 @@ describe('ShipButtonComponent', () => {
     );
     button2 = (
       <ShipButton
-        className='ship-button'
         testId='button2'
         buttonImg='button2.png'
         highlightedImg='highlighted.png'
@@ -32,7 +30,6 @@ describe('ShipButtonComponent', () => {
     );
     button3 = (
       <ShipButton
-        className='ship-button'
         testId='button3'
         buttonImg='button3.png'
         highlightedImg='highlighted.png'
