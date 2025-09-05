@@ -8,7 +8,6 @@ interface ShipButtonProps {
 }
 
 export function ShipButton({
-  className,
   buttonImg,
   testId,
   shipOnClick,
@@ -17,7 +16,7 @@ export function ShipButton({
 }: ShipButtonProps) {
   return (
     <button
-      className={className}
+      className='ship-button'
       data-testid={testId}
       style={{
         background: `url(${isSelected ? highlightedImg : buttonImg})`,
