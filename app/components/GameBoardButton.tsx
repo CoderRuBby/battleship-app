@@ -1,7 +1,7 @@
 interface GameBoardButtonProps {
   testId: string;
-  selectedShip: string;
-  shipImageNumber: string;
+  selectedShip: string | null;
+  shipImageNumber: string | null;
 }
 
 export function GameBoardButton({

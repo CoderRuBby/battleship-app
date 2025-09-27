@@ -5,7 +5,13 @@ import { GameBoardButton } from '~/components/GameBoardButton';
 
 describe('GameBoardButton', () => {
   it('will render a default button', () => {
-    render(<GameBoardButton testId='button' />);
+    render(
+      <GameBoardButton
+        testId='button'
+        selectedShip={null}
+        shipImageNumber={null}
+      />,
+    );
 
     const button = screen.getByTestId('button');
     const buttonStyle = getComputedStyle(button);
