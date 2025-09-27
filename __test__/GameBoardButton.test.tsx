@@ -9,6 +9,7 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip={null}
         shipImageNumber={null}
+        isHit={null}
       />,
     );
 
@@ -24,6 +25,7 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip='button'
         shipImageNumber='1'
+        isHit={null}
       />,
     );
 
@@ -31,5 +33,21 @@ describe('GameBoardButton', () => {
     const style = getComputedStyle(button);
 
     expect(style.background).toContain('url("button1.png")');
+  });
+
+  it('will render a button with a hit image', () => {
+    render(
+      <GameBoardButton
+        testId='button'
+        selectedShip={null}
+        shipImageNumber={null}
+        isHit={true}
+      />,
+    );
+
+    const button = screen.getByTestId('button');
+    const style = getComputedStyle(button);
+
+    expect(style.background).toContain('url("hit.png")');
   });
 });
