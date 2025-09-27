@@ -13,7 +13,11 @@ export function ShipButtonComponent({
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
 
   const handleButtonClick = (testId: string) => {
-    setSelectedButton(testId);
+    if (selectedButton === testId) {
+      setSelectedButton(null);
+    } else {
+      setSelectedButton(testId);
+    }
   };
 
   return (
