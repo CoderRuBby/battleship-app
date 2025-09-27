@@ -10,6 +10,7 @@ describe('GameBoardButton', () => {
         selectedShip={null}
         shipImageNumber={null}
         isHit={null}
+        isMiss={false}
       />,
     );
 
@@ -26,6 +27,7 @@ describe('GameBoardButton', () => {
         selectedShip='button'
         shipImageNumber='1'
         isHit={null}
+        isMiss={true}
       />,
     );
 
@@ -42,6 +44,7 @@ describe('GameBoardButton', () => {
         selectedShip={null}
         shipImageNumber={null}
         isHit={true}
+        isMiss={false}
       />,
     );
 
@@ -49,5 +52,22 @@ describe('GameBoardButton', () => {
     const style = getComputedStyle(button);
 
     expect(style.background).toContain('url("hit.png")');
+  });
+
+  it('will render a button with a miss image', () => {
+    render(
+      <GameBoardButton
+        testId='button'
+        selectedShip={null}
+        shipImageNumber={null}
+        isHit={false}
+        isMiss={true}
+      />,
+    );
+
+    const button = screen.getByTestId('button');
+    const style = getComputedStyle(button);
+
+    expect(style.background).toContain('url("miss.png")');
   });
 });
