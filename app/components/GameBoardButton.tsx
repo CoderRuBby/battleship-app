@@ -2,7 +2,7 @@ interface GameBoardButtonProps {
   testId: string;
   selectedShip: string | null;
   shipImageNumber: string | null;
-  isHit: boolean | null;
+  isHit: boolean;
   isMiss: boolean;
 }
 

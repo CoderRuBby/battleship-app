@@ -9,7 +9,7 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip={null}
         shipImageNumber={null}
-        isHit={null}
+        isHit={false}
         isMiss={false}
       />,
     );
@@ -26,7 +26,7 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip='button'
         shipImageNumber='1'
-        isHit={null}
+        isHit={false}
         isMiss={true}
       />,
     );
