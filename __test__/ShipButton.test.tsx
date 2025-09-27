@@ -5,56 +5,48 @@ import { ShipButton } from '~/components/ShipButton';
 
 describe('ShipButton', () => {
   let onClick: () => void;
-  let button: React.ReactElement;
-  let highlightedButton: React.ReactElement;
 
   beforeEach(() => {
     onClick = vi.fn();
-    button = (
-      <ShipButton
-        buttonImg='primary.png'
-        testId='test-button'
-        shipOnClick={onClick}
-        isSelected={false}
-        highlightedImg='highlighted.png'
-      />
-    );
-    highlightedButton = (
-      <ShipButton
-        buttonImg='primary.png'
-        testId='test-button'
-        shipOnClick={onClick}
-        isSelected={true}
-        highlightedImg='highlighted.png'
-      />
-    );
   });
 
-  it('should render a button', () => {
-    render(<>{button}</>);
+  it('will render a button with a button1.png background', () => {
+    render(
+      <ShipButton testId='button1' shipOnClick={onClick} isSelected={null} />,
+    );
 
-    const buttonElement = screen.getByTestId('test-button');
+    const buttonElement = screen.getByTestId('button1');
+    const style = getComputedStyle(buttonElement);
 
     expect(buttonElement).toBeInTheDocument();
+    expect(style.backgroundImage).toContain('button1.png');
   });
 
   it('will call the onClick function when clicked', async () => {
     const user = userEvent.setup();
 
-    render(<>{button}</>);
+    render(
+      <ShipButton testId='button' shipOnClick={onClick} isSelected='button' />,
+    );
 
-    const buttonElement = screen.getByTestId('test-button');
+    const buttonElement = screen.getByTestId('button');
     await user.click(buttonElement);
 
     expect(onClick).toHaveBeenCalled();
   });
 
-  it('will render a button with second background image', () => {
-    render(<>{highlightedButton}</>);
+  it('will render a button with a highlightedbutton1.png background', () => {
+    render(
+      <ShipButton
+        testId='button1'
+        shipOnClick={onClick}
+        isSelected='button1'
+      />,
+    );
 
-    const buttonElement = screen.getByTestId('test-button');
+    const buttonElement = screen.getByTestId('button1');
     const style = getComputedStyle(buttonElement);
 
-    expect(style.backgroundImage).toContain('highlighted.png');
+    expect(style.backgroundImage).toContain('highlightedbutton1.png');
   });
 });

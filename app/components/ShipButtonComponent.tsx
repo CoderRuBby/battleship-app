@@ -1,82 +1,52 @@
-import React from 'react';
+import { useState } from 'react';
 import { ShipButton } from './ShipButton';
+
+interface ShipButtonComponentProps {
+  ariaLabel?: string;
+  buttons: string[];
+}
 
 export function ShipButtonComponent({
   ariaLabel,
-  children,
-}: {
-  ariaLabel?: string;
-  children?: React.ReactNode;
-}) {
+  buttons,
+}: ShipButtonComponentProps) {
+  const [selectedButton, setSelectedButton] = useState<string | null>(null);
+
+  const handleButtonClick = (testId: string) => {
+    setSelectedButton(testId);
+  };
+
   return (
     <section
       role='region'
       aria-label={ariaLabel}
       className='ship-button-container'
     >
-      {React.Children.toArray(children).map((child, index) => (
-        <React.Fragment key={index}>{child}</React.Fragment>
+      {buttons.map((button) => (
+        <ShipButton
+          key={button}
+          testId={button}
+          shipOnClick={() => handleButtonClick(button)}
+          isSelected={selectedButton}
+        />
       ))}
     </section>
   );
 }
 
-export function ShipButtons() {
-  const DestroyerButton = (
-    <ShipButton
-      testId='destroyer-button'
-      buttonImg='test.png'
-      highlightedImg='test.png'
-      isSelected={false}
-      shipOnClick={() => {}}
-    />
-  );
-  const BattleshipButton = (
-    <ShipButton
-      testId='battleship-button'
-      buttonImg='test.png'
-      highlightedImg='test.png'
-      isSelected={false}
-      shipOnClick={() => {}}
-    />
-  );
-  const CarrierButton = (
-    <ShipButton
-      testId='carrier-button'
-      buttonImg='test.png'
-      highlightedImg='test.png'
-      isSelected={false}
-      shipOnClick={() => {}}
-    />
-  );
-  const SubmarineButton = (
-    <ShipButton
-      testId='Submarine-button'
-      buttonImg='test.png'
-      highlightedImg='test.png'
-      isSelected={false}
-      shipOnClick={() => {}}
-    />
-  );
-  const CruiserButton = (
-    <ShipButton
-      testId='destroyer-button'
-      buttonImg='test.png'
-      highlightedImg='test.png'
-      isSelected={false}
-      shipOnClick={() => {}}
-    />
-  );
+const shipButtons: string[] = [
+  'destroyer',
+  'battleship',
+  'carrier',
+  'Submarine',
+  'cruiser',
+];
 
+export function ShipButtonsMain() {
   return (
-    <ShipButtonComponent ariaLabel='The game ship buttons'>
-      {[
-        DestroyerButton,
-        BattleshipButton,
-        CarrierButton,
-        SubmarineButton,
-        CruiserButton,
-      ]}
-    </ShipButtonComponent>
+    <ShipButtonComponent
+      ariaLabel='The game ship buttons'
+      buttons={shipButtons}
+    />
   );
 }

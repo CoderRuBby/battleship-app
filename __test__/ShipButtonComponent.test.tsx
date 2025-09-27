@@ -1,51 +1,24 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ShipButtonComponent } from '~/components/ShipButtonComponent';
-import { ShipButton } from '~/components/ShipButton';
 
 describe('ShipButtonComponent', () => {
-  let button1: React.ReactElement;
-  let button2: React.ReactElement;
-  let button3: React.ReactElement;
+  let buttons: string[];
   let component: React.ReactElement;
 
   beforeEach(() => {
-    button1 = (
-      <ShipButton
-        testId='button1'
-        buttonImg='button1.png'
-        highlightedImg='highlighted.png'
-        isSelected={false}
-        shipOnClick={() => {}}
-      />
-    );
-    button2 = (
-      <ShipButton
-        testId='button2'
-        buttonImg='button2.png'
-        highlightedImg='highlighted.png'
-        isSelected={false}
-        shipOnClick={() => {}}
-      />
-    );
-    button3 = (
-      <ShipButton
-        testId='button3'
-        buttonImg='button3.png'
-        highlightedImg='highlighted.png'
-        isSelected={false}
-        shipOnClick={() => {}}
-      />
-    );
+    buttons = ['button1', 'button2', 'button3'];
+
     component = (
-      <ShipButtonComponent ariaLabel='The game ship buttons'>
-        {[button1, button2, button3]}
-      </ShipButtonComponent>
+      <ShipButtonComponent
+        ariaLabel='The game ship buttons'
+        buttons={buttons}
+      />
     );
   });
 
   it('can render a button container with buttons', () => {
-    render(<ShipButtonComponent>{component}</ShipButtonComponent>);
+    render(component);
 
     const buttonContainer = screen.getByRole('region', {
       name: 'The game ship buttons',
