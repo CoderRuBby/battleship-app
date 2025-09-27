@@ -64,4 +64,25 @@ describe('ShipButtonComponent', () => {
     expect(newStyleTwo.background).toContain('url("highlightedbutton2.png")');
     expect(styleOneAgain.background).toContain('url("button1.png")');
   });
+
+  test('selecting the same button twice deselects it', async () => {
+    const user = userEvent.setup();
+
+    render(component);
+
+    const buttonOne = screen.getByTestId('button1');
+    let style = getComputedStyle(buttonOne);
+
+    await user.click(buttonOne);
+
+    style = getComputedStyle(buttonOne);
+
+    expect(style.background).toContain('url("highlightedbutton1.png")');
+
+    await user.click(buttonOne);
+
+    style = getComputedStyle(buttonOne);
+
+    expect(style.background).toContain('url("button1.png")');
+  });
 });
