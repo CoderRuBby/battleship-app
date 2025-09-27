@@ -1,12 +1,19 @@
 interface GameBoardButtonProps {
   testId: string;
+  selectedShip: string;
+  shipImageNumber: string;
 }
 
-export function GameBoardButton({ testId }: GameBoardButtonProps) {
-  return (
-    <button
-      data-testid={testId}
-      style={{ background: 'rgba(0, 0, 0, 0)' }}
-    ></button>
-  );
+export function GameBoardButton({
+  testId,
+  selectedShip,
+  shipImageNumber,
+}: GameBoardButtonProps) {
+  const buttonStyle = {
+    background:
+      selectedShip === testId
+        ? `url("${selectedShip}${shipImageNumber}.png")`
+        : 'rgba(0, 0, 0, 0)',
+  };
+  return <button data-testid={testId} style={buttonStyle}></button>;
 }
