@@ -1,3 +1,14 @@
+export interface gameBoardInterface {
+  board: { isHit: boolean; isMiss: boolean }[];
+}
+
+export function gameBoard(): gameBoardInterface {
+  return {
+    board: Array.from({ length: 100 }, () => ({ isHit: false, isMiss: false })),
+  };
+}
+
+/*
 import Ship from './Ship';
 import PlaceShips from './PlaceShips';
 import Attack from './Attack';
@@ -83,3 +94,4 @@ export default class GameBoard {
     }
   }
 }
+*/
