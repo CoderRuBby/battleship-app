@@ -1,4 +1,4 @@
-export default class Ship {
+export interface shipInterface {
   name: string;
   length: number;
   hit: number;
@@ -8,40 +8,42 @@ export default class Ship {
   isPlaced: boolean;
   placedLocations: number[];
   hitLocations: number[];
+  isHit: (hitLocation: number) => void;
+  isSunk: () => void;
+  addShipStart: (squareNumber: number) => void;
+  addShipEndPoint: (squareNumber: number) => void;
+  getHitLocations: () => void;
+}
 
-  constructor(name: string, length: number) {
-    this.name = name;
-    this.length = length;
-    this.hit = 0;
-    this.sunk = false;
-    this.shipStartPoint = null;
-    this.shipEndPoint = null;
-    this.isPlaced = false;
-    this.placedLocations = [];
-    this.hitLocations = [];
-  }
-
-  isHit(location: number) {
-    this.hitLocations.push(location);
-    this.hit++;
-    this.isSunk();
-  }
-
-  isSunk() {
-    if (this.hit === this.length) {
-      this.sunk = true;
-    }
-  }
-
-  addShipStart(squareNumber: number) {
-    this.shipStartPoint = squareNumber;
-  }
-
-  addShipEndPoint(squareNumber: number) {
-    this.shipEndPoint = squareNumber;
-  }
-
-  getHitLocations(): number[] {
-    return this.hitLocations;
-  }
+export function ship({ name, length }: shipInterface): shipInterface {
+  return {
+    name: name,
+    length: length,
+    hit: 0,
+    sunk: false,
+    shipStartPoint: null,
+    shipEndPoint: null,
+    isPlaced: false,
+    placedLocations: [],
+    hitLocations: [],
+    isHit: function (location: number) {
+      this.hitLocations.push(location);
+      this.hit++;
+      this.isSunk();
+    },
+    isSunk: function () {
+      if (this.hit === this.length) {
+        this.sunk = true;
+      }
+    },
+    addShipStart: function (squareNumber: number) {
+      this.shipStartPoint = squareNumber;
+    },
+    addShipEndPoint: function (squareNumber: number) {
+      this.shipEndPoint = squareNumber;
+    },
+    getHitLocations: function (): number[] {
+      return this.hitLocations;
+    },
+  };
 }
