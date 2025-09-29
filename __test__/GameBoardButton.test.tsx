@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { GameBoardButton } from '~/components/GameBoardButton';
+import { ship } from '~/utils/Ship';
 
 describe('GameBoardButton', () => {
   it('will render a default button', () => {
@@ -21,10 +22,11 @@ describe('GameBoardButton', () => {
   });
 
   it('will render a button with a ship image', async () => {
+    const selectedShip = ship('button', 1);
     render(
       <GameBoardButton
         testId='button'
-        selectedShip='button'
+        selectedShip={selectedShip}
         shipImageNumber='1'
         isHit={false}
         isMiss={true}

@@ -1,6 +1,8 @@
+import type { shipInterface } from '~/utils/Ship';
+
 interface GameBoardButtonProps {
   testId: string;
-  selectedShip: string | null;
+  selectedShip: shipInterface | null;
   shipImageNumber: string | null;
   isHit: boolean;
   isMiss: boolean;
@@ -15,8 +17,8 @@ export function GameBoardButton({
 }: GameBoardButtonProps) {
   const buttonStyle = {
     background:
-      selectedShip === testId
-        ? `url("${selectedShip}${shipImageNumber}.png")`
+      selectedShip?.name === testId
+        ? `url("${selectedShip.name}${shipImageNumber}.png")`
         : isHit === true
           ? 'url("hit.png")'
           : isMiss === true
