@@ -39,23 +39,42 @@ describe('GameBoardComponent', () => {
 
     render(componentWithSelectedShip);
 
-    const buttonOne = screen.getByTestId('1');
-    await user.hover(buttonOne);
+    const button45 = screen.getByTestId('45');
+    await user.hover(button45);
 
-    const buttonOneStyle = getComputedStyle(buttonOne);
-    const buttonTwo = screen.getByTestId('2');
-    const buttonTwoStyle = getComputedStyle(buttonTwo);
-    const buttonThree = screen.getByTestId('3');
-    const buttonThreeStyle = getComputedStyle(buttonThree);
-    const buttonTen = screen.getByTestId('10');
-    const buttonTenStyle = getComputedStyle(buttonTen);
-    const buttonTwenty = screen.getByTestId('20');
-    const buttonTwentyStyle = getComputedStyle(buttonTwenty);
+    const button45Style = getComputedStyle(button45);
+    expect(button45Style.background).toContain('rgba(0, 0, 0, 0)');
 
-    expect(buttonOneStyle.background).toContain('rgba(0, 0, 0, 0)');
-    expect(buttonTwoStyle.background).toContain('url("foo2.png")');
-    expect(buttonThreeStyle.background).toContain('url("foo3.png")');
-    expect(buttonTenStyle.background).toContain('url("foo2.png")');
-    expect(buttonTwentyStyle.background).toContain('url("foo3.png")');
+    const button46 = screen.getByTestId('46');
+    const button46Style = getComputedStyle(button46);
+    expect(button46Style.background).toContain('url("foo1right.png")');
+
+    const button47 = screen.getByTestId('47');
+    const button47Style = getComputedStyle(button47);
+    expect(button47Style.background).toContain('url("foo2right.png")');
+
+    const button55 = screen.getByTestId('55');
+    const button55Style = getComputedStyle(button55);
+    expect(button55Style.background).toContain('url("foo1down.png")');
+
+    const button65 = screen.getByTestId('65');
+    const button65Style = getComputedStyle(button65);
+    expect(button65Style.background).toContain('url("foo2down.png")');
+
+    const button44 = screen.getByTestId('44');
+    const button44Style = getComputedStyle(button44);
+    expect(button44Style.background).toContain('url("foo1left.png")');
+
+    const button43 = screen.getByTestId('43');
+    const button43Style = getComputedStyle(button43);
+    expect(button43Style.background).toContain('url("foo2left.png")');
+
+    const button35 = screen.getByTestId('35');
+    const button35Style = getComputedStyle(button35);
+    expect(button35Style.background).toContain('url("foo1up.png")');
+
+    const button25 = screen.getByTestId('25');
+    const button25Style = getComputedStyle(button25);
+    expect(button25Style.background).toContain('url("foo2up.png")');
   });
 });
