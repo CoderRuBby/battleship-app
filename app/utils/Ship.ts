@@ -1,4 +1,5 @@
 export interface shipInterface {
+export interface shipInterface {
   name: string;
   length: number;
   hit: number;

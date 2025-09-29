@@ -1,13 +1,18 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, test } from 'vitest';
+import userEvent from '@testing-library/user-event';
+import { beforeEach, describe, expect, it, test } from 'vitest';
 import { GameBoardComponent } from '~/components/GameBoardComponent';
 import { gameBoard } from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 import { ship } from '~/utils/Ship';
 import type { shipInterface } from '~/utils/Ship';
+import { ship } from '~/utils/Ship';
+import type { shipInterface } from '~/utils/Ship';
 
 describe('GameBoardComponent', () => {
+  let shipObject: shipInterface;
   let shipObject: shipInterface;
   let gameBoardObject: gameBoardInterface;
   let component: React.ReactElement;
@@ -15,7 +20,17 @@ describe('GameBoardComponent', () => {
 
   beforeEach(() => {
     shipObject = ship('foo', 3);
+    shipObject = ship('foo', 3);
     gameBoardObject = { board: gameBoard().board };
+    component = (
+      <GameBoardComponent gameBoard={gameBoardObject} selectedShip={null} />
+    );
+    componentWithSelectedShip = (
+      <GameBoardComponent
+        gameBoard={gameBoardObject}
+        selectedShip={shipObject}
+      />
+    );
     component = (
       <GameBoardComponent gameBoard={gameBoardObject} selectedShip={null} />
     );
