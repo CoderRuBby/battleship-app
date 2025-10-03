@@ -1,11 +1,12 @@
 import { describe, beforeEach, it, expect } from 'vitest';
-import Ship from '~/utils/Ship';
+import { ship } from '~/utils/Ship';
+import type { shipInterface } from '~/utils/Ship';
 
 describe('Ship', () => {
-  let Ship1: Ship;
+  let Ship1: shipInterface;
 
   beforeEach(() => {
-    Ship1 = new Ship('Ship1', 4);
+    Ship1 = ship('Ship1', 4);
   });
 
   describe('isHit', () => {
