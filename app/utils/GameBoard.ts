@@ -1,10 +1,22 @@
+import type { shipInterface } from './Ship';
+
 export interface gameBoardInterface {
-  board: { isHit: boolean; isMiss: boolean }[];
+  board: { isHit: boolean; isMiss: boolean; ship: shipInterface | null }[];
+  selectedShip: shipInterface | null;
+  allShipsPlaced: boolean;
+  allShips: shipInterface[];
 }
 
-export function gameBoard(): gameBoardInterface {
+export function gameBoard(allShips: shipInterface[]): gameBoardInterface {
   return {
-    board: Array.from({ length: 100 }, () => ({ isHit: false, isMiss: false })),
+    board: Array.from({ length: 100 }, () => ({
+      isHit: false,
+      isMiss: false,
+      ship: null,
+    })),
+    selectedShip: null,
+    allShipsPlaced: false,
+    allShips: allShips,
   };
 }
 
