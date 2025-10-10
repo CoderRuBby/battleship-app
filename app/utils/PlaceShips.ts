@@ -150,7 +150,6 @@ export default function useShipPlacementSystem(
         shipPaths.push(path);
       }
     });
-    console.log(shipPaths);
 
     return shipPaths;
   };
