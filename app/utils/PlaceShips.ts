@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import type { gameBoardInterface } from './GameBoard';
 import type { shipInterface } from './Ship';
 
 export interface shipPlacementSystemInterface {
-  playerGameBoard: gameBoardInterface;
+  selectedShip: shipInterface | null;
   selectShip: (ship: shipInterface) => void;
   isAvailableSquare: (square: number) => boolean;
   pathIsAvailable: (path: number[]) => boolean;
@@ -26,208 +27,213 @@ export interface shipPlacementSystemInterface {
   shipPlacementLogic: (squareNumber: number) => void;
 }
 
-export default function shipPlacementSystem(
+export default function useShipPlacementSystem(
   playerGameBoard: gameBoardInterface,
 ): shipPlacementSystemInterface {
+  const [selectedShip, setSelectedShip] = useState<shipInterface | null>(null);
+  const selectShip = (ship: shipInterface) => {
+    if (ship === selectedShip) {
+      selectedShip.shipStartPoint = null;
+      setSelectedShip(null);
+    } else {
+      if (selectedShip !== null) {
+        selectedShip.shipStartPoint = null;
+      }
+      setSelectedShip(ship);
+    }
+  };
+
+  const isAvailableSquare = (square: number): boolean => {
+    if (playerGameBoard.board[square].ship === null) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const pathIsAvailable = (path: number[]): boolean => {
+    let isAvailable = true;
+    path.forEach((square) => {
+      if (isAvailableSquare(square) === false) {
+        isAvailable = false;
+      }
+    });
+
+    return isAvailable;
+  };
+
+  const possibleShipEndPoints = (
+    initialSquare: number,
+    shipLength: number,
+  ): number[] => {
+    const possibleEndPoints: number[] = [];
+    const row = Math.floor(initialSquare / 10);
+    const col = initialSquare % 10;
+    let endPoint: number;
+
+    // Check right direction
+    if (col + shipLength - 1 < 10) {
+      endPoint = initialSquare + (shipLength - 1);
+      if (isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    // Check left direction
+    if (col - (shipLength - 1) >= 0) {
+      endPoint = initialSquare - (shipLength - 1);
+      if (isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    // Check down direction
+    if (row + shipLength - 1 < 10) {
+      endPoint = initialSquare + (shipLength - 1) * 10;
+      if (isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    // Check up direction
+    if (row - (shipLength - 1) >= 0) {
+      endPoint = initialSquare - (shipLength - 1) * 10;
+      if (isAvailableSquare(endPoint) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    return possibleEndPoints;
+  };
+
+  const possibleShipPath = (
+    shipLength: number,
+    shipStartPoint: number,
+    shipEndPoint: number,
+  ): number[] => {
+    const shipPath: number[] = [];
+
+    if (shipEndPoint - shipStartPoint === (shipLength - 1) * 10) {
+      for (let i = shipStartPoint; i <= shipEndPoint; i += 10) {
+        shipPath.push(i);
+      }
+    } else if (shipStartPoint - shipEndPoint === (shipLength - 1) * 10) {
+      for (let i = shipEndPoint; i <= shipStartPoint; i += 10) {
+        shipPath.push(i);
+      }
+    } else if (shipStartPoint - shipEndPoint === shipLength - 1) {
+      for (let i = shipEndPoint; i <= shipStartPoint; i += 1) {
+        shipPath.push(i);
+      }
+    } else if (shipEndPoint - shipStartPoint === shipLength - 1) {
+      for (let i = shipStartPoint; i <= shipEndPoint; i += 1) {
+        shipPath.push(i);
+      }
+    }
+
+    if (pathIsAvailable(shipPath) === false) return [];
+
+    return shipPath;
+  };
+
+  const getShipPaths = (
+    shipLength: number,
+    shipStartPoint: number,
+  ): number[][] => {
+    const shipPaths: number[][] = [];
+
+    const shipEndPoints = possibleShipEndPoints(shipStartPoint, shipLength);
+
+    shipEndPoints.forEach((endPoint) => {
+      const path = possibleShipPath(shipLength, shipStartPoint, endPoint);
+      if (path.length !== 0) {
+        shipPaths.push(path);
+      }
+    });
+    console.log(shipPaths);
+
+    return shipPaths;
+  };
+
+  const canPlaceShip = (square: number): boolean => {
+    let canPlace = true;
+    if (selectedShip !== null && selectedShip.shipStartPoint !== null) {
+      const shipPath = possibleShipPath(
+        selectedShip.length,
+        selectedShip.shipStartPoint,
+        square,
+      );
+      shipPath.forEach((path) => {
+        if (playerGameBoard.board[path].ship !== null) {
+          canPlace = false;
+        }
+      });
+    } else {
+      canPlace = false;
+    }
+
+    return canPlace;
+  };
+
+  const areAllShipsPlaced = (shipsArray: shipInterface[]) => {
+    let placed = true;
+    shipsArray.forEach((ship) => {
+      if (ship.isPlaced === false) {
+        placed = false;
+      }
+    });
+    return placed;
+  };
+
+  const placeShipOnGameBoard = (
+    ship: shipInterface,
+    shipStartPoint: number,
+    shipEndPoint: number,
+  ) => {
+    const path = possibleShipPath(ship.length, shipStartPoint, shipEndPoint);
+    path.forEach((location) => {
+      playerGameBoard.board[location].ship = ship;
+    });
+
+    ship.isPlaced = true;
+
+    if (areAllShipsPlaced(playerGameBoard.allShips) === true) {
+      playerGameBoard.allShipsPlaced = true;
+    }
+  };
+
+  const shipPlacementLogic = (squareNumber: number) => {
+    if (!selectedShip) return;
+
+    if (selectedShip.shipStartPoint === null) {
+      if (isAvailableSquare(squareNumber)) {
+        selectedShip.shipStartPoint = squareNumber;
+      }
+      return;
+    }
+
+    if (canPlaceShip(squareNumber) === true) {
+      selectedShip.addShipEndPoint(squareNumber);
+      placeShipOnGameBoard(
+        selectedShip,
+        selectedShip.shipStartPoint,
+        squareNumber,
+      );
+      setSelectedShip(null);
+    }
+  };
+
   return {
-    playerGameBoard: playerGameBoard,
-    selectShip: function (ship: shipInterface) {
-      if (ship === this.playerGameBoard.selectedShip) {
-        this.playerGameBoard.selectedShip.shipStartPoint = null;
-        this.playerGameBoard.selectedShip = null;
-      } else {
-        if (this.playerGameBoard.selectedShip !== null) {
-          this.playerGameBoard.selectedShip.shipStartPoint = null;
-        }
-        this.playerGameBoard.selectedShip = ship;
-      }
-    },
-
-    isAvailableSquare: function (square: number): boolean {
-      if (this.playerGameBoard.board[square].ship === null) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-
-    pathIsAvailable: function (path: number[]): boolean {
-      let isAvailable = true;
-      path.forEach((square) => {
-        if (this.isAvailableSquare(square) === false) {
-          isAvailable = false;
-        }
-      });
-
-      return isAvailable;
-    },
-
-    possibleShipEndPoints(initialSquare: number, shipLength: number): number[] {
-      const possibleEndPoints: number[] = [];
-      const row = Math.floor(initialSquare / 10);
-      const col = initialSquare % 10;
-      let endPoint: number;
-
-      // Check right direction
-      if (col + shipLength - 1 < 10) {
-        endPoint = initialSquare + (shipLength - 1);
-        if (this.isAvailableSquare(endPoint) === true) {
-          possibleEndPoints.push(endPoint);
-        }
-      }
-
-      // Check left direction
-      if (col - (shipLength - 1) >= 0) {
-        endPoint = initialSquare - (shipLength - 1);
-        if (this.isAvailableSquare(endPoint) === true) {
-          possibleEndPoints.push(endPoint);
-        }
-      }
-
-      // Check down direction
-      if (row + shipLength - 1 < 10) {
-        endPoint = initialSquare + (shipLength - 1) * 10;
-        if (this.isAvailableSquare(endPoint) === true) {
-          possibleEndPoints.push(endPoint);
-        }
-      }
-
-      // Check up direction
-      if (row - (shipLength - 1) >= 0) {
-        endPoint = initialSquare - (shipLength - 1) * 10;
-        if (this.isAvailableSquare(endPoint) === true) {
-          possibleEndPoints.push(endPoint);
-        }
-      }
-
-      return possibleEndPoints;
-    },
-
-    possibleShipPath(
-      shipLength: number,
-      shipStartPoint: number,
-      shipEndPoint: number,
-    ): number[] {
-      const shipPath: number[] = [];
-
-      if (shipEndPoint - shipStartPoint === (shipLength - 1) * 10) {
-        for (let i = shipStartPoint; i <= shipEndPoint; i += 10) {
-          shipPath.push(i);
-        }
-      } else if (shipStartPoint - shipEndPoint === (shipLength - 1) * 10) {
-        for (let i = shipEndPoint; i <= shipStartPoint; i += 10) {
-          shipPath.push(i);
-        }
-      } else if (shipStartPoint - shipEndPoint === shipLength - 1) {
-        for (let i = shipEndPoint; i <= shipStartPoint; i += 1) {
-          shipPath.push(i);
-        }
-      } else if (shipEndPoint - shipStartPoint === shipLength - 1) {
-        for (let i = shipStartPoint; i <= shipEndPoint; i += 1) {
-          shipPath.push(i);
-        }
-      }
-
-      if (this.pathIsAvailable(shipPath) === false) return [];
-
-      return shipPath;
-    },
-
-    getShipPaths(shipLength: number, shipStartPoint: number): number[][] {
-      const shipPaths: number[][] = [];
-
-      const shipEndPoints = this.possibleShipEndPoints(
-        shipStartPoint,
-        shipLength,
-      );
-
-      shipEndPoints.forEach((endPoint) => {
-        const path = this.possibleShipPath(
-          shipLength,
-          shipStartPoint,
-          endPoint,
-        );
-        if (path.length !== 0) {
-          shipPaths.push(path);
-        }
-      });
-
-      return shipPaths;
-    },
-
-    canPlaceShip(square: number): boolean {
-      let canPlace = true;
-      if (
-        this.playerGameBoard.selectedShip !== null &&
-        this.playerGameBoard.selectedShip.shipStartPoint !== null
-      ) {
-        const shipPath = this.possibleShipPath(
-          this.playerGameBoard.selectedShip.length,
-          this.playerGameBoard.selectedShip.shipStartPoint,
-          square,
-        );
-        shipPath.forEach((path) => {
-          if (this.playerGameBoard.board[path].ship !== null) {
-            canPlace = false;
-          }
-        });
-      } else {
-        canPlace = false;
-      }
-
-      return canPlace;
-    },
-
-    areAllShipsPlaced(shipsArray: shipInterface[]) {
-      let placed = true;
-      shipsArray.forEach((ship) => {
-        if (ship.isPlaced === false) {
-          placed = false;
-        }
-      });
-      return placed;
-    },
-
-    placeShipOnGameBoard(
-      ship: shipInterface,
-      shipStartPoint: number,
-      shipEndPoint: number,
-    ) {
-      const path = this.possibleShipPath(
-        ship.length,
-        shipStartPoint,
-        shipEndPoint,
-      );
-      path.forEach((location) => {
-        this.playerGameBoard.board[location].ship = ship;
-      });
-
-      ship.isPlaced = true;
-
-      if (this.areAllShipsPlaced(this.playerGameBoard.allShips) === true) {
-        this.playerGameBoard.allShipsPlaced = true;
-      }
-    },
-
-    shipPlacementLogic(squareNumber: number) {
-      if (!this.playerGameBoard.selectedShip) return;
-
-      if (this.playerGameBoard.selectedShip.shipStartPoint === null) {
-        if (this.isAvailableSquare(squareNumber)) {
-          this.playerGameBoard.selectedShip.shipStartPoint = squareNumber;
-        }
-        return;
-      }
-
-      if (this.canPlaceShip(squareNumber) === true) {
-        this.playerGameBoard.selectedShip.addShipEndPoint(squareNumber);
-        this.placeShipOnGameBoard(
-          this.playerGameBoard.selectedShip,
-          this.playerGameBoard.selectedShip.shipStartPoint,
-          squareNumber,
-        );
-        this.playerGameBoard.selectedShip = null;
-      }
-    },
+    selectedShip,
+    selectShip,
+    isAvailableSquare,
+    pathIsAvailable,
+    possibleShipEndPoints,
+    possibleShipPath,
+    getShipPaths,
+    canPlaceShip,
+    areAllShipsPlaced,
+    placeShipOnGameBoard,
+    shipPlacementLogic,
   };
 }
