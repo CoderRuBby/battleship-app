@@ -2,14 +2,10 @@ import { useState } from 'react';
 import { ShipButton } from './ShipButton';
 
 interface ShipButtonComponentProps {
-  ariaLabel?: string;
   buttons: string[];
 }
 
-export function ShipButtonComponent({
-  ariaLabel,
-  buttons,
-}: ShipButtonComponentProps) {
+export function ShipButtonComponent({ buttons }: ShipButtonComponentProps) {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
 
   const handleButtonClick = (testId: string) => {
@@ -23,7 +19,7 @@ export function ShipButtonComponent({
   return (
     <section
       role='region'
-      aria-label={ariaLabel}
+      aria-label='The ship buttons'
       className='ship-button-container'
     >
       {buttons.map((button) => (
@@ -47,10 +43,5 @@ const shipButtons: string[] = [
 ];
 
 export function ShipButtonsMain() {
-  return (
-    <ShipButtonComponent
-      ariaLabel='The game ship buttons'
-      buttons={shipButtons}
-    />
-  );
+  return <ShipButtonComponent buttons={shipButtons} />;
 }
