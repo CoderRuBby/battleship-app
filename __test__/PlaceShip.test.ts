@@ -83,7 +83,7 @@ describe('useShipPlacementSystem', () => {
           shipLength,
           shipStartPoint,
           shipEndPoint,
-        ),
+        ).array,
       ).toEqual([0, 1]);
     });
 
@@ -106,7 +106,7 @@ describe('useShipPlacementSystem', () => {
           shipLength,
           shipStartPoint,
           shipEndPoint,
-        ),
+        ).array,
       ).toEqual([]);
     });
   });
@@ -121,10 +121,12 @@ describe('useShipPlacementSystem', () => {
         result.current.selectShip(Ship1);
       });
 
-      expect(result.current.getShipPaths(shipLength, shipStartPoint)).toEqual([
-        [0, 1, 2],
-        [0, 10, 20],
-      ]);
+      expect(
+        result.current.getShipPaths(shipLength, shipStartPoint)[0].array,
+      ).toEqual([0, 1, 2]);
+      expect(
+        result.current.getShipPaths(shipLength, shipStartPoint)[1].array,
+      ).toEqual([0, 10, 20]);
     });
 
     it('will output available paths only', () => {
@@ -143,9 +145,9 @@ describe('useShipPlacementSystem', () => {
         result.current.selectShip(Ship1);
       });
 
-      expect(result.current.getShipPaths(shipLength, shipStartPoint)).toEqual([
-        [26, 36, 46, 56],
-      ]);
+      expect(
+        result.current.getShipPaths(shipLength, shipStartPoint)[0].array,
+      ).toEqual([26, 36, 46, 56]);
     });
   });
 

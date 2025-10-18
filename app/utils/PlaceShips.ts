@@ -15,8 +15,11 @@ export interface shipPlacementSystemInterface {
     shipLength: number,
     shipStartPoint: number,
     shipEndPoint: number,
-  ) => number[];
-  getShipPaths: (shipLength: number, shipStartPoint: number) => number[][];
+  ) => { direction: null | string; array: number[] };
+  getShipPaths: (
+    shipLength: number,
+    shipStartPoint: number,
+  ) => { direction: null | string; array: number[] }[];
   canPlaceShip: (shipLength: number) => boolean;
   areAllShipsPlaced: (shipsArray: shipInterface[]) => boolean;
   placeShipOnGameBoard: (
@@ -110,28 +113,39 @@ export default function useShipPlacementSystem(
     shipLength: number,
     shipStartPoint: number,
     shipEndPoint: number,
-  ): number[] => {
-    const shipPath: number[] = [];
+  ): { direction: null | string; array: number[] } => {
+    const shipPath: { direction: null | string; array: number[] } = {
+      direction: null,
+      array: [],
+    };
 
     if (shipEndPoint - shipStartPoint === (shipLength - 1) * 10) {
       for (let i = shipStartPoint; i <= shipEndPoint; i += 10) {
-        shipPath.push(i);
+        shipPath.array.push(i);
+        shipPath.direction = 'down';
       }
     } else if (shipStartPoint - shipEndPoint === (shipLength - 1) * 10) {
       for (let i = shipEndPoint; i <= shipStartPoint; i += 10) {
-        shipPath.push(i);
+        shipPath.array.push(i);
+        shipPath.direction = 'up';
       }
     } else if (shipStartPoint - shipEndPoint === shipLength - 1) {
       for (let i = shipEndPoint; i <= shipStartPoint; i += 1) {
-        shipPath.push(i);
+        shipPath.array.push(i);
+        shipPath.direction = 'left';
       }
     } else if (shipEndPoint - shipStartPoint === shipLength - 1) {
       for (let i = shipStartPoint; i <= shipEndPoint; i += 1) {
-        shipPath.push(i);
+        shipPath.array.push(i);
+        shipPath.direction = 'right';
       }
     }
 
-    if (pathIsAvailable(shipPath) === false) return [];
+    if (pathIsAvailable(shipPath.array) === false)
+      return {
+        direction: null,
+        array: [],
+      };
 
     return shipPath;
   };
@@ -139,14 +153,14 @@ export default function useShipPlacementSystem(
   const getShipPaths = (
     shipLength: number,
     shipStartPoint: number,
-  ): number[][] => {
-    const shipPaths: number[][] = [];
+  ): { direction: null | string; array: number[] }[] => {
+    const shipPaths: { direction: null | string; array: number[] }[] = [];
 
     const shipEndPoints = possibleShipEndPoints(shipStartPoint, shipLength);
 
     shipEndPoints.forEach((endPoint) => {
       const path = possibleShipPath(shipLength, shipStartPoint, endPoint);
-      if (path.length !== 0) {
+      if (path.array.length !== 0) {
         shipPaths.push(path);
       }
     });
@@ -162,8 +176,8 @@ export default function useShipPlacementSystem(
         selectedShip.shipStartPoint,
         square,
       );
-      shipPath.forEach((path) => {
-        if (playerGameBoard.board[path].ship !== null) {
+      shipPath.array.forEach((square) => {
+        if (playerGameBoard.board[square].ship !== null) {
           canPlace = false;
         }
       });
@@ -190,7 +204,7 @@ export default function useShipPlacementSystem(
     shipEndPoint: number,
   ) => {
     const path = possibleShipPath(ship.length, shipStartPoint, shipEndPoint);
-    path.forEach((location) => {
+    path.array.forEach((location) => {
       playerGameBoard.board[location].ship = ship;
     });
 
