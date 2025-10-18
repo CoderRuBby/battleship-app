@@ -1,4 +1,4 @@
-import { App } from '~/layouts/app';
+import { App } from '~/layouts/App';
 export default function Index() {
   return <App />;
 }
