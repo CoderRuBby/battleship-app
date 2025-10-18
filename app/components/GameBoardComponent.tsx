@@ -53,6 +53,10 @@ export function GameBoardComponent({
   };
 
   const handleMouseLeave = () => {
+    if (selectedShip!.shipStartPoint) {
+      return;
+    }
+
     setPlayerGameBoard((prev) => {
       const newBoard = prev.board.map((square) => {
         return {
