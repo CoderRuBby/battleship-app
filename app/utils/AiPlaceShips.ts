@@ -1,4 +1,4 @@
-import PlaceShips from './PlaceShips';
+import PlaceShips from './useShipPlacementSystem';
 import AiGameBoard from './AiGameBoard';
 
 class AiPlaceShips extends PlaceShips {

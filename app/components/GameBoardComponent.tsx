@@ -3,7 +3,7 @@ import { gameBoard } from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 import type { shipInterface } from '~/utils/Ship';
 import { useState } from 'react';
-import useShipPlacementSystem from '~/utils/PlaceShips';
+import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
 
 interface GameBoardComponentProps {
   allShips: shipInterface[];

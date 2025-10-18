@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { describe, it, beforeEach, expect, test } from 'vitest';
 import { gameBoard } from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
-import useShipPlacementSystem from '~/utils/PlaceShips';
+import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
 import { ship } from '~/utils/Ship';
 import type { shipInterface } from '~/utils/Ship';
 
