@@ -8,6 +8,7 @@ interface GameBoardButtonProps {
   isHit: boolean;
   isMiss: boolean;
   onMouseEnter: (id: number) => void;
+  onMouseLeave: () => void;
 }
 
 export function GameBoardButton({
@@ -18,6 +19,7 @@ export function GameBoardButton({
   isHit,
   isMiss,
   onMouseEnter,
+  onMouseLeave,
 }: GameBoardButtonProps) {
   const buttonStyle = {
     background:
@@ -34,6 +36,7 @@ export function GameBoardButton({
       data-testid={testId}
       style={buttonStyle}
       onMouseEnter={() => onMouseEnter(Number(testId))}
+      onMouseLeave={() => onMouseLeave()}
     ></button>
   );
 }

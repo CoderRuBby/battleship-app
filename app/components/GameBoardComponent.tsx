@@ -51,6 +51,22 @@ export function GameBoardComponent({
       });
     }
   };
+
+  const handleMouseLeave = () => {
+    setPlayerGameBoard((prev) => {
+      const newBoard = prev.board.map((square) => {
+        return {
+          ...square,
+          imageNumber: null,
+          imageDirection: null,
+        };
+      });
+      return {
+        ...prev,
+        board: newBoard,
+      };
+    });
+  };
   return (
     <section role='region' aria-label='The Game Board'>
       {playerGameBoard.board.map((square, index) => (
@@ -63,6 +79,7 @@ export function GameBoardComponent({
           isHit={square.isHit}
           isMiss={square.isMiss}
           onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         />
       ))}
     </section>
