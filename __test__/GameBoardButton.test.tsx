@@ -10,8 +10,10 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip={null}
         shipImageNumber={null}
+        imageDirection={null}
         isHit={false}
         isMiss={false}
+        onMouseEnter={() => {}}
       />,
     );
 
@@ -27,16 +29,18 @@ describe('GameBoardButton', () => {
       <GameBoardButton
         testId='button'
         selectedShip={selectedShip}
-        shipImageNumber='1'
+        shipImageNumber={1}
+        imageDirection='up'
         isHit={false}
         isMiss={true}
+        onMouseEnter={() => {}}
       />,
     );
 
     const button = screen.getByTestId('button');
     const style = getComputedStyle(button);
 
-    expect(style.background).toContain('url("button1.png")');
+    expect(style.background).toContain('url("button1up.png")');
   });
 
   it('will render a button with a hit image', () => {
@@ -45,8 +49,10 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip={null}
         shipImageNumber={null}
+        imageDirection={null}
         isHit={true}
         isMiss={false}
+        onMouseEnter={() => {}}
       />,
     );
 
@@ -62,8 +68,10 @@ describe('GameBoardButton', () => {
         testId='button'
         selectedShip={null}
         shipImageNumber={null}
+        imageDirection={null}
         isHit={false}
         isMiss={true}
+        onMouseEnter={() => {}}
       />,
     );
 
