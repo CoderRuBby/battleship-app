@@ -10,19 +10,14 @@ describe('ShipButtonComponent', () => {
   beforeEach(() => {
     buttons = ['button1', 'button2', 'button3'];
 
-    component = (
-      <ShipButtonComponent
-        ariaLabel='The game ship buttons'
-        buttons={buttons}
-      />
-    );
+    component = <ShipButtonComponent buttons={buttons} />;
   });
 
   it('can render a button container with buttons', () => {
     render(component);
 
     const buttonContainer = screen.getByRole('region', {
-      name: 'The game ship buttons',
+      name: 'The ship buttons',
     });
     const buttonOne = screen.getByTestId('button1');
     const buttonTwo = screen.getByTestId('button2');
