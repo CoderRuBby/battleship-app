@@ -42,6 +42,10 @@ export function GameBoardComponent({
   };
 
   const handleMouseEnter = (id: number) => {
+    if (selectedShip?.shipStartPoint) {
+      return;
+    }
+
     const paths = getShipPaths(selectedShip!.length, id);
     if (paths) {
       paths.forEach((path) => {
