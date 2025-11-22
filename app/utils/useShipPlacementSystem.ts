@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import type { gameBoardInterface } from './GameBoard';
 import type { shipInterface } from './Ship';
 
 export interface shipPlacementSystemInterface {
-  selectedShip: shipInterface | null;
-  selectShip: (ship: shipInterface) => void;
+  selectShip: (ship: shipInterface, selectedShip: shipInterface) => void;
   isAvailableSquare: (square: number) => boolean;
   pathIsAvailable: (path: number[]) => boolean;
   possibleShipEndPoints: (
@@ -20,29 +18,31 @@ export interface shipPlacementSystemInterface {
     shipLength: number,
     shipStartPoint: number,
   ) => { direction: null | string; array: number[] }[];
-  canPlaceShip: (shipLength: number) => boolean;
+  canPlaceShip: (shipLength: number, selectedShip: shipInterface) => boolean;
   areAllShipsPlaced: (shipsArray: shipInterface[]) => boolean;
   placeShipOnGameBoard: (
     ship: shipInterface,
     startPoint: number,
     shipEndPoint: number,
   ) => void;
-  shipPlacementLogic: (squareNumber: number) => void;
+  shipPlacementLogic: (
+    squareNumber: number,
+    selectedShip: shipInterface,
+  ) => void;
 }
 
 export default function useShipPlacementSystem(
   playerGameBoard: gameBoardInterface,
 ): shipPlacementSystemInterface {
-  const [selectedShip, setSelectedShip] = useState<shipInterface | null>(null);
-  const selectShip = (ship: shipInterface) => {
+  const selectShip = (ship: shipInterface, selectedShip: shipInterface) => {
     if (ship === selectedShip) {
       selectedShip.shipStartPoint = null;
-      setSelectedShip(null);
+      return null;
     } else {
       if (selectedShip !== null) {
         selectedShip.shipStartPoint = null;
       }
-      setSelectedShip(ship);
+      return ship;
     }
   };
 
@@ -168,7 +168,10 @@ export default function useShipPlacementSystem(
     return shipPaths;
   };
 
-  const canPlaceShip = (square: number): boolean => {
+  const canPlaceShip = (
+    square: number,
+    selectedShip: shipInterface,
+  ): boolean => {
     let canPlace = true;
     if (selectedShip !== null && selectedShip.shipStartPoint !== null) {
       const shipPath = possibleShipPath(
@@ -215,7 +218,10 @@ export default function useShipPlacementSystem(
     }
   };
 
-  const shipPlacementLogic = (squareNumber: number) => {
+  const shipPlacementLogic = (
+    squareNumber: number,
+    selectedShip: shipInterface,
+  ) => {
     if (!selectedShip) return;
 
     if (selectedShip.shipStartPoint === null) {
@@ -225,19 +231,20 @@ export default function useShipPlacementSystem(
       return;
     }
 
-    if (canPlaceShip(squareNumber) === true) {
+    if (canPlaceShip(squareNumber, selectedShip) === true) {
       selectedShip.addShipEndPoint(squareNumber);
       placeShipOnGameBoard(
         selectedShip,
         selectedShip.shipStartPoint,
         squareNumber,
       );
-      setSelectedShip(null);
+
+      // selectedShip = null;
+      return null;
     }
   };
 
   return {
-    selectedShip,
     selectShip,
     isAvailableSquare,
     pathIsAvailable,
