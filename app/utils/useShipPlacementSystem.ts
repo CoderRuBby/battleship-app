@@ -2,7 +2,10 @@ import type { gameBoardInterface } from './GameBoard';
 import type { shipInterface } from './Ship';
 
 export interface shipPlacementSystemInterface {
-  selectShip: (ship: shipInterface, selectedShip: shipInterface) => void;
+  selectShip: (
+    ship: shipInterface,
+    selectedShip: shipInterface | null,
+  ) => shipInterface | null;
   isAvailableSquare: (square: number) => boolean;
   pathIsAvailable: (path: number[]) => boolean;
   possibleShipEndPoints: (
@@ -34,7 +37,10 @@ export interface shipPlacementSystemInterface {
 export default function useShipPlacementSystem(
   playerGameBoard: gameBoardInterface,
 ): shipPlacementSystemInterface {
-  const selectShip = (ship: shipInterface, selectedShip: shipInterface) => {
+  const selectShip = (
+    ship: shipInterface,
+    selectedShip: shipInterface | null,
+  ): shipInterface | null => {
     if (ship === selectedShip) {
       selectedShip.shipStartPoint = null;
       return null;
