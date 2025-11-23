@@ -2,6 +2,7 @@ import { act, renderHook } from '@testing-library/react';
 import { describe, it, beforeEach, expect, test } from 'vitest';
 import { gameBoard } from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
+import type { shipPlacementSystemInterface } from '~/utils/useShipPlacementSystem';
 import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
 import { ship } from '~/utils/Ship';
 import type { shipInterface } from '~/utils/Ship';
@@ -10,46 +11,36 @@ describe('useShipPlacementSystem', () => {
   let Player: gameBoardInterface;
   let Ship1: shipInterface;
   let Ship2: shipInterface;
+  let shipPlacementSystem: shipPlacementSystemInterface;
 
   beforeEach(() => {
     Ship1 = ship('foo', 3);
     Ship2 = ship('bar', 2);
     const ships = [Ship1, Ship2];
     Player = gameBoard(ships);
+    shipPlacementSystem = useShipPlacementSystem(Player);
   });
 
   describe('possibleShipEndPoints', () => {
     it('can output 4 endpoints', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipLength = 3;
       const shipStartPoint = 45;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.possibleShipEndPoints(shipStartPoint, shipLength),
+        shipPlacementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([47, 43, 65, 25]);
     });
 
     it('can correctly output 2 endpoints', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipLength = 2;
       const shipStartPoint = 0;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.possibleShipEndPoints(shipStartPoint, shipLength),
+        shipPlacementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([1, 10]);
     });
 
     it('will not output used endPoints', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
-
       Player.board[0].ship = Ship1;
       Player.board[1].ship = Ship1;
       Player.board[2].ship = Ship1;
@@ -57,29 +48,20 @@ describe('useShipPlacementSystem', () => {
       const shipLength = 4;
       const shipStartPoint = 4;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.possibleShipEndPoints(shipStartPoint, shipLength),
+        shipPlacementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([7, 34]);
     });
   });
 
   describe('possibleShipPath', () => {
     it('can output ship path', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipLength = 2;
       const shipStartPoint = 0;
       const shipEndPoint = 1;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.possibleShipPath(
+        shipPlacementSystem.possibleShipPath(
           shipLength,
           shipStartPoint,
           shipEndPoint,
@@ -88,7 +70,6 @@ describe('useShipPlacementSystem', () => {
     });
 
     it('will return an empty array if any square in path is used', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       Player.board[4].ship = Ship1;
       Player.board[14].ship = Ship1;
       Player.board[24].ship = Ship1;
@@ -97,12 +78,8 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 4;
       const shipEndPoint = 24;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.possibleShipPath(
+        shipPlacementSystem.possibleShipPath(
           shipLength,
           shipStartPoint,
           shipEndPoint,
@@ -113,24 +90,18 @@ describe('useShipPlacementSystem', () => {
 
   describe('getShipPaths', () => {
     it('can output all ship paths', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipLength = 3;
       const shipStartPoint = 0;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.getShipPaths(shipLength, shipStartPoint)[0].array,
+        shipPlacementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
       ).toEqual([0, 1, 2]);
       expect(
-        result.current.getShipPaths(shipLength, shipStartPoint)[1].array,
+        shipPlacementSystem.getShipPaths(shipLength, shipStartPoint)[1].array,
       ).toEqual([0, 10, 20]);
     });
 
     it('will output available paths only', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       Player.board[25].ship = Ship1;
       Player.board[35].ship = Ship1;
 
@@ -141,87 +112,43 @@ describe('useShipPlacementSystem', () => {
       const shipLength = 4;
       const shipStartPoint = 26;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
       expect(
-        result.current.getShipPaths(shipLength, shipStartPoint)[0].array,
+        shipPlacementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
       ).toEqual([26, 36, 46, 56]);
     });
   });
 
   describe('selectShip', () => {
     it('can select a ship', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
-
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      expect(result.current.selectedShip).toEqual(Ship1);
+      expect(shipPlacementSystem.selectShip(Ship1, null)).toEqual(Ship1);
     });
 
     it('can deselect the ship if clicked again', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
-
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      expect(result.current.selectedShip).toEqual(Ship1);
-
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      expect(result.current.selectedShip).toEqual(null);
+      expect(shipPlacementSystem.selectShip(Ship1, null)).toEqual(Ship1);
+      expect(shipPlacementSystem.selectShip(Ship1, Ship1)).toEqual(null);
     });
 
     it('can select a different ship', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
-
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      act(() => {
-        result.current.selectShip(Ship2);
-      });
-
-      expect(result.current.selectedShip).toEqual(Ship2);
+      expect(shipPlacementSystem.selectShip(Ship1, null)).toEqual(Ship1);
+      expect(shipPlacementSystem.selectShip(Ship2, Ship1)).toEqual(Ship2);
     });
 
     test('de-selecting a ship will clear shipStartPoint', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 45;
-
-      act(() => {
-        result.current.selectShip(Ship1);
-        Ship1.addShipStart(shipStartPoint);
-      });
+      shipPlacementSystem.selectShip(Ship1, null);
+      Ship1.addShipStart(shipStartPoint);
 
       expect(Ship1.shipStartPoint).toBe(45);
-
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
+      expect(shipPlacementSystem.selectShip(Ship1, Ship1)).toBe(null);
       expect(Ship1.shipStartPoint).toBe(null);
     });
 
     test('selecting a different ship will clear old ship shipStartPoint', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 45;
+      shipPlacementSystem.selectShip(Ship1, null);
+      Ship1.addShipStart(shipStartPoint);
 
-      act(() => {
-        result.current.selectShip(Ship1);
-        Ship1.addShipStart(shipStartPoint);
-      });
-
-      act(() => {
-        result.current.selectShip(Ship2);
-      });
+      shipPlacementSystem.selectShip(Ship2, Ship1);
 
       expect(Ship1.shipStartPoint).toBe(null);
     });
@@ -229,56 +156,29 @@ describe('useShipPlacementSystem', () => {
 
   describe('shipPlacementLogic', () => {
     it('will assign shipStartPoint if ship is selected', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 0;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
 
       expect(Ship1.shipStartPoint).toEqual(0);
     });
 
     it('will assign shipEndPoint if shipStartPoint is assigned', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipEndPoint);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
       expect(Ship1.shipEndPoint).toBe(20);
     });
 
     it('will place ship on gameboard', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipEndPoint);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Player.board[10].ship).toEqual(Ship1);
@@ -286,83 +186,41 @@ describe('useShipPlacementSystem', () => {
     });
 
     it('will reset selectedShip after ship is placed', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      act(() => {
-        result.current.selectShip(Ship2);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
 
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipEndPoint);
-      });
-
-      expect(result.current.selectedShip).toBe(null);
+      expect(shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1)).toBe(
+        null,
+      );
     });
 
     it('will not assign shipStartPoint if already being used', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 0;
       const shipEndPoint = 2;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipEndPoint);
-      });
-
-      act(() => {
-        result.current.selectShip(Ship2);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship2);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Ship2.shipStartPoint).toBe(null);
     });
 
     it('will not place a ship in the same location', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      act(() => {
-        result.current.selectShip(Ship1);
-      });
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint);
-      });
-      act(() => {
-        result.current.shipPlacementLogic(shipEndPoint);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
       const shipStartPoint2 = 12;
       const shipEndPoint2 = 10;
 
-      act(() => {
-        result.current.selectShip(Ship2);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipStartPoint2);
-      });
-
-      act(() => {
-        result.current.shipPlacementLogic(shipEndPoint2);
-      });
+      shipPlacementSystem.shipPlacementLogic(shipStartPoint2, Ship2);
+      shipPlacementSystem.shipPlacementLogic(shipEndPoint2, Ship2);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Player.board[10].ship).toEqual(Ship1);
