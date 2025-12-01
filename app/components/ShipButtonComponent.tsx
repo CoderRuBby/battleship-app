@@ -1,18 +1,24 @@
 import { useState } from 'react';
 import { ShipButton } from './ShipButton';
+import type { shipInterface } from '~/utils/Ship';
 
 interface ShipButtonComponentProps {
-  buttons: string[];
+  buttons: shipInterface[];
+  handleSelectShip: (shipButton: shipInterface) => void;
 }
 
-export function ShipButtonComponent({ buttons }: ShipButtonComponentProps) {
+export function ShipButtonComponent({
+  buttons,
+  handleSelectShip,
+}: ShipButtonComponentProps) {
   const [selectedButton, setSelectedButton] = useState<string | null>(null);
 
-  const handleButtonClick = (testId: string) => {
-    if (selectedButton === testId) {
+  const handleButtonClick = (shipButton: shipInterface) => {
+    handleSelectShip(shipButton);
+    if (selectedButton === shipButton.name) {
       setSelectedButton(null);
     } else {
-      setSelectedButton(testId);
+      setSelectedButton(shipButton.name);
     }
   };
 
@@ -24,8 +30,8 @@ export function ShipButtonComponent({ buttons }: ShipButtonComponentProps) {
     >
       {buttons.map((button) => (
         <ShipButton
-          key={button}
-          testId={button}
+          key={button.name}
+          testId={button.name}
           shipOnClick={() => handleButtonClick(button)}
           isSelected={selectedButton}
         />

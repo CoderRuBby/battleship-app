@@ -1,80 +1,20 @@
 import { GameBoardButton } from './GameBoardButton';
-import { gameBoard } from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 import type { shipInterface } from '~/utils/Ship';
-import { useState } from 'react';
-import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
 
 interface GameBoardComponentProps {
-  allShips: shipInterface[];
   selectedShip: shipInterface | null;
+  playerGameBoard: gameBoardInterface;
+  handleMouseEnter: (id: number) => void;
+  handleMouseLeave: () => void;
 }
 
 export function GameBoardComponent({
-  allShips,
   selectedShip,
+  playerGameBoard,
+  handleMouseEnter,
+  handleMouseLeave,
 }: GameBoardComponentProps) {
-  const [playerGameBoard, setPlayerGameBoard] = useState<gameBoardInterface>(
-    gameBoard(allShips),
-  );
-  const { getShipPaths } = useShipPlacementSystem(playerGameBoard);
-
-  const updateBoard = (
-    id: number,
-    square: number,
-    index: number,
-    direction: string,
-  ) => {
-    setPlayerGameBoard((prevPlayerGameBoard) => {
-      const updatedBoard = [...prevPlayerGameBoard.board];
-      if (updatedBoard[square]?.id !== id) {
-        updatedBoard[square] = {
-          ...updatedBoard[square],
-          imageNumber: index,
-          imageDirection: direction,
-        };
-      }
-      return {
-        ...prevPlayerGameBoard,
-        board: updatedBoard,
-      };
-    });
-  };
-
-  const handleMouseEnter = (id: number) => {
-    if (selectedShip?.shipStartPoint) {
-      return;
-    }
-
-    const paths = getShipPaths(selectedShip!.length, id);
-    if (paths) {
-      paths.forEach((path) => {
-        path.array.forEach((square, squareIndex) => {
-          updateBoard(id, square, squareIndex, path.direction!);
-        });
-      });
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (selectedShip!.shipStartPoint) {
-      return;
-    }
-
-    setPlayerGameBoard((prev) => {
-      const newBoard = prev.board.map((square) => {
-        return {
-          ...square,
-          imageNumber: null,
-          imageDirection: null,
-        };
-      });
-      return {
-        ...prev,
-        board: newBoard,
-      };
-    });
-  };
   return (
     <section role='region' aria-label='The Game Board'>
       {playerGameBoard.board.map((square, index) => (
