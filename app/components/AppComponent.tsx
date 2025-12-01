@@ -22,6 +22,13 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
     setSelectedShip(selectShip(shipName, selectedShip));
   };
 
+  const gameBoardOnClick = (id: number) => {
+    const isNull = shipPlacementLogic(id, selectedShip);
+    if (isNull === null) {
+      setSelectedShip(isNull);
+    }
+  };
+
   const updateBoard = (
     id: number,
     square: number,
@@ -90,6 +97,7 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
         playerGameBoard={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
+        handleOnClick={() => gameBoardOnClick}
       />
     </main>
   );

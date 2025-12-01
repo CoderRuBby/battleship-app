@@ -17,6 +17,7 @@ describe('GameBoardComponent', () => {
       <GameBoardComponent
         selectedShip={null}
         playerGameBoard={playerGameBoard}
+        handleOnClick={() => {}}
         handleMouseEnter={() => {}}
         handleMouseLeave={() => {}}
       />

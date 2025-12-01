@@ -15,6 +15,7 @@ describe('GameBoardButton', () => {
         isMiss={false}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
@@ -36,6 +37,7 @@ describe('GameBoardButton', () => {
         isMiss={true}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
@@ -56,6 +58,7 @@ describe('GameBoardButton', () => {
         isMiss={false}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
@@ -76,6 +79,7 @@ describe('GameBoardButton', () => {
         isMiss={true}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
