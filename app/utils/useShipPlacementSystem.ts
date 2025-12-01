@@ -30,7 +30,7 @@ export interface shipPlacementSystemInterface {
   ) => void;
   shipPlacementLogic: (
     squareNumber: number,
-    selectedShip: shipInterface,
+    selectedShip: shipInterface | null,
   ) => void;
 }
 
@@ -226,7 +226,7 @@ export default function useShipPlacementSystem(
 
   const shipPlacementLogic = (
     squareNumber: number,
-    selectedShip: shipInterface,
+    selectedShip: shipInterface | null,
   ) => {
     if (!selectedShip) return;
 
