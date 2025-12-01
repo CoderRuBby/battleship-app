@@ -39,15 +39,3 @@ export function ShipButtonComponent({
     </section>
   );
 }
-
-const shipButtons: string[] = [
-  'destroyer',
-  'battleship',
-  'carrier',
-  'Submarine',
-  'cruiser',
-];
-
-export function ShipButtonsMain() {
-  return <ShipButtonComponent buttons={shipButtons} />;
-}
