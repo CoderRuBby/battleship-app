@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, it, beforeEach, expect, test } from 'vitest';
-import { gameBoard } from '~/utils/GameBoard';
+import gameBoard from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
-import type { shipPlacementSystemInterface } from '~/utils/useShipPlacementSystem';
-import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
-import { ship } from '~/utils/Ship';
+import type { shipPlacementSystemInterface } from '~/utils/shipPlacementSystem';
+import useShipPlacementSystem from '~/utils/shipPlacementSystem';
+import ship from '~/utils/Ship';
 import type { shipInterface } from '~/utils/Ship';
 
 describe('useShipPlacementSystem', () => {

@@ -2,7 +2,7 @@ import type { shipInterface } from '~/utils/Ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
 import { useState } from 'react';
-import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
+import useShipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 
 export interface appComponentProps {
@@ -20,6 +20,13 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
 
   const handleSelectShip = (shipName: shipInterface) => {
     setSelectedShip(selectShip(shipName, selectedShip));
+  };
+
+  const gameBoardOnClick = (id: number) => {
+    const isNull = shipPlacementLogic(id, selectedShip);
+    if (isNull === null) {
+      setSelectedShip(isNull);
+    }
   };
 
   const updateBoard = (
@@ -90,6 +97,7 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
         playerGameBoard={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
+        handleOnClick={() => gameBoardOnClick}
       />
     </main>
   );

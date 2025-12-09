@@ -28,13 +28,14 @@ export interface shipPlacementSystemInterface {
     startPoint: number,
     shipEndPoint: number,
   ) => void;
+  //! rename to logic
   shipPlacementLogic: (
     squareNumber: number,
     selectedShip: shipInterface | null,
   ) => void;
 }
 
-export default function useShipPlacementSystem(
+export default function shipPlacementSystem(
   playerGameBoard: gameBoardInterface,
 ): shipPlacementSystemInterface {
   const selectShip = (
