@@ -15,7 +15,7 @@ export interface shipInterface {
   getHitLocations: () => void;
 }
 
-export function ship(name: string, length: number): shipInterface {
+export default function ship(name: string, length: number): shipInterface {
   return {
     name: name,
     length: length,

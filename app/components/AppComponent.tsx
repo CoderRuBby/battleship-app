@@ -2,7 +2,7 @@ import type { shipInterface } from '~/utils/Ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
 import { useState } from 'react';
-import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
+import useShipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 
 export interface appComponentProps {

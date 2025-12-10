@@ -1,5 +1,5 @@
 import { describe, beforeEach, it, expect } from 'vitest';
-import { ship } from '~/utils/Ship';
+import ship from '~/utils/Ship';
 import type { shipInterface } from '~/utils/Ship';
 
 describe('Ship', () => {
