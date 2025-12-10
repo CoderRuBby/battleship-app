@@ -1,51 +1,88 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import GamePlay from '~/utils/gameplay';
-import GameBoard from '~/utils/GameBoard';
-import AiGameBoard from '~/utils/AiGameBoard';
+import type { gameBoardInterface } from '~/utils/GameBoard';
+import gameBoard from '~/utils/GameBoard';
+import type { shipInterface } from '~/utils/Ship';
+import ship from '~/utils/Ship';
+import type { gamePlayInterface } from '~/utils/gameplay';
+import gamePlay from '~/utils/gameplay';
 
 describe('GamePlay', () => {
-  let Ai: AiGameBoard;
-  let Player: GameBoard;
-  let Game: GamePlay;
+  let carrier: shipInterface;
+  let destroyer: shipInterface;
+  let submarine: shipInterface;
+  let battleship: shipInterface;
+  let cruiser: shipInterface;
+  let shipsArray: shipInterface[];
+  let Ai: gameBoardInterface;
+  let Player: gameBoardInterface;
+  let Game: gamePlayInterface;
 
   beforeEach(() => {
-    Ai = new AiGameBoard();
-    Player = new GameBoard();
-    Game = new GamePlay(Player, Ai);
+    carrier = ship('carrier', 5);
+    destroyer = ship('destroyer', 3);
+    submarine = ship('submarine', 3);
+    battleship = ship('battleship', 4);
+    cruiser = ship('cruiser', 2);
+    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
+    Ai = gameBoard(shipsArray);
+    Player = gameBoard(shipsArray);
+    Game = gamePlay();
   });
 
   describe('isWinner', () => {
     it('will return true if there is a winner', () => {
       Player.winner = true;
-      const winner = Game.isWinner();
+      const winner = Game.isWinner(Player, Ai);
 
       expect(winner).toBe(true);
     });
 
     it('will return false if there is no winner', () => {
-      const winner = Game.isWinner();
+      const winner = Game.isWinner(Player, Ai);
 
       expect(winner).toBe(false);
     });
   });
 
+  describe('aiTurn', () => {
+    it('will place ships on gameboard for the first turn', () => {
+      Game.aiTurn(Ai);
+
+      expect(Ai.allShipsPlaced).toBe(true);
+    });
+
+    it('will attack opponents gameboard after ships have been placed', () => {
+      const square = 45;
+      const square2 = 74;
+      Player.board[square2].ship = Player.allShips[0];
+
+      Game.aiTurn(Ai);
+      Game.aiTurn(Ai, Player, square);
+      Game.aiTurn(Ai, Player, square2);
+
+      expect(Ai.allShipsPlaced).toBe(true);
+      expect(Player.board[square].isMiss).toBe(true);
+      expect(Player.board[square2].isHit).toBe(true);
+    });
+  });
+
   describe('turn', () => {
     it('can let both players place ships on gameboard', () => {
-      Player.selectedShip = Player.Battleship;
-      Game.turn(45);
-      Game.turn(48);
-      Player.selectedShip = Player.Carrier;
-      Game.turn(34);
-      Game.turn(38);
-      Player.selectedShip = Player.Cruiser;
-      Game.turn(77);
-      Game.turn(79);
-      Player.selectedShip = Player.Destroyer;
-      Game.turn(20);
-      Game.turn(21);
-      Player.selectedShip = Player.Submarine;
-      Game.turn(63);
-      Game.turn(65);
+      const carrier = Player.allShips[0];
+      Game.turn(34, Player, Ai, carrier);
+      Game.turn(38, Player, Ai, carrier);
+      const destroyer = Player.allShips[1];
+      Game.turn(20, Player, Ai, destroyer);
+      Game.turn(21, Player, Ai, destroyer);
+      const submarine = Player.allShips[2];
+      Game.turn(63, Player, Ai, submarine);
+      Game.turn(65, Player, Ai, submarine);
+      const battleship = Player.allShips[3];
+      Game.turn(45, Player, Ai, battleship);
+      Game.turn(48, Player, Ai, battleship);
+      const cruiser = Player.allShips[4];
+      Game.turn(77, Player, Ai, cruiser);
+      Game.turn(79, Player, Ai, cruiser);
 
       expect(Ai.allShipsPlaced).toBe(true);
       expect(Player.allShipsPlaced).toBe(true);
@@ -56,13 +93,13 @@ describe('GamePlay', () => {
       Player.allShipsPlaced = true;
       Ai.allShipsPlaced = true;
 
-      Game.turn(attackSquare);
+      Game.turn(attackSquare, Player, Ai);
 
-      const playerWasAttacked = Object.values(Player.gameboard).some(
+      const playerWasAttacked = Object.values(Player.board).some(
         (square) => square.isMiss || square.isHit,
       );
 
-      expect(Ai.gameboard[attackSquare].isMiss).toBe(true);
+      expect(Ai.board[attackSquare].isMiss).toBe(true);
       expect(playerWasAttacked).toBe(true);
     });
 
@@ -70,9 +107,9 @@ describe('GamePlay', () => {
       const square = 45;
       Player.winner = true;
 
-      Game.turn(square);
+      Game.turn(square, Player, Ai);
 
-      expect(Ai.gameboard[square].isMiss).toBe(false);
+      expect(Ai.board[square].isMiss).toBe(false);
     });
   });
 });

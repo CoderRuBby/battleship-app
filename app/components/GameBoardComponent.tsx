@@ -7,11 +7,13 @@ interface GameBoardComponentProps {
   playerGameBoard: gameBoardInterface;
   handleMouseEnter: (id: number) => void;
   handleMouseLeave: () => void;
+  handleOnClick: (id: number, selectedShip: shipInterface | null) => void;
 }
 
 export function GameBoardComponent({
   selectedShip,
   playerGameBoard,
+  handleOnClick,
   handleMouseEnter,
   handleMouseLeave,
 }: GameBoardComponentProps) {
@@ -26,6 +28,7 @@ export function GameBoardComponent({
           imageDirection={square.imageDirection}
           isHit={square.isHit}
           isMiss={square.isMiss}
+          handleOnClick={handleOnClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         />

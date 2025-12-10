@@ -1,9 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, test } from 'vitest';
 import { GameBoardComponent } from '~/components/GameBoardComponent';
-import { gameBoard, type gameBoardInterface } from '~/utils/GameBoard';
-import { ship } from '~/utils/Ship';
+import type { gameBoardInterface } from '~/utils/GameBoard';
+import gameBoard from '~/utils/GameBoard';
 import type { shipInterface } from '~/utils/Ship';
+import ship from '~/utils/Ship';
 
 describe('GameBoardComponent', () => {
   let playerGameBoard: gameBoardInterface;
@@ -17,6 +18,7 @@ describe('GameBoardComponent', () => {
       <GameBoardComponent
         selectedShip={null}
         playerGameBoard={playerGameBoard}
+        handleOnClick={() => {}}
         handleMouseEnter={() => {}}
         handleMouseLeave={() => {}}
       />

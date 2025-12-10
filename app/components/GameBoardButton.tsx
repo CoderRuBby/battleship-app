@@ -9,6 +9,7 @@ interface GameBoardButtonProps {
   isMiss: boolean;
   onMouseEnter: (id: number) => void;
   onMouseLeave: () => void;
+  handleOnClick: (id: number, selectedShip: shipInterface | null) => void;
 }
 
 export function GameBoardButton({
@@ -20,6 +21,7 @@ export function GameBoardButton({
   isMiss,
   onMouseEnter,
   onMouseLeave,
+  handleOnClick,
 }: GameBoardButtonProps) {
   const buttonStyle = {
     background:
@@ -37,6 +39,7 @@ export function GameBoardButton({
       style={buttonStyle}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
+      onClick={() => handleOnClick(Number(testId), selectedShip)}
     ></button>
   );
 }

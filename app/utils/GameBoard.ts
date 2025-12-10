@@ -11,9 +11,14 @@ export interface gameBoardInterface {
   }[];
   allShipsPlaced: boolean;
   allShips: shipInterface[];
+  winner: boolean;
+  isWinner: (opponentGameBoard: gameBoardInterface) => boolean;
+  selectedShip: shipInterface | null;
 }
 
-export function gameBoard(allShips: shipInterface[]): gameBoardInterface {
+export default function gameBoard(
+  allShips: shipInterface[],
+): gameBoardInterface {
   return {
     board: Array.from({ length: 100 }, (_, index) => ({
       id: index,
@@ -25,93 +30,18 @@ export function gameBoard(allShips: shipInterface[]): gameBoardInterface {
     })),
     allShipsPlaced: false,
     allShips: allShips,
+    winner: false,
+    isWinner: function (opponentGameBoard: gameBoardInterface): boolean {
+      let winner = true;
+      opponentGameBoard.allShips.forEach((ship) => {
+        if (!ship.sunk) {
+          winner = false;
+        }
+      });
+
+      this.winner = winner;
+      return winner;
+    },
+    selectedShip: null,
   };
 }
-
-/*
-import Ship from './Ship';
-import PlaceShips from './PlaceShips';
-import Attack from './Attack';
-
-export default class GameBoard {
-  gameboard: {
-    [key: number]: { ship: Ship | null; isHit: boolean; isMiss: boolean };
-  };
-  Carrier: Ship;
-  Battleship: Ship;
-  Cruiser: Ship;
-  Submarine: Ship;
-  Destroyer: Ship;
-  allShipsPlaced: boolean;
-  allShips: Ship[];
-  winner: boolean;
-  placeShips: PlaceShips;
-  selectedShip: null | Ship;
-  NewAttack: Attack;
-
-  constructor() {
-    this.gameboard = {};
-    this.initialize();
-    this.Carrier = new Ship('carrier', 5);
-    this.Battleship = new Ship('battleship', 4);
-    this.Cruiser = new Ship('cruiser', 3);
-    this.Submarine = new Ship('submarine', 3);
-    this.Destroyer = new Ship('destroyer', 2);
-    this.allShipsPlaced = false;
-    this.allShips = [
-      this.Battleship,
-      this.Carrier,
-      this.Cruiser,
-      this.Destroyer,
-      this.Submarine,
-    ];
-    this.winner = false;
-    this.placeShips = new PlaceShips(this);
-    this.selectedShip = null;
-    this.NewAttack = new Attack();
-  }
-
-  initialize() {
-    for (let i = 0; i < 100; i++) {
-      this.gameboard[i] = {
-        ship: null,
-        isHit: false,
-        isMiss: false,
-      };
-    }
-  }
-
-  selectShip(ship: Ship) {
-    this.placeShips.selectShip(ship);
-  }
-
-  shipPlacement(square: number) {
-    this.placeShips.shipPlacementLogic(square);
-  }
-
-  attack(Opponent: GameBoard, square: number) {
-    this.NewAttack.attack(square, Opponent);
-  }
-
-  isWinner(Opponent: GameBoard) {
-    if (
-      Opponent.Battleship.sunk &&
-      Opponent.Carrier.sunk &&
-      Opponent.Submarine.sunk &&
-      Opponent.Destroyer.sunk &&
-      Opponent.Cruiser.sunk
-    ) {
-      this.winner = true;
-    }
-  }
-
-  turn(square: number, opponent: GameBoard) {
-    if (this.allShipsPlaced) {
-      this.attack(opponent, square);
-      this.isWinner(opponent);
-    } else if (square) {
-      this.shipPlacement(square);
-    }
-  }
-}
-*/
