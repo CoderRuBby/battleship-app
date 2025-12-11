@@ -1,43 +1,54 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import Attack from '~/utils/Attack';
-import GameBoard from '~/utils/GameBoard';
-import Ship from '~/utils/Ship';
+import type { attackInterface } from '~/utils/Attack';
+import attack from '~/utils/Attack';
+import type { gameBoardInterface } from '~/utils/GameBoard';
+import gameBoard from '~/utils/GameBoard';
+import type { shipInterface } from '~/utils/Ship';
+import ship from '~/utils/Ship';
 
 describe('Attack', () => {
-  let Opponent: GameBoard;
-  let PlayerAttack: Attack;
-  let Ship1: Ship;
+  let carrier: shipInterface;
+  let destroyer: shipInterface;
+  let submarine: shipInterface;
+  let battleship: shipInterface;
+  let cruiser: shipInterface;
+  let shipsArray: shipInterface[];
+  let Opponent: gameBoardInterface;
+  let PlayerAttack: attackInterface;
 
   beforeEach(() => {
-    Opponent = new GameBoard();
-    PlayerAttack = new Attack();
-    Ship1 = new Ship('foo', 3);
+    carrier = ship('carrier', 5);
+    destroyer = ship('destroyer', 3);
+    submarine = ship('submarine', 3);
+    battleship = ship('battleship', 4);
+    cruiser = ship('cruiser', 2);
+    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
+    Opponent = gameBoard(shipsArray);
+    PlayerAttack = attack();
   });
 
   describe('attack', () => {
     it('can hit a ship on the opponents gameboard', () => {
       const square = 45;
-      const expectShip = new Ship('foo', 3);
 
-      Opponent.gameboard[square].ship = Ship1;
+      Opponent.board[square].ship = Opponent.allShips[0];
 
-      expectShip.isHit(square);
+      Opponent.allShips[0].isHit(square);
 
-      PlayerAttack.attack(square, Opponent);
+      PlayerAttack.logic(square, Opponent);
 
-      expect(Opponent.gameboard[square].isHit).toBe(true);
-      expect(Opponent.gameboard[square].ship).toEqual(expectShip);
+      expect(Opponent.board[square].isHit).toBe(true);
+      expect(Opponent.board[square].ship).toEqual(Opponent.allShips[0]);
     });
 
     it('can attack a square with no ship on the opponents board', () => {
       const square = 62;
-      const ExpectOpponent = new GameBoard();
 
-      ExpectOpponent.gameboard[square].isMiss = true;
+      Opponent.board[square].isMiss = true;
 
-      PlayerAttack.attack(square, Opponent);
+      PlayerAttack.logic(square, Opponent);
 
-      expect(Opponent.gameboard[square].isMiss).toBe(true);
+      expect(Opponent.board[square].isMiss).toBe(true);
     });
   });
 });
