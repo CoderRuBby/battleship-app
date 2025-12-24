@@ -1,24 +1,24 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, it, beforeEach, expect, test } from 'vitest';
-import { gameBoard } from '~/utils/GameBoard';
+import gameBoard from '~/utils/GameBoard';
 import type { gameBoardInterface } from '~/utils/GameBoard';
-import type { shipPlacementSystemInterface } from '~/utils/useShipPlacementSystem';
-import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
-import { ship } from '~/utils/Ship';
+import type { shipPlacementSystemInterface } from '~/utils/shipPlacementSystem';
+import shipPlacementSystem from '~/utils/shipPlacementSystem';
+import ship from '~/utils/Ship';
 import type { shipInterface } from '~/utils/Ship';
 
-describe('useShipPlacementSystem', () => {
+describe('shipPlacementSystem', () => {
   let Player: gameBoardInterface;
   let Ship1: shipInterface;
   let Ship2: shipInterface;
-  let shipPlacementSystem: shipPlacementSystemInterface;
+  let placementSystem: shipPlacementSystemInterface;
 
   beforeEach(() => {
     Ship1 = ship('foo', 3);
     Ship2 = ship('bar', 2);
     const ships = [Ship1, Ship2];
     Player = gameBoard(ships);
-    shipPlacementSystem = useShipPlacementSystem(Player);
+    placementSystem = shipPlacementSystem(Player);
   });
 
   describe('possibleShipEndPoints', () => {
@@ -27,7 +27,7 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 45;
 
       expect(
-        shipPlacementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
+        placementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([47, 43, 65, 25]);
     });
 
@@ -36,7 +36,7 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
 
       expect(
-        shipPlacementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
+        placementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([1, 10]);
     });
 
@@ -49,7 +49,7 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 4;
 
       expect(
-        shipPlacementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
+        placementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
       ).toEqual([7, 34]);
     });
   });
@@ -61,7 +61,7 @@ describe('useShipPlacementSystem', () => {
       const shipEndPoint = 1;
 
       expect(
-        shipPlacementSystem.possibleShipPath(
+        placementSystem.possibleShipPath(
           shipLength,
           shipStartPoint,
           shipEndPoint,
@@ -79,7 +79,7 @@ describe('useShipPlacementSystem', () => {
       const shipEndPoint = 24;
 
       expect(
-        shipPlacementSystem.possibleShipPath(
+        placementSystem.possibleShipPath(
           shipLength,
           shipStartPoint,
           shipEndPoint,
@@ -94,10 +94,10 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
 
       expect(
-        shipPlacementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
+        placementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
       ).toEqual([0, 1, 2]);
       expect(
-        shipPlacementSystem.getShipPaths(shipLength, shipStartPoint)[1].array,
+        placementSystem.getShipPaths(shipLength, shipStartPoint)[1].array,
       ).toEqual([0, 10, 20]);
     });
 
@@ -113,42 +113,42 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 26;
 
       expect(
-        shipPlacementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
+        placementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
       ).toEqual([26, 36, 46, 56]);
     });
   });
 
   describe('selectShip', () => {
     it('can select a ship', () => {
-      expect(shipPlacementSystem.selectShip(Ship1, null)).toEqual(Ship1);
+      expect(placementSystem.selectShip(Ship1, null)).toEqual(Ship1);
     });
 
     it('can deselect the ship if clicked again', () => {
-      expect(shipPlacementSystem.selectShip(Ship1, null)).toEqual(Ship1);
-      expect(shipPlacementSystem.selectShip(Ship1, Ship1)).toEqual(null);
+      expect(placementSystem.selectShip(Ship1, null)).toEqual(Ship1);
+      expect(placementSystem.selectShip(Ship1, Ship1)).toEqual(null);
     });
 
     it('can select a different ship', () => {
-      expect(shipPlacementSystem.selectShip(Ship1, null)).toEqual(Ship1);
-      expect(shipPlacementSystem.selectShip(Ship2, Ship1)).toEqual(Ship2);
+      expect(placementSystem.selectShip(Ship1, null)).toEqual(Ship1);
+      expect(placementSystem.selectShip(Ship2, Ship1)).toEqual(Ship2);
     });
 
     test('de-selecting a ship will clear shipStartPoint', () => {
       const shipStartPoint = 45;
-      shipPlacementSystem.selectShip(Ship1, null);
+      placementSystem.selectShip(Ship1, null);
       Ship1.addShipStart(shipStartPoint);
 
       expect(Ship1.shipStartPoint).toBe(45);
-      expect(shipPlacementSystem.selectShip(Ship1, Ship1)).toBe(null);
+      expect(placementSystem.selectShip(Ship1, Ship1)).toBe(null);
       expect(Ship1.shipStartPoint).toBe(null);
     });
 
     test('selecting a different ship will clear old ship shipStartPoint', () => {
       const shipStartPoint = 45;
-      shipPlacementSystem.selectShip(Ship1, null);
+      placementSystem.selectShip(Ship1, null);
       Ship1.addShipStart(shipStartPoint);
 
-      shipPlacementSystem.selectShip(Ship2, Ship1);
+      placementSystem.selectShip(Ship2, Ship1);
 
       expect(Ship1.shipStartPoint).toBe(null);
     });
@@ -158,7 +158,7 @@ describe('useShipPlacementSystem', () => {
     it('will assign shipStartPoint if ship is selected', () => {
       const shipStartPoint = 0;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
 
       expect(Ship1.shipStartPoint).toEqual(0);
     });
@@ -167,8 +167,8 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
-      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
       expect(Ship1.shipEndPoint).toBe(20);
     });
@@ -177,8 +177,8 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
-      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Player.board[10].ship).toEqual(Ship1);
@@ -189,9 +189,9 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
 
-      expect(shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1)).toBe(
+      expect(placementSystem.shipPlacementLogic(shipEndPoint, Ship1)).toBe(
         null,
       );
     });
@@ -200,10 +200,10 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 2;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
-      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship2);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship2);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Ship2.shipStartPoint).toBe(null);
@@ -213,14 +213,14 @@ describe('useShipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint, Ship1);
-      shipPlacementSystem.shipPlacementLogic(shipEndPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
+      placementSystem.shipPlacementLogic(shipEndPoint, Ship1);
 
       const shipStartPoint2 = 12;
       const shipEndPoint2 = 10;
 
-      shipPlacementSystem.shipPlacementLogic(shipStartPoint2, Ship2);
-      shipPlacementSystem.shipPlacementLogic(shipEndPoint2, Ship2);
+      placementSystem.shipPlacementLogic(shipStartPoint2, Ship2);
+      placementSystem.shipPlacementLogic(shipEndPoint2, Ship2);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Player.board[10].ship).toEqual(Ship1);
@@ -229,7 +229,7 @@ describe('useShipPlacementSystem', () => {
 
   describe('placeShipOnGameBoard', () => {
     it('can place a ship on the gameboard', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
+      const { result } = renderHook(() => shipPlacementSystem(Player));
       const shipStartPoint = 0;
       const shipEndPoint = 2;
 
@@ -247,7 +247,7 @@ describe('useShipPlacementSystem', () => {
     });
 
     it('will not place a ship in un-available locations', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
+      const { result } = renderHook(() => shipPlacementSystem(Player));
       Player.board[4].ship = Ship1;
       Player.board[5].ship = Ship1;
       Player.board[6].ship = Ship1;
@@ -270,7 +270,7 @@ describe('useShipPlacementSystem', () => {
     });
 
     test('all ships can be placed on the gameboard', () => {
-      const { result } = renderHook(() => useShipPlacementSystem(Player));
+      const { result } = renderHook(() => shipPlacementSystem(Player));
       act(() => {
         result.current.placeShipOnGameBoard(Ship1, 0, 20);
       });
