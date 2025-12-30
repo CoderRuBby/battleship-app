@@ -1,40 +1,108 @@
-import AiGameBoard from './AiGameBoard';
-import GameBoard from './GameBoard';
+import aiAttack from './aiAttack';
+import aiShipPlacementSystem from './aiShipPlacementSystem';
+import attack from './Attack';
+import type { gameBoardInterface } from './GameBoard';
+import type { shipInterface } from './Ship';
+import shipPlacement from './shipPlacementSystem';
 
-class GamePlay {
-  Player: GameBoard;
-  Ai: AiGameBoard;
-  constructor(Player: GameBoard, Ai: AiGameBoard) {
-    this.Player = Player;
-    this.Ai = Ai;
-  }
-
-  isWinner(): boolean {
-    if (this.Player.winner || this.Ai.winner) {
-      return true;
-    }
-    return false;
-  }
-
-  turn(square: number) {
-    if (this.isWinner()) {
-      return;
-    }
-
-    if (!this.Player.allShipsPlaced) {
-      this.Player.turn(square, this.Ai);
-    }
-
-    if (this.Player.allShipsPlaced && !this.Ai.allShipsPlaced) {
-      this.Ai.turn();
-    }
-
-    if (this.Player.allShipsPlaced && this.Ai.allShipsPlaced) {
-      this.Player.turn(square, this.Ai);
-      if (this.isWinner()) return;
-      this.Ai.turn(null, this.Player);
-    }
-  }
+export interface gamePlayInterface {
+  playerTurn: (
+    square: number,
+    playerGameBoard: gameBoardInterface,
+    opponentGameBoard: gameBoardInterface,
+    selectedShip?: shipInterface | null,
+  ) => void;
+  aiTurn: (
+    ai: gameBoardInterface,
+    Opponent?: gameBoardInterface,
+    testSquare?: number,
+  ) => number;
+  isWinner: (
+    playerGameBoard: gameBoardInterface,
+    aiGameBoard: gameBoardInterface,
+  ) => boolean;
+  turn: (
+    square: number,
+    playerGameBoard: gameBoardInterface,
+    aiGameBoard: gameBoardInterface,
+    selectedShip?: shipInterface | null,
+  ) => void;
 }
 
-export default GamePlay;
+export default function gamePlay() {
+  return {
+    playerTurn: function (
+      square: number,
+      playerGameBoard: gameBoardInterface,
+      opponentGameBoard: gameBoardInterface,
+      selectedShip?: shipInterface | null,
+    ) {
+      const attackSystem = attack();
+      const shipPlacementSystem = shipPlacement(playerGameBoard);
+
+      if (playerGameBoard.allShipsPlaced) {
+        attackSystem.logic(square, opponentGameBoard);
+        playerGameBoard.isWinner(opponentGameBoard);
+      } else if (square) {
+        shipPlacementSystem.shipPlacementLogic(square, selectedShip!);
+      }
+    },
+    aiTurn: function (
+      ai: gameBoardInterface,
+      Opponent?: gameBoardInterface,
+      testSquare?: number | null,
+    ): number {
+      const newAiShipPlacementSystem = aiShipPlacementSystem(ai);
+      const aiAttackSystem = aiAttack();
+      let attackLocation: number;
+
+      if (!testSquare && !Opponent) {
+        newAiShipPlacementSystem.placeShipOnGameBoard();
+      }
+
+      if (Opponent) {
+        if (testSquare) {
+          attackLocation = aiAttackSystem.logic(Opponent, testSquare);
+        } else {
+          attackLocation = aiAttackSystem.logic(Opponent);
+        }
+      }
+
+      return attackLocation!;
+    },
+    isWinner: function (
+      playerGameBoard: gameBoardInterface,
+      aiGameBoard: gameBoardInterface,
+    ): boolean {
+      if (playerGameBoard.winner || aiGameBoard.winner) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    turn: function (
+      square: number,
+      playerGameBoard: gameBoardInterface,
+      aiGameBoard: gameBoardInterface,
+      selectedShip?: shipInterface | null,
+    ) {
+      if (this.isWinner(playerGameBoard, aiGameBoard)) {
+        return;
+      }
+
+      if (!playerGameBoard.allShipsPlaced) {
+        this.playerTurn(square, playerGameBoard, aiGameBoard, selectedShip!);
+      }
+
+      if (playerGameBoard.allShipsPlaced && !aiGameBoard.allShipsPlaced) {
+        this.aiTurn(aiGameBoard);
+      }
+
+      if (playerGameBoard.allShipsPlaced && aiGameBoard.allShipsPlaced) {
+        this.playerTurn(square, playerGameBoard, aiGameBoard, null);
+        if (this.isWinner(playerGameBoard, aiGameBoard)) return;
+        this.aiTurn(aiGameBoard, playerGameBoard);
+      }
+    },
+  };
+}
