@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, test } from 'vitest';
 import { ShipButtonComponent } from '~/components/ShipButtonComponent';
 import type { shipInterface } from '~/utils/Ship';
-import { ship } from '~/utils/Ship';
+import ship from '~/utils/Ship';
 
 describe('ShipButtonComponent', () => {
   let carrier: shipInterface;

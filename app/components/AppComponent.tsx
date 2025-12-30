@@ -2,7 +2,7 @@ import type { shipInterface } from '~/utils/Ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
 import { useState } from 'react';
-import useShipPlacementSystem from '~/utils/useShipPlacementSystem';
+import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 
 export interface appComponentProps {
@@ -15,11 +15,26 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
     useState<gameBoardInterface>(gameBoard);
   const [selectedShip, setSelectedShip] = useState<shipInterface | null>(null);
 
-  const { selectShip, shipPlacementLogic, getShipPaths } =
-    useShipPlacementSystem(playerGameBoard);
+  const { selectShip, getShipPaths } = shipPlacementSystem(playerGameBoard);
 
   const handleSelectShip = (shipName: shipInterface) => {
     setSelectedShip(selectShip(shipName, selectedShip));
+  };
+
+  const gameBoardOnClick = (id: number) => {
+    if (selectedShip && selectedShip.shipStartPoint === null) {
+      setSelectedShip({
+        ...selectedShip,
+        shipStartPoint: id,
+      });
+    }
+
+    if (selectedShip && selectedShip.shipStartPoint) {
+      setSelectedShip({
+        ...selectedShip,
+        shipEndPoint: id,
+      });
+    }
   };
 
   const updateBoard = (
@@ -90,6 +105,7 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
         playerGameBoard={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
+        handleOnClick={gameBoardOnClick}
       />
     </main>
   );

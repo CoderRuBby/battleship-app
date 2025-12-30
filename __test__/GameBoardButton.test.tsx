@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { GameBoardButton } from '~/components/GameBoardButton';
-import { ship } from '~/utils/Ship';
+import ship from '~/utils/Ship';
 
 describe('GameBoardButton', () => {
   it('will render a default button', () => {
@@ -15,6 +15,7 @@ describe('GameBoardButton', () => {
         isMiss={false}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
@@ -36,6 +37,7 @@ describe('GameBoardButton', () => {
         isMiss={true}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
@@ -56,6 +58,7 @@ describe('GameBoardButton', () => {
         isMiss={false}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
@@ -76,6 +79,7 @@ describe('GameBoardButton', () => {
         isMiss={true}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
+        handleOnClick={() => {}}
       />,
     );
 
