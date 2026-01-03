@@ -328,4 +328,172 @@ describe('App', () => {
     expect(button25Style.background).not.toContain('url("destroyer0up.png")');
     expect(button25Style.background).toContain('rgba(0, 0, 0, 0)');
   });
+
+  test('verify user interface renders all 5 placed ships on the gameboard', async () => {
+    const user = userEvent.setup();
+
+    render(component);
+
+    const destroyer = screen.getByTestId('destroyer');
+    await user.click(destroyer);
+
+    const destroyerStyle = getComputedStyle(destroyer);
+
+    expect(destroyerStyle.background).toContain(
+      'url("highlighteddestroyer.png")',
+    );
+
+    const button45 = screen.getByTestId('45');
+    await user.hover(button45);
+    await user.click(button45);
+    await user.unhover(button45);
+
+    const button46 = screen.getByTestId('46');
+    await user.hover(button46);
+    await user.unhover(button46);
+    const button46Style = getComputedStyle(button46);
+    expect(button46Style.background).toContain('url("destroyer1right.png")');
+
+    const button47 = screen.getByTestId('47');
+    await user.hover(button47);
+    await user.click(button47);
+    await user.unhover(button47);
+    const button47Style = getComputedStyle(button47);
+    expect(button47Style.background).toContain('url("destroyer2right.png")');
+
+    const button45Style = getComputedStyle(button45);
+
+    expect(button45Style.background).toContain('url("destroyer0right.png")');
+
+    const carrier = screen.getByTestId('carrier');
+    await user.click(carrier);
+
+    const carrierStyle = getComputedStyle(carrier);
+
+    expect(carrierStyle.background).toContain('url("highlightedcarrier.png")');
+
+    const button55 = screen.getByTestId('55');
+    await user.hover(button55);
+    await user.click(button55);
+    await user.unhover(button55);
+
+    const button56 = screen.getByTestId('56');
+    await user.hover(button56);
+    await user.unhover(button56);
+    const button56Style = getComputedStyle(button56);
+    expect(button56Style.background).toContain('url("carrier1right.png")');
+
+    const button57 = screen.getByTestId('57');
+    await user.hover(button57);
+    await user.unhover(button57);
+    const button57Style = getComputedStyle(button57);
+    expect(button57Style.background).toContain('url("carrier2right.png")');
+
+    const button58 = screen.getByTestId('58');
+    await user.hover(button58);
+    await user.unhover(button58);
+    const button58Style = getComputedStyle(button58);
+    expect(button58Style.background).toContain('url("carrier3right.png")');
+
+    const button59 = screen.getByTestId('59');
+    await user.hover(button59);
+    await user.click(button59);
+    await user.unhover(button59);
+    const button59Style = getComputedStyle(button59);
+    expect(button59Style.background).toContain('url("carrier4right.png")');
+
+    const button55Style = getComputedStyle(button55);
+
+    expect(button55Style.background).toContain('url("carrier0right.png")');
+
+    const battleship = screen.getByTestId('battleship');
+    await user.click(battleship);
+    const battleshipStyle = getComputedStyle(battleship);
+
+    expect(battleshipStyle.background).toContain(
+      'url("highlightedbattleship.png")',
+    );
+
+    const button0 = screen.getByTestId('0');
+    await user.hover(button0);
+    await user.click(button0);
+    await user.unhover(button0);
+
+    const button10 = screen.getByTestId('10');
+    await user.hover(button10);
+    await user.unhover(button10);
+    const button10Style = getComputedStyle(button10);
+    expect(button10Style.background).toContain('url("battleship1down.png")');
+
+    const button20 = screen.getByTestId('20');
+    await user.hover(button20);
+    await user.unhover(button20);
+    const button20Style = getComputedStyle(button20);
+    expect(button20Style.background).toContain('url("battleship2down.png")');
+
+    const button30 = screen.getByTestId('30');
+    await user.hover(button30);
+    await user.click(button30);
+    await user.unhover(button30);
+    const button30Style = getComputedStyle(button30);
+    expect(button30Style.background).toContain('url("battleship3down.png")');
+
+    const button0Style = getComputedStyle(button0);
+
+    expect(button0Style.background).toContain('url("battleship0down.png")');
+
+    const submarine = screen.getByTestId('submarine');
+    await user.click(submarine);
+
+    const submarineStyle = getComputedStyle(submarine);
+
+    expect(submarineStyle.background).toContain(
+      'url("highlightedsubmarine.png")',
+    );
+
+    const button99 = screen.getByTestId('99');
+    await user.hover(button99);
+    await user.click(button99);
+    await user.unhover(button99);
+
+    const button89 = screen.getByTestId('89');
+    await user.hover(button89);
+    await user.unhover(button89);
+    const button89Style = getComputedStyle(button89);
+    expect(button89Style.background).toContain('url("submarine1up.png")');
+
+    const button79 = screen.getByTestId('79');
+    await user.hover(button79);
+    await user.click(button79);
+    await user.unhover(button79);
+    const button79Style = getComputedStyle(button79);
+    expect(button79Style.background).toContain('url("submarine0up.png")');
+
+    const button99Style = getComputedStyle(button99);
+
+    expect(button99Style.background).toContain('url("submarine2up.png")');
+
+    const cruiser = screen.getByTestId('cruiser');
+    await user.click(cruiser);
+
+    const cruiserStyle = getComputedStyle(cruiser);
+
+    expect(cruiserStyle.background).toContain('url("highlightedcruiser.png")');
+
+    const button9 = screen.getByTestId('9');
+    await user.hover(button9);
+    await user.click(button9);
+    await user.unhover(button9);
+
+    const button8 = screen.getByTestId('8');
+    await user.hover(button8);
+    await user.click(button8);
+    await user.unhover(button8);
+    const button8Style = getComputedStyle(button8);
+    expect(button8Style.background).toContain('url("cruiser0left.png")');
+
+    const button9Style = getComputedStyle(button9);
+
+    expect(button9Style.background).toContain('url("cruiser1left.png")');
+  });
 });
