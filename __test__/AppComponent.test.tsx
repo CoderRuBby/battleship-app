@@ -347,8 +347,6 @@ describe('App', () => {
     await user.hover(button45);
     await user.click(button45);
     await user.unhover(button45);
-    const button45Style = getComputedStyle(button45);
-    expect(button45Style.background).toContain('url("destroyer0right.png")');
 
     const button46 = screen.getByTestId('46');
     await user.hover(button46);
@@ -363,6 +361,10 @@ describe('App', () => {
     const button47Style = getComputedStyle(button47);
     expect(button47Style.background).toContain('url("destroyer2right.png")');
 
+    const button45Style = getComputedStyle(button45);
+
+    expect(button45Style.background).toContain('url("destroyer0right.png")');
+
     const carrier = screen.getByTestId('carrier');
     await user.click(carrier);
 
@@ -374,8 +376,6 @@ describe('App', () => {
     await user.hover(button55);
     await user.click(button55);
     await user.unhover(button55);
-    const button55Style = getComputedStyle(button55);
-    expect(button55Style.background).toContain('url("carrier0right.png")');
 
     const button56 = screen.getByTestId('56');
     await user.hover(button56);
@@ -402,6 +402,10 @@ describe('App', () => {
     const button59Style = getComputedStyle(button59);
     expect(button59Style.background).toContain('url("carrier4right.png")');
 
+    const button55Style = getComputedStyle(button55);
+
+    expect(button55Style.background).toContain('url("carrier0right.png")');
+
     const battleship = screen.getByTestId('battleship');
     await user.click(battleship);
     const battleshipStyle = getComputedStyle(battleship);
@@ -414,8 +418,6 @@ describe('App', () => {
     await user.hover(button0);
     await user.click(button0);
     await user.unhover(button0);
-    const button0Style = getComputedStyle(button0);
-    expect(button0Style.background).toContain('url("battleship0down.png")');
 
     const button10 = screen.getByTestId('10');
     await user.hover(button10);
@@ -436,6 +438,10 @@ describe('App', () => {
     const button30Style = getComputedStyle(button30);
     expect(button30Style.background).toContain('url("battleship3down.png")');
 
+    const button0Style = getComputedStyle(button0);
+
+    expect(button0Style.background).toContain('url("battleship0down.png")');
+
     const submarine = screen.getByTestId('submarine');
     await user.click(submarine);
 
@@ -449,8 +455,6 @@ describe('App', () => {
     await user.hover(button99);
     await user.click(button99);
     await user.unhover(button99);
-    const button99Style = getComputedStyle(button99);
-    expect(button99Style.background).toContain('url("submarine2up.png")');
 
     const button89 = screen.getByTestId('89');
     await user.hover(button89);
@@ -465,6 +469,10 @@ describe('App', () => {
     const button79Style = getComputedStyle(button79);
     expect(button79Style.background).toContain('url("submarine0up.png")');
 
+    const button99Style = getComputedStyle(button99);
+
+    expect(button99Style.background).toContain('url("submarine2up.png")');
+
     const cruiser = screen.getByTestId('cruiser');
     await user.click(cruiser);
 
@@ -476,8 +484,6 @@ describe('App', () => {
     await user.hover(button9);
     await user.click(button9);
     await user.unhover(button9);
-    const button9Style = getComputedStyle(button9);
-    expect(button9Style.background).toContain('url("cruiser1left.png")');
 
     const button8 = screen.getByTestId('8');
     await user.hover(button8);
@@ -485,5 +491,9 @@ describe('App', () => {
     await user.unhover(button8);
     const button8Style = getComputedStyle(button8);
     expect(button8Style.background).toContain('url("cruiser0left.png")');
+
+    const button9Style = getComputedStyle(button9);
+
+    expect(button9Style.background).toContain('url("cruiser1left.png")');
   });
 });
