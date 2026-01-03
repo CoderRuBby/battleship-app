@@ -68,21 +68,21 @@ describe('GamePlay', () => {
 
   describe('turn', () => {
     it('can let both players place ships on gameboard', () => {
-      const carrier = Player.allShips[0];
-      Game.turn(34, Player, Ai, carrier);
-      Game.turn(38, Player, Ai, carrier);
-      const destroyer = Player.allShips[1];
-      Game.turn(20, Player, Ai, destroyer);
-      Game.turn(21, Player, Ai, destroyer);
-      const submarine = Player.allShips[2];
-      Game.turn(63, Player, Ai, submarine);
-      Game.turn(65, Player, Ai, submarine);
-      const battleship = Player.allShips[3];
-      Game.turn(45, Player, Ai, battleship);
-      Game.turn(48, Player, Ai, battleship);
-      const cruiser = Player.allShips[4];
-      Game.turn(77, Player, Ai, cruiser);
-      Game.turn(79, Player, Ai, cruiser);
+      Player.selectedShip = Player.allShips[0];
+      Game.turn(34, Player, Ai);
+      Game.turn(38, Player, Ai);
+      Player.selectedShip = Player.allShips[1];
+      Game.turn(20, Player, Ai);
+      Game.turn(21, Player, Ai);
+      Player.selectedShip = Player.allShips[2];
+      Game.turn(63, Player, Ai);
+      Game.turn(65, Player, Ai);
+      Player.selectedShip = Player.allShips[3];
+      Game.turn(45, Player, Ai);
+      Game.turn(48, Player, Ai);
+      Player.selectedShip = Player.allShips[4];
+      Game.turn(77, Player, Ai);
+      Game.turn(79, Player, Ai);
 
       expect(Ai.allShipsPlaced).toBe(true);
       expect(Player.allShipsPlaced).toBe(true);

@@ -2,7 +2,6 @@ import aiAttack from './aiAttack';
 import aiShipPlacementSystem from './aiShipPlacementSystem';
 import attack from './Attack';
 import type { gameBoardInterface } from './GameBoard';
-import type { shipInterface } from './Ship';
 import shipPlacement from './shipPlacementSystem';
 
 export interface gamePlayInterface {
@@ -10,7 +9,6 @@ export interface gamePlayInterface {
     square: number,
     playerGameBoard: gameBoardInterface,
     opponentGameBoard: gameBoardInterface,
-    selectedShip?: shipInterface | null,
   ) => void;
   aiTurn: (
     ai: gameBoardInterface,
@@ -25,7 +23,6 @@ export interface gamePlayInterface {
     square: number,
     playerGameBoard: gameBoardInterface,
     aiGameBoard: gameBoardInterface,
-    selectedShip?: shipInterface | null,
   ) => void;
 }
 
@@ -35,7 +32,6 @@ export default function gamePlay() {
       square: number,
       playerGameBoard: gameBoardInterface,
       opponentGameBoard: gameBoardInterface,
-      selectedShip?: shipInterface | null,
     ) {
       const attackSystem = attack();
       const shipPlacementSystem = shipPlacement(playerGameBoard);
@@ -44,7 +40,7 @@ export default function gamePlay() {
         attackSystem.logic(square, opponentGameBoard);
         playerGameBoard.isWinner(opponentGameBoard);
       } else if (square) {
-        shipPlacementSystem.shipPlacementLogic(square, selectedShip!);
+        shipPlacementSystem.shipPlacementLogic(square);
       }
     },
     aiTurn: function (
@@ -84,14 +80,13 @@ export default function gamePlay() {
       square: number,
       playerGameBoard: gameBoardInterface,
       aiGameBoard: gameBoardInterface,
-      selectedShip?: shipInterface | null,
     ) {
       if (this.isWinner(playerGameBoard, aiGameBoard)) {
         return;
       }
 
       if (!playerGameBoard.allShipsPlaced) {
-        this.playerTurn(square, playerGameBoard, aiGameBoard, selectedShip!);
+        this.playerTurn(square, playerGameBoard, aiGameBoard);
       }
 
       if (playerGameBoard.allShipsPlaced && !aiGameBoard.allShipsPlaced) {
@@ -99,7 +94,7 @@ export default function gamePlay() {
       }
 
       if (playerGameBoard.allShipsPlaced && aiGameBoard.allShipsPlaced) {
-        this.playerTurn(square, playerGameBoard, aiGameBoard, null);
+        this.playerTurn(square, playerGameBoard, aiGameBoard);
         if (this.isWinner(playerGameBoard, aiGameBoard)) return;
         this.aiTurn(aiGameBoard, playerGameBoard);
       }

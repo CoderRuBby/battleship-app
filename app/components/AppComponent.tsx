@@ -25,7 +25,7 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
 
   const gameBoardOnClick = (id: number) => {
     const newBoard = {
-      ...shipPlacementLogic(id, playerGameBoard.selectedShip),
+      ...shipPlacementLogic(id),
     };
     setPlayerGameBoard(newBoard);
   };
