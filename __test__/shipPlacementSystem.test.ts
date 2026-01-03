@@ -191,9 +191,9 @@ describe('shipPlacementSystem', () => {
 
       placementSystem.shipPlacementLogic(shipStartPoint, Ship1);
 
-      expect(placementSystem.shipPlacementLogic(shipEndPoint, Ship1)).toBe(
-        null,
-      );
+      expect(
+        placementSystem.shipPlacementLogic(shipEndPoint, Ship1).selectedShip,
+      ).toBe(null);
     });
 
     it('will not assign shipStartPoint if already being used', () => {

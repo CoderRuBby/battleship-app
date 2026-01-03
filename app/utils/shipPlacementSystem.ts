@@ -27,12 +27,12 @@ export interface shipPlacementSystemInterface {
     ship: shipInterface,
     startPoint: number,
     shipEndPoint: number,
-  ) => void;
+  ) => gameBoardInterface;
   //! rename to logic
   shipPlacementLogic: (
     squareNumber: number,
     selectedShip: shipInterface | null,
-  ) => void;
+  ) => gameBoardInterface;
 }
 
 export default function shipPlacementSystem(
@@ -212,10 +212,13 @@ export default function shipPlacementSystem(
     ship: shipInterface,
     shipStartPoint: number,
     shipEndPoint: number,
-  ) => {
+  ): gameBoardInterface => {
     const path = possibleShipPath(ship.length, shipStartPoint, shipEndPoint);
-    path.array.forEach((location) => {
+    ship.placedLocations = path.array;
+    path.array.forEach((location, index) => {
       playerGameBoard.board[location].ship = ship;
+      playerGameBoard.board[location].imageNumber = index;
+      playerGameBoard.board[location].imageDirection = path.direction;
     });
 
     ship.isPlaced = true;
@@ -223,19 +226,22 @@ export default function shipPlacementSystem(
     if (areAllShipsPlaced(playerGameBoard.allShips) === true) {
       playerGameBoard.allShipsPlaced = true;
     }
+
+    return playerGameBoard;
   };
 
   const shipPlacementLogic = (
     squareNumber: number,
     selectedShip: shipInterface | null,
-  ) => {
-    if (!selectedShip) return;
+  ): gameBoardInterface => {
+    const newBoard: gameBoardInterface = { ...playerGameBoard };
+    if (!selectedShip) return newBoard;
 
     if (selectedShip.shipStartPoint === null) {
       if (isAvailableSquare(squareNumber)) {
         selectedShip.shipStartPoint = squareNumber;
       }
-      return;
+      return newBoard;
     }
 
     if (canPlaceShip(squareNumber, selectedShip) === true) {
@@ -246,9 +252,9 @@ export default function shipPlacementSystem(
         squareNumber,
       );
 
-      // selectedShip = null;
-      return null;
+      selectedShip = null;
     }
+    return newBoard;
   };
 
   return {

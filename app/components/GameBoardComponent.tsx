@@ -1,9 +1,7 @@
 import { GameBoardButton } from './GameBoardButton';
 import type { gameBoardInterface } from '~/utils/GameBoard';
-import type { shipInterface } from '~/utils/Ship';
 
 interface GameBoardComponentProps {
-  selectedShip: shipInterface | null;
   playerGameBoard: gameBoardInterface;
   handleMouseEnter: (id: number) => void;
   handleMouseLeave: () => void;
@@ -11,7 +9,6 @@ interface GameBoardComponentProps {
 }
 
 export function GameBoardComponent({
-  selectedShip,
   playerGameBoard,
   handleOnClick,
   handleMouseEnter,
@@ -23,7 +20,7 @@ export function GameBoardComponent({
         <GameBoardButton
           key={index}
           testId={index.toString()}
-          selectedShip={selectedShip}
+          playerGameBoard={playerGameBoard}
           shipImageNumber={square.imageNumber}
           imageDirection={square.imageDirection}
           isHit={square.isHit}

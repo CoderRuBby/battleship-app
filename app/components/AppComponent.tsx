@@ -13,28 +13,21 @@ export interface appComponentProps {
 export function AppComponent({ allShips, gameBoard }: appComponentProps) {
   const [playerGameBoard, setPlayerGameBoard] =
     useState<gameBoardInterface>(gameBoard);
-  const [selectedShip, setSelectedShip] = useState<shipInterface | null>(null);
 
-  const { selectShip, getShipPaths } = shipPlacementSystem(playerGameBoard);
+  const { selectShip, getShipPaths, shipPlacementLogic } =
+    shipPlacementSystem(playerGameBoard);
 
   const handleSelectShip = (shipName: shipInterface) => {
-    setSelectedShip(selectShip(shipName, selectedShip));
+    const newBoard = { ...playerGameBoard };
+    newBoard.selectedShip = selectShip(shipName, playerGameBoard.selectedShip);
+    setPlayerGameBoard(newBoard);
   };
 
   const gameBoardOnClick = (id: number) => {
-    if (selectedShip && selectedShip.shipStartPoint === null) {
-      setSelectedShip({
-        ...selectedShip,
-        shipStartPoint: id,
-      });
-    }
-
-    if (selectedShip && selectedShip.shipStartPoint) {
-      setSelectedShip({
-        ...selectedShip,
-        shipEndPoint: id,
-      });
-    }
+    const newBoard = {
+      ...shipPlacementLogic(id, playerGameBoard.selectedShip),
+    };
+    setPlayerGameBoard(newBoard);
   };
 
   const updateBoard = (
@@ -44,8 +37,12 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
     direction: string,
   ) => {
     setPlayerGameBoard((prevPlayerGameBoard) => {
+      //! refactor: better readability
       const updatedBoard = [...prevPlayerGameBoard.board];
-      if (updatedBoard[square]?.id !== id) {
+      if (
+        updatedBoard[square]?.id !== id ||
+        updatedBoard[square].ship !== null
+      ) {
         updatedBoard[square] = {
           ...updatedBoard[square],
           imageNumber: index,
@@ -60,11 +57,11 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
   };
 
   const handleMouseEnter = (id: number) => {
-    if (selectedShip?.shipStartPoint) {
+    if (playerGameBoard.selectedShip?.shipStartPoint !== null) {
       return;
     }
 
-    const paths = getShipPaths(selectedShip!.length, id);
+    const paths = getShipPaths(playerGameBoard.selectedShip!.length, id);
     if (paths) {
       paths.forEach((path) => {
         path.array.forEach((square, squareIndex) => {
@@ -75,23 +72,21 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
   };
 
   const handleMouseLeave = () => {
-    if (selectedShip!.shipStartPoint) {
+    if (
+      playerGameBoard.selectedShip?.shipStartPoint !== null &&
+      playerGameBoard.selectedShip?.shipEndPoint === null
+    ) {
       return;
     }
-
-    setPlayerGameBoard((prev) => {
-      const newBoard = prev.board.map((square) => {
-        return {
-          ...square,
-          imageNumber: null,
-          imageDirection: null,
-        };
-      });
-      return {
-        ...prev,
-        board: newBoard,
-      };
+    const newBoardObject = { ...playerGameBoard };
+    newBoardObject.board.map((square) => {
+      if (square.ship === null) {
+        square.imageNumber = null;
+        square.imageDirection = null;
+      }
     });
+
+    setPlayerGameBoard(newBoardObject);
   };
 
   return (
@@ -101,7 +96,6 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
         handleSelectShip={handleSelectShip}
       />
       <GameBoardComponent
-        selectedShip={selectedShip}
         playerGameBoard={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
