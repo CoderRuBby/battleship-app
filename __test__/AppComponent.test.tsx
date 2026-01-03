@@ -287,4 +287,45 @@ describe('App', () => {
     const button25Style = getComputedStyle(button25);
     expect(button25Style.background).toContain('url("destroyer0up.png")');
   });
+
+  test('verify user interface renders a placed ship on the gameboard', async () => {
+    const user = userEvent.setup();
+
+    render(component);
+
+    const destroyer = screen.getByTestId('destroyer');
+    await user.click(destroyer);
+
+    const destroyerStyle = getComputedStyle(destroyer);
+
+    expect(destroyerStyle.background).toContain(
+      'url("highlighteddestroyer.png")',
+    );
+
+    const button45 = screen.getByTestId('45');
+    await user.hover(button45);
+    await user.click(button45);
+    await user.unhover(button45);
+
+    const button46 = screen.getByTestId('46');
+    await user.hover(button46);
+    await user.unhover(button46);
+    const button46Style = getComputedStyle(button46);
+    expect(button46Style.background).toContain('url("destroyer1right.png")');
+
+    const button47 = screen.getByTestId('47');
+    await user.hover(button47);
+    await user.click(button47);
+    await user.unhover(button47);
+    const button47Style = getComputedStyle(button47);
+    expect(button47Style.background).toContain('url("destroyer2right.png")');
+
+    const button45Style = getComputedStyle(button45);
+
+    expect(button45Style.background).toContain('url("destroyer0right.png")');
+    const button25 = screen.getByTestId('25');
+    const button25Style = getComputedStyle(button25);
+    expect(button25Style.background).not.toContain('url("destroyer0up.png")');
+    expect(button25Style.background).toContain('rgba(0, 0, 0, 0)');
+  });
 });
