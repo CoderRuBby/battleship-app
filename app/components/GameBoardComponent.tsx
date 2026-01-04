@@ -6,6 +6,7 @@ interface GameBoardComponentProps {
   handleMouseEnter: (id: number) => void;
   handleMouseLeave: () => void;
   handleOnClick: (id: number) => void;
+  label: string;
 }
 
 export function GameBoardComponent({
@@ -13,9 +14,10 @@ export function GameBoardComponent({
   handleOnClick,
   handleMouseEnter,
   handleMouseLeave,
+  label,
 }: GameBoardComponentProps) {
   return (
-    <section role='region' aria-label='The Game Board'>
+    <section role='region' aria-label={label}>
       {playerGameBoard.board.map((square, index) => (
         <GameBoardButton
           key={index}

@@ -8,11 +8,13 @@ import type { gameBoardInterface } from '~/utils/GameBoard';
 export interface appComponentProps {
   allShips: shipInterface[];
   gameBoard: gameBoardInterface;
+  ai: gameBoardInterface;
 }
 
-export function AppComponent({ allShips, gameBoard }: appComponentProps) {
+export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   const [playerGameBoard, setPlayerGameBoard] =
     useState<gameBoardInterface>(gameBoard);
+  const [aiGameBoard, setAiGameBoard] = useState<gameBoardInterface>(ai);
 
   const { selectShip, getShipPaths, shipPlacementLogic } =
     shipPlacementSystem(playerGameBoard);
@@ -96,10 +98,18 @@ export function AppComponent({ allShips, gameBoard }: appComponentProps) {
         handleSelectShip={handleSelectShip}
       />
       <GameBoardComponent
+        playerGameBoard={aiGameBoard}
+        handleMouseEnter={handleMouseEnter}
+        handleMouseLeave={handleMouseLeave}
+        handleOnClick={gameBoardOnClick}
+        label='Ai Game Board'
+      />
+      <GameBoardComponent
         playerGameBoard={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
         handleOnClick={gameBoardOnClick}
+        label='The Game Board'
       />
     </main>
   );
