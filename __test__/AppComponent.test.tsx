@@ -16,6 +16,7 @@ describe('App', () => {
   let shipsArray: shipInterface[];
   let playerGameBoard: gameBoardInterface;
   let component: React.ReactElement;
+  let aiGameBoard: gameBoardInterface;
 
   beforeEach(() => {
     carrier = ship('carrier', 5);
@@ -25,9 +26,14 @@ describe('App', () => {
     cruiser = ship('cruiser', 2);
     shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
     playerGameBoard = gameBoard(shipsArray);
+    aiGameBoard = gameBoard(shipsArray);
 
     component = (
-      <AppComponent allShips={shipsArray} gameBoard={playerGameBoard} />
+      <AppComponent
+        allShips={shipsArray}
+        gameBoard={playerGameBoard}
+        ai={aiGameBoard}
+      />
     );
   });
 
@@ -495,5 +501,13 @@ describe('App', () => {
     const button9Style = getComputedStyle(button9);
 
     expect(button9Style.background).toContain('url("cruiser1left.png")');
+  });
+
+  test('verify ai gameboard renders on screen', () => {
+    render(component);
+
+    const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+
+    expect(aiBoard).toBeInTheDocument();
   });
 });
