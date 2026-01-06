@@ -1,4 +1,4 @@
-import { getByRole, render, screen, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, test } from 'vitest';
 import type { shipInterface } from '~/utils/Ship';
 import ship from '~/utils/Ship';
