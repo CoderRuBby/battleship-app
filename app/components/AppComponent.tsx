@@ -97,13 +97,15 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
         buttons={allShips}
         handleSelectShip={handleSelectShip}
       />
-      <GameBoardComponent
-        playerGameBoard={aiGameBoard}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-        handleOnClick={gameBoardOnClick}
-        label='Ai Game Board'
-      />
+      {playerGameBoard.allShipsPlaced && (
+        <GameBoardComponent
+          playerGameBoard={aiGameBoard}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+          handleOnClick={gameBoardOnClick}
+          label='Ai Game Board'
+        />
+      )}
       <GameBoardComponent
         playerGameBoard={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
