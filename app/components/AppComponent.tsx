@@ -93,10 +93,12 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   return (
     <main>
-      <ShipButtonComponent
-        buttons={allShips}
-        handleSelectShip={handleSelectShip}
-      />
+      {!playerGameBoard.allShipsPlaced && (
+        <ShipButtonComponent
+          buttons={allShips}
+          handleSelectShip={handleSelectShip}
+        />
+      )}
       {playerGameBoard.allShipsPlaced && (
         <GameBoardComponent
           playerGameBoard={aiGameBoard}
