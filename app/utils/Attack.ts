@@ -1,12 +1,15 @@
 import type { gameBoardInterface } from './GameBoard';
 
 export interface attackInterface {
-  logic: (square: number, opponent: gameBoardInterface) => void;
+  logic: (square: number, opponent: gameBoardInterface) => gameBoardInterface;
 }
 
 export default function attack() {
   return {
-    logic: function (square: number, opponent: gameBoardInterface) {
+    logic: function (
+      square: number,
+      opponent: gameBoardInterface,
+    ): gameBoardInterface {
       const hasShip = opponent.board[square].ship !== null;
       switch (hasShip) {
         case true:
@@ -17,6 +20,8 @@ export default function attack() {
           opponent.board[square].isMiss = true;
           break;
       }
+
+      return opponent;
     },
   };
 }
