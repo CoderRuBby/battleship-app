@@ -3,12 +3,18 @@ import type { gameBoardInterface } from './GameBoard';
 import targetingSystem from './TargetingSystem';
 
 export interface aiAttackInterface {
-  logic: (opponent: gameBoardInterface, square?: number) => number;
+  aiAttackLogic: (
+    opponent: gameBoardInterface,
+    square?: number,
+  ) => [number, gameBoardInterface];
 }
 
 export default function aiAttack() {
   return {
-    logic: function (opponent: gameBoardInterface, square?: number): number {
+    aiAttackLogic: function (
+      opponent: gameBoardInterface,
+      square?: number,
+    ): [number, gameBoardInterface] {
       const newTargetingSystem = targetingSystem();
       const newAttackSystem = attack();
       let attackLocation: number;
@@ -19,9 +25,9 @@ export default function aiAttack() {
         attackLocation = newTargetingSystem.attackLogic(opponent);
       }
 
-      newAttackSystem.logic(attackLocation, opponent);
+      const newOpponentBoard = newAttackSystem.logic(attackLocation, opponent);
 
-      return attackLocation;
+      return [attackLocation, newOpponentBoard];
     },
   };
 }

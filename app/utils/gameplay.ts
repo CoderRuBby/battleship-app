@@ -58,9 +58,14 @@ export default function gamePlay() {
 
       if (Opponent) {
         if (testSquare) {
-          attackLocation = aiAttackSystem.logic(Opponent, testSquare);
+          const [location, obj] = aiAttackSystem.aiAttackLogic(
+            Opponent,
+            testSquare,
+          );
+          attackLocation = location;
         } else {
-          attackLocation = aiAttackSystem.logic(Opponent);
+          const [location, obj] = aiAttackSystem.aiAttackLogic(Opponent);
+          attackLocation = location;
         }
       }
 

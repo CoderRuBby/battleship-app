@@ -27,12 +27,12 @@ describe('aiAttack', () => {
     newAiAttackSystem = aiAttack();
   });
 
-  describe('logic', () => {
+  describe('aiAttackLogic', () => {
     it('attacks Player location which can result in a miss', () => {
-      const attackLocation = newAiAttackSystem.logic(Opponent);
+      const [attackLocation, obj] = newAiAttackSystem.aiAttackLogic(Opponent);
 
-      expect(Opponent.board[attackLocation].isMiss).toBe(true);
-      expect(Opponent.board[attackLocation].isHit).toBe(false);
+      expect(obj.board[attackLocation].isMiss).toBe(true);
+      expect(obj.board[attackLocation].isHit).toBe(false);
     });
 
     it('attacks Player location which can result in a hit', () => {
@@ -40,10 +40,13 @@ describe('aiAttack', () => {
 
       Opponent.board[attackLocation].ship = Opponent.allShips[0];
 
-      newAiAttackSystem.logic(Opponent, attackLocation);
+      const [location, obj] = newAiAttackSystem.aiAttackLogic(
+        Opponent,
+        attackLocation,
+      );
 
-      expect(Opponent.board[attackLocation].isHit).toBe(true);
-      expect(Opponent.board[attackLocation].isMiss).toBe(false);
+      expect(obj.board[location].isHit).toBe(true);
+      expect(obj.board[location].isMiss).toBe(false);
     });
   });
 });

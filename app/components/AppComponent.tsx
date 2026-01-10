@@ -6,6 +6,7 @@ import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/GameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
 import attack from '~/utils/Attack';
+import aiAttack from '~/utils/aiAttack';
 
 export interface appComponentProps {
   allShips: shipInterface[];
@@ -24,6 +25,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   const { placeShipOnGameBoard } = aiShipPlacementSystem(aiGameBoard);
 
   const { logic } = attack();
+
+  const { aiAttackLogic } = aiAttack();
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newBoard = { ...playerGameBoard };
@@ -47,7 +50,16 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
       return;
     }
 
-    setAiGameBoard(logic(id, aiGameBoard));
+    if (
+      playerGameBoard.allShipsPlaced === true &&
+      aiGameBoard.allShipsPlaced === true
+    ) {
+      // player attacks, setting opponents board
+      setAiGameBoard(logic(id, aiGameBoard));
+      // ai attacks setting the players board
+      const [num, obj] = aiAttackLogic(playerGameBoard, id);
+      setPlayerGameBoard(obj);
+    }
   };
 
   const updateBoard = (
