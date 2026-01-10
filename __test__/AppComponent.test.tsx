@@ -967,4 +967,115 @@ describe('App', () => {
       true,
     );
   });
+
+  test('verify ai can attack', async () => {
+    const user = userEvent.setup();
+
+    render(component);
+
+    const playerBoard = screen.getByRole('region', {
+      name: 'The Game Board',
+    });
+
+    const destroyer = screen.getByTestId('destroyer');
+    await user.click(destroyer);
+
+    const button45 = within(playerBoard).getByTestId('45');
+    await user.hover(button45);
+    await user.click(button45);
+    await user.unhover(button45);
+
+    const button46 = within(playerBoard).getByTestId('46');
+    await user.hover(button46);
+    await user.unhover(button46);
+
+    const button47 = within(playerBoard).getByTestId('47');
+    await user.hover(button47);
+    await user.click(button47);
+    await user.unhover(button47);
+
+    const carrier = screen.getByTestId('carrier');
+    await user.click(carrier);
+
+    const button55 = within(playerBoard).getByTestId('55');
+    await user.hover(button55);
+    await user.click(button55);
+    await user.unhover(button55);
+
+    const button56 = within(playerBoard).getByTestId('56');
+    await user.hover(button56);
+    await user.unhover(button56);
+
+    const button57 = within(playerBoard).getByTestId('57');
+    await user.hover(button57);
+    await user.unhover(button57);
+
+    const button58 = within(playerBoard).getByTestId('58');
+    await user.hover(button58);
+    await user.unhover(button58);
+
+    const button59 = within(playerBoard).getByTestId('59');
+    await user.hover(button59);
+    await user.click(button59);
+    await user.unhover(button59);
+
+    const battleship = screen.getByTestId('battleship');
+    await user.click(battleship);
+
+    const button0 = within(playerBoard).getByTestId('0');
+    await user.hover(button0);
+    await user.click(button0);
+    await user.unhover(button0);
+
+    const button10 = within(playerBoard).getByTestId('10');
+    await user.hover(button10);
+    await user.unhover(button10);
+
+    const button20 = within(playerBoard).getByTestId('20');
+    await user.hover(button20);
+    await user.unhover(button20);
+
+    const button30 = within(playerBoard).getByTestId('30');
+    await user.hover(button30);
+    await user.click(button30);
+    await user.unhover(button30);
+
+    const submarine = screen.getByTestId('submarine');
+    await user.click(submarine);
+
+    const button99 = within(playerBoard).getByTestId('99');
+    await user.hover(button99);
+    await user.click(button99);
+    await user.unhover(button99);
+
+    const button89 = within(playerBoard).getByTestId('89');
+    await user.hover(button89);
+    await user.unhover(button89);
+
+    const button79 = within(playerBoard).getByTestId('79');
+    await user.hover(button79);
+    await user.click(button79);
+    await user.unhover(button79);
+
+    const cruiser = screen.getByTestId('cruiser');
+    await user.click(cruiser);
+
+    const button9 = within(playerBoard).getByTestId('9');
+    await user.hover(button9);
+    await user.click(button9);
+    await user.unhover(button9);
+
+    const button8 = within(playerBoard).getByTestId('8');
+    await user.hover(button8);
+    await user.click(button8);
+    await user.unhover(button8);
+
+    const button23 = within(playerBoard).getByTestId('23');
+    await user.click(button23);
+
+    const isHitOrMiss = playerGameBoard.board.some(
+      (board) => board.isHit === true || board.isMiss === true,
+    );
+    expect(isHitOrMiss).toBe(true);
+  });
 });
