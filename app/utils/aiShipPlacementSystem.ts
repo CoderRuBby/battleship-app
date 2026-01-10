@@ -3,63 +3,68 @@ import shipPlacementSystem from './shipPlacementSystem';
 
 export interface aiShipPlacementSystemInterface {
   randomSquare: (max: number, testNumber?: number) => number;
-  placeShipOnGameBoard: () => void;
+  placeShipOnGameBoard: () => gameBoardInterface;
 }
 
 export default function aiShipPlacementSystem(ai: gameBoardInterface) {
-  return {
-    randomSquare: function (max: number, testNumber?: number): number {
-      let square;
+  const randomSquare = (max: number, testNumber?: number): number => {
+    let square;
 
-      if (testNumber) {
-        square = testNumber;
-      } else {
-        square = Math.floor(Math.random() * max);
-      }
+    if (testNumber) {
+      square = testNumber;
+    } else {
+      square = Math.floor(Math.random() * max);
+    }
 
-      if (ai.selectedShip) {
-        const shipPlacementLogic = shipPlacementSystem(ai);
-        const shipPaths = shipPlacementLogic.getShipPaths(
-          ai.selectedShip.length,
-          square,
-        );
-        if (
-          shipPlacementLogic.isAvailableSquare(square) &&
-          shipPaths.length !== 0
-        ) {
-          return square;
-        }
-      }
-
-      return this.randomSquare(max);
-    },
-    placeShipOnGameBoard: function () {
+    if (ai.selectedShip) {
       const shipPlacementLogic = shipPlacementSystem(ai);
+      const shipPaths = shipPlacementLogic.getShipPaths(
+        ai.selectedShip.length,
+        square,
+      );
+      if (
+        shipPlacementLogic.isAvailableSquare(square) &&
+        shipPaths.length !== 0
+      ) {
+        return square;
+      }
+    }
 
-      ai.allShips.forEach((ship) => {
-        ai.selectedShip = ship;
+    return randomSquare(max);
+  };
+  const placeShipOnGameBoard = (): gameBoardInterface => {
+    const shipPlacementLogic = shipPlacementSystem(ai);
 
-        const square = this.randomSquare(100);
-        ship.addShipStart(square);
+    ai.allShips.forEach((ship) => {
+      ai.selectedShip = ship;
 
-        const shipPaths = shipPlacementLogic.getShipPaths(ship.length, square);
+      const square = randomSquare(100);
+      ship.addShipStart(square);
 
-        const chosenPath =
-          shipPaths[Math.floor(Math.random() * shipPaths.length)];
+      const shipPaths = shipPlacementLogic.getShipPaths(ship.length, square);
 
-        const endPoint = chosenPath.array[chosenPath.array.length - 1];
-        ship.addShipEndPoint(endPoint);
+      const chosenPath =
+        shipPaths[Math.floor(Math.random() * shipPaths.length)];
 
-        chosenPath.array.forEach((location) => {
-          ai.board[location].ship = ship;
-        });
+      const endPoint = chosenPath.array[chosenPath.array.length - 1];
+      ship.addShipEndPoint(endPoint);
 
-        ship.isPlaced = true;
-
-        if (shipPlacementLogic.areAllShipsPlaced(ai.allShips) === true) {
-          ai.allShipsPlaced = true;
-        }
+      chosenPath.array.forEach((location) => {
+        ai.board[location].ship = ship;
       });
-    },
+
+      ship.isPlaced = true;
+
+      if (shipPlacementLogic.areAllShipsPlaced(ai.allShips) === true) {
+        ai.allShipsPlaced = true;
+      }
+    });
+
+    return ai;
+  };
+
+  return {
+    randomSquare,
+    placeShipOnGameBoard,
   };
 }

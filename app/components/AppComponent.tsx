@@ -4,6 +4,7 @@ import { GameBoardComponent } from './GameBoardComponent';
 import { useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/GameBoard';
+import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
 
 export interface appComponentProps {
   allShips: shipInterface[];
@@ -19,6 +20,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   const { selectShip, getShipPaths, shipPlacementLogic } =
     shipPlacementSystem(playerGameBoard);
 
+  const { placeShipOnGameBoard } = aiShipPlacementSystem(aiGameBoard);
+
   const handleSelectShip = (shipName: shipInterface) => {
     const newBoard = { ...playerGameBoard };
     newBoard.selectedShip = selectShip(shipName, playerGameBoard.selectedShip);
@@ -30,6 +33,10 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
       ...shipPlacementLogic(id),
     };
     setPlayerGameBoard(newBoard);
+
+    if (playerGameBoard.allShipsPlaced === true) {
+      setAiGameBoard(placeShipOnGameBoard);
+    }
   };
 
   const updateBoard = (
