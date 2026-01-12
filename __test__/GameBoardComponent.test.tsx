@@ -16,10 +16,11 @@ describe('GameBoardComponent', () => {
     playerGameBoard = gameBoard([shipObject]);
     component = (
       <GameBoardComponent
-        playerGameBoard={playerGameBoard}
+        board={playerGameBoard}
         handleOnClick={() => {}}
         handleMouseEnter={() => {}}
         handleMouseLeave={() => {}}
+        label='button container'
       />
     );
   });

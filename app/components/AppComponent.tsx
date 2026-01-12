@@ -47,19 +47,17 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
       aiGameBoard.allShipsPlaced === false
     ) {
       setAiGameBoard(placeShipOnGameBoard);
-      return;
     }
+  };
 
-    if (
-      playerGameBoard.allShipsPlaced === true &&
-      aiGameBoard.allShipsPlaced === true
-    ) {
-      // player attacks, setting opponents board
-      setAiGameBoard(logic(id, aiGameBoard));
-      // ai attacks setting the players board
-      const [num, obj] = aiAttackLogic(playerGameBoard, id);
-      setPlayerGameBoard(obj);
-    }
+  const aiGameBoardOnClick = (id: number) => {
+    // player attacks, setting opponents board
+    setAiGameBoard(logic(id, aiGameBoard));
+
+    // ai attacks setting the players board
+    const [num, obj] = aiAttackLogic(playerGameBoard, id);
+
+    setPlayerGameBoard(obj);
   };
 
   const updateBoard = (
@@ -131,15 +129,15 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
       )}
       {playerGameBoard.allShipsPlaced && (
         <GameBoardComponent
-          playerGameBoard={aiGameBoard}
+          board={aiGameBoard}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
-          handleOnClick={gameBoardOnClick}
+          handleOnClick={aiGameBoardOnClick}
           label='Ai Game Board'
         />
       )}
       <GameBoardComponent
-        playerGameBoard={playerGameBoard}
+        board={playerGameBoard}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
         handleOnClick={gameBoardOnClick}

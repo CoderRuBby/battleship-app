@@ -29,11 +29,7 @@ describe('GameBoardButton', () => {
     render(
       <GameBoardButton
         testId='button'
-        shipImageNumber={null}
-        imageDirection={null}
-        isHit={false}
-        isMiss={false}
-        playerGameBoard={Player}
+        board={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
@@ -48,14 +44,12 @@ describe('GameBoardButton', () => {
 
   it('will render a button with a ship image', async () => {
     Player.selectedShip = Player.allShips[0];
+    Player.board[1].imageNumber = 1;
+    Player.board[1].imageDirection = 'up';
     render(
       <GameBoardButton
         testId='1'
-        shipImageNumber={1}
-        imageDirection='up'
-        isHit={false}
-        isMiss={false}
-        playerGameBoard={Player}
+        board={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
@@ -69,14 +63,14 @@ describe('GameBoardButton', () => {
   });
 
   it('will render a button with a hit image', () => {
+    Player.board[1].isHit = true;
+    Player.selectedShip = Player.allShips[0];
+    Player.board[1].imageNumber = 1;
+    Player.board[1].imageDirection = 'up';
     render(
       <GameBoardButton
         testId='1'
-        shipImageNumber={1}
-        imageDirection='up'
-        isHit={true}
-        isMiss={false}
-        playerGameBoard={Player}
+        board={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
@@ -90,14 +84,14 @@ describe('GameBoardButton', () => {
   });
 
   it('will render a button with a miss image', () => {
+    Player.board[1].isMiss = true;
+    Player.selectedShip = Player.allShips[0];
+    Player.board[1].imageNumber = 1;
+    Player.board[1].imageDirection = 'up';
     render(
       <GameBoardButton
         testId='1'
-        shipImageNumber={1}
-        imageDirection='up'
-        isHit={false}
-        isMiss={true}
-        playerGameBoard={Player}
+        board={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}

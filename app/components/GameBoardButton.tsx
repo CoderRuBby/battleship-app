@@ -1,13 +1,8 @@
 import type { gameBoardInterface } from '~/utils/GameBoard';
 
 interface GameBoardButtonProps {
-  //! refactor: remove redundant props
   testId: string;
-  shipImageNumber: number | null;
-  imageDirection: string | null;
-  isHit: boolean;
-  isMiss: boolean;
-  playerGameBoard: gameBoardInterface;
+  board: gameBoardInterface;
   onMouseEnter: (id: number) => void;
   onMouseLeave: () => void;
   handleOnClick: (id: number) => void;
@@ -16,25 +11,26 @@ interface GameBoardButtonProps {
 export function GameBoardButton({
   //! refactor: remove redundant props
   testId,
-  shipImageNumber,
-  imageDirection,
-  isHit,
-  isMiss,
-  playerGameBoard,
+  board,
   onMouseEnter,
   onMouseLeave,
   handleOnClick,
 }: GameBoardButtonProps) {
+  const boardNumber = board.board[Number(testId)];
+  const shipName = boardNumber?.ship?.name;
+  const imgNumber = boardNumber?.imageNumber;
+  const imgDirection = boardNumber?.imageDirection;
+  const selectedShipName = board.selectedShip?.name;
   const buttonStyle = {
     background:
-      isHit === true
+      boardNumber?.isHit === true
         ? 'url("hit.png")'
-        : isMiss === true
+        : boardNumber?.isMiss === true
           ? 'url("miss.png")'
-          : playerGameBoard.board[Number(testId)]?.ship !== null
-            ? `url("${playerGameBoard.board[Number(testId)]?.ship?.name}${playerGameBoard.board[Number(testId)]?.imageNumber}${playerGameBoard.board[Number(testId)]?.imageDirection}.png")`
-            : shipImageNumber !== null
-              ? `url("${playerGameBoard.selectedShip?.name}${shipImageNumber}${imageDirection}.png")`
+          : boardNumber?.ship !== null
+            ? `url("${shipName}${imgNumber}${imgDirection}.png")`
+            : imgNumber !== null
+              ? `url("${selectedShipName}${imgNumber}${imgDirection}.png")`
               : 'rgba(0, 0, 0, 0)',
   };
   return (

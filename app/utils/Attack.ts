@@ -10,18 +10,19 @@ export default function attack() {
       square: number,
       opponent: gameBoardInterface,
     ): gameBoardInterface {
+      const newBoard = { ...opponent };
       const hasShip = opponent.board[square].ship !== null;
       switch (hasShip) {
         case true:
-          opponent.board[square].isHit = true;
-          opponent.board[square].ship?.isHit(square);
+          newBoard.board[square].isHit = true;
+          newBoard.board[square].ship?.isHit(square);
           break;
         case false:
-          opponent.board[square].isMiss = true;
+          newBoard.board[square].isMiss = true;
           break;
       }
 
-      return opponent;
+      return newBoard;
     },
   };
 }
