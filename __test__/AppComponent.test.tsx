@@ -960,7 +960,8 @@ describe('App', () => {
     await user.click(button8);
     await user.unhover(button8);
 
-    const button23 = within(playerBoard).getByTestId('23');
+    const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+    const button23 = within(aiBoard).getByTestId('23');
     await user.click(button23);
 
     expect(aiGameBoard.board[23].isHit || aiGameBoard.board[23].isMiss).toBe(
@@ -1070,7 +1071,8 @@ describe('App', () => {
     await user.click(button8);
     await user.unhover(button8);
 
-    const button23 = within(playerBoard).getByTestId('23');
+    const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+    const button23 = within(aiBoard).getByTestId('23');
     await user.click(button23);
 
     const isHitOrMiss = playerGameBoard.board.some(
