@@ -1236,4 +1236,26 @@ describe('App', () => {
 
     expect(button23Style.background).toContain('url("hit.png")');
   });
+
+  test('verify a miss will render on the player game board', async () => {
+    const user = userEvent.setup();
+    aiGameBoard.allShipsPlaced = true;
+    playerGameBoard.allShipsPlaced = true;
+
+    render(component);
+
+    const aiBoard = screen.getByRole('region', {
+      name: 'Ai Game Board',
+    });
+    const button23 = within(aiBoard).getByTestId('23');
+    await user.click(button23);
+
+    const playerBoard = screen.getByRole('region', {
+      name: 'The Game Board',
+    });
+    const playerButton23 = within(playerBoard).getByTestId('23');
+    const button23Style = getComputedStyle(playerButton23);
+
+    expect(button23Style.background).toContain('url("miss.png")');
+  });
 });
