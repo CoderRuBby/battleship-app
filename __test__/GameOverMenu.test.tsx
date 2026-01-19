@@ -23,4 +23,12 @@ describe('GameOverMenu', () => {
     const gameOverText = screen.getByRole('heading', { name: 'You ' + text });
     expect(gameOverText).toBeInTheDocument();
   });
+
+  it('has a play again button', () => {
+    render(component);
+
+    const button = screen.getByRole('button', { name: 'Play Again' });
+
+    expect(button).toBeInTheDocument();
+  });
 });
