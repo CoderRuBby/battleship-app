@@ -1162,4 +1162,31 @@ describe('App', () => {
 
     expect(button23Style.background).toContain('url("miss.png")');
   });
+
+  test('verify game over menu renders with you win', async () => {
+    const user = userEvent.setup();
+    playerGameBoard.allShipsPlaced = true;
+    aiGameBoard.allShipsPlaced = true;
+    aiGameBoard.allShips[0].sunk = true;
+    aiGameBoard.allShips[1].sunk = true;
+    aiGameBoard.allShips[2].sunk = true;
+    aiGameBoard.allShips[3].sunk = true;
+    aiGameBoard.board[53].ship = aiGameBoard.allShips[4];
+    aiGameBoard.board[54].ship = aiGameBoard.allShips[4];
+
+    render(component);
+
+    const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+    const aiButton54 = within(aiBoard).getByTestId('54');
+    await user.click(aiButton54);
+    const aiButton53 = within(aiBoard).getByTestId('53');
+    await user.click(aiButton53);
+
+    const gameOverMenu = screen.getByRole('dialog');
+    const gameOverText = within(gameOverMenu).getByRole('heading', {
+      name: 'You Win',
+    });
+
+    expect(gameOverText).toBeInTheDocument();
+  });
 });
