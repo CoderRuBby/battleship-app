@@ -7,6 +7,7 @@ import type { gameBoardInterface } from '~/utils/GameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
 import attack from '~/utils/Attack';
 import aiAttack from '~/utils/aiAttack';
+import { GameOverMenu } from './GameOverMenu';
 
 export interface appComponentProps {
   allShips: shipInterface[];
@@ -52,12 +53,29 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const aiGameBoardOnClick = (id: number) => {
     // player attacks, setting opponents board
-    setAiGameBoard(logic(id, aiGameBoard));
-
+    const newAiBoard = logic(id, aiGameBoard);
+    setAiGameBoard(newAiBoard);
+    if (isLoser(newAiBoard)) {
+      const newPlayerBoard = { ...playerGameBoard };
+      newPlayerBoard.winner = true;
+      setPlayerGameBoard(newPlayerBoard);
+      return;
+    }
     // ai attacks setting the players board
     const [num, obj] = aiAttackLogic(playerGameBoard, id);
 
     setPlayerGameBoard(obj);
+  };
+
+  const isLoser = (board: gameBoardInterface) => {
+    let lose = true;
+    board.allShips.forEach((ship) => {
+      if (!ship.sunk) {
+        lose = false;
+      }
+    });
+
+    return lose;
   };
 
   const updateBoard = (
@@ -119,8 +137,19 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     setPlayerGameBoard(newBoardObject);
   };
 
+  const winnerLoserText = () => {
+    if (playerGameBoard.winner === true) {
+      return 'Win';
+    } else {
+      return 'Lose';
+    }
+  };
+
   return (
     <main>
+      {playerGameBoard.winner && (
+        <GameOverMenu winLoseText={winnerLoserText()} />
+      )}
       {!playerGameBoard.allShipsPlaced && (
         <ShipButtonComponent
           buttons={allShips}
