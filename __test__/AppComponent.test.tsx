@@ -16,6 +16,12 @@ describe('App', () => {
   let shipsArray: shipInterface[];
   let playerGameBoard: gameBoardInterface;
   let component: React.ReactElement;
+  let aiCarrier: shipInterface;
+  let aiDestroyer: shipInterface;
+  let aiSubmarine: shipInterface;
+  let aiBattleship: shipInterface;
+  let aiCruiser: shipInterface;
+  let aiShipsArray: shipInterface[];
   let aiGameBoard: gameBoardInterface;
 
   beforeEach(() => {
@@ -26,7 +32,19 @@ describe('App', () => {
     cruiser = ship('cruiser', 2);
     shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
     playerGameBoard = gameBoard(shipsArray);
-    aiGameBoard = gameBoard(shipsArray);
+    aiCarrier = ship('carrier', 5);
+    aiDestroyer = ship('destroyer', 3);
+    aiSubmarine = ship('submarine', 3);
+    aiBattleship = ship('battleship', 4);
+    aiCruiser = ship('cruiser', 2);
+    aiShipsArray = [
+      aiCarrier,
+      aiDestroyer,
+      aiSubmarine,
+      aiBattleship,
+      aiCruiser,
+    ];
+    aiGameBoard = gameBoard(aiShipsArray);
 
     component = (
       <AppComponent
