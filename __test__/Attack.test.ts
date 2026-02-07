@@ -1,10 +1,10 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import type { attackInterface } from '~/utils/Attack';
-import attack from '~/utils/Attack';
-import type { gameBoardInterface } from '~/utils/GameBoard';
-import gameBoard from '~/utils/GameBoard';
-import type { shipInterface } from '~/utils/Ship';
-import ship from '~/utils/Ship';
+import type { attackInterface } from '~/utils/attack';
+import attack from '~/utils/attack';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+import gameBoard from '~/utils/gameBoard';
+import type { shipInterface } from '~/utils/ship';
+import ship from '~/utils/ship';
 
 describe('Attack', () => {
   let carrier: shipInterface;

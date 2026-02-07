@@ -1,4 +1,4 @@
-import type { gameBoardInterface } from './GameBoard';
+import type { gameBoardInterface } from './gameBoard';
 
 export interface attackInterface {
   logic: (square: number, opponent: gameBoardInterface) => gameBoardInterface;

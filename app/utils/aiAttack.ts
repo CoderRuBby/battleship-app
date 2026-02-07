@@ -1,6 +1,6 @@
-import attack from './Attack';
-import type { gameBoardInterface } from './GameBoard';
-import targetingSystem from './TargetingSystem';
+import attack from './attack';
+import type { gameBoardInterface } from './gameBoard';
+import targetingSystem from './targetingSystem';
 
 export interface aiAttackInterface {
   aiAttackLogic: (

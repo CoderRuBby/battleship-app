@@ -1,5 +1,5 @@
 import { GameBoardButton } from './GameBoardButton';
-import type { gameBoardInterface } from '~/utils/GameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface GameBoardComponentProps {
   board: gameBoardInterface;

@@ -1,4 +1,4 @@
-import type { gameBoardInterface } from './GameBoard';
+import type { gameBoardInterface } from './gameBoard';
 import shipPlacementSystem from './shipPlacementSystem';
 
 export interface aiShipPlacementSystemInterface {

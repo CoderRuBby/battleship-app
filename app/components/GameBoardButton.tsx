@@ -1,4 +1,4 @@
-import type { gameBoardInterface } from '~/utils/GameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface GameBoardButtonProps {
   testId: string;

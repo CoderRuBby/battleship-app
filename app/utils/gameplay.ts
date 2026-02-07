@@ -1,7 +1,7 @@
 import aiAttack from './aiAttack';
 import aiShipPlacementSystem from './aiShipPlacementSystem';
-import attack from './Attack';
-import type { gameBoardInterface } from './GameBoard';
+import attack from './attack';
+import type { gameBoardInterface } from './gameBoard';
 import shipPlacement from './shipPlacementSystem';
 
 export interface gamePlayInterface {

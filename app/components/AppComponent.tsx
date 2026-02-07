@@ -1,11 +1,11 @@
-import type { shipInterface } from '~/utils/Ship';
+import type { shipInterface } from '~/utils/ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
 import { useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
-import type { gameBoardInterface } from '~/utils/GameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
-import attack from '~/utils/Attack';
+import attack from '~/utils/attack';
 import aiAttack from '~/utils/aiAttack';
 
 export interface appComponentProps {

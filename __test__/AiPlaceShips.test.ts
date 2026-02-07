@@ -1,10 +1,10 @@
 import { describe, it, beforeEach, expect } from 'vitest';
 import type { aiShipPlacementSystemInterface } from '~/utils/aiShipPlacementSystem';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
-import type { gameBoardInterface } from '~/utils/GameBoard';
-import gameBoard from '~/utils/GameBoard';
-import type { shipInterface } from '~/utils/Ship';
-import ship from '~/utils/Ship';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+import gameBoard from '~/utils/gameBoard';
+import type { shipInterface } from '~/utils/ship';
+import ship from '~/utils/ship';
 
 describe('AiPlaceShips', () => {
   let carrier: shipInterface;

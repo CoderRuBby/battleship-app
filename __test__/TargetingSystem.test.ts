@@ -1,10 +1,10 @@
 import { describe, it, beforeEach, expect, vi, afterEach } from 'vitest';
-import type { gameBoardInterface } from '~/utils/GameBoard';
-import gameBoard from '~/utils/GameBoard';
-import type { shipInterface } from '~/utils/Ship';
-import ship from '~/utils/Ship';
-import type { targetingSystemInterface } from '~/utils/TargetingSystem';
-import targetingSystem from '~/utils/TargetingSystem';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+import gameBoard from '~/utils/gameBoard';
+import type { shipInterface } from '~/utils/ship';
+import ship from '~/utils/ship';
+import type { targetingSystemInterface } from '~/utils/targetingSystem';
+import targetingSystem from '~/utils/targetingSystem';
 
 describe('AdjacentSquares', () => {
   let carrier: shipInterface;

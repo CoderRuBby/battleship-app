@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ShipButton } from './ShipButton';
-import type { shipInterface } from '~/utils/Ship';
+import type { shipInterface } from '~/utils/ship';
 
 interface ShipButtonComponentProps {
   buttons: shipInterface[];

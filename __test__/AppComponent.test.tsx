@@ -1,11 +1,11 @@
 import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, test } from 'vitest';
-import type { shipInterface } from '~/utils/Ship';
-import ship from '~/utils/Ship';
+import type { shipInterface } from '~/utils/ship';
+import ship from '~/utils/ship';
 import { AppComponent } from '~/components/AppComponent';
 import userEvent from '@testing-library/user-event';
-import type { gameBoardInterface } from '~/utils/GameBoard';
-import gameBoard from '~/utils/GameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+import gameBoard from '~/utils/gameBoard';
 
 describe('App', () => {
   let carrier: shipInterface;

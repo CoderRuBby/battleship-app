@@ -1,4 +1,4 @@
-import type { shipInterface } from './Ship';
+import type { shipInterface } from './ship';
 
 export interface gameBoardInterface {
   board: {

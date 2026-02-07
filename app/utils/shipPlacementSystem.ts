@@ -1,5 +1,5 @@
-import type { gameBoardInterface } from './GameBoard';
-import type { shipInterface } from './Ship';
+import type { gameBoardInterface } from './gameBoard';
+import type { shipInterface } from './ship';
 
 export interface shipPlacementSystemInterface {
   selectShip: (
