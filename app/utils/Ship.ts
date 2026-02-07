@@ -1,13 +1,15 @@
 export interface shipInterface {
-  name: string;
-  length: number;
-  hit: number;
-  sunk: boolean;
-  shipStartPoint: number | null;
-  shipEndPoint: number | null;
-  isPlaced: boolean;
-  placedLocations: number[];
-  hitLocations: number[];
+  props: {
+    name: string;
+    length: number;
+    hit: number;
+    sunk: boolean;
+    shipStartPoint: number | null;
+    shipEndPoint: number | null;
+    isPlaced: boolean;
+    placedLocations: number[];
+    hitLocations: number[];
+  };
   isHit: (location: number) => void;
   isSunk: () => void;
   addShipStart: (squareNumber: number) => void;
@@ -16,7 +18,7 @@ export interface shipInterface {
 }
 
 export default function ship(name: string, length: number): shipInterface {
-  return {
+  const props: shipInterface['props'] = {
     name: name,
     length: length,
     hit: 0,
@@ -24,26 +26,34 @@ export default function ship(name: string, length: number): shipInterface {
     shipStartPoint: null,
     shipEndPoint: null,
     isPlaced: false,
-    placedLocations: [],
-    hitLocations: [],
-    isHit: function (location: number) {
-      this.hitLocations.push(location);
-      this.hit++;
-      this.isSunk();
-    },
-    isSunk: function () {
-      if (this.hit === this.length) {
-        this.sunk = true;
-      }
-    },
-    addShipStart: function (squareNumber: number) {
-      this.shipStartPoint = squareNumber;
-    },
-    addShipEndPoint: function (squareNumber: number) {
-      this.shipEndPoint = squareNumber;
-    },
-    getHitLocations: function (): number[] {
-      return this.hitLocations;
-    },
+    placedLocations: [] as number[],
+    hitLocations: [] as number[],
+  };
+  const isHit = (location: number) => {
+    props.hitLocations.push(location);
+    props.hit++;
+    isSunk();
+  };
+  const isSunk = () => {
+    if (props.hit === props.length) {
+      props.sunk = true;
+    }
+  };
+  const addShipStart = (squareNumber: number) => {
+    props.shipStartPoint = squareNumber;
+  };
+  const addShipEndPoint = (squareNumber: number) => {
+    props.shipEndPoint = squareNumber;
+  };
+  const getHitLocations = (): number[] => {
+    return props.hitLocations;
+  };
+  return {
+    props,
+    isHit,
+    isSunk,
+    addShipStart,
+    addShipEndPoint,
+    getHitLocations,
   };
 }

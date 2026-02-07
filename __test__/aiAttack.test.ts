@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import type { gameBoardInterface } from '~/utils/GameBoard';
-import gameBoard from '~/utils/GameBoard';
-import type { shipInterface } from '~/utils/Ship';
-import ship from '~/utils/Ship';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+import gameBoard from '~/utils/gameBoard';
+import type { shipInterface } from '~/utils/ship';
+import ship from '~/utils/ship';
 import type { aiAttackInterface } from '~/utils/aiAttack';
 import aiAttack from '~/utils/aiAttack';
 
@@ -38,7 +38,7 @@ describe('aiAttack', () => {
     it('attacks Player location which can result in a hit', () => {
       const attackLocation = 45;
 
-      Opponent.board[attackLocation].ship = Opponent.allShips[0];
+      Opponent.board[attackLocation].ship = Opponent.props.allShips[0];
 
       const [location, obj] = newAiAttackSystem.aiAttackLogic(
         Opponent,

@@ -1,11 +1,11 @@
-import type { shipInterface } from '~/utils/Ship';
+import type { shipInterface } from '~/utils/ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
 import { useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
-import type { gameBoardInterface } from '~/utils/GameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
-import attack from '~/utils/Attack';
+import attack from '~/utils/attack';
 import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
 
@@ -31,12 +31,15 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newBoard = { ...playerGameBoard };
-    newBoard.selectedShip = selectShip(shipName, playerGameBoard.selectedShip);
+    newBoard.props.selectedShip = selectShip(
+      shipName,
+      playerGameBoard.props.selectedShip,
+    );
     setPlayerGameBoard(newBoard);
   };
 
   const gameBoardOnClick = (id: number) => {
-    if (playerGameBoard.allShipsPlaced === false) {
+    if (playerGameBoard.props.allShipsPlaced === false) {
       const newBoard = {
         ...shipPlacementLogic(id),
       };
@@ -44,8 +47,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     }
 
     if (
-      playerGameBoard.allShipsPlaced === true &&
-      aiGameBoard.allShipsPlaced === false
+      playerGameBoard.props.allShipsPlaced === true &&
+      aiGameBoard.props.allShipsPlaced === false
     ) {
       setAiGameBoard(placeShipOnGameBoard);
     }
@@ -105,11 +108,14 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   };
 
   const handleMouseEnter = (id: number) => {
-    if (playerGameBoard.selectedShip?.shipStartPoint !== null) {
+    if (playerGameBoard.props.selectedShip?.props.shipStartPoint !== null) {
       return;
     }
 
-    const paths = getShipPaths(playerGameBoard.selectedShip!.length, id);
+    const paths = getShipPaths(
+      playerGameBoard.props.selectedShip!.props.length,
+      id,
+    );
     if (paths) {
       paths.forEach((path) => {
         path.array.forEach((square, squareIndex) => {
@@ -121,8 +127,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const handleMouseLeave = () => {
     if (
-      playerGameBoard.selectedShip?.shipStartPoint !== null &&
-      playerGameBoard.selectedShip?.shipEndPoint === null
+      playerGameBoard.props.selectedShip?.props.shipStartPoint !== null &&
+      playerGameBoard.props.selectedShip?.props.shipEndPoint === null
     ) {
       return;
     }
@@ -147,16 +153,13 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   return (
     <main>
-      {playerGameBoard.winner && (
-        <GameOverMenu winLoseText={winnerLoserText()} />
-      )}
-      {!playerGameBoard.allShipsPlaced && (
+      {!playerGameBoard.props.allShipsPlaced && (
         <ShipButtonComponent
           buttons={allShips}
           handleSelectShip={handleSelectShip}
         />
       )}
-      {playerGameBoard.allShipsPlaced && (
+      {playerGameBoard.props.allShipsPlaced && (
         <GameBoardComponent
           board={aiGameBoard}
           handleMouseEnter={handleMouseEnter}

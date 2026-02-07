@@ -1,4 +1,4 @@
-import type { shipInterface } from './Ship';
+import type { shipInterface } from './ship';
 
 export interface gameBoardInterface {
   board: {
@@ -9,39 +9,46 @@ export interface gameBoardInterface {
     imageNumber: number | null;
     imageDirection: string | null;
   }[];
-  allShipsPlaced: boolean;
-  allShips: shipInterface[];
-  winner: boolean;
+  props: {
+    allShipsPlaced: boolean;
+    winner: boolean;
+    selectedShip: shipInterface | null;
+    allShips: shipInterface[];
+  };
   isWinner: (opponentGameBoard: gameBoardInterface) => boolean;
-  selectedShip: shipInterface | null;
 }
 
 export default function gameBoard(
-  allShips: shipInterface[],
+  allShipsArray: shipInterface[],
 ): gameBoardInterface {
-  return {
-    board: Array.from({ length: 100 }, (_, index) => ({
-      id: index,
-      isHit: false,
-      isMiss: false,
-      ship: null,
-      imageNumber: null,
-      imageDirection: null,
-    })),
+  const board = Array.from({ length: 100 }, (_, index) => ({
+    id: index,
+    isHit: false,
+    isMiss: false,
+    ship: null,
+    imageNumber: null,
+    imageDirection: null,
+  }));
+  const props: gameBoardInterface['props'] = {
     allShipsPlaced: false,
-    allShips: allShips,
+    allShips: allShipsArray,
     winner: false,
-    isWinner: function (opponentGameBoard: gameBoardInterface): boolean {
-      let winner = true;
-      opponentGameBoard.allShips.forEach((ship) => {
-        if (!ship.sunk) {
-          winner = false;
-        }
-      });
-
-      this.winner = winner;
-      return winner;
-    },
     selectedShip: null,
+  };
+  const isWinner = (opponentGameBoard: gameBoardInterface): boolean => {
+    let winner: boolean = true;
+    opponentGameBoard.props.allShips.forEach((ship) => {
+      if (!ship.props.sunk) {
+        winner = false;
+      }
+    });
+
+    props.winner = winner;
+    return winner;
+  };
+  return {
+    board,
+    props,
+    isWinner,
   };
 }

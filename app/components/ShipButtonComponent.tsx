@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ShipButton } from './ShipButton';
-import type { shipInterface } from '~/utils/Ship';
+import type { shipInterface } from '~/utils/ship';
 
 interface ShipButtonComponentProps {
   buttons: shipInterface[];
@@ -15,10 +15,10 @@ export function ShipButtonComponent({
 
   const handleButtonClick = (shipButton: shipInterface) => {
     handleSelectShip(shipButton);
-    if (selectedButton === shipButton.name) {
+    if (selectedButton === shipButton.props.name) {
       setSelectedButton(null);
     } else {
-      setSelectedButton(shipButton.name);
+      setSelectedButton(shipButton.props.name);
     }
   };
 
@@ -30,8 +30,8 @@ export function ShipButtonComponent({
     >
       {buttons.map((button) => (
         <ShipButton
-          key={button.name}
-          testId={button.name}
+          key={button.props.name}
+          testId={button.props.name}
           shipOnClick={() => handleButtonClick(button)}
           isSelected={selectedButton}
         />

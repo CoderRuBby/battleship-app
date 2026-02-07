@@ -1,6 +1,6 @@
 import { describe, beforeEach, it, expect } from 'vitest';
-import ship from '~/utils/Ship';
-import type { shipInterface } from '~/utils/Ship';
+import ship from '~/utils/ship';
+import type { shipInterface } from '~/utils/ship';
 
 describe('Ship', () => {
   let Ship1: shipInterface;
@@ -15,7 +15,7 @@ describe('Ship', () => {
 
       Ship1.isHit(hitLocation);
 
-      expect(Ship1.hitLocations).toContain(hitLocation);
+      expect(Ship1.props.hitLocations).toContain(hitLocation);
     });
   });
 
@@ -28,7 +28,7 @@ describe('Ship', () => {
       Ship1.isHit(secondHit);
       Ship1.getHitLocations();
 
-      expect(Ship1.hitLocations).toEqual([5, 6]);
+      expect(Ship1.props.hitLocations).toEqual([5, 6]);
     });
   });
 });

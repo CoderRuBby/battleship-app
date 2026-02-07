@@ -1,11 +1,11 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, it, beforeEach, expect, test } from 'vitest';
-import gameBoard from '~/utils/GameBoard';
-import type { gameBoardInterface } from '~/utils/GameBoard';
+import gameBoard from '~/utils/gameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 import type { shipPlacementSystemInterface } from '~/utils/shipPlacementSystem';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
-import ship from '~/utils/Ship';
-import type { shipInterface } from '~/utils/Ship';
+import ship from '~/utils/ship';
+import type { shipInterface } from '~/utils/ship';
 
 describe('shipPlacementSystem', () => {
   let Player: gameBoardInterface;
@@ -138,9 +138,9 @@ describe('shipPlacementSystem', () => {
       placementSystem.selectShip(Ship1, null);
       Ship1.addShipStart(shipStartPoint);
 
-      expect(Ship1.shipStartPoint).toBe(45);
+      expect(Ship1.props.shipStartPoint).toBe(45);
       expect(placementSystem.selectShip(Ship1, Ship1)).toBe(null);
-      expect(Ship1.shipStartPoint).toBe(null);
+      expect(Ship1.props.shipStartPoint).toBe(null);
     });
 
     test('selecting a different ship will clear old ship shipStartPoint', () => {
@@ -150,13 +150,13 @@ describe('shipPlacementSystem', () => {
 
       placementSystem.selectShip(Ship2, Ship1);
 
-      expect(Ship1.shipStartPoint).toBe(null);
+      expect(Ship1.props.shipStartPoint).toBe(null);
     });
   });
 
   describe('shipPlacementLogic', () => {
     beforeEach(() => {
-      Player.selectedShip = Ship1;
+      Player.props.selectedShip = Ship1;
     });
 
     it('will assign shipStartPoint if ship is selected', () => {
@@ -164,7 +164,7 @@ describe('shipPlacementSystem', () => {
 
       placementSystem.shipPlacementLogic(shipStartPoint);
 
-      expect(Ship1.shipStartPoint).toEqual(0);
+      expect(Ship1.props.shipStartPoint).toEqual(0);
     });
 
     it('will assign shipEndPoint if shipStartPoint is assigned', () => {
@@ -174,7 +174,7 @@ describe('shipPlacementSystem', () => {
       placementSystem.shipPlacementLogic(shipStartPoint);
       placementSystem.shipPlacementLogic(shipEndPoint);
 
-      expect(Ship1.shipEndPoint).toBe(20);
+      expect(Ship1.props.shipEndPoint).toBe(20);
     });
 
     it('will place ship on gameboard', () => {
@@ -196,7 +196,7 @@ describe('shipPlacementSystem', () => {
       placementSystem.shipPlacementLogic(shipStartPoint);
 
       expect(
-        placementSystem.shipPlacementLogic(shipEndPoint).selectedShip,
+        placementSystem.shipPlacementLogic(shipEndPoint).props.selectedShip,
       ).toBe(null);
     });
 
@@ -210,7 +210,7 @@ describe('shipPlacementSystem', () => {
       placementSystem.shipPlacementLogic(shipStartPoint);
 
       expect(Player.board[0].ship).toEqual(Ship1);
-      expect(Ship2.shipStartPoint).toBe(null);
+      expect(Ship2.props.shipStartPoint).toBe(null);
     });
 
     it('will not place a ship in the same location', () => {
@@ -281,7 +281,7 @@ describe('shipPlacementSystem', () => {
       act(() => {
         result.current.placeShipOnGameBoard(Ship2, 6, 7);
       });
-      expect(Player.allShipsPlaced).toBe(true);
+      expect(Player.props.allShipsPlaced).toBe(true);
     });
   });
 });

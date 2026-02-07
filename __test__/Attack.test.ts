@@ -1,10 +1,10 @@
 import { describe, it, beforeEach, expect } from 'vitest';
-import type { attackInterface } from '~/utils/Attack';
-import attack from '~/utils/Attack';
-import type { gameBoardInterface } from '~/utils/GameBoard';
-import gameBoard from '~/utils/GameBoard';
-import type { shipInterface } from '~/utils/Ship';
-import ship from '~/utils/Ship';
+import type { attackInterface } from '~/utils/attack';
+import attack from '~/utils/attack';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+import gameBoard from '~/utils/gameBoard';
+import type { shipInterface } from '~/utils/ship';
+import ship from '~/utils/ship';
 
 describe('Attack', () => {
   let carrier: shipInterface;
@@ -31,14 +31,14 @@ describe('Attack', () => {
     it('can hit a ship on the opponents gameboard', () => {
       const square = 45;
 
-      Opponent.board[square].ship = Opponent.allShips[0];
+      Opponent.board[square].ship = Opponent.props.allShips[0];
 
-      Opponent.allShips[0].isHit(square);
+      Opponent.props.allShips[0].isHit(square);
 
       PlayerAttack.logic(square, Opponent);
 
       expect(Opponent.board[square].isHit).toBe(true);
-      expect(Opponent.board[square].ship).toEqual(Opponent.allShips[0]);
+      expect(Opponent.board[square].ship).toEqual(Opponent.props.allShips[0]);
     });
 
     it('can attack a square with no ship on the opponents board', () => {

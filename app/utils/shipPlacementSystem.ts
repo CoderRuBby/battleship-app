@@ -1,5 +1,5 @@
-import type { gameBoardInterface } from './GameBoard';
-import type { shipInterface } from './Ship';
+import type { gameBoardInterface } from './gameBoard';
+import type { shipInterface } from './ship';
 
 export interface shipPlacementSystemInterface {
   selectShip: (
@@ -40,11 +40,11 @@ export default function shipPlacementSystem(
     selectedShip: shipInterface | null,
   ): shipInterface | null => {
     if (ship === selectedShip) {
-      selectedShip.shipStartPoint = null;
+      selectedShip.props.shipStartPoint = null;
       return null;
     } else {
       if (selectedShip !== null) {
-        selectedShip.shipStartPoint = null;
+        selectedShip.props.shipStartPoint = null;
       }
       return ship;
     }
@@ -177,10 +177,10 @@ export default function shipPlacementSystem(
     selectedShip: shipInterface,
   ): boolean => {
     let canPlace = true;
-    if (selectedShip !== null && selectedShip.shipStartPoint !== null) {
+    if (selectedShip !== null && selectedShip.props.shipStartPoint !== null) {
       const shipPath = possibleShipPath(
-        selectedShip.length,
-        selectedShip.shipStartPoint,
+        selectedShip.props.length,
+        selectedShip.props.shipStartPoint,
         square,
       );
       shipPath.array.forEach((square) => {
@@ -198,7 +198,7 @@ export default function shipPlacementSystem(
   const areAllShipsPlaced = (shipsArray: shipInterface[]) => {
     let placed = true;
     shipsArray.forEach((ship) => {
-      if (ship.isPlaced === false) {
+      if (ship.props.isPlaced === false) {
         placed = false;
       }
     });
@@ -210,42 +210,48 @@ export default function shipPlacementSystem(
     shipStartPoint: number,
     shipEndPoint: number,
   ): gameBoardInterface => {
-    const path = possibleShipPath(ship.length, shipStartPoint, shipEndPoint);
-    ship.placedLocations = path.array;
+    const path = possibleShipPath(
+      ship.props.length,
+      shipStartPoint,
+      shipEndPoint,
+    );
+    ship.props.placedLocations = path.array;
     path.array.forEach((location, index) => {
       playerGameBoard.board[location].ship = ship;
       playerGameBoard.board[location].imageNumber = index;
       playerGameBoard.board[location].imageDirection = path.direction;
     });
 
-    ship.isPlaced = true;
+    ship.props.isPlaced = true;
 
-    if (areAllShipsPlaced(playerGameBoard.allShips) === true) {
-      playerGameBoard.allShipsPlaced = true;
+    if (areAllShipsPlaced(playerGameBoard.props.allShips) === true) {
+      playerGameBoard.props.allShipsPlaced = true;
     }
 
     return playerGameBoard;
   };
 
   const shipPlacementLogic = (squareNumber: number): gameBoardInterface => {
-    if (playerGameBoard.selectedShip === null) return playerGameBoard;
+    if (playerGameBoard.props.selectedShip === null) return playerGameBoard;
 
-    if (playerGameBoard.selectedShip.shipStartPoint === null) {
+    if (playerGameBoard.props.selectedShip.props.shipStartPoint === null) {
       if (isAvailableSquare(squareNumber)) {
-        playerGameBoard.selectedShip.shipStartPoint = squareNumber;
+        playerGameBoard.props.selectedShip.props.shipStartPoint = squareNumber;
       }
       return playerGameBoard;
     }
 
-    if (canPlaceShip(squareNumber, playerGameBoard.selectedShip) === true) {
-      playerGameBoard.selectedShip.addShipEndPoint(squareNumber);
+    if (
+      canPlaceShip(squareNumber, playerGameBoard.props.selectedShip) === true
+    ) {
+      playerGameBoard.props.selectedShip.addShipEndPoint(squareNumber);
       placeShipOnGameBoard(
-        playerGameBoard.selectedShip,
-        playerGameBoard.selectedShip.shipStartPoint,
+        playerGameBoard.props.selectedShip,
+        playerGameBoard.props.selectedShip.props.shipStartPoint,
         squareNumber,
       );
 
-      playerGameBoard.selectedShip = null;
+      playerGameBoard.props.selectedShip = null;
     }
     return playerGameBoard;
   };

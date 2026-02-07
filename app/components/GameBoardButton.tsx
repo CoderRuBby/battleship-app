@@ -1,4 +1,4 @@
-import type { gameBoardInterface } from '~/utils/GameBoard';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface GameBoardButtonProps {
   testId: string;
@@ -17,10 +17,10 @@ export function GameBoardButton({
   handleOnClick,
 }: GameBoardButtonProps) {
   const boardNumber = board.board[Number(testId)];
-  const shipName = boardNumber?.ship?.name;
+  const shipName = boardNumber?.ship?.props.name;
   const imgNumber = boardNumber?.imageNumber;
   const imgDirection = boardNumber?.imageDirection;
-  const selectedShipName = board.selectedShip?.name;
+  const selectedShipName = board.props.selectedShip?.props.name;
   const buttonStyle = {
     background:
       boardNumber?.isHit === true
