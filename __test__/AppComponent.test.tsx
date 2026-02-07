@@ -1165,14 +1165,14 @@ describe('App', () => {
 
   test('verify game over menu renders with you win', async () => {
     const user = userEvent.setup();
-    playerGameBoard.allShipsPlaced = true;
-    aiGameBoard.allShipsPlaced = true;
-    aiGameBoard.allShips[0].sunk = true;
-    aiGameBoard.allShips[1].sunk = true;
-    aiGameBoard.allShips[2].sunk = true;
-    aiGameBoard.allShips[3].sunk = true;
-    aiGameBoard.board[53].ship = aiGameBoard.allShips[4];
-    aiGameBoard.board[54].ship = aiGameBoard.allShips[4];
+    playerGameBoard.props.allShipsPlaced = true;
+    aiGameBoard.props.allShipsPlaced = true;
+    aiGameBoard.props.allShips[0].props.sunk = true;
+    aiGameBoard.props.allShips[1].props.sunk = true;
+    aiGameBoard.props.allShips[2].props.sunk = true;
+    aiGameBoard.props.allShips[3].props.sunk = true;
+    aiGameBoard.board[53].ship = aiGameBoard.props.allShips[4];
+    aiGameBoard.board[54].ship = aiGameBoard.props.allShips[4];
 
     render(component);
 

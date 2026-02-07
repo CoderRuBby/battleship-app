@@ -5,7 +5,7 @@ import { useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
-import attack from '~/utils/attack';
+import attack from '~/utils/Attack';
 import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
 
@@ -60,7 +60,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     setAiGameBoard(newAiBoard);
     if (isLoser(newAiBoard)) {
       const newPlayerBoard = { ...playerGameBoard };
-      newPlayerBoard.winner = true;
+      newPlayerBoard.props.winner = true;
       setPlayerGameBoard(newPlayerBoard);
       return;
     }
@@ -72,8 +72,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const isLoser = (board: gameBoardInterface) => {
     let lose = true;
-    board.allShips.forEach((ship) => {
-      if (!ship.sunk) {
+    board.props.allShips.forEach((ship) => {
+      if (!ship.props.sunk) {
         lose = false;
       }
     });
@@ -144,7 +144,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   };
 
   const winnerLoserText = () => {
-    if (playerGameBoard.winner === true) {
+    if (playerGameBoard.props.winner === true) {
       return 'Win';
     } else {
       return 'Lose';
@@ -153,6 +153,9 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   return (
     <main>
+      {playerGameBoard.props.winner && (
+        <GameOverMenu winLoseText={winnerLoserText()} />
+      )}
       {!playerGameBoard.props.allShipsPlaced && (
         <ShipButtonComponent
           buttons={allShips}
