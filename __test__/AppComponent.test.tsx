@@ -855,7 +855,7 @@ describe('App', () => {
     await user.click(button8);
     await user.unhover(button8);
 
-    expect(aiGameBoard.allShipsPlaced).toBe(true);
+    expect(aiGameBoard.props.allShipsPlaced).toBe(true);
   });
 
   test('verify the player can attack', async () => {
@@ -1083,9 +1083,9 @@ describe('App', () => {
 
   test('verify a hit renders on the ai gameboard', async () => {
     const user = userEvent.setup();
-    aiGameBoard.board[23].ship = aiGameBoard.allShips[0];
-    aiGameBoard.allShipsPlaced = true;
-    playerGameBoard.allShipsPlaced = true;
+    aiGameBoard.board[23].ship = aiGameBoard.props.allShips[0];
+    aiGameBoard.props.allShipsPlaced = true;
+    playerGameBoard.props.allShipsPlaced = true;
 
     render(component);
 
@@ -1101,8 +1101,8 @@ describe('App', () => {
 
   test('verify a miss will render on the ai game board', async () => {
     const user = userEvent.setup();
-    aiGameBoard.allShipsPlaced = true;
-    playerGameBoard.allShipsPlaced = true;
+    aiGameBoard.props.allShipsPlaced = true;
+    playerGameBoard.props.allShipsPlaced = true;
 
     render(component);
 
@@ -1118,10 +1118,10 @@ describe('App', () => {
 
   test('verify a hit will render on the player game board', async () => {
     const user = userEvent.setup();
-    aiGameBoard.allShipsPlaced = true;
-    playerGameBoard.allShipsPlaced = true;
+    aiGameBoard.props.allShipsPlaced = true;
+    playerGameBoard.props.allShipsPlaced = true;
     playerGameBoard.board.forEach((square) => {
-      square.ship = playerGameBoard.allShips[0];
+      square.ship = playerGameBoard.props.allShips[0];
     });
 
     render(component);
@@ -1143,8 +1143,8 @@ describe('App', () => {
 
   test('verify a miss will render on the player game board', async () => {
     const user = userEvent.setup();
-    aiGameBoard.allShipsPlaced = true;
-    playerGameBoard.allShipsPlaced = true;
+    aiGameBoard.props.allShipsPlaced = true;
+    playerGameBoard.props.allShipsPlaced = true;
 
     render(component);
 

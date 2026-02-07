@@ -38,7 +38,7 @@ describe('aiAttack', () => {
     it('attacks Player location which can result in a hit', () => {
       const attackLocation = 45;
 
-      Opponent.board[attackLocation].ship = Opponent.allShips[0];
+      Opponent.board[attackLocation].ship = Opponent.props.allShips[0];
 
       const [location, obj] = newAiAttackSystem.aiAttackLogic(
         Opponent,

@@ -43,7 +43,7 @@ describe('GameBoardButton', () => {
   });
 
   it('will render a button with a ship image', async () => {
-    Player.selectedShip = Player.allShips[0];
+    Player.props.selectedShip = Player.props.allShips[0];
     Player.board[1].imageNumber = 1;
     Player.board[1].imageDirection = 'up';
     render(
@@ -64,7 +64,7 @@ describe('GameBoardButton', () => {
 
   it('will render a button with a hit image', () => {
     Player.board[1].isHit = true;
-    Player.selectedShip = Player.allShips[0];
+    Player.props.selectedShip = Player.props.allShips[0];
     Player.board[1].imageNumber = 1;
     Player.board[1].imageDirection = 'up';
     render(
@@ -85,7 +85,7 @@ describe('GameBoardButton', () => {
 
   it('will render a button with a miss image', () => {
     Player.board[1].isMiss = true;
-    Player.selectedShip = Player.allShips[0];
+    Player.props.selectedShip = Player.props.allShips[0];
     Player.board[1].imageNumber = 1;
     Player.board[1].imageDirection = 'up';
     render(

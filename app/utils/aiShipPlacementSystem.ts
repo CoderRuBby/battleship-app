@@ -16,10 +16,10 @@ export default function aiShipPlacementSystem(ai: gameBoardInterface) {
       square = Math.floor(Math.random() * max);
     }
 
-    if (ai.selectedShip) {
+    if (ai.props.selectedShip) {
       const shipPlacementLogic = shipPlacementSystem(ai);
       const shipPaths = shipPlacementLogic.getShipPaths(
-        ai.selectedShip.length,
+        ai.props.selectedShip.props.length,
         square,
       );
       if (
@@ -35,13 +35,16 @@ export default function aiShipPlacementSystem(ai: gameBoardInterface) {
   const placeShipOnGameBoard = (): gameBoardInterface => {
     const shipPlacementLogic = shipPlacementSystem(ai);
 
-    ai.allShips.forEach((ship) => {
-      ai.selectedShip = ship;
+    ai.props.allShips.forEach((ship) => {
+      ai.props.selectedShip = ship;
 
       const square = randomSquare(100);
       ship.addShipStart(square);
 
-      const shipPaths = shipPlacementLogic.getShipPaths(ship.length, square);
+      const shipPaths = shipPlacementLogic.getShipPaths(
+        ship.props.length,
+        square,
+      );
 
       const chosenPath =
         shipPaths[Math.floor(Math.random() * shipPaths.length)];
@@ -53,10 +56,10 @@ export default function aiShipPlacementSystem(ai: gameBoardInterface) {
         ai.board[location].ship = ship;
       });
 
-      ship.isPlaced = true;
+      ship.props.isPlaced = true;
 
-      if (shipPlacementLogic.areAllShipsPlaced(ai.allShips) === true) {
-        ai.allShipsPlaced = true;
+      if (shipPlacementLogic.areAllShipsPlaced(ai.props.allShips) === true) {
+        ai.props.allShipsPlaced = true;
       }
     });
 

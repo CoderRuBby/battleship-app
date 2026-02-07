@@ -31,7 +31,7 @@ describe('GamePlay', () => {
 
   describe('isWinner', () => {
     it('will return true if there is a winner', () => {
-      Player.winner = true;
+      Player.props.winner = true;
       const winner = Game.isWinner(Player, Ai);
 
       expect(winner).toBe(true);
@@ -48,19 +48,19 @@ describe('GamePlay', () => {
     it('will place ships on gameboard for the first turn', () => {
       Game.aiTurn(Ai);
 
-      expect(Ai.allShipsPlaced).toBe(true);
+      expect(Ai.props.allShipsPlaced).toBe(true);
     });
 
     it('will attack opponents gameboard after ships have been placed', () => {
       const square = 45;
       const square2 = 74;
-      Player.board[square2].ship = Player.allShips[0];
+      Player.board[square2].ship = Player.props.allShips[0];
 
       Game.aiTurn(Ai);
       Game.aiTurn(Ai, Player, square);
       Game.aiTurn(Ai, Player, square2);
 
-      expect(Ai.allShipsPlaced).toBe(true);
+      expect(Ai.props.allShipsPlaced).toBe(true);
       expect(Player.board[square].isMiss).toBe(true);
       expect(Player.board[square2].isHit).toBe(true);
     });
@@ -68,30 +68,30 @@ describe('GamePlay', () => {
 
   describe('turn', () => {
     it('can let both players place ships on gameboard', () => {
-      Player.selectedShip = Player.allShips[0];
+      Player.props.selectedShip = Player.props.allShips[0];
       Game.turn(34, Player, Ai);
       Game.turn(38, Player, Ai);
-      Player.selectedShip = Player.allShips[1];
+      Player.props.selectedShip = Player.props.allShips[1];
       Game.turn(20, Player, Ai);
       Game.turn(21, Player, Ai);
-      Player.selectedShip = Player.allShips[2];
+      Player.props.selectedShip = Player.props.allShips[2];
       Game.turn(63, Player, Ai);
       Game.turn(65, Player, Ai);
-      Player.selectedShip = Player.allShips[3];
+      Player.props.selectedShip = Player.props.allShips[3];
       Game.turn(45, Player, Ai);
       Game.turn(48, Player, Ai);
-      Player.selectedShip = Player.allShips[4];
+      Player.props.selectedShip = Player.props.allShips[4];
       Game.turn(77, Player, Ai);
       Game.turn(79, Player, Ai);
 
-      expect(Ai.allShipsPlaced).toBe(true);
-      expect(Player.allShipsPlaced).toBe(true);
+      expect(Ai.props.allShipsPlaced).toBe(true);
+      expect(Player.props.allShipsPlaced).toBe(true);
     });
 
     it('can let both players attack', () => {
       const attackSquare = 45;
-      Player.allShipsPlaced = true;
-      Ai.allShipsPlaced = true;
+      Player.props.allShipsPlaced = true;
+      Ai.props.allShipsPlaced = true;
 
       Game.turn(attackSquare, Player, Ai);
 
@@ -105,7 +105,7 @@ describe('GamePlay', () => {
 
     it('can prevent further game turns if there is a winner', () => {
       const square = 45;
-      Player.winner = true;
+      Player.props.winner = true;
 
       Game.turn(square, Player, Ai);
 

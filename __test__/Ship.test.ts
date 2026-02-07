@@ -15,7 +15,7 @@ describe('Ship', () => {
 
       Ship1.isHit(hitLocation);
 
-      expect(Ship1.hitLocations).toContain(hitLocation);
+      expect(Ship1.props.hitLocations).toContain(hitLocation);
     });
   });
 
@@ -28,7 +28,7 @@ describe('Ship', () => {
       Ship1.isHit(secondHit);
       Ship1.getHitLocations();
 
-      expect(Ship1.hitLocations).toEqual([5, 6]);
+      expect(Ship1.props.hitLocations).toEqual([5, 6]);
     });
   });
 });

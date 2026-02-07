@@ -30,12 +30,15 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newBoard = { ...playerGameBoard };
-    newBoard.selectedShip = selectShip(shipName, playerGameBoard.selectedShip);
+    newBoard.props.selectedShip = selectShip(
+      shipName,
+      playerGameBoard.props.selectedShip,
+    );
     setPlayerGameBoard(newBoard);
   };
 
   const gameBoardOnClick = (id: number) => {
-    if (playerGameBoard.allShipsPlaced === false) {
+    if (playerGameBoard.props.allShipsPlaced === false) {
       const newBoard = {
         ...shipPlacementLogic(id),
       };
@@ -43,8 +46,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     }
 
     if (
-      playerGameBoard.allShipsPlaced === true &&
-      aiGameBoard.allShipsPlaced === false
+      playerGameBoard.props.allShipsPlaced === true &&
+      aiGameBoard.props.allShipsPlaced === false
     ) {
       setAiGameBoard(placeShipOnGameBoard);
     }
@@ -87,11 +90,14 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   };
 
   const handleMouseEnter = (id: number) => {
-    if (playerGameBoard.selectedShip?.shipStartPoint !== null) {
+    if (playerGameBoard.props.selectedShip?.props.shipStartPoint !== null) {
       return;
     }
 
-    const paths = getShipPaths(playerGameBoard.selectedShip!.length, id);
+    const paths = getShipPaths(
+      playerGameBoard.props.selectedShip!.props.length,
+      id,
+    );
     if (paths) {
       paths.forEach((path) => {
         path.array.forEach((square, squareIndex) => {
@@ -103,8 +109,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const handleMouseLeave = () => {
     if (
-      playerGameBoard.selectedShip?.shipStartPoint !== null &&
-      playerGameBoard.selectedShip?.shipEndPoint === null
+      playerGameBoard.props.selectedShip?.props.shipStartPoint !== null &&
+      playerGameBoard.props.selectedShip?.props.shipEndPoint === null
     ) {
       return;
     }
@@ -121,13 +127,13 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   return (
     <main>
-      {!playerGameBoard.allShipsPlaced && (
+      {!playerGameBoard.props.allShipsPlaced && (
         <ShipButtonComponent
           buttons={allShips}
           handleSelectShip={handleSelectShip}
         />
       )}
-      {playerGameBoard.allShipsPlaced && (
+      {playerGameBoard.props.allShipsPlaced && (
         <GameBoardComponent
           board={aiGameBoard}
           handleMouseEnter={handleMouseEnter}

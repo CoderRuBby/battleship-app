@@ -27,15 +27,15 @@ describe('GameBoard', () => {
 
   describe('isWinner', () => {
     it('will declare a winner if all ships are sunk', () => {
-      Opponent.allShips[0].sunk = true;
-      Opponent.allShips[1].sunk = true;
-      Opponent.allShips[2].sunk = true;
-      Opponent.allShips[3].sunk = true;
-      Opponent.allShips[4].sunk = true;
+      Opponent.props.allShips[0].props.sunk = true;
+      Opponent.props.allShips[1].props.sunk = true;
+      Opponent.props.allShips[2].props.sunk = true;
+      Opponent.props.allShips[3].props.sunk = true;
+      Opponent.props.allShips[4].props.sunk = true;
 
       Player.isWinner(Opponent);
 
-      expect(Player.winner).toBe(true);
+      expect(Player.props.winner).toBe(true);
     });
   });
 });

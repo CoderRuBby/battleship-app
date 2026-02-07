@@ -31,8 +31,8 @@ describe('AiPlaceShips', () => {
     it('will not return a square that has a ship placed', () => {
       const testSquare = 45;
 
-      Ai.board[testSquare].ship = Ai.allShips[0];
-      Ai.selectedShip = Ai.allShips[0];
+      Ai.board[testSquare].ship = Ai.props.allShips[0];
+      Ai.props.selectedShip = Ai.props.allShips[0];
 
       const randomSquare = AiPlayerPlaceShips.randomSquare(100, testSquare);
 
@@ -44,17 +44,37 @@ describe('AiPlaceShips', () => {
     it('can place all ships on the gameboard', () => {
       AiPlayerPlaceShips.placeShipOnGameBoard();
 
-      expect(Ai.allShipsPlaced).toBe(true);
-      expect(Number.isInteger(Ai.allShips[0].shipStartPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[0].shipEndPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[1].shipStartPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[1].shipEndPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[2].shipStartPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[2].shipEndPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[3].shipStartPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[3].shipEndPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[4].shipStartPoint)).toBe(true);
-      expect(Number.isInteger(Ai.allShips[4].shipEndPoint)).toBe(true);
+      expect(Ai.props.allShipsPlaced).toBe(true);
+      expect(Number.isInteger(Ai.props.allShips[0].props.shipStartPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[0].props.shipEndPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[1].props.shipStartPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[1].props.shipEndPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[2].props.shipStartPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[2].props.shipEndPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[3].props.shipStartPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[3].props.shipEndPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[4].props.shipStartPoint)).toBe(
+        true,
+      );
+      expect(Number.isInteger(Ai.props.allShips[4].props.shipEndPoint)).toBe(
+        true,
+      );
     });
   });
 });

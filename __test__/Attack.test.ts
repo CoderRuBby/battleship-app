@@ -31,14 +31,14 @@ describe('Attack', () => {
     it('can hit a ship on the opponents gameboard', () => {
       const square = 45;
 
-      Opponent.board[square].ship = Opponent.allShips[0];
+      Opponent.board[square].ship = Opponent.props.allShips[0];
 
-      Opponent.allShips[0].isHit(square);
+      Opponent.props.allShips[0].isHit(square);
 
       PlayerAttack.logic(square, Opponent);
 
       expect(Opponent.board[square].isHit).toBe(true);
-      expect(Opponent.board[square].ship).toEqual(Opponent.allShips[0]);
+      expect(Opponent.board[square].ship).toEqual(Opponent.props.allShips[0]);
     });
 
     it('can attack a square with no ship on the opponents board', () => {
