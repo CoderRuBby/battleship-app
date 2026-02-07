@@ -5,7 +5,7 @@ import { useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
-import attack from '~/utils/Attack';
+import attack from '~/utils/attack';
 import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
 
