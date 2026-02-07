@@ -6,35 +6,44 @@ export interface shipPlacementSystemInterface {
     ship: shipInterface,
     selectedShip: shipInterface | null,
   ) => shipInterface | null;
-  isAvailableSquare: (square: number) => boolean;
-  pathIsAvailable: (path: number[]) => boolean;
+  isAvailableSquare: (square: number, board: gameBoardInterface) => boolean;
+  pathIsAvailable: (path: number[], board: gameBoardInterface) => boolean;
   possibleShipEndPoints: (
     initialSquare: number,
     shipLength: number,
+    board: gameBoardInterface,
   ) => number[];
   possibleShipPath: (
     shipLength: number,
     shipStartPoint: number,
     shipEndPoint: number,
+    board: gameBoardInterface,
   ) => { direction: null | string; array: number[] };
   getShipPaths: (
     shipLength: number,
     shipStartPoint: number,
+    board: gameBoardInterface,
   ) => { direction: null | string; array: number[] }[];
-  canPlaceShip: (shipLength: number, selectedShip: shipInterface) => boolean;
+  canPlaceShip: (
+    shipLength: number,
+    selectedShip: shipInterface,
+    board: gameBoardInterface,
+  ) => boolean;
   areAllShipsPlaced: (shipsArray: shipInterface[]) => boolean;
   placeShipOnGameBoard: (
     ship: shipInterface,
     startPoint: number,
     shipEndPoint: number,
+    board: gameBoardInterface,
   ) => gameBoardInterface;
   //! rename to logic
-  shipPlacementLogic: (squareNumber: number) => gameBoardInterface;
+  shipPlacementLogic: (
+    squareNumber: number,
+    board: gameBoardInterface,
+  ) => gameBoardInterface;
 }
 
-export default function shipPlacementSystem(
-  playerGameBoard: gameBoardInterface,
-): shipPlacementSystemInterface {
+export default function shipPlacementSystem(): shipPlacementSystemInterface {
   const selectShip = (
     ship: shipInterface,
     selectedShip: shipInterface | null,
@@ -50,18 +59,24 @@ export default function shipPlacementSystem(
     }
   };
 
-  const isAvailableSquare = (square: number): boolean => {
-    if (playerGameBoard.board[square].ship === null) {
+  const isAvailableSquare = (
+    square: number,
+    board: gameBoardInterface,
+  ): boolean => {
+    if (board.board[square].ship === null) {
       return true;
     } else {
       return false;
     }
   };
 
-  const pathIsAvailable = (path: number[]): boolean => {
+  const pathIsAvailable = (
+    path: number[],
+    board: gameBoardInterface,
+  ): boolean => {
     let isAvailable = true;
     path.forEach((square) => {
-      if (isAvailableSquare(square) === false) {
+      if (isAvailableSquare(square, board) === false) {
         isAvailable = false;
       }
     });
@@ -72,6 +87,7 @@ export default function shipPlacementSystem(
   const possibleShipEndPoints = (
     initialSquare: number,
     shipLength: number,
+    board: gameBoardInterface,
   ): number[] => {
     const possibleEndPoints: number[] = [];
     const row = Math.floor(initialSquare / 10);
@@ -81,7 +97,7 @@ export default function shipPlacementSystem(
     // Check right direction
     if (col + shipLength - 1 < 10) {
       endPoint = initialSquare + (shipLength - 1);
-      if (isAvailableSquare(endPoint) === true) {
+      if (isAvailableSquare(endPoint, board) === true) {
         possibleEndPoints.push(endPoint);
       }
     }
@@ -89,7 +105,7 @@ export default function shipPlacementSystem(
     // Check left direction
     if (col - (shipLength - 1) >= 0) {
       endPoint = initialSquare - (shipLength - 1);
-      if (isAvailableSquare(endPoint) === true) {
+      if (isAvailableSquare(endPoint, board) === true) {
         possibleEndPoints.push(endPoint);
       }
     }
@@ -97,7 +113,7 @@ export default function shipPlacementSystem(
     // Check down direction
     if (row + shipLength - 1 < 10) {
       endPoint = initialSquare + (shipLength - 1) * 10;
-      if (isAvailableSquare(endPoint) === true) {
+      if (isAvailableSquare(endPoint, board) === true) {
         possibleEndPoints.push(endPoint);
       }
     }
@@ -105,7 +121,7 @@ export default function shipPlacementSystem(
     // Check up direction
     if (row - (shipLength - 1) >= 0) {
       endPoint = initialSquare - (shipLength - 1) * 10;
-      if (isAvailableSquare(endPoint) === true) {
+      if (isAvailableSquare(endPoint, board) === true) {
         possibleEndPoints.push(endPoint);
       }
     }
@@ -117,6 +133,7 @@ export default function shipPlacementSystem(
     shipLength: number,
     shipStartPoint: number,
     shipEndPoint: number,
+    board: gameBoardInterface,
   ): { direction: null | string; array: number[] } => {
     const shipPath: { direction: null | string; array: number[] } = {
       direction: null,
@@ -145,7 +162,7 @@ export default function shipPlacementSystem(
       }
     }
 
-    if (pathIsAvailable(shipPath.array) === false)
+    if (pathIsAvailable(shipPath.array, board) === false)
       return {
         direction: null,
         array: [],
@@ -157,13 +174,23 @@ export default function shipPlacementSystem(
   const getShipPaths = (
     shipLength: number,
     shipStartPoint: number,
+    board: gameBoardInterface,
   ): { direction: null | string; array: number[] }[] => {
     const shipPaths: { direction: null | string; array: number[] }[] = [];
 
-    const shipEndPoints = possibleShipEndPoints(shipStartPoint, shipLength);
+    const shipEndPoints = possibleShipEndPoints(
+      shipStartPoint,
+      shipLength,
+      board,
+    );
 
     shipEndPoints.forEach((endPoint) => {
-      const path = possibleShipPath(shipLength, shipStartPoint, endPoint);
+      const path = possibleShipPath(
+        shipLength,
+        shipStartPoint,
+        endPoint,
+        board,
+      );
       if (path.array.length !== 0) {
         shipPaths.push(path);
       }
@@ -175,6 +202,7 @@ export default function shipPlacementSystem(
   const canPlaceShip = (
     square: number,
     selectedShip: shipInterface,
+    board: gameBoardInterface,
   ): boolean => {
     let canPlace = true;
     if (selectedShip !== null && selectedShip.props.shipStartPoint !== null) {
@@ -182,9 +210,10 @@ export default function shipPlacementSystem(
         selectedShip.props.length,
         selectedShip.props.shipStartPoint,
         square,
+        board,
       );
       shipPath.array.forEach((square) => {
-        if (playerGameBoard.board[square].ship !== null) {
+        if (board.board[square].ship !== null) {
           canPlace = false;
         }
       });
@@ -209,51 +238,55 @@ export default function shipPlacementSystem(
     ship: shipInterface,
     shipStartPoint: number,
     shipEndPoint: number,
+    board: gameBoardInterface,
   ): gameBoardInterface => {
     const path = possibleShipPath(
       ship.props.length,
       shipStartPoint,
       shipEndPoint,
+      board,
     );
     ship.props.placedLocations = path.array;
     path.array.forEach((location, index) => {
-      playerGameBoard.board[location].ship = ship;
-      playerGameBoard.board[location].imageNumber = index;
-      playerGameBoard.board[location].imageDirection = path.direction;
+      board.board[location].ship = ship;
+      board.board[location].imageNumber = index;
+      board.board[location].imageDirection = path.direction;
     });
 
     ship.props.isPlaced = true;
 
-    if (areAllShipsPlaced(playerGameBoard.props.allShips) === true) {
-      playerGameBoard.props.allShipsPlaced = true;
+    if (areAllShipsPlaced(board.props.allShips) === true) {
+      board.props.allShipsPlaced = true;
     }
 
-    return playerGameBoard;
+    return board;
   };
 
-  const shipPlacementLogic = (squareNumber: number): gameBoardInterface => {
-    if (playerGameBoard.props.selectedShip === null) return playerGameBoard;
+  const shipPlacementLogic = (
+    squareNumber: number,
+    board: gameBoardInterface,
+  ): gameBoardInterface => {
+    if (board.props.selectedShip === null) return board;
 
-    if (playerGameBoard.props.selectedShip.props.shipStartPoint === null) {
-      if (isAvailableSquare(squareNumber)) {
-        playerGameBoard.props.selectedShip.props.shipStartPoint = squareNumber;
+    if (board.props.selectedShip.props.shipStartPoint === null) {
+      if (isAvailableSquare(squareNumber, board)) {
+        board.props.selectedShip.props.shipStartPoint = squareNumber;
       }
-      return playerGameBoard;
+      return board;
     }
 
-    if (
-      canPlaceShip(squareNumber, playerGameBoard.props.selectedShip) === true
-    ) {
-      playerGameBoard.props.selectedShip.addShipEndPoint(squareNumber);
+    if (canPlaceShip(squareNumber, board.props.selectedShip, board) === true) {
+      board.props.selectedShip.addShipEndPoint(squareNumber);
       placeShipOnGameBoard(
-        playerGameBoard.props.selectedShip,
-        playerGameBoard.props.selectedShip.props.shipStartPoint,
+        board.props.selectedShip,
+        board.props.selectedShip.props.shipStartPoint,
         squareNumber,
+        board,
       );
 
-      playerGameBoard.props.selectedShip = null;
+      board.props.selectedShip = null;
     }
-    return playerGameBoard;
+    return board;
   };
 
   return {

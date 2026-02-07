@@ -25,13 +25,14 @@ export default function aiShipPlacementSystem() {
     }
 
     if (board.props.selectedShip) {
-      const shipPlacementLogic = shipPlacementSystem(board);
+      const shipPlacementLogic = shipPlacementSystem();
       const shipPaths = shipPlacementLogic.getShipPaths(
         board.props.selectedShip.props.length,
         square,
+        board,
       );
       if (
-        shipPlacementLogic.isAvailableSquare(square) &&
+        shipPlacementLogic.isAvailableSquare(square, board) &&
         shipPaths.length !== 0
       ) {
         return square;
@@ -43,7 +44,7 @@ export default function aiShipPlacementSystem() {
   const placeShipOnGameBoard = (
     board: gameBoardInterface,
   ): gameBoardInterface => {
-    const shipPlacementLogic = shipPlacementSystem(board);
+    const shipPlacementLogic = shipPlacementSystem();
 
     board.props.allShips.forEach((ship) => {
       board.props.selectedShip = ship;
@@ -54,6 +55,7 @@ export default function aiShipPlacementSystem() {
       const shipPaths = shipPlacementLogic.getShipPaths(
         ship.props.length,
         square,
+        board,
       );
 
       const chosenPath =

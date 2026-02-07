@@ -21,7 +21,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   const [aiGameBoard, setAiGameBoard] = useState<gameBoardInterface>(ai);
 
   const { selectShip, getShipPaths, shipPlacementLogic } =
-    shipPlacementSystem(playerGameBoard);
+    shipPlacementSystem();
 
   const { placeShipOnGameBoard } = aiShipPlacementSystem();
 
@@ -41,7 +41,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   const gameBoardOnClick = (id: number) => {
     if (playerGameBoard.props.allShipsPlaced === false) {
       const newBoard = {
-        ...shipPlacementLogic(id),
+        ...shipPlacementLogic(id, playerGameBoard),
       };
       setPlayerGameBoard(newBoard);
     }
@@ -115,6 +115,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     const paths = getShipPaths(
       playerGameBoard.props.selectedShip!.props.length,
       id,
+      playerGameBoard,
     );
     if (paths) {
       paths.forEach((path) => {

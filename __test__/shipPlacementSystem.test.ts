@@ -18,7 +18,7 @@ describe('shipPlacementSystem', () => {
     Ship2 = ship('bar', 2);
     const ships = [Ship1, Ship2];
     Player = gameBoard(ships);
-    placementSystem = shipPlacementSystem(Player);
+    placementSystem = shipPlacementSystem();
   });
 
   describe('possibleShipEndPoints', () => {
@@ -27,7 +27,11 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 45;
 
       expect(
-        placementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
+        placementSystem.possibleShipEndPoints(
+          shipStartPoint,
+          shipLength,
+          Player,
+        ),
       ).toEqual([47, 43, 65, 25]);
     });
 
@@ -36,7 +40,11 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
 
       expect(
-        placementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
+        placementSystem.possibleShipEndPoints(
+          shipStartPoint,
+          shipLength,
+          Player,
+        ),
       ).toEqual([1, 10]);
     });
 
@@ -49,7 +57,11 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 4;
 
       expect(
-        placementSystem.possibleShipEndPoints(shipStartPoint, shipLength),
+        placementSystem.possibleShipEndPoints(
+          shipStartPoint,
+          shipLength,
+          Player,
+        ),
       ).toEqual([7, 34]);
     });
   });
@@ -65,6 +77,7 @@ describe('shipPlacementSystem', () => {
           shipLength,
           shipStartPoint,
           shipEndPoint,
+          Player,
         ).array,
       ).toEqual([0, 1]);
     });
@@ -83,6 +96,7 @@ describe('shipPlacementSystem', () => {
           shipLength,
           shipStartPoint,
           shipEndPoint,
+          Player,
         ).array,
       ).toEqual([]);
     });
@@ -94,10 +108,12 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
 
       expect(
-        placementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
+        placementSystem.getShipPaths(shipLength, shipStartPoint, Player)[0]
+          .array,
       ).toEqual([0, 1, 2]);
       expect(
-        placementSystem.getShipPaths(shipLength, shipStartPoint)[1].array,
+        placementSystem.getShipPaths(shipLength, shipStartPoint, Player)[1]
+          .array,
       ).toEqual([0, 10, 20]);
     });
 
@@ -113,7 +129,8 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 26;
 
       expect(
-        placementSystem.getShipPaths(shipLength, shipStartPoint)[0].array,
+        placementSystem.getShipPaths(shipLength, shipStartPoint, Player)[0]
+          .array,
       ).toEqual([26, 36, 46, 56]);
     });
   });
@@ -162,7 +179,7 @@ describe('shipPlacementSystem', () => {
     it('will assign shipStartPoint if ship is selected', () => {
       const shipStartPoint = 0;
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
 
       expect(Ship1.props.shipStartPoint).toEqual(0);
     });
@@ -171,8 +188,8 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
-      placementSystem.shipPlacementLogic(shipEndPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
+      placementSystem.shipPlacementLogic(shipEndPoint, Player);
 
       expect(Ship1.props.shipEndPoint).toBe(20);
     });
@@ -181,8 +198,8 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
-      placementSystem.shipPlacementLogic(shipEndPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
+      placementSystem.shipPlacementLogic(shipEndPoint, Player);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Player.board[10].ship).toEqual(Ship1);
@@ -193,10 +210,11 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
 
       expect(
-        placementSystem.shipPlacementLogic(shipEndPoint).props.selectedShip,
+        placementSystem.shipPlacementLogic(shipEndPoint, Player).props
+          .selectedShip,
       ).toBe(null);
     });
 
@@ -204,10 +222,10 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 2;
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
-      placementSystem.shipPlacementLogic(shipEndPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
+      placementSystem.shipPlacementLogic(shipEndPoint, Player);
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Ship2.props.shipStartPoint).toBe(null);
@@ -217,14 +235,14 @@ describe('shipPlacementSystem', () => {
       const shipStartPoint = 0;
       const shipEndPoint = 20;
 
-      placementSystem.shipPlacementLogic(shipStartPoint);
-      placementSystem.shipPlacementLogic(shipEndPoint);
+      placementSystem.shipPlacementLogic(shipStartPoint, Player);
+      placementSystem.shipPlacementLogic(shipEndPoint, Player);
 
       const shipStartPoint2 = 12;
       const shipEndPoint2 = 10;
 
-      placementSystem.shipPlacementLogic(shipStartPoint2);
-      placementSystem.shipPlacementLogic(shipEndPoint2);
+      placementSystem.shipPlacementLogic(shipStartPoint2, Player);
+      placementSystem.shipPlacementLogic(shipEndPoint2, Player);
 
       expect(Player.board[0].ship).toEqual(Ship1);
       expect(Player.board[10].ship).toEqual(Ship1);
@@ -233,7 +251,7 @@ describe('shipPlacementSystem', () => {
 
   describe('placeShipOnGameBoard', () => {
     it('can place a ship on the gameboard', () => {
-      const { result } = renderHook(() => shipPlacementSystem(Player));
+      const { result } = renderHook(() => shipPlacementSystem());
       const shipStartPoint = 0;
       const shipEndPoint = 2;
 
@@ -242,6 +260,7 @@ describe('shipPlacementSystem', () => {
           Ship1,
           shipStartPoint,
           shipEndPoint,
+          Player,
         );
       });
 
@@ -251,7 +270,7 @@ describe('shipPlacementSystem', () => {
     });
 
     it('will not place a ship in un-available locations', () => {
-      const { result } = renderHook(() => shipPlacementSystem(Player));
+      const { result } = renderHook(() => shipPlacementSystem());
       Player.board[4].ship = Ship1;
       Player.board[5].ship = Ship1;
       Player.board[6].ship = Ship1;
@@ -264,6 +283,7 @@ describe('shipPlacementSystem', () => {
           Ship2,
           shipStartPoint,
           shipEndPoint,
+          Player,
         );
       });
 
@@ -274,12 +294,12 @@ describe('shipPlacementSystem', () => {
     });
 
     test('all ships can be placed on the gameboard', () => {
-      const { result } = renderHook(() => shipPlacementSystem(Player));
+      const { result } = renderHook(() => shipPlacementSystem());
       act(() => {
-        result.current.placeShipOnGameBoard(Ship1, 0, 20);
+        result.current.placeShipOnGameBoard(Ship1, 0, 20, Player);
       });
       act(() => {
-        result.current.placeShipOnGameBoard(Ship2, 6, 7);
+        result.current.placeShipOnGameBoard(Ship2, 6, 7, Player);
       });
       expect(Player.props.allShipsPlaced).toBe(true);
     });
