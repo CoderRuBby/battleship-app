@@ -23,7 +23,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   const { selectShip, getShipPaths, shipPlacementLogic } =
     shipPlacementSystem(playerGameBoard);
 
-  const { placeShipOnGameBoard } = aiShipPlacementSystem(aiGameBoard);
+  const { placeShipOnGameBoard } = aiShipPlacementSystem();
 
   const { logic } = attack();
 

@@ -24,7 +24,7 @@ describe('AiPlaceShips', () => {
     cruiser = ship('cruiser', 2);
     shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
     Ai = gameBoard(shipsArray);
-    AiPlayerPlaceShips = aiShipPlacementSystem(Ai);
+    AiPlayerPlaceShips = aiShipPlacementSystem();
   });
 
   describe('randomSquare', () => {
@@ -34,7 +34,7 @@ describe('AiPlaceShips', () => {
       Ai.board[testSquare].ship = Ai.props.allShips[0];
       Ai.props.selectedShip = Ai.props.allShips[0];
 
-      const randomSquare = AiPlayerPlaceShips.randomSquare(100, testSquare);
+      const randomSquare = AiPlayerPlaceShips.randomSquare(100, Ai, testSquare);
 
       expect(randomSquare).not.toBe(testSquare);
     });
@@ -42,7 +42,7 @@ describe('AiPlaceShips', () => {
 
   describe('placeShipOnGameboard', () => {
     it('can place all ships on the gameboard', () => {
-      AiPlayerPlaceShips.placeShipOnGameBoard();
+      AiPlayerPlaceShips.placeShipOnGameBoard(Ai);
 
       expect(Ai.props.allShipsPlaced).toBe(true);
       expect(Number.isInteger(Ai.props.allShips[0].props.shipStartPoint)).toBe(
