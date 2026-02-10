@@ -61,8 +61,13 @@ export default function aiShipPlacementSystem() {
       const chosenPath =
         shipPaths[Math.floor(Math.random() * shipPaths.length)];
 
-      const endPoint = chosenPath.array[chosenPath.array.length - 1];
-      ship.addShipEndPoint(endPoint);
+      const endPointRight = chosenPath.array[chosenPath.array.length - 1];
+      const endPointLeft = chosenPath.array[0];
+      if (endPointLeft === square) {
+        ship.addShipEndPoint(endPointRight);
+      } else {
+        ship.addShipEndPoint(endPointLeft);
+      }
 
       chosenPath.array.forEach((location) => {
         board.board[location].ship = ship;
