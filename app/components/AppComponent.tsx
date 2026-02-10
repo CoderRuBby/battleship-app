@@ -65,9 +65,14 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
       return;
     }
     // ai attacks setting the players board
-    const [num, obj] = aiAttackLogic(playerGameBoard, id);
-
+    const [num, obj] = aiAttackLogic(playerGameBoard);
     setPlayerGameBoard(obj);
+    if (isLoser(obj)) {
+      const newAiBoard = { ...aiGameBoard };
+      newAiBoard.props.winner = true;
+      setAiGameBoard(newAiBoard);
+      return;
+    }
   };
 
   const isLoser = (board: gameBoardInterface) => {
@@ -152,11 +157,20 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     }
   };
 
+  const isThereAWinner = () => {
+    if (
+      playerGameBoard.props.winner === true ||
+      aiGameBoard.props.winner === true
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <main>
-      {playerGameBoard.props.winner && (
-        <GameOverMenu winLoseText={winnerLoserText()} />
-      )}
+      {isThereAWinner() && <GameOverMenu winLoseText={winnerLoserText()} />}
       {!playerGameBoard.props.allShipsPlaced && (
         <ShipButtonComponent
           buttons={allShips}

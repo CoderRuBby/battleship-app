@@ -1207,4 +1207,51 @@ describe('App', () => {
 
     expect(gameOverText).toBeInTheDocument();
   });
+
+  test('verify game over menu renders with you lose', async () => {
+    const user = userEvent.setup();
+    playerGameBoard.props.allShips[0].props.isPlaced = true;
+    playerGameBoard.props.allShips[1].props.isPlaced = true;
+    playerGameBoard.props.allShips[2].props.isPlaced = true;
+    playerGameBoard.props.allShips[3].props.isPlaced = true;
+    playerGameBoard.props.allShips[0].props.sunk = true;
+    playerGameBoard.props.allShips[1].props.sunk = true;
+    playerGameBoard.props.allShips[2].props.sunk = true;
+    playerGameBoard.props.allShips[3].props.sunk = true;
+    const string45 = '45';
+    const string46 = '46';
+    playerGameBoard.board.forEach((square) => {
+      if (square.id !== Number(string45) && square.id !== Number(string46)) {
+        playerGameBoard.board[square.id].isMiss = true;
+      }
+    });
+
+    render(component);
+
+    const playerBoard = screen.getByRole('region', {
+      name: 'The Game Board',
+    });
+
+    const cruiser = screen.getByTestId('cruiser');
+    await user.click(cruiser);
+
+    const button45 = within(playerBoard).getByTestId(string45);
+    await user.click(button45);
+
+    const button46 = within(playerBoard).getByTestId(string46);
+    await user.click(button46);
+
+    const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+    const aiButton54 = within(aiBoard).getByTestId('54');
+    await user.click(aiButton54);
+    const aiButton53 = within(aiBoard).getByTestId('53');
+    await user.click(aiButton53);
+
+    const gameOverMenu = screen.getByRole('dialog');
+    const gameOverText = within(gameOverMenu).getByRole('heading', {
+      name: 'You Lose',
+    });
+
+    expect(gameOverText).toBeInTheDocument();
+  });
 });
