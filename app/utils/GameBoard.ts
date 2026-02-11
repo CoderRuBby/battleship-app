@@ -16,6 +16,7 @@ export interface gameBoardInterface {
     allShips: shipInterface[];
   };
   isWinner: (opponentGameBoard: gameBoardInterface) => boolean;
+  reset: () => void;
 }
 
 export default function gameBoard(
@@ -46,9 +47,26 @@ export default function gameBoard(
     props.winner = winner;
     return winner;
   };
+
+  const reset = () => {
+    board.forEach((square) => {
+      square.isHit = false;
+      square.isMiss = false;
+      square.ship = null;
+      square.imageNumber = null;
+      square.imageDirection = null;
+    });
+    props.allShipsPlaced = false;
+    props.winner = false;
+    props.selectedShip = null;
+    props.allShips.forEach((ship) => {
+      ship.reset();
+    });
+  };
   return {
     board,
     props,
     isWinner,
+    reset,
   };
 }
