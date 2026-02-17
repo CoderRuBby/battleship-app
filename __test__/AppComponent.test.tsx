@@ -1254,4 +1254,65 @@ describe('App', () => {
 
     expect(gameOverText).toBeInTheDocument();
   });
+
+  test('verify play again button allows another game to be played', async () => {
+    const user = userEvent.setup();
+    playerGameBoard.props.allShips[0].props.isPlaced = true;
+    playerGameBoard.props.allShips[1].props.isPlaced = true;
+    playerGameBoard.props.allShips[2].props.isPlaced = true;
+    playerGameBoard.props.allShips[3].props.isPlaced = true;
+    playerGameBoard.props.allShips[0].props.sunk = true;
+    playerGameBoard.props.allShips[1].props.sunk = true;
+    playerGameBoard.props.allShips[2].props.sunk = true;
+    playerGameBoard.props.allShips[3].props.sunk = true;
+    const string45 = '45';
+    const string46 = '46';
+    playerGameBoard.board.forEach((square) => {
+      if (square.id !== Number(string45) && square.id !== Number(string46)) {
+        playerGameBoard.board[square.id].isMiss = true;
+      }
+    });
+
+    render(component);
+
+    const playerBoard = screen.getByRole('region', {
+      name: 'The Game Board',
+    });
+
+    const cruiser = screen.getByTestId('cruiser');
+    await user.click(cruiser);
+
+    const button45 = within(playerBoard).getByTestId(string45);
+    await user.click(button45);
+
+    const button46 = within(playerBoard).getByTestId(string46);
+    await user.click(button46);
+
+    const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+    const aiButton54 = within(aiBoard).getByTestId('54');
+    await user.click(aiButton54);
+    const aiButton53 = within(aiBoard).getByTestId('53');
+    await user.click(aiButton53);
+
+    const gameOverMenu = screen.getByRole('dialog');
+    const playAgainButton = within(gameOverMenu).getByRole('button', {
+      name: 'Play Again',
+    });
+
+    await user.click(playAgainButton);
+
+    const shipsContainer = screen.getByRole('region', {
+      name: 'The ship buttons',
+    });
+    const boardButtons = within(playerBoard).getAllByRole('button', {
+      name: '',
+    });
+
+    expect(shipsContainer).toBeInTheDocument();
+    expect(aiBoard).not.toBeInTheDocument();
+    boardButtons.forEach((button) => {
+      const buttonStyle = getComputedStyle(button);
+      expect(buttonStyle.background).toEqual('rgba(0, 0, 0, 0)');
+    });
+  });
 });
