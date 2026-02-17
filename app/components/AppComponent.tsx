@@ -168,9 +168,49 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     }
   };
 
+  const resetPlayer = (player: gameBoardInterface) => {
+    const newPlayer = { ...player };
+    const board = newPlayer.board.map((square) => {
+      square.imageDirection = null;
+      square.imageNumber = null;
+      square.isHit = false;
+      square.isMiss = false;
+      square.ship = null;
+      return square;
+    });
+    const ship = newPlayer.props.allShips.map((ship) => {
+      ship.props.hit = 0;
+      ship.props.sunk = false;
+      ship.props.shipStartPoint = 0;
+      ship.props.shipEndPoint = 0;
+      ship.props.isPlaced = false;
+      ship.props.placedLocations = [];
+      ship.props.hitLocations = [];
+      return ship;
+    });
+    newPlayer.board = board;
+    newPlayer.props.allShips = ship;
+    newPlayer.props.winner = false;
+    newPlayer.props.allShipsPlaced = false;
+    newPlayer.props.selectedShip = null;
+
+    if (player === playerGameBoard) {
+      setPlayerGameBoard(newPlayer);
+    } else {
+      setAiGameBoard(newPlayer);
+    }
+  };
+
+  const resetGame = () => {
+    resetPlayer(playerGameBoard);
+    resetPlayer(aiGameBoard);
+  };
+
   return (
     <main>
-      {isThereAWinner() && <GameOverMenu winLoseText={winnerLoserText()} />}
+      {isThereAWinner() && (
+        <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
+      )}
       {!playerGameBoard.props.allShipsPlaced && (
         <ShipButtonComponent
           buttons={allShips}

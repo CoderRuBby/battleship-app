@@ -31,26 +31,4 @@ describe('Ship', () => {
       expect(Ship1.props.hitLocations).toEqual([5, 6]);
     });
   });
-
-  describe('reset', () => {
-    it('will reset ship props', () => {
-      Ship1.props.hit = 2;
-      Ship1.props.sunk = true;
-      Ship1.props.shipStartPoint = 46;
-      Ship1.props.shipEndPoint = 45;
-      Ship1.props.isPlaced = true;
-      Ship1.props.placedLocations = [45, 46];
-      Ship1.props.hitLocations = [45, 46];
-
-      Ship1.reset();
-
-      expect(Ship1.props.hit).toBe(0);
-      expect(Ship1.props.sunk).toBe(false);
-      expect(Ship1.props.shipStartPoint).toBe(0);
-      expect(Ship1.props.shipEndPoint).toBe(0);
-      expect(Ship1.props.isPlaced).toBe(false);
-      expect(Ship1.props.placedLocations).toEqual([]);
-      expect(Ship1.props.hitLocations).toEqual([]);
-    });
-  });
 });

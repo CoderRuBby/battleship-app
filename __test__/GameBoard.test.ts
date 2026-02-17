@@ -38,33 +38,4 @@ describe('GameBoard', () => {
       expect(Player.props.winner).toBe(true);
     });
   });
-
-  describe('reset', () => {
-    it('will reset the board and props', () => {
-      Player.board[45].imageDirection = 'up';
-      Player.board[47].imageNumber = 2;
-      Player.board[66].ship = Player.props.allShips[0];
-      Player.board[87].isHit = true;
-      Player.board[23].isMiss = true;
-      Player.props.allShipsPlaced = true;
-      Player.props.winner = true;
-      Player.props.selectedShip = Player.props.allShips[0];
-      Player.props.allShips[0].props.isPlaced = true;
-      Player.props.allShips[1].props.isPlaced = true;
-      Player.props.allShips[2].props.isPlaced = true;
-      Player.props.allShips[3].props.isPlaced = true;
-      Player.props.allShips[4].props.isPlaced = true;
-
-      Player.reset();
-
-      expect(Player.board[45].imageDirection).toBe(null);
-      expect(Player.board[47].imageNumber).toBe(null);
-      expect(Player.board[66].ship).toEqual(null);
-      expect(Player.board[87].isHit).toBe(false);
-      expect(Player.board[23].isMiss).toBe(false);
-      expect(Player.props.allShipsPlaced).toBe(false);
-      expect(Player.props.winner).toBe(false);
-      expect(Player.props.selectedShip).toEqual(null);
-    });
-  });
 });

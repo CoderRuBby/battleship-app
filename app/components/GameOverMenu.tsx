@@ -1,12 +1,16 @@
 export interface gameOverMenuInterface {
   winLoseText: string;
+  resetGame: () => void;
 }
 
-export function GameOverMenu({ winLoseText }: gameOverMenuInterface) {
+export function GameOverMenu({
+  winLoseText,
+  resetGame,
+}: gameOverMenuInterface) {
   return (
     <div role='dialog'>
       <h1>You {winLoseText}</h1>
-      <button>Play Again</button>
+      <button onClick={resetGame}>Play Again</button>
     </div>
   );
 }

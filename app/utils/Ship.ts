@@ -15,7 +15,6 @@ export interface shipInterface {
   addShipStart: (squareNumber: number) => void;
   addShipEndPoint: (squareNumber: number) => void;
   getHitLocations: () => void;
-  reset: () => void;
 }
 
 export default function ship(name: string, length: number): shipInterface {
@@ -49,15 +48,6 @@ export default function ship(name: string, length: number): shipInterface {
   const getHitLocations = (): number[] => {
     return props.hitLocations;
   };
-  const reset = () => {
-    props.hit = 0;
-    props.sunk = false;
-    props.shipStartPoint = 0;
-    props.shipEndPoint = 0;
-    props.isPlaced = false;
-    props.placedLocations = [];
-    props.hitLocations = [];
-  };
   return {
     props,
     isHit,
@@ -65,6 +55,5 @@ export default function ship(name: string, length: number): shipInterface {
     addShipStart,
     addShipEndPoint,
     getHitLocations,
-    reset,
   };
 }
