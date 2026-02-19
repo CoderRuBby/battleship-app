@@ -1093,10 +1093,17 @@ describe('App', () => {
     const button23 = within(aiBoard).getByTestId('23');
     await user.click(button23);
 
-    const isHitOrMiss = playerGameBoard.board.some(
-      (board) => board.isHit === true || board.isMiss === true,
-    );
-    expect(isHitOrMiss).toBe(true);
+    const boardButtons = within(playerBoard).getAllByRole('button', {
+      name: '',
+    });
+    const found = boardButtons.some((button) => {
+      const style = getComputedStyle(button);
+      return (
+        style.background.includes('hit.png') ||
+        style.background.includes('miss.png')
+      );
+    });
+    expect(found).toBe(true);
   });
 
   test('verify a hit renders on the ai gameboard', async () => {
