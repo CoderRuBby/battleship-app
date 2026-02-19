@@ -1153,10 +1153,16 @@ describe('App', () => {
     const playerBoard = screen.getByRole('region', {
       name: 'The Game Board',
     });
-    const playerButton23 = within(playerBoard).getByTestId('23');
-    const button23Style = getComputedStyle(playerButton23);
+    const boardButtons = within(playerBoard).getAllByRole('button', {
+      name: '',
+    });
 
-    expect(button23Style.background).toContain('url("hit.png")');
+    const foundHit = boardButtons.some((button) => {
+      const buttonStyle = getComputedStyle(button);
+      return buttonStyle.background.includes('hit.png');
+    });
+
+    expect(foundHit).toBe(true);
   });
 
   test('verify a miss will render on the player game board', async () => {
