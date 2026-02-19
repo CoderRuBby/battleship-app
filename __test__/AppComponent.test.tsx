@@ -1163,7 +1163,6 @@ describe('App', () => {
     const user = userEvent.setup();
     aiGameBoard.props.allShipsPlaced = true;
     playerGameBoard.props.allShipsPlaced = true;
-    let isMiss = false;
 
     render(component);
 
@@ -1181,13 +1180,12 @@ describe('App', () => {
       name: '',
     });
 
-    boardButtons.forEach((button) => {
+    const foundMiss = boardButtons.some((button) => {
       const buttonStyle = getComputedStyle(button);
-      if (buttonStyle.background === 'rgba(0, 0, 0, 0)') {
-        isMiss = true;
-      }
-      expect(isMiss).toBe(true);
+      return buttonStyle.background.includes('miss.png');
     });
+
+    expect(foundMiss).toBe(true);
   });
 
   test('verify game over menu renders with you win', async () => {
