@@ -822,6 +822,71 @@ describe('App', () => {
         expect(aiBoard).toBeInTheDocument();
       });
 
+      test('ai gameboard will not render placed ships', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+
+        const destroyer = screen.getByTestId('destroyer');
+        await user.click(destroyer);
+
+        const button45 = within(playerBoard).getByTestId('45');
+        await user.click(button45);
+
+        const button47 = within(playerBoard).getByTestId('47');
+        await user.click(button47);
+
+        const carrier = screen.getByTestId('carrier');
+        await user.click(carrier);
+
+        const button55 = within(playerBoard).getByTestId('55');
+        await user.click(button55);
+
+        const button59 = within(playerBoard).getByTestId('59');
+        await user.click(button59);
+
+        const battleship = screen.getByTestId('battleship');
+        await user.click(battleship);
+
+        const button0 = within(playerBoard).getByTestId('0');
+        await user.click(button0);
+
+        const button30 = within(playerBoard).getByTestId('30');
+        await user.click(button30);
+
+        const submarine = screen.getByTestId('submarine');
+        await user.click(submarine);
+
+        const button99 = within(playerBoard).getByTestId('99');
+        await user.click(button99);
+
+        const button79 = within(playerBoard).getByTestId('79');
+        await user.click(button79);
+
+        const cruiser = screen.getByTestId('cruiser');
+        await user.click(cruiser);
+
+        const button9 = within(playerBoard).getByTestId('9');
+        await user.click(button9);
+
+        const button8 = within(playerBoard).getByTestId('8');
+        await user.click(button8);
+
+        const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
+        const aiBoardButtons = within(aiBoard).getAllByRole('button', {
+          name: '',
+        });
+
+        aiBoardButtons.forEach((button) => {
+          const buttonStyle = getComputedStyle(button);
+          expect(buttonStyle.background).toEqual('rgba(0, 0, 0, 0)');
+        });
+      });
+
       test('verify ship buttons are not rendered after all ships have been placed', async () => {
         const user = userEvent.setup();
 
