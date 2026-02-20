@@ -14,12 +14,14 @@ export interface gameBoardInterface {
     winner: boolean;
     selectedShip: shipInterface | null;
     allShips: shipInterface[];
+    aiPlayer: boolean;
   };
   isWinner: (opponentGameBoard: gameBoardInterface) => boolean;
 }
 
 export default function gameBoard(
   allShipsArray: shipInterface[],
+  aiPlayer: boolean = false,
 ): gameBoardInterface {
   const board = Array.from({ length: 100 }, (_, index) => ({
     id: index,
@@ -34,6 +36,7 @@ export default function gameBoard(
     allShips: allShipsArray,
     winner: false,
     selectedShip: null,
+    aiPlayer,
   };
   const isWinner = (opponentGameBoard: gameBoardInterface): boolean => {
     let winner: boolean = true;

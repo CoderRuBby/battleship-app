@@ -44,7 +44,7 @@ describe('App', () => {
       aiBattleship,
       aiCruiser,
     ];
-    aiGameBoard = gameBoard(aiShipsArray);
+    aiGameBoard = gameBoard(aiShipsArray, true);
 
     component = (
       <AppComponent

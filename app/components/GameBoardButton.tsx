@@ -21,13 +21,14 @@ export function GameBoardButton({
   const imgNumber = boardNumber?.imageNumber;
   const imgDirection = boardNumber?.imageDirection;
   const selectedShipName = board.props.selectedShip?.props.name;
+  const isAi = board.props.aiPlayer;
   const buttonStyle = {
     background:
       boardNumber?.isHit === true
         ? 'url("hit.png")'
         : boardNumber?.isMiss === true
           ? 'url("miss.png")'
-          : boardNumber?.ship !== null
+          : boardNumber?.ship !== null && isAi === false
             ? `url("${shipName}${imgNumber}${imgDirection}.png")`
             : imgNumber !== null
               ? `url("${selectedShipName}${imgNumber}${imgDirection}.png")`
