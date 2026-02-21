@@ -1,11 +1,13 @@
 import { render, screen, within } from '@testing-library/react';
-import { beforeEach, describe, expect, it, test } from 'vitest';
+import { beforeEach, describe, expect, it, test, vi } from 'vitest';
 import type { shipInterface } from '~/utils/ship';
 import ship from '~/utils/ship';
 import { AppComponent } from '~/components/AppComponent';
 import userEvent from '@testing-library/user-event';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 import gameBoard from '~/utils/gameBoard';
+import type { shipPlacementSystemInterface } from '~/utils/shipPlacementSystem';
+import shipPlacementSystem from '~/utils/shipPlacementSystem';
 
 describe('App', () => {
   let carrier: shipInterface;
@@ -23,6 +25,7 @@ describe('App', () => {
   let aiCruiser: shipInterface;
   let aiShipsArray: shipInterface[];
   let aiGameBoard: gameBoardInterface;
+  let shipPlacingLogic: shipPlacementSystemInterface;
 
   beforeEach(() => {
     carrier = ship('carrier', 5);
@@ -45,6 +48,7 @@ describe('App', () => {
       aiCruiser,
     ];
     aiGameBoard = gameBoard(aiShipsArray, true);
+    shipPlacingLogic = shipPlacementSystem();
 
     component = (
       <AppComponent
@@ -358,6 +362,31 @@ describe('App', () => {
 
   describe('ship placement phase', () => {
     describe('user', () => {
+      test('verify clicking gameboard with no ship selected does nothing', async () => {
+        const user = userEvent.setup();
+        const placingLogicSpy = vi.spyOn(
+          shipPlacingLogic,
+          'shipPlacementLogic',
+        );
+
+        render(component);
+
+        const square34 = screen.getByTestId('34');
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+        const gameBoardButtons = within(playerBoard).getAllByRole('button', {
+          name: '',
+        });
+
+        await user.click(square34);
+
+        gameBoardButtons.forEach((button) => {
+          expect(button.style.background).toEqual('rgba(0, 0, 0, 0)');
+        });
+        expect(placingLogicSpy).not.toBeCalled();
+      });
+
       test('verify user can select a ship', async () => {
         const user = userEvent.setup();
 
