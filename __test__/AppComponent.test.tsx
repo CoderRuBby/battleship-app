@@ -419,7 +419,7 @@ describe('App', () => {
         expect(carrierButton.style.background).toEqual('url("carrier.png")');
       });
 
-      test('verify user interface renders a placed ship on the gameboard', async () => {
+      test('verify user can place a ship on the gameboard', async () => {
         const user = userEvent.setup();
 
         render(component);
