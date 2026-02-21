@@ -33,7 +33,7 @@ export function GameBoardButton({
             ? 'url("miss.png")'
             : boardNumber?.ship !== null && isAi === false
               ? `url("${shipName}${imgNumber}${imgDirection}.png")`
-              : imgNumber !== null
+              : imgNumber !== null && isAi === false
                 ? `url("${selectedShipName}${imgNumber}${imgDirection}.png")`
                 : 'rgba(0, 0, 0, 0)',
   };

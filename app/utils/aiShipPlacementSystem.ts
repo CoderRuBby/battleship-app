@@ -47,36 +47,43 @@ export default function aiShipPlacementSystem() {
     const shipPlacementLogic = shipPlacementSystem();
 
     board.props.allShips.forEach((ship) => {
-      board.props.selectedShip = ship;
+      if (ship.props.isPlaced === false) {
+        board.props.selectedShip = ship;
 
-      const square = randomSquare(100, board);
-      ship.addShipStart(square);
+        const square = randomSquare(100, board);
+        ship.addShipStart(square);
 
-      const shipPaths = shipPlacementLogic.getShipPaths(
-        ship.props.length,
-        square,
-        board,
-      );
+        const shipPaths = shipPlacementLogic.getShipPaths(
+          ship.props.length,
+          square,
+          board,
+        );
 
-      const chosenPath =
-        shipPaths[Math.floor(Math.random() * shipPaths.length)];
+        const chosenPath =
+          shipPaths[Math.floor(Math.random() * shipPaths.length)];
 
-      const endPointRight = chosenPath.array[chosenPath.array.length - 1];
-      const endPointLeft = chosenPath.array[0];
-      if (endPointLeft === square) {
-        ship.addShipEndPoint(endPointRight);
-      } else {
-        ship.addShipEndPoint(endPointLeft);
-      }
+        const endPointRight = chosenPath.array[chosenPath.array.length - 1];
+        const endPointLeft = chosenPath.array[0];
+        if (endPointLeft === square) {
+          ship.addShipEndPoint(endPointRight);
+        } else {
+          ship.addShipEndPoint(endPointLeft);
+        }
 
-      chosenPath.array.forEach((location) => {
-        board.board[location].ship = ship;
-      });
+        chosenPath.array.forEach((location, index) => {
+          ship.props.placedLocations.push(location);
+          board.board[location].ship = ship;
+          board.board[location].imageDirection = chosenPath.direction;
+          board.board[location].imageNumber = index;
+        });
 
-      ship.props.isPlaced = true;
+        ship.props.isPlaced = true;
 
-      if (shipPlacementLogic.areAllShipsPlaced(board.props.allShips) === true) {
-        board.props.allShipsPlaced = true;
+        if (
+          shipPlacementLogic.areAllShipsPlaced(board.props.allShips) === true
+        ) {
+          board.props.allShipsPlaced = true;
+        }
       }
     });
 
