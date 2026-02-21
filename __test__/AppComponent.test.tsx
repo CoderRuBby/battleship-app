@@ -371,6 +371,25 @@ describe('App', () => {
           'url("highlightedcarrier.png")',
         );
       });
+
+      test('verify user can deselect a selected ship', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const carrierButton = screen.getByTestId('carrier');
+
+        await user.click(carrierButton);
+
+        expect(carrierButton.style.background).toEqual(
+          'url("highlightedcarrier.png")',
+        );
+
+        await user.click(carrierButton);
+
+        expect(carrierButton.style.background).toEqual('url("carrier.png")');
+      });
+
       test('verify user interface renders a placed ship on the gameboard', async () => {
         const user = userEvent.setup();
 
