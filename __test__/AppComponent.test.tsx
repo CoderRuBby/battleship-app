@@ -1152,29 +1152,43 @@ describe('App', () => {
       });
 
       test('a sunk ship will render on ai game board', async () => {
-        const aiDestroyer = aiGameBoard.props.allShips[1];
-        const aiBoard45 = aiGameBoard.board[45];
-        const aiBoard46 = aiGameBoard.board[46];
-        const aiBoard47 = aiGameBoard.board[47];
-        aiBoard45.ship = aiDestroyer;
-        aiBoard45.imageDirection = 'right';
-        aiBoard45.imageNumber = 0;
-        aiBoard46.ship = aiDestroyer;
-        aiBoard46.imageDirection = 'right';
-        aiBoard46.imageNumber = 1;
-        aiBoard47.ship = aiDestroyer;
-        aiBoard47.imageDirection = 'right';
-        aiBoard47.imageNumber = 2;
-        aiGameBoard.props.allShipsPlaced = true;
-        playerGameBoard.props.allShipsPlaced = true;
         const user = userEvent.setup();
+        const square45BGRight = 'cruiser0right-sunk.png';
+        const square46BGRight = 'cruiser1right-sunk.png';
+        const square45BGLeft = 'cruiser0left-sunk.png';
+        const square46BGLeft = 'cruiser1left-sunk.png';
+        aiGameBoard.board.forEach((square) => {
+          if (square.id !== 45 && square.id !== 46) {
+            square.ship = aiGameBoard.props.allShips[0];
+          }
+        });
+        aiGameBoard.props.allShips[0].props.isPlaced = true;
+        aiGameBoard.props.allShips[1].props.isPlaced = true;
+        aiGameBoard.props.allShips[2].props.isPlaced = true;
+        aiGameBoard.props.allShips[3].props.isPlaced = true;
+        playerGameBoard.props.allShips[0].props.isPlaced = true;
+        playerGameBoard.props.allShips[1].props.isPlaced = true;
+        playerGameBoard.props.allShips[2].props.isPlaced = true;
+        playerGameBoard.props.allShips[3].props.isPlaced = true;
 
         render(component);
+
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+
+        const cruiser = screen.getByTestId('cruiser');
+        await user.click(cruiser);
+
+        const button45 = within(playerBoard).getByTestId('45');
+        await user.click(button45);
+
+        const button46 = within(playerBoard).getByTestId('46');
+        await user.click(button46);
 
         const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
         const aiBoardButton45 = within(aiBoard).getByTestId('45');
         const aiBoardButton46 = within(aiBoard).getByTestId('46');
-        const aiBoardButton47 = within(aiBoard).getByTestId('47');
 
         await user.click(aiBoardButton45);
 
@@ -1183,30 +1197,19 @@ describe('App', () => {
         expect(aiBoardButtonStyle.background).toContain('hit.png');
 
         await user.click(aiBoardButton46);
-
         aiBoardButtonStyle = getComputedStyle(aiBoardButton46);
+        const isRightLeft45 =
+          aiBoardButtonStyle.background.includes(square46BGLeft) ||
+          aiBoardButtonStyle.background.includes(square46BGRight);
 
-        expect(aiBoardButtonStyle.background).toContain('hit.png');
-
-        await user.click(aiBoardButton47);
+        expect(isRightLeft45).toBe(true);
 
         aiBoardButtonStyle = getComputedStyle(aiBoardButton45);
+        const isRightLeft46 =
+          aiBoardButtonStyle.background.includes(square45BGLeft) ||
+          aiBoardButtonStyle.background.includes(square45BGRight);
 
-        expect(aiBoardButtonStyle.background).toContain(
-          'destroyer0right-sunk.png',
-        );
-
-        aiBoardButtonStyle = getComputedStyle(aiBoardButton46);
-
-        expect(aiBoardButtonStyle.background).toContain(
-          'destroyer1right-sunk.png',
-        );
-
-        aiBoardButtonStyle = getComputedStyle(aiBoardButton47);
-
-        expect(aiBoardButtonStyle.background).toContain(
-          'destroyer2right-sunk.png',
-        );
+        expect(isRightLeft46).toBe(true);
       });
     });
 
