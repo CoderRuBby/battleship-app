@@ -358,6 +358,19 @@ describe('App', () => {
 
   describe('ship placement phase', () => {
     describe('user', () => {
+      test('verify user can select a ship', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const carrierButton = screen.getByTestId('carrier');
+
+        await user.click(carrierButton);
+
+        expect(carrierButton.style.background).toEqual(
+          'url("highlightedcarrier.png")',
+        );
+      });
       test('verify user interface renders a placed ship on the gameboard', async () => {
         const user = userEvent.setup();
 
