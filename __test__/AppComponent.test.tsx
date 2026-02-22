@@ -387,6 +387,68 @@ describe('App', () => {
         expect(placingLogicSpy).not.toBeCalled();
       });
 
+      test('verify clicking a square with a ship selected renders possible ship placement locations', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+        const carrierButton = screen.getByTestId('carrier');
+        const square26 = within(playerBoard).getByTestId('26');
+        const square66 = within(playerBoard).getByTestId('66');
+
+        await user.click(carrierButton);
+        await user.click(square26);
+        await user.click(square66);
+
+        const cruiserButton = screen.getByTestId('cruiser');
+        const startPoint = within(playerBoard).getByTestId('35');
+
+        await user.click(cruiserButton);
+        await user.click(startPoint);
+
+        const allBoardSquares = within(playerBoard).getAllByRole('button', {
+          name: '',
+        });
+
+        // start point = 35
+        // possible placements = [25, 45, 34]
+        expect(allBoardSquares[35].style.background).toEqual(
+          'rgba(0, 0, 0, 0)',
+        );
+        expect(allBoardSquares[25].style.background).toContain(
+          'url("cruiser0up.png")',
+        );
+        expect(allBoardSquares[45].style.background).toContain(
+          'url("cruiser1down.png")',
+        );
+        expect(allBoardSquares[34].style.background).toContain(
+          'url("cruiser0left.png")',
+        );
+        expect(allBoardSquares[36].style.background).toContain(
+          'url("carrier1down.png")',
+        );
+      });
+
+      test('verify placing a ship on non valid locations does nothing', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const carrierButton = screen.getByTestId('carrier');
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+        const startPoint = within(playerBoard).getByTestId('35');
+        const nonValidSquare67 = within(playerBoard).getByTestId('67');
+
+        await user.click(carrierButton);
+        await user.click(startPoint);
+        await user.click(nonValidSquare67);
+      });
+
       test('verify user interface renders a placed ship on the gameboard', async () => {
         const user = userEvent.setup();
 
