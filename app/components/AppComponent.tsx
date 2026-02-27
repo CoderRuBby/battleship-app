@@ -38,7 +38,24 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     setPlayerGameBoard(newBoard);
   };
 
+  const isNumberInPaths = (id: number) => {
+    const selectedShip = playerGameBoard.props.selectedShip!;
+    const paths = getShipPaths(
+      selectedShip.props.length,
+      selectedShip.props.shipStartPoint!,
+      playerGameBoard,
+    );
+
+    return paths.some((number) => number.array.includes(id));
+  };
+
   const gameBoardOnClick = (id: number) => {
+    if (
+      playerGameBoard.props.selectedShip?.props.shipStartPoint &&
+      isNumberInPaths(id) === false
+    ) {
+      return;
+    }
     if (
       playerGameBoard.props.allShipsPlaced === false &&
       playerGameBoard.props.selectedShip?.props.shipStartPoint !== id
