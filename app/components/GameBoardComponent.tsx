@@ -7,6 +7,7 @@ interface GameBoardComponentProps {
   handleMouseLeave: () => void;
   handleOnClick: (id: number) => void;
   label: string;
+  dblClick: () => void;
 }
 
 export function GameBoardComponent({
@@ -15,6 +16,7 @@ export function GameBoardComponent({
   handleMouseEnter,
   handleMouseLeave,
   label,
+  dblClick,
 }: GameBoardComponentProps) {
   return (
     <section role='region' aria-label={label}>
@@ -26,6 +28,7 @@ export function GameBoardComponent({
           handleOnClick={handleOnClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
+          dblClick={dblClick}
         />
       ))}
     </section>

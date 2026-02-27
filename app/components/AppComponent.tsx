@@ -39,7 +39,10 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
   };
 
   const gameBoardOnClick = (id: number) => {
-    if (playerGameBoard.props.allShipsPlaced === false) {
+    if (
+      playerGameBoard.props.allShipsPlaced === false &&
+      playerGameBoard.props.selectedShip?.props.shipStartPoint !== id
+    ) {
       const newBoard = {
         ...shipPlacementLogic(id, playerGameBoard),
       };
@@ -206,6 +209,18 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     resetPlayer(aiGameBoard);
   };
 
+  const dblClick = () => {
+    const newBoard = { ...playerGameBoard };
+    newBoard.props.selectedShip!.props.shipStartPoint = null;
+    newBoard.board.map((square) => {
+      if (square.ship === null) {
+        square.imageNumber = null;
+        square.imageDirection = null;
+      }
+    });
+    setPlayerGameBoard(newBoard);
+  };
+
   return (
     <main>
       {isThereAWinner() && (
@@ -224,6 +239,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
           handleMouseLeave={handleMouseLeave}
           handleOnClick={aiGameBoardOnClick}
           label='Ai Game Board'
+          dblClick={() => {}}
         />
       )}
       <GameBoardComponent
@@ -232,6 +248,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
         handleMouseLeave={handleMouseLeave}
         handleOnClick={gameBoardOnClick}
         label='The Game Board'
+        dblClick={dblClick}
       />
     </main>
   );
