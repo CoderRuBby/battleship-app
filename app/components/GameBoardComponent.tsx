@@ -7,7 +7,7 @@ interface GameBoardComponentProps {
   handleMouseLeave: () => void;
   handleOnClick: (id: number) => void;
   label: string;
-  dblClick: () => void;
+  dblClick: (id: number) => void;
 }
 
 export function GameBoardComponent({

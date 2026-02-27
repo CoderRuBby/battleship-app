@@ -6,7 +6,7 @@ interface GameBoardButtonProps {
   onMouseEnter: (id: number) => void;
   onMouseLeave: () => void;
   handleOnClick: (id: number) => void;
-  dblClick: () => void;
+  dblClick: (id: number) => void;
 }
 
 export function GameBoardButton({
@@ -46,7 +46,7 @@ export function GameBoardButton({
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => handleOnClick(Number(testId))}
-      onDoubleClick={() => dblClick()}
+      onDoubleClick={() => dblClick(Number(testId))}
     ></button>
   );
 }

@@ -226,16 +226,18 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     resetPlayer(aiGameBoard);
   };
 
-  const dblClick = () => {
+  const dblClick = (id: number) => {
     const newBoard = { ...playerGameBoard };
-    newBoard.props.selectedShip!.props.shipStartPoint = null;
-    newBoard.board.map((square) => {
-      if (square.ship === null) {
-        square.imageNumber = null;
-        square.imageDirection = null;
-      }
-    });
-    setPlayerGameBoard(newBoard);
+    if (id === newBoard.props.selectedShip!.props.shipStartPoint) {
+      newBoard.props.selectedShip!.props.shipStartPoint = null;
+      newBoard.board.map((square) => {
+        if (square.ship === null) {
+          square.imageNumber = null;
+          square.imageDirection = null;
+        }
+      });
+      setPlayerGameBoard(newBoard);
+    }
   };
 
   return (
