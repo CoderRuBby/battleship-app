@@ -599,6 +599,30 @@ describe('App', () => {
 
         expect(button9Style.background).toContain('url("cruiser1left.png")');
       });
+
+      test('a ship can be moved after being partially placed', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const cruiserButton = screen.getByTestId('cruiser');
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+        const square45 = within(playerBoard).getByTestId('45');
+
+        await user.click(cruiserButton);
+        await user.click(square45);
+        await user.dblClick(square45);
+
+        const allSquares = within(playerBoard).getAllByRole('button', {
+          name: '',
+        });
+
+        allSquares.forEach((square) => {
+          expect(square.style.background).toEqual('rgba(0, 0, 0, 0)');
+        });
+      });
     });
 
     describe('ai', () => {
