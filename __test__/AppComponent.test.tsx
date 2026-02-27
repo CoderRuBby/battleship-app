@@ -600,6 +600,70 @@ describe('App', () => {
         expect(button9Style.background).toContain('url("cruiser1left.png")');
       });
 
+      test('Placing a ship on non valid locations does nothing', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const carrierButton = screen.getByTestId('carrier');
+        const playerBoard = screen.getByRole('region', {
+          name: 'The Game Board',
+        });
+        const startPoint = within(playerBoard).getByTestId('35');
+        const nonValidSquare67 = within(playerBoard).getByTestId('67');
+
+        await user.click(carrierButton);
+        await user.click(startPoint);
+        await user.click(nonValidSquare67);
+
+        const allBoardSquares = within(playerBoard).getAllByRole('button', {
+          name: '',
+        });
+
+        // start point = 35
+        // possible placements = [36, 37, 38, 39, 45, 55, 65, 75, 34, 33, 32, 31]
+        expect(allBoardSquares[35].style.background).toEqual(
+          'rgba(0, 0, 0, 0)',
+        );
+        expect(allBoardSquares[36].style.background).toContain(
+          'url("carrier1right.png")',
+        );
+        expect(allBoardSquares[37].style.background).toContain(
+          'url("carrier2right.png")',
+        );
+        expect(allBoardSquares[38].style.background).toContain(
+          'url("carrier3right.png")',
+        );
+        expect(allBoardSquares[39].style.background).toContain(
+          'url("carrier4right.png")',
+        );
+        expect(allBoardSquares[45].style.background).toContain(
+          'url("carrier1down.png")',
+        );
+        expect(allBoardSquares[55].style.background).toContain(
+          'url("carrier2down.png")',
+        );
+        expect(allBoardSquares[65].style.background).toContain(
+          'url("carrier3down.png")',
+        );
+        expect(allBoardSquares[75].style.background).toContain(
+          'url("carrier4down.png")',
+        );
+        expect(allBoardSquares[34].style.background).toContain(
+          'url("carrier3left.png")',
+        );
+        expect(allBoardSquares[33].style.background).toContain(
+          'url("carrier2left.png")',
+        );
+        expect(allBoardSquares[32].style.background).toContain(
+          'url("carrier1left.png")',
+        );
+        expect(allBoardSquares[31].style.background).toContain(
+          'url("carrier0left.png")',
+        );
+        expect(nonValidSquare67.style.background).toEqual('rgba(0, 0, 0, 0)');
+      });
+
       test('a ship can be moved after being partially placed', async () => {
         const user = userEvent.setup();
 
