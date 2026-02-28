@@ -201,8 +201,8 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
     const ship = newPlayer.props.allShips.map((ship) => {
       ship.props.hit = 0;
       ship.props.sunk = false;
-      ship.props.shipStartPoint = 0;
-      ship.props.shipEndPoint = 0;
+      ship.props.shipStartPoint = null;
+      ship.props.shipEndPoint = null;
       ship.props.isPlaced = false;
       ship.props.placedLocations = [];
       ship.props.hitLocations = [];
