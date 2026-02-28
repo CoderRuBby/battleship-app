@@ -228,9 +228,31 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const dblClick = (id: number) => {
     const newBoard = { ...playerGameBoard };
-    if (id === newBoard.props.selectedShip!.props.shipStartPoint) {
-      newBoard.props.selectedShip!.props.shipStartPoint = null;
-      newBoard.board.map((square) => {
+    const shipAtSquare = newBoard.board[id].ship;
+    if (shipAtSquare?.props.isPlaced === true) {
+      shipAtSquare.props.shipStartPoint = null;
+      shipAtSquare.props.shipEndPoint = null;
+      shipAtSquare.props.isPlaced = false;
+      shipAtSquare.props.placedLocations = [];
+      shipAtSquare.props.hitLocations = [];
+      newBoard.board.forEach((square) => {
+        if (square.ship === shipAtSquare) {
+          square.ship = null;
+          square.imageDirection = null;
+          square.imageNumber = null;
+        }
+      });
+      newBoard.props.selectedShip = shipAtSquare;
+      setPlayerGameBoard(newBoard);
+      return;
+    }
+
+    if (
+      newBoard.props.selectedShip &&
+      id === newBoard.props.selectedShip.props.shipStartPoint
+    ) {
+      newBoard.props.selectedShip.props.shipStartPoint = null;
+      newBoard.board.forEach((square) => {
         if (square.ship === null) {
           square.imageNumber = null;
           square.imageDirection = null;
