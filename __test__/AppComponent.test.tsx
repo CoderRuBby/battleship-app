@@ -687,6 +687,39 @@ describe('App', () => {
           expect(square.style.background).toEqual('rgba(0, 0, 0, 0)');
         });
       });
+
+      test('double clicking a placed ship allows it to be moved', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const cruiserButton = screen.getByTestId('cruiser');
+        const square34 = screen.getByTestId('34');
+        const square35 = screen.getByTestId('35');
+        const square78 = screen.getByTestId('78');
+        const square79 = screen.getByTestId('79');
+
+        await user.click(cruiserButton);
+        await user.click(square34);
+        await user.click(square35);
+
+        expect(square34.style.background).toContain('cruiser0right.png');
+        expect(square35.style.background).toContain('cruiser1right.png');
+
+        await user.dblClick(square34);
+
+        expect(square34.style.background).toEqual('rgba(0, 0, 0, 0)');
+        expect(square35.style.background).toEqual('rgba(0, 0, 0, 0)');
+        expect(cruiserButton.style.background).toContain(
+          'highlightedcruiser.png',
+        );
+
+        await user.click(square78);
+        await user.click(square79);
+
+        expect(square78.style.background).toContain('cruiser0right.png');
+        expect(square79.style.background).toContain('cruiser1right.png');
+      });
     });
 
     describe('ai', () => {
