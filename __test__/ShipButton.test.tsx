@@ -75,4 +75,20 @@ describe('ShipButton', () => {
 
     expect(style.backgroundImage).toContain('highlightedcarrier.png');
   });
+
+  it('will render a button with an outline background image', () => {
+    playerOne.props.allShips[0].props.isPlaced = true;
+    render(
+      <ShipButton
+        testId='carrier'
+        shipOnClick={onClick}
+        playerOne={playerOne}
+      />,
+    );
+
+    const buttonElement = screen.getByTestId('carrier');
+    const style = getComputedStyle(buttonElement);
+
+    expect(style.backgroundImage).toContain('outline-carrier.png');
+  });
 });
