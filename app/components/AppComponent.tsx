@@ -230,8 +230,14 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
 
   const dblClick = (id: number) => {
     const newBoard = { ...playerGameBoard };
+    const selectedShip = newBoard.props.selectedShip;
     const shipAtSquare = newBoard.board[id].ship;
     if (shipAtSquare?.props.isPlaced === true) {
+      if (selectedShip && selectedShip.props.shipStartPoint) {
+        const startPoint = selectedShip.props.shipStartPoint;
+        newBoard.board[startPoint].ship = null;
+        selectedShip.props.shipStartPoint = null;
+      }
       shipAtSquare.props.shipStartPoint = null;
       shipAtSquare.props.shipEndPoint = null;
       shipAtSquare.props.isPlaced = false;
@@ -245,8 +251,6 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
         }
       });
       newBoard.props.selectedShip = shipAtSquare;
-      setPlayerGameBoard(newBoard);
-      return;
     }
 
     if (
@@ -254,14 +258,16 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
       id === newBoard.props.selectedShip.props.shipStartPoint
     ) {
       newBoard.props.selectedShip.props.shipStartPoint = null;
-      newBoard.board.forEach((square) => {
-        if (square.ship === null) {
-          square.imageNumber = null;
-          square.imageDirection = null;
-        }
-      });
-      setPlayerGameBoard(newBoard);
     }
+
+    newBoard.board.forEach((square) => {
+      if (square.ship === null) {
+        square.imageNumber = null;
+        square.imageDirection = null;
+      }
+    });
+
+    setPlayerGameBoard(newBoard);
   };
 
   return (
