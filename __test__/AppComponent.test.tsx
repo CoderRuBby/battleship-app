@@ -770,6 +770,51 @@ describe('App', () => {
         expect(square78.style.background).toContain('cruiser0right.png');
         expect(square79.style.background).toContain('cruiser1right.png');
       });
+
+      test('moving a placed ship while another is selected, will change the selected ship to the last placed ship', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const cruiserButton = screen.getByTestId('cruiser');
+        const destroyerButton = screen.getByTestId('destroyer');
+        const board = screen.getByRole('region', { name: 'The Game Board' });
+        const allButtons = within(board).getAllByRole('button', { name: '' });
+        const square34 = within(board).getByTestId('34');
+        const square35 = within(board).getByTestId('35');
+        const square67 = within(board).getByTestId('67');
+        const square68 = within(board).getByTestId('68');
+        const square23 = within(board).getByTestId('23');
+        const square24 = within(board).getByTestId('24');
+        const square25 = within(board).getByTestId('25');
+
+        await user.click(cruiserButton);
+        await user.click(square34);
+        await user.click(square35);
+        await user.click(destroyerButton);
+        await user.click(square23);
+        await user.dblClick(square34);
+        allButtons.forEach((button) => {
+          expect(button.style.background).toEqual('rgba(0, 0, 0, 0)');
+        });
+        expect(cruiserButton.style.background).toContain(
+          'highlightedcruiser.png',
+        );
+
+        await user.click(square67);
+        await user.click(square68);
+
+        expect(square67.style.background).toContain('cruiser0right.png');
+        expect(square68.style.background).toContain('cruiser1right.png');
+
+        await user.click(destroyerButton);
+        await user.click(square23);
+        await user.click(square25);
+
+        expect(square23.style.background).toContain('destroyer0right.png');
+        expect(square24.style.background).toContain('destroyer1right.png');
+        expect(square25.style.background).toContain('destroyer2right.png');
+      });
     });
 
     describe('ai', () => {
