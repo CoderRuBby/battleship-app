@@ -11,11 +11,16 @@ export function ShipButton({
   shipOnClick,
   playerOne,
 }: ShipButtonProps) {
+  const shipIndex = playerOne.props.allShips.findIndex(
+    (ship) => ship.props.name === testId,
+  );
   const buttonStyle = {
     background:
       playerOne.props.selectedShip?.props.name === testId
         ? `url("highlighted${testId}.png")`
-        : `url("${testId}.png")`,
+        : playerOne.props.allShips[shipIndex].props.isPlaced === true
+          ? `url("outline-${testId}.png")`
+          : `url("${testId}.png")`,
   };
   return (
     <button
