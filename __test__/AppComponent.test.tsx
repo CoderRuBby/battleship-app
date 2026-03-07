@@ -46,13 +46,7 @@ describe('App', () => {
     ];
     aiGameBoard = gameBoard(aiShipsArray, true);
 
-    component = (
-      <AppComponent
-        allShips={shipsArray}
-        gameBoard={playerGameBoard}
-        ai={aiGameBoard}
-      />
-    );
+    component = <AppComponent gameBoard={playerGameBoard} ai={aiGameBoard} />;
   });
 
   describe('initial render', () => {
@@ -358,6 +352,62 @@ describe('App', () => {
 
   describe('ship placement phase', () => {
     describe('user', () => {
+      test('only one button can be selected at a time', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const buttonOne = screen.getByTestId('carrier');
+        const styleOne = getComputedStyle(buttonOne);
+
+        expect(styleOne.background).toContain('url("carrier.png")');
+
+        await user.click(buttonOne);
+
+        const newStyleOne = getComputedStyle(buttonOne);
+
+        expect(newStyleOne.background).toContain(
+          'url("highlightedcarrier.png")',
+        );
+
+        const buttonTwo = screen.getByTestId('destroyer');
+        const styleTwo = getComputedStyle(buttonTwo);
+
+        expect(styleTwo.background).toContain('url("destroyer.png")');
+
+        await user.click(buttonTwo);
+
+        const newStyleTwo = getComputedStyle(buttonTwo);
+        const buttonOneAgain = screen.getByTestId('carrier');
+        const styleOneAgain = getComputedStyle(buttonOneAgain);
+
+        expect(newStyleTwo.background).toContain(
+          'url("highlighteddestroyer.png")',
+        );
+        expect(styleOneAgain.background).toContain('url("carrier.png")');
+      });
+
+      test('selecting the same button twice deselects it', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const buttonOne = screen.getByTestId('carrier');
+        let style = getComputedStyle(buttonOne);
+
+        await user.click(buttonOne);
+
+        style = getComputedStyle(buttonOne);
+
+        expect(style.background).toContain('url("highlightedcarrier.png")');
+
+        await user.click(buttonOne);
+
+        style = getComputedStyle(buttonOne);
+
+        expect(style.background).toContain('url("carrier.png")');
+      });
+
       test('verify user interface renders a placed ship on the gameboard', async () => {
         const user = userEvent.setup();
 

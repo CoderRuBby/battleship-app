@@ -1,39 +1,28 @@
-import { useState } from 'react';
 import { ShipButton } from './ShipButton';
 import type { shipInterface } from '~/utils/ship';
+import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface ShipButtonComponentProps {
-  buttons: shipInterface[];
+  playerOne: gameBoardInterface;
   handleSelectShip: (shipButton: shipInterface) => void;
 }
 
 export function ShipButtonComponent({
-  buttons,
+  playerOne,
   handleSelectShip,
 }: ShipButtonComponentProps) {
-  const [selectedButton, setSelectedButton] = useState<string | null>(null);
-
-  const handleButtonClick = (shipButton: shipInterface) => {
-    handleSelectShip(shipButton);
-    if (selectedButton === shipButton.props.name) {
-      setSelectedButton(null);
-    } else {
-      setSelectedButton(shipButton.props.name);
-    }
-  };
-
   return (
     <section
       role='region'
       aria-label='The ship buttons'
       className='ship-button-container'
     >
-      {buttons.map((button) => (
+      {playerOne.props.allShips.map((button) => (
         <ShipButton
           key={button.props.name}
           testId={button.props.name}
-          shipOnClick={() => handleButtonClick(button)}
-          isSelected={selectedButton}
+          shipOnClick={() => handleSelectShip(button)}
+          playerOne={playerOne}
         />
       ))}
     </section>

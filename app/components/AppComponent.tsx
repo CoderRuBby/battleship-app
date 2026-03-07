@@ -10,18 +10,16 @@ import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
 
 export interface appComponentProps {
-  allShips: shipInterface[];
   gameBoard: gameBoardInterface;
   ai: gameBoardInterface;
 }
 
-export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
+export function AppComponent({ gameBoard, ai }: appComponentProps) {
   const [playerGameBoard, setPlayerGameBoard] =
     useState<gameBoardInterface>(gameBoard);
   const [aiGameBoard, setAiGameBoard] = useState<gameBoardInterface>(ai);
 
-  const { selectShip, getShipPaths, shipPlacementLogic } =
-    shipPlacementSystem();
+  const { getShipPaths, shipPlacementLogic } = shipPlacementSystem();
 
   const { placeShipOnGameBoard } = aiShipPlacementSystem();
 
@@ -31,10 +29,14 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newBoard = { ...playerGameBoard };
-    newBoard.props.selectedShip = selectShip(
-      shipName,
-      playerGameBoard.props.selectedShip,
-    );
+
+    if (newBoard.props.selectedShip === shipName) {
+      newBoard.props.selectedShip.props.shipStartPoint = null;
+      newBoard.props.selectedShip = null;
+    } else {
+      newBoard.props.selectedShip = shipName;
+    }
+
     setPlayerGameBoard(newBoard);
   };
 
@@ -269,7 +271,7 @@ export function AppComponent({ allShips, gameBoard, ai }: appComponentProps) {
       )}
       {!playerGameBoard.props.allShipsPlaced && (
         <ShipButtonComponent
-          buttons={allShips}
+          playerOne={playerGameBoard}
           handleSelectShip={handleSelectShip}
         />
       )}
