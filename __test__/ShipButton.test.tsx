@@ -91,4 +91,24 @@ describe('ShipButton', () => {
 
     expect(style.backgroundImage).toContain('outline-carrier.png');
   });
+
+  it('will not be able to be selected after ship is placed on the gameboard', async () => {
+    const user = userEvent.setup();
+    playerOne.props.allShips[0].props.isPlaced = true;
+
+    render(
+      <ShipButton
+        testId='carrier'
+        shipOnClick={onClick}
+        playerOne={playerOne}
+      />,
+    );
+
+    const cruiserButton = screen.getByTestId('carrier');
+
+    await user.click(cruiserButton);
+
+    expect(onClick).not.toBeCalled();
+    expect(cruiserButton.style.background).toContain('outline-carrier.png');
+  });
 });
