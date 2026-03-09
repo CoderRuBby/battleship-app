@@ -232,6 +232,11 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
     const newBoard = { ...playerGameBoard };
     const selectedShip = newBoard.props.selectedShip;
     const shipAtSquare = newBoard.board[id].ship;
+
+    if (!newBoard.board[id].ship) {
+      return;
+    }
+
     if (shipAtSquare?.props.isPlaced === true) {
       if (selectedShip && selectedShip.props.shipStartPoint) {
         const startPoint = selectedShip.props.shipStartPoint;
