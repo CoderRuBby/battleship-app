@@ -815,6 +815,29 @@ describe('App', () => {
         expect(square24.style.background).toContain('destroyer1right.png');
         expect(square25.style.background).toContain('destroyer2right.png');
       });
+
+      test('double click will do nothing if no ship is placed on the square', async () => {
+        const user = userEvent.setup();
+
+        render(component);
+
+        const carrierButton = screen.getByTestId('cruiser');
+        const square32 = screen.getByTestId('32');
+        const square33 = screen.getByTestId('33');
+        const square31 = screen.getByTestId('31');
+        const square42 = screen.getByTestId('42');
+        const square22 = screen.getByTestId('22');
+        const square99 = screen.getByTestId('99');
+
+        await user.click(carrierButton);
+        await user.click(square32);
+        await user.dblClick(square99);
+
+        expect(square33.style.background).toContain('cruiser1right.png');
+        expect(square31.style.background).toContain('cruiser0left.png');
+        expect(square42.style.background).toContain('cruiser1down.png');
+        expect(square22.style.background).toContain('cruiser0up.png');
+      });
     });
 
     describe('ai', () => {
