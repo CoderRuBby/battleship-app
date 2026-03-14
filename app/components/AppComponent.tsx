@@ -116,24 +116,16 @@ export function AppComponent({
     index: number,
     direction: string,
   ) => {
-    setPlayer1((prevPlayer1) => {
-      //! refactor: better readability
-      const updatedBoard = [...prevPlayer1.board];
-      if (
-        updatedBoard[square]?.id !== id ||
-        updatedBoard[square].ship !== null
-      ) {
-        updatedBoard[square] = {
-          ...updatedBoard[square],
-          imageNumber: index,
-          imageDirection: direction,
-        };
-      }
-      return {
-        ...prevPlayer1,
-        board: updatedBoard,
-      };
-    });
+    const newBoard = { ...player1 };
+    if (
+      newBoard.board[square]?.id !== id ||
+      newBoard.board[square].ship !== null
+    ) {
+      newBoard.board[square].imageNumber = index;
+      newBoard.board[square].imageDirection = direction;
+    }
+
+    setPlayer1(newBoard);
   };
 
   const handleMouseEnter = (id: number) => {

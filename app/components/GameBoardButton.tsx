@@ -10,7 +10,6 @@ interface GameBoardButtonProps {
 }
 
 export function GameBoardButton({
-  //! refactor: remove redundant props
   testId,
   player,
   onMouseEnter,
