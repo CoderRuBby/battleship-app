@@ -2,7 +2,7 @@ import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface GameBoardButtonProps {
   testId: string;
-  board: gameBoardInterface;
+  player: gameBoardInterface;
   onMouseEnter: (id: number) => void;
   onMouseLeave: () => void;
   handleOnClick: (id: number) => void;
@@ -12,18 +12,18 @@ interface GameBoardButtonProps {
 export function GameBoardButton({
   //! refactor: remove redundant props
   testId,
-  board,
+  player,
   onMouseEnter,
   onMouseLeave,
   handleOnClick,
   dblClick,
 }: GameBoardButtonProps) {
-  const boardNumber = board.board[Number(testId)];
+  const boardNumber = player.board[Number(testId)];
   const shipName = boardNumber?.ship?.props.name;
   const imgNumber = boardNumber?.imageNumber;
   const imgDirection = boardNumber?.imageDirection;
-  const selectedShipName = board.props.selectedShip?.props.name;
-  const isAi = board.props.aiPlayer;
+  const selectedShipName = player.props.selectedShip?.props.name;
+  const isAi = player.props.aiPlayer;
   const isShipSunk = boardNumber?.ship?.props.sunk;
   const buttonStyle = {
     background:

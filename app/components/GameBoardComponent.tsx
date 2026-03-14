@@ -2,7 +2,7 @@ import { GameBoardButton } from './GameBoardButton';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface GameBoardComponentProps {
-  board: gameBoardInterface;
+  player: gameBoardInterface;
   handleMouseEnter: (id: number) => void;
   handleMouseLeave: () => void;
   handleOnClick: (id: number) => void;
@@ -11,7 +11,7 @@ interface GameBoardComponentProps {
 }
 
 export function GameBoardComponent({
-  board,
+  player,
   handleOnClick,
   handleMouseEnter,
   handleMouseLeave,
@@ -20,11 +20,11 @@ export function GameBoardComponent({
 }: GameBoardComponentProps) {
   return (
     <section role='region' aria-label={label}>
-      {board.board.map((square) => (
+      {player.board.map((square) => (
         <GameBoardButton
           key={square.id}
           testId={square.id.toString()}
-          board={board}
+          player={player}
           handleOnClick={handleOnClick}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}

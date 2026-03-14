@@ -46,7 +46,9 @@ describe('App', () => {
     ];
     aiGameBoard = gameBoard(aiShipsArray, true);
 
-    component = <AppComponent gameBoard={playerGameBoard} ai={aiGameBoard} />;
+    component = (
+      <AppComponent player1Board={playerGameBoard} player2Board={aiGameBoard} />
+    );
   });
 
   describe('initial render', () => {

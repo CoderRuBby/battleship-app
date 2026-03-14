@@ -10,14 +10,16 @@ import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
 
 export interface appComponentProps {
-  gameBoard: gameBoardInterface;
-  ai: gameBoardInterface;
+  player1Board: gameBoardInterface;
+  player2Board: gameBoardInterface;
 }
 
-export function AppComponent({ gameBoard, ai }: appComponentProps) {
-  const [playerGameBoard, setPlayerGameBoard] =
-    useState<gameBoardInterface>(gameBoard);
-  const [aiGameBoard, setAiGameBoard] = useState<gameBoardInterface>(ai);
+export function AppComponent({
+  player1Board,
+  player2Board,
+}: appComponentProps) {
+  const [player1, setPlayer1] = useState<gameBoardInterface>(player1Board);
+  const [player2, setPlayer2] = useState<gameBoardInterface>(player2Board);
 
   const { getShipPaths, shipPlacementLogic } = shipPlacementSystem();
 
@@ -28,24 +30,24 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
   const { aiAttackLogic } = aiAttack();
 
   const handleSelectShip = (shipName: shipInterface) => {
-    const newBoard = { ...playerGameBoard };
+    const newPlayer1 = { ...player1 };
 
-    if (newBoard.props.selectedShip === shipName) {
-      newBoard.props.selectedShip.props.shipStartPoint = null;
-      newBoard.props.selectedShip = null;
+    if (newPlayer1.props.selectedShip === shipName) {
+      newPlayer1.props.selectedShip.props.shipStartPoint = null;
+      newPlayer1.props.selectedShip = null;
     } else {
-      newBoard.props.selectedShip = shipName;
+      newPlayer1.props.selectedShip = shipName;
     }
 
-    setPlayerGameBoard(newBoard);
+    setPlayer1(newPlayer1);
   };
 
   const isNumberInPaths = (id: number) => {
-    const selectedShip = playerGameBoard.props.selectedShip!;
+    const selectedShip = player1.props.selectedShip!;
     const paths = getShipPaths(
       selectedShip.props.length,
       selectedShip.props.shipStartPoint!,
-      playerGameBoard,
+      player1,
     );
 
     return paths.some((number) => number.array.includes(id));
@@ -53,46 +55,46 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
 
   const gameBoardOnClick = (id: number) => {
     if (
-      playerGameBoard.props.selectedShip?.props.shipStartPoint &&
+      player1.props.selectedShip?.props.shipStartPoint &&
       isNumberInPaths(id) === false
     ) {
       return;
     }
     if (
-      playerGameBoard.props.allShipsPlaced === false &&
-      playerGameBoard.props.selectedShip?.props.shipStartPoint !== id
+      player1.props.allShipsPlaced === false &&
+      player1.props.selectedShip?.props.shipStartPoint !== id
     ) {
-      const newBoard = {
-        ...shipPlacementLogic(id, playerGameBoard),
+      const updatedPlayer1 = {
+        ...shipPlacementLogic(id, player1),
       };
-      setPlayerGameBoard(newBoard);
+      setPlayer1(updatedPlayer1);
     }
 
     if (
-      playerGameBoard.props.allShipsPlaced === true &&
-      aiGameBoard.props.allShipsPlaced === false
+      player1.props.allShipsPlaced === true &&
+      player2.props.allShipsPlaced === false
     ) {
-      setAiGameBoard(placeShipOnGameBoard);
+      setPlayer2(placeShipOnGameBoard);
     }
   };
 
   const aiGameBoardOnClick = (id: number) => {
     // player attacks, setting opponents board
-    const newAiBoard = logic(id, aiGameBoard);
-    setAiGameBoard(newAiBoard);
-    if (isLoser(newAiBoard)) {
-      const newPlayerBoard = { ...playerGameBoard };
-      newPlayerBoard.props.winner = true;
-      setPlayerGameBoard(newPlayerBoard);
+    const updatedPlayer2 = logic(id, player2);
+    setPlayer2(updatedPlayer2);
+    if (isLoser(updatedPlayer2)) {
+      const updatedPlayer1 = { ...player1 };
+      updatedPlayer1.props.winner = true;
+      setPlayer1(updatedPlayer1);
       return;
     }
     // ai attacks setting the players board
-    const [num, obj] = aiAttackLogic(playerGameBoard);
-    setPlayerGameBoard(obj);
+    const [num, obj] = aiAttackLogic(player1);
+    setPlayer1(obj);
     if (isLoser(obj)) {
-      const newAiBoard = { ...aiGameBoard };
-      newAiBoard.props.winner = true;
-      setAiGameBoard(newAiBoard);
+      const updatedPlayer2 = { ...player2 };
+      updatedPlayer2.props.winner = true;
+      setPlayer2(updatedPlayer2);
       return;
     }
   };
@@ -114,9 +116,9 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
     index: number,
     direction: string,
   ) => {
-    setPlayerGameBoard((prevPlayerGameBoard) => {
+    setPlayer1((prevPlayer1) => {
       //! refactor: better readability
-      const updatedBoard = [...prevPlayerGameBoard.board];
+      const updatedBoard = [...prevPlayer1.board];
       if (
         updatedBoard[square]?.id !== id ||
         updatedBoard[square].ship !== null
@@ -128,21 +130,21 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
         };
       }
       return {
-        ...prevPlayerGameBoard,
+        ...prevPlayer1,
         board: updatedBoard,
       };
     });
   };
 
   const handleMouseEnter = (id: number) => {
-    if (playerGameBoard.props.selectedShip?.props.shipStartPoint !== null) {
+    if (player1.props.selectedShip?.props.shipStartPoint !== null) {
       return;
     }
 
     const paths = getShipPaths(
-      playerGameBoard.props.selectedShip!.props.length,
+      player1.props.selectedShip!.props.length,
       id,
-      playerGameBoard,
+      player1,
     );
     if (paths) {
       paths.forEach((path) => {
@@ -155,24 +157,24 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
 
   const handleMouseLeave = () => {
     if (
-      playerGameBoard.props.selectedShip?.props.shipStartPoint !== null &&
-      playerGameBoard.props.selectedShip?.props.shipEndPoint === null
+      player1.props.selectedShip?.props.shipStartPoint !== null &&
+      player1.props.selectedShip?.props.shipEndPoint === null
     ) {
       return;
     }
-    const newBoardObject = { ...playerGameBoard };
-    newBoardObject.board.map((square) => {
+    const updatedPlayer1 = { ...player1 };
+    updatedPlayer1.board.map((square) => {
       if (square.ship === null) {
         square.imageNumber = null;
         square.imageDirection = null;
       }
     });
 
-    setPlayerGameBoard(newBoardObject);
+    setPlayer1(updatedPlayer1);
   };
 
   const winnerLoserText = () => {
-    if (playerGameBoard.props.winner === true) {
+    if (player1.props.winner === true) {
       return 'Win';
     } else {
       return 'Lose';
@@ -180,10 +182,7 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
   };
 
   const isThereAWinner = () => {
-    if (
-      playerGameBoard.props.winner === true ||
-      aiGameBoard.props.winner === true
-    ) {
+    if (player1.props.winner === true || player2.props.winner === true) {
       return true;
     } else {
       return false;
@@ -216,20 +215,20 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
     newPlayer.props.allShipsPlaced = false;
     newPlayer.props.selectedShip = null;
 
-    if (player === playerGameBoard) {
-      setPlayerGameBoard(newPlayer);
+    if (player === player1) {
+      setPlayer1(newPlayer);
     } else {
-      setAiGameBoard(newPlayer);
+      setPlayer2(newPlayer);
     }
   };
 
   const resetGame = () => {
-    resetPlayer(playerGameBoard);
-    resetPlayer(aiGameBoard);
+    resetPlayer(player1);
+    resetPlayer(player2);
   };
 
   const dblClick = (id: number) => {
-    const newBoard = { ...playerGameBoard };
+    const newBoard = { ...player1 };
     const selectedShip = newBoard.props.selectedShip;
     const shipAtSquare = newBoard.board[id].ship;
 
@@ -272,7 +271,7 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
       }
     });
 
-    setPlayerGameBoard(newBoard);
+    setPlayer1(newBoard);
   };
 
   return (
@@ -280,15 +279,15 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
       {isThereAWinner() && (
         <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
       )}
-      {!playerGameBoard.props.allShipsPlaced && (
+      {!player1.props.allShipsPlaced && (
         <ShipButtonComponent
-          playerOne={playerGameBoard}
+          player={player1}
           handleSelectShip={handleSelectShip}
         />
       )}
-      {playerGameBoard.props.allShipsPlaced && (
+      {player1.props.allShipsPlaced && (
         <GameBoardComponent
-          board={aiGameBoard}
+          player={player2}
           handleMouseEnter={handleMouseEnter}
           handleMouseLeave={handleMouseLeave}
           handleOnClick={aiGameBoardOnClick}
@@ -297,7 +296,7 @@ export function AppComponent({ gameBoard, ai }: appComponentProps) {
         />
       )}
       <GameBoardComponent
-        board={playerGameBoard}
+        player={player1}
         handleMouseEnter={handleMouseEnter}
         handleMouseLeave={handleMouseLeave}
         handleOnClick={gameBoardOnClick}

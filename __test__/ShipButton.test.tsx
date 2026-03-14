@@ -29,11 +29,7 @@ describe('ShipButton', () => {
 
   it('will render a button with a carrier.png background', () => {
     render(
-      <ShipButton
-        testId='carrier'
-        shipOnClick={onClick}
-        playerOne={playerOne}
-      />,
+      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
     );
 
     const buttonElement = screen.getByTestId('carrier');
@@ -47,11 +43,7 @@ describe('ShipButton', () => {
     const user = userEvent.setup();
 
     render(
-      <ShipButton
-        testId='carrier'
-        shipOnClick={onClick}
-        playerOne={playerOne}
-      />,
+      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
     );
 
     const buttonElement = screen.getByTestId('carrier');
@@ -63,11 +55,7 @@ describe('ShipButton', () => {
   it('will render a button with a highlightedcarrier.png background', () => {
     playerOne.props.selectedShip = carrier;
     render(
-      <ShipButton
-        testId='carrier'
-        shipOnClick={onClick}
-        playerOne={playerOne}
-      />,
+      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
     );
 
     const buttonElement = screen.getByTestId('carrier');
@@ -79,11 +67,7 @@ describe('ShipButton', () => {
   it('will render a button with an outline background image', () => {
     playerOne.props.allShips[0].props.isPlaced = true;
     render(
-      <ShipButton
-        testId='carrier'
-        shipOnClick={onClick}
-        playerOne={playerOne}
-      />,
+      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
     );
 
     const buttonElement = screen.getByTestId('carrier');
@@ -97,11 +81,7 @@ describe('ShipButton', () => {
     playerOne.props.allShips[0].props.isPlaced = true;
 
     render(
-      <ShipButton
-        testId='carrier'
-        shipOnClick={onClick}
-        playerOne={playerOne}
-      />,
+      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
     );
 
     const cruiserButton = screen.getByTestId('carrier');

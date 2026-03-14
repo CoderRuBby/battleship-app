@@ -22,7 +22,7 @@ describe('ShipButtonComponent', () => {
     player = gameBoard(buttons);
 
     component = (
-      <ShipButtonComponent playerOne={player} handleSelectShip={() => {}} />
+      <ShipButtonComponent player={player} handleSelectShip={() => {}} />
     );
   });
 

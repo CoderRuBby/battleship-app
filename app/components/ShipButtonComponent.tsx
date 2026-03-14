@@ -3,12 +3,12 @@ import type { shipInterface } from '~/utils/ship';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 
 interface ShipButtonComponentProps {
-  playerOne: gameBoardInterface;
+  player: gameBoardInterface;
   handleSelectShip: (shipButton: shipInterface) => void;
 }
 
 export function ShipButtonComponent({
-  playerOne,
+  player,
   handleSelectShip,
 }: ShipButtonComponentProps) {
   return (
@@ -17,12 +17,12 @@ export function ShipButtonComponent({
       aria-label='The ship buttons'
       className='ship-button-container'
     >
-      {playerOne.props.allShips.map((button) => (
+      {player.props.allShips.map((ship) => (
         <ShipButton
-          key={button.props.name}
-          testId={button.props.name}
-          shipOnClick={() => handleSelectShip(button)}
-          playerOne={playerOne}
+          key={ship.props.name}
+          testId={ship.props.name}
+          shipOnClick={() => handleSelectShip(ship)}
+          player={player}
         />
       ))}
     </section>

@@ -29,10 +29,11 @@ describe('GameBoardButton', () => {
     render(
       <GameBoardButton
         testId='button'
-        board={Player}
+        player={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
+        dblClick={() => {}}
       />,
     );
 
@@ -49,10 +50,11 @@ describe('GameBoardButton', () => {
     render(
       <GameBoardButton
         testId='1'
-        board={Player}
+        player={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
+        dblClick={() => {}}
       />,
     );
 
@@ -70,10 +72,11 @@ describe('GameBoardButton', () => {
     render(
       <GameBoardButton
         testId='1'
-        board={Player}
+        player={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
+        dblClick={() => {}}
       />,
     );
 
@@ -91,10 +94,11 @@ describe('GameBoardButton', () => {
     render(
       <GameBoardButton
         testId='1'
-        board={Player}
+        player={Player}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
+        dblClick={() => {}}
       />,
     );
 
