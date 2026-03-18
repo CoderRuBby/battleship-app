@@ -117,7 +117,7 @@ describe('App', () => {
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
-      expect(button43Style.background).toContain('url("destroyer0left.png")');
+      expect(button43Style.background).toContain('url("destroyer2left.png")');
 
       const button35 = within(playerBoard).getByTestId('35');
       const button35Style = getComputedStyle(button35);
@@ -125,7 +125,7 @@ describe('App', () => {
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).toContain('url("destroyer0up.png")');
+      expect(button25Style.background).toContain('url("destroyer2up.png")');
     });
 
     it('will not render more possible locations when a square is selected', async () => {
@@ -172,7 +172,7 @@ describe('App', () => {
       const button33 = within(playerBoard).getByTestId('33');
       const button33Style = getComputedStyle(button33);
       expect(button36Style.background).not.toContain(
-        'url("destroyer0left.png")',
+        'url("destroyer2left.png")',
       );
       expect(button33Style.background).toContain('rgba(0, 0, 0, 0)');
 
@@ -205,14 +205,14 @@ describe('App', () => {
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
-      expect(button43Style.background).toContain('url("destroyer0left.png")');
+      expect(button43Style.background).toContain('url("destroyer2left.png")');
 
       const button35Style = getComputedStyle(button35);
       expect(button35Style.background).toContain('url("destroyer1up.png")');
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).toContain('url("destroyer0up.png")');
+      expect(button25Style.background).toContain('url("destroyer2up.png")');
     });
   });
 
@@ -340,7 +340,7 @@ describe('App', () => {
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
-      expect(button43Style.background).toContain('url("destroyer0left.png")');
+      expect(button43Style.background).toContain('url("destroyer2left.png")');
 
       const button35 = within(playerBoard).getByTestId('35');
       const button35Style = getComputedStyle(button35);
@@ -348,7 +348,7 @@ describe('App', () => {
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).toContain('url("destroyer0up.png")');
+      expect(button25Style.background).toContain('url("destroyer2up.png")');
     });
   });
 
@@ -702,16 +702,16 @@ describe('App', () => {
           'url("carrier4down.png")',
         );
         expect(allBoardSquares[34].style.background).toContain(
-          'url("carrier3left.png")',
+          'url("carrier1left.png")',
         );
         expect(allBoardSquares[33].style.background).toContain(
           'url("carrier2left.png")',
         );
         expect(allBoardSquares[32].style.background).toContain(
-          'url("carrier1left.png")',
+          'url("carrier3left.png")',
         );
         expect(allBoardSquares[31].style.background).toContain(
-          'url("carrier0left.png")',
+          'url("carrier4left.png")',
         );
         expect(nonValidSquare67.style.background).toEqual('rgba(0, 0, 0, 0)');
       });
@@ -836,9 +836,9 @@ describe('App', () => {
         await user.dblClick(square99);
 
         expect(square33.style.background).toContain('cruiser1right.png');
-        expect(square31.style.background).toContain('cruiser0left.png');
+        expect(square31.style.background).toContain('cruiser1left.png');
         expect(square42.style.background).toContain('cruiser1down.png');
-        expect(square22.style.background).toContain('cruiser0up.png');
+        expect(square22.style.background).toContain('cruiser1up.png');
       });
     });
 
