@@ -61,7 +61,7 @@ describe('ShipButton', () => {
     const buttonElement = screen.getByTestId('carrier');
     const style = getComputedStyle(buttonElement);
 
-    expect(style.backgroundImage).toContain('highlightedcarrier.png');
+    expect(style.backgroundImage).toContain('highlighted-carrier.png');
   });
 
   it('will render a button with an outline background image', () => {
