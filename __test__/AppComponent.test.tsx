@@ -1430,17 +1430,17 @@ describe('App', () => {
         const user = userEvent.setup();
         const square45BGRight = 'cruiser-0-right-sunk.png';
         const square46BGRight = 'cruiser-1-right-sunk.png';
-        const square45BGLeft = 'cruiser-0-left-sunk.png';
-        const square46BGLeft = 'cruiser-1-left-sunk.png';
-        aiGameBoard.board.forEach((square) => {
-          if (square.id !== 45 && square.id !== 46) {
-            square.ship = aiGameBoard.props.allShips[0];
-          }
-        });
+        aiGameBoard.board[45].ship = aiGameBoard.props.allShips[4];
+        aiGameBoard.board[45].imageDirection = 'right';
+        aiGameBoard.board[45].imageNumber = 0;
+        aiGameBoard.board[46].ship = aiGameBoard.props.allShips[4];
+        aiGameBoard.board[46].imageDirection = 'right';
+        aiGameBoard.board[46].imageNumber = 1;
         aiGameBoard.props.allShips[0].props.isPlaced = true;
         aiGameBoard.props.allShips[1].props.isPlaced = true;
         aiGameBoard.props.allShips[2].props.isPlaced = true;
         aiGameBoard.props.allShips[3].props.isPlaced = true;
+        aiGameBoard.props.allShips[4].props.isPlaced = true;
         playerGameBoard.props.allShips[0].props.isPlaced = true;
         playerGameBoard.props.allShips[1].props.isPlaced = true;
         playerGameBoard.props.allShips[2].props.isPlaced = true;
@@ -1472,19 +1472,14 @@ describe('App', () => {
         expect(aiBoardButtonStyle.background).toContain('hit.png');
 
         await user.click(aiBoardButton46);
-        aiBoardButtonStyle = getComputedStyle(aiBoardButton46);
-        const isRightLeft45 =
-          aiBoardButtonStyle.background.includes(square46BGLeft) ||
-          aiBoardButtonStyle.background.includes(square46BGRight);
 
-        expect(isRightLeft45).toBe(true);
+        aiBoardButtonStyle = getComputedStyle(aiBoardButton46);
+
+        expect(aiBoardButtonStyle.background).toContain(square46BGRight);
 
         aiBoardButtonStyle = getComputedStyle(aiBoardButton45);
-        const isRightLeft46 =
-          aiBoardButtonStyle.background.includes(square45BGLeft) ||
-          aiBoardButtonStyle.background.includes(square45BGRight);
 
-        expect(isRightLeft46).toBe(true);
+        expect(aiBoardButtonStyle.background).toContain(square45BGRight);
       });
     });
 
