@@ -267,7 +267,7 @@ export function AppComponent({
   };
 
   return (
-    <main className="bg-[url('/images/ship-control-room-v3.png')]">
+    <main className="bg-center bg-cover w-full h-screen bg-no-repeat bg-[url('/images/ship-control-room-mobile.png')]">
       {isThereAWinner() && (
         <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
       )}
