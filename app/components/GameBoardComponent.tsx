@@ -19,7 +19,11 @@ export function GameBoardComponent({
   dblClick,
 }: GameBoardComponentProps) {
   return (
-    <section role='region' aria-label={label}>
+    <section
+      role='region'
+      aria-label={label}
+      className="bg-[url('/images/game-board-final.svg')] bg-center grid grid-cols-[repeat(10,_1fr)] grid-rows-[repeat(10,_1fr)] w-fit"
+    >
       {player.board.map((square) => (
         <GameBoardButton
           key={square.id}

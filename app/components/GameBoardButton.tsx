@@ -40,6 +40,7 @@ export function GameBoardButton({
   };
   return (
     <button
+      className='w-6 h-6 border-1'
       data-testid={testId}
       style={buttonStyle}
       onMouseEnter={() => onMouseEnter(Number(testId))}
