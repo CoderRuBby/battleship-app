@@ -1,10 +1,32 @@
-import React from 'react';
-export function App({ children }: { children?: React.ReactNode }) {
+import { AppComponent } from '~/components/AppComponent';
+import gameBoard from '~/utils/gameBoard';
+import ship from '~/utils/ship';
+import type { shipInterface } from '~/utils/ship';
+import type { gameBoardInterface } from '~/utils/gameBoard';
+
+const makeShips = (): shipInterface[] => [
+  ship('carrier', 5),
+  ship('destroyer', 3),
+  ship('submarine', 3),
+  ship('battleship', 4),
+  ship('cruiser', 2),
+];
+
+const createPlayer1 = (): gameBoardInterface => {
+  const ships = makeShips();
+  return gameBoard(ships);
+};
+
+const createPlayer2 = (): gameBoardInterface => {
+  const ships = makeShips();
+  return gameBoard(ships, true);
+};
+
+export function App() {
   return (
-    <main>
-      {React.Children.toArray(children).map((child, index) => (
-        <React.Fragment key={index}>{child}</React.Fragment>
-      ))}
-    </main>
+    <AppComponent
+      player1Board={createPlayer1()}
+      player2Board={createPlayer2()}
+    />
   );
 }
