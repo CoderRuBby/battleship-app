@@ -27,15 +27,15 @@ export function GameBoardButton({
   const buttonStyle = {
     background:
       isShipSunk === true
-        ? `url("${shipName}${imgNumber}${imgDirection}-sunk.png")`
+        ? `url("${shipName}-${imgNumber}-${imgDirection}-sunk.png")`
         : boardNumber?.isHit === true
           ? 'url("hit.png")'
           : boardNumber?.isMiss === true
             ? 'url("miss.png")'
             : boardNumber?.ship !== null && isAi === false
-              ? `url("${shipName}${imgNumber}${imgDirection}.png")`
+              ? `url("${shipName}-${imgNumber}-${imgDirection}.png")`
               : imgNumber !== null && isAi === false
-                ? `url("${selectedShipName}${imgNumber}${imgDirection}.png")`
+                ? `url("${selectedShipName}-${imgNumber}-${imgDirection}.png")`
                 : 'rgba(0, 0, 0, 0)',
   };
   return (

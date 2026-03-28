@@ -13,7 +13,7 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
   const buttonStyle = {
     background:
       player.props.selectedShip?.props.name === testId
-        ? `url("highlighted${testId}.png")`
+        ? `url("highlighted-${testId}.png")`
         : player.props.allShips[shipIndex].props.isPlaced === true
           ? `url("outline-${testId}.png")`
           : `url("${testId}.png")`,

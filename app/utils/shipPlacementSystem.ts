@@ -196,6 +196,12 @@ export default function shipPlacementSystem(): shipPlacementSystemInterface {
       }
     });
 
+    shipPaths.forEach((path) => {
+      if (path.direction === 'left' || path.direction === 'up') {
+        path.array.reverse();
+      }
+    });
+
     return shipPaths;
   };
 

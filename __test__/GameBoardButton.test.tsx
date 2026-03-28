@@ -46,7 +46,7 @@ describe('GameBoardButton', () => {
     const button = screen.getByTestId('1');
     const style = getComputedStyle(button);
 
-    expect(style.background).toContain('url("carrier1up.png")');
+    expect(style.background).toContain('url("carrier-1-up.png")');
   });
 
   it('will render a button with a hit image', () => {

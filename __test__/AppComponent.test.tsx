@@ -61,35 +61,39 @@ describe('App', () => {
 
       const button46 = within(playerBoard).getByTestId('46');
       const button46Style = getComputedStyle(button46);
-      expect(button46Style.background).toContain('url("destroyer1right.png")');
+      expect(button46Style.background).toContain(
+        'url("destroyer-1-right.png")',
+      );
 
       const button47 = within(playerBoard).getByTestId('47');
       const button47Style = getComputedStyle(button47);
-      expect(button47Style.background).toContain('url("destroyer2right.png")');
+      expect(button47Style.background).toContain(
+        'url("destroyer-2-right.png")',
+      );
 
       const button55 = within(playerBoard).getByTestId('55');
       const button55Style = getComputedStyle(button55);
-      expect(button55Style.background).toContain('url("destroyer1down.png")');
+      expect(button55Style.background).toContain('url("destroyer-1-down.png")');
 
       const button65 = within(playerBoard).getByTestId('65');
       const button65Style = getComputedStyle(button65);
-      expect(button65Style.background).toContain('url("destroyer2down.png")');
+      expect(button65Style.background).toContain('url("destroyer-2-down.png")');
 
       const button44 = within(playerBoard).getByTestId('44');
       const button44Style = getComputedStyle(button44);
-      expect(button44Style.background).toContain('url("destroyer1left.png")');
+      expect(button44Style.background).toContain('url("destroyer-1-left.png")');
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
-      expect(button43Style.background).toContain('url("destroyer0left.png")');
+      expect(button43Style.background).toContain('url("destroyer-2-left.png")');
 
       const button35 = within(playerBoard).getByTestId('35');
       const button35Style = getComputedStyle(button35);
-      expect(button35Style.background).toContain('url("destroyer1up.png")');
+      expect(button35Style.background).toContain('url("destroyer-1-up.png")');
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).toContain('url("destroyer0up.png")');
+      expect(button25Style.background).toContain('url("destroyer-2-up.png")');
     });
 
     it('will not render more possible locations when a square is selected', async () => {
@@ -117,68 +121,74 @@ describe('App', () => {
       const button36 = within(playerBoard).getByTestId('36');
       const button36Style = getComputedStyle(button36);
       expect(button36Style.background).not.toContain(
-        'url("destroyer1right.png")',
+        'url("destroyer-1-right.png")',
       );
       expect(button36Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button37 = within(playerBoard).getByTestId('37');
       const button37Style = getComputedStyle(button37);
       expect(button36Style.background).not.toContain(
-        'url("destroyer2right.png")',
+        'url("destroyer-2-right.png")',
       );
       expect(button37Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button34 = within(playerBoard).getByTestId('34');
       const button34Style = getComputedStyle(button34);
       expect(button36Style.background).not.toContain(
-        'url("destroyer1left.png")',
+        'url("destroyer-1-left.png")',
       );
       expect(button34Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button33 = within(playerBoard).getByTestId('33');
       const button33Style = getComputedStyle(button33);
       expect(button36Style.background).not.toContain(
-        'url("destroyer0left.png")',
+        'url("destroyer-2-left.png")',
       );
       expect(button33Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button45Style = getComputedStyle(button45);
-      expect(button45Style.background).not.toContain('url("destroyer2up.png")');
       expect(button45Style.background).not.toContain(
-        'url("destroyer2left.png")',
+        'url("destroyer-2-up.png")',
+      );
+      expect(button45Style.background).not.toContain(
+        'url("destroyer-2-left.png")',
       );
       expect(button45Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button46 = within(playerBoard).getByTestId('46');
       const button46Style = getComputedStyle(button46);
-      expect(button46Style.background).toContain('url("destroyer1right.png")');
+      expect(button46Style.background).toContain(
+        'url("destroyer-1-right.png")',
+      );
 
       const button47 = within(playerBoard).getByTestId('47');
       const button47Style = getComputedStyle(button47);
-      expect(button47Style.background).toContain('url("destroyer2right.png")');
+      expect(button47Style.background).toContain(
+        'url("destroyer-2-right.png")',
+      );
 
       const button55 = within(playerBoard).getByTestId('55');
       const button55Style = getComputedStyle(button55);
-      expect(button55Style.background).toContain('url("destroyer1down.png")');
+      expect(button55Style.background).toContain('url("destroyer-1-down.png")');
 
       const button65 = within(playerBoard).getByTestId('65');
       const button65Style = getComputedStyle(button65);
-      expect(button65Style.background).toContain('url("destroyer2down.png")');
+      expect(button65Style.background).toContain('url("destroyer-2-down.png")');
 
       const button44 = within(playerBoard).getByTestId('44');
       const button44Style = getComputedStyle(button44);
-      expect(button44Style.background).toContain('url("destroyer1left.png")');
+      expect(button44Style.background).toContain('url("destroyer-1-left.png")');
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
-      expect(button43Style.background).toContain('url("destroyer0left.png")');
+      expect(button43Style.background).toContain('url("destroyer-2-left.png")');
 
       const button35Style = getComputedStyle(button35);
-      expect(button35Style.background).toContain('url("destroyer1up.png")');
+      expect(button35Style.background).toContain('url("destroyer-1-up.png")');
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).toContain('url("destroyer0up.png")');
+      expect(button25Style.background).toContain('url("destroyer-2-up.png")');
     });
   });
 
@@ -200,62 +210,68 @@ describe('App', () => {
       await user.unhover(button45);
 
       const button45Style = getComputedStyle(button45);
-      expect(button45Style.background).not.toContain('url("destroyer2up.png")');
       expect(button45Style.background).not.toContain(
-        'url("destroyer2left.png")',
+        'url("destroyer-2-up.png")',
+      );
+      expect(button45Style.background).not.toContain(
+        'url("destroyer-2-left.png")',
       );
       expect(button45Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button46 = within(playerBoard).getByTestId('46');
       const button46Style = getComputedStyle(button46);
       expect(button46Style.background).not.toContain(
-        'url("destroyer1right.png")',
+        'url("destroyer-1-right.png")',
       );
       expect(button46Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button47 = within(playerBoard).getByTestId('47');
       const button47Style = getComputedStyle(button47);
       expect(button47Style.background).not.toContain(
-        'url("destroyer2right.png")',
+        'url("destroyer-2-right.png")',
       );
       expect(button47Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button55 = within(playerBoard).getByTestId('55');
       const button55Style = getComputedStyle(button55);
       expect(button55Style.background).not.toContain(
-        'url("destroyer1down.png")',
+        'url("destroyer-1-down.png")',
       );
       expect(button55Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button65 = within(playerBoard).getByTestId('65');
       const button65Style = getComputedStyle(button65);
       expect(button65Style.background).not.toContain(
-        'url("destroyer2down.png")',
+        'url("destroyer-2-down.png")',
       );
       expect(button65Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button44 = within(playerBoard).getByTestId('44');
       const button44Style = getComputedStyle(button44);
       expect(button44Style.background).not.toContain(
-        'url("destroyer1left.png")',
+        'url("destroyer-1-left.png")',
       );
       expect(button44Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
       expect(button43Style.background).not.toContain(
-        'url("destroyer0left.png")',
+        'url("destroyer-0-left.png")',
       );
       expect(button43Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button35 = within(playerBoard).getByTestId('35');
       const button35Style = getComputedStyle(button35);
-      expect(button35Style.background).not.toContain('url("destroyer1up.png")');
+      expect(button35Style.background).not.toContain(
+        'url("destroyer-1-up.png")',
+      );
       expect(button35Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).not.toContain('url("destroyer0up.png")');
+      expect(button25Style.background).not.toContain(
+        'url("destroyer-0-up.png")',
+      );
       expect(button25Style.background).toContain('rgba(0, 0, 0, 0)');
     });
 
@@ -278,43 +294,49 @@ describe('App', () => {
       await user.unhover(button45);
 
       const button45Style = getComputedStyle(button45);
-      expect(button45Style.background).not.toContain('url("destroyer2up.png")');
       expect(button45Style.background).not.toContain(
-        'url("destroyer2left.png")',
+        'url("destroyer-2-up.png")',
+      );
+      expect(button45Style.background).not.toContain(
+        'url("destroyer-2-left.png")',
       );
       expect(button45Style.background).toContain('rgba(0, 0, 0, 0)');
 
       const button46 = within(playerBoard).getByTestId('46');
       const button46Style = getComputedStyle(button46);
-      expect(button46Style.background).toContain('url("destroyer1right.png")');
+      expect(button46Style.background).toContain(
+        'url("destroyer-1-right.png")',
+      );
 
       const button47 = within(playerBoard).getByTestId('47');
       const button47Style = getComputedStyle(button47);
-      expect(button47Style.background).toContain('url("destroyer2right.png")');
+      expect(button47Style.background).toContain(
+        'url("destroyer-2-right.png")',
+      );
 
       const button55 = within(playerBoard).getByTestId('55');
       const button55Style = getComputedStyle(button55);
-      expect(button55Style.background).toContain('url("destroyer1down.png")');
+      expect(button55Style.background).toContain('url("destroyer-1-down.png")');
 
       const button65 = within(playerBoard).getByTestId('65');
       const button65Style = getComputedStyle(button65);
-      expect(button65Style.background).toContain('url("destroyer2down.png")');
+      expect(button65Style.background).toContain('url("destroyer-2-down.png")');
 
       const button44 = within(playerBoard).getByTestId('44');
       const button44Style = getComputedStyle(button44);
-      expect(button44Style.background).toContain('url("destroyer1left.png")');
+      expect(button44Style.background).toContain('url("destroyer-1-left.png")');
 
       const button43 = within(playerBoard).getByTestId('43');
       const button43Style = getComputedStyle(button43);
-      expect(button43Style.background).toContain('url("destroyer0left.png")');
+      expect(button43Style.background).toContain('url("destroyer-2-left.png")');
 
       const button35 = within(playerBoard).getByTestId('35');
       const button35Style = getComputedStyle(button35);
-      expect(button35Style.background).toContain('url("destroyer1up.png")');
+      expect(button35Style.background).toContain('url("destroyer-1-up.png")');
 
       const button25 = within(playerBoard).getByTestId('25');
       const button25Style = getComputedStyle(button25);
-      expect(button25Style.background).toContain('url("destroyer0up.png")');
+      expect(button25Style.background).toContain('url("destroyer-2-up.png")');
     });
   });
 
@@ -335,7 +357,7 @@ describe('App', () => {
         const newStyleOne = getComputedStyle(buttonOne);
 
         expect(newStyleOne.background).toContain(
-          'url("highlightedcarrier.png")',
+          'url("highlighted-carrier.png")',
         );
 
         const buttonTwo = screen.getByTestId('destroyer');
@@ -350,7 +372,7 @@ describe('App', () => {
         const styleOneAgain = getComputedStyle(buttonOneAgain);
 
         expect(newStyleTwo.background).toContain(
-          'url("highlighteddestroyer.png")',
+          'url("highlighted-destroyer.png")',
         );
         expect(styleOneAgain.background).toContain('url("carrier.png")');
       });
@@ -367,7 +389,7 @@ describe('App', () => {
 
         style = getComputedStyle(buttonOne);
 
-        expect(style.background).toContain('url("highlightedcarrier.png")');
+        expect(style.background).toContain('url("highlighted-carrier.png")');
 
         await user.click(buttonOne);
 
@@ -391,7 +413,7 @@ describe('App', () => {
         const destroyerStyle = getComputedStyle(destroyer);
 
         expect(destroyerStyle.background).toContain(
-          'url("highlighteddestroyer.png")',
+          'url("highlighted-destroyer.png")',
         );
 
         const button45 = within(playerBoard).getByTestId('45');
@@ -404,7 +426,7 @@ describe('App', () => {
         await user.unhover(button46);
         const button46Style = getComputedStyle(button46);
         expect(button46Style.background).toContain(
-          'url("destroyer1right.png")',
+          'url("destroyer-1-right.png")',
         );
 
         const button47 = within(playerBoard).getByTestId('47');
@@ -413,18 +435,18 @@ describe('App', () => {
         await user.unhover(button47);
         const button47Style = getComputedStyle(button47);
         expect(button47Style.background).toContain(
-          'url("destroyer2right.png")',
+          'url("destroyer-2-right.png")',
         );
 
         const button45Style = getComputedStyle(button45);
 
         expect(button45Style.background).toContain(
-          'url("destroyer0right.png")',
+          'url("destroyer-0-right.png")',
         );
         const button25 = within(playerBoard).getByTestId('25');
         const button25Style = getComputedStyle(button25);
         expect(button25Style.background).not.toContain(
-          'url("destroyer0up.png")',
+          'url("destroyer-0-up.png")',
         );
         expect(button25Style.background).toContain('rgba(0, 0, 0, 0)');
       });
@@ -445,7 +467,7 @@ describe('App', () => {
         const destroyerStyle = getComputedStyle(destroyer);
 
         expect(destroyerStyle.background).toContain(
-          'url("highlighteddestroyer.png")',
+          'url("highlighted-destroyer.png")',
         );
 
         const button45 = within(playerBoard).getByTestId('45');
@@ -458,7 +480,7 @@ describe('App', () => {
         await user.unhover(button46);
         const button46Style = getComputedStyle(button46);
         expect(button46Style.background).toContain(
-          'url("destroyer1right.png")',
+          'url("destroyer-1-right.png")',
         );
 
         const button47 = within(playerBoard).getByTestId('47');
@@ -467,13 +489,13 @@ describe('App', () => {
         await user.unhover(button47);
         const button47Style = getComputedStyle(button47);
         expect(button47Style.background).toContain(
-          'url("destroyer2right.png")',
+          'url("destroyer-2-right.png")',
         );
 
         const button45Style = getComputedStyle(button45);
 
         expect(button45Style.background).toContain(
-          'url("destroyer0right.png")',
+          'url("destroyer-0-right.png")',
         );
 
         const carrier = screen.getByTestId('carrier');
@@ -482,7 +504,7 @@ describe('App', () => {
         const carrierStyle = getComputedStyle(carrier);
 
         expect(carrierStyle.background).toContain(
-          'url("highlightedcarrier.png")',
+          'url("highlighted-carrier.png")',
         );
 
         const button55 = within(playerBoard).getByTestId('55');
@@ -494,37 +516,47 @@ describe('App', () => {
         await user.hover(button56);
         await user.unhover(button56);
         const button56Style = getComputedStyle(button56);
-        expect(button56Style.background).toContain('url("carrier1right.png")');
+        expect(button56Style.background).toContain(
+          'url("carrier-1-right.png")',
+        );
 
         const button57 = within(playerBoard).getByTestId('57');
         await user.hover(button57);
         await user.unhover(button57);
         const button57Style = getComputedStyle(button57);
-        expect(button57Style.background).toContain('url("carrier2right.png")');
+        expect(button57Style.background).toContain(
+          'url("carrier-2-right.png")',
+        );
 
         const button58 = within(playerBoard).getByTestId('58');
         await user.hover(button58);
         await user.unhover(button58);
         const button58Style = getComputedStyle(button58);
-        expect(button58Style.background).toContain('url("carrier3right.png")');
+        expect(button58Style.background).toContain(
+          'url("carrier-3-right.png")',
+        );
 
         const button59 = within(playerBoard).getByTestId('59');
         await user.hover(button59);
         await user.click(button59);
         await user.unhover(button59);
         const button59Style = getComputedStyle(button59);
-        expect(button59Style.background).toContain('url("carrier4right.png")');
+        expect(button59Style.background).toContain(
+          'url("carrier-4-right.png")',
+        );
 
         const button55Style = getComputedStyle(button55);
 
-        expect(button55Style.background).toContain('url("carrier0right.png")');
+        expect(button55Style.background).toContain(
+          'url("carrier-0-right.png")',
+        );
 
         const battleship = screen.getByTestId('battleship');
         await user.click(battleship);
         const battleshipStyle = getComputedStyle(battleship);
 
         expect(battleshipStyle.background).toContain(
-          'url("highlightedbattleship.png")',
+          'url("highlighted-battleship.png")',
         );
 
         const button0 = within(playerBoard).getByTestId('0');
@@ -537,7 +569,7 @@ describe('App', () => {
         await user.unhover(button10);
         const button10Style = getComputedStyle(button10);
         expect(button10Style.background).toContain(
-          'url("battleship1down.png")',
+          'url("battleship-1-down.png")',
         );
 
         const button20 = within(playerBoard).getByTestId('20');
@@ -545,7 +577,7 @@ describe('App', () => {
         await user.unhover(button20);
         const button20Style = getComputedStyle(button20);
         expect(button20Style.background).toContain(
-          'url("battleship2down.png")',
+          'url("battleship-2-down.png")',
         );
 
         const button30 = within(playerBoard).getByTestId('30');
@@ -554,12 +586,14 @@ describe('App', () => {
         await user.unhover(button30);
         const button30Style = getComputedStyle(button30);
         expect(button30Style.background).toContain(
-          'url("battleship3down.png")',
+          'url("battleship-3-down.png")',
         );
 
         const button0Style = getComputedStyle(button0);
 
-        expect(button0Style.background).toContain('url("battleship0down.png")');
+        expect(button0Style.background).toContain(
+          'url("battleship-0-down.png")',
+        );
 
         const submarine = screen.getByTestId('submarine');
         await user.click(submarine);
@@ -567,7 +601,7 @@ describe('App', () => {
         const submarineStyle = getComputedStyle(submarine);
 
         expect(submarineStyle.background).toContain(
-          'url("highlightedsubmarine.png")',
+          'url("highlighted-submarine.png")',
         );
 
         const button99 = within(playerBoard).getByTestId('99');
@@ -579,18 +613,18 @@ describe('App', () => {
         await user.hover(button89);
         await user.unhover(button89);
         const button89Style = getComputedStyle(button89);
-        expect(button89Style.background).toContain('url("submarine1up.png")');
+        expect(button89Style.background).toContain('url("submarine-1-up.png")');
 
         const button79 = within(playerBoard).getByTestId('79');
         await user.hover(button79);
         await user.click(button79);
         await user.unhover(button79);
         const button79Style = getComputedStyle(button79);
-        expect(button79Style.background).toContain('url("submarine0up.png")');
+        expect(button79Style.background).toContain('url("submarine-0-up.png")');
 
         const button99Style = getComputedStyle(button99);
 
-        expect(button99Style.background).toContain('url("submarine2up.png")');
+        expect(button99Style.background).toContain('url("submarine-2-up.png")');
 
         const cruiser = screen.getByTestId('cruiser');
         await user.click(cruiser);
@@ -598,7 +632,7 @@ describe('App', () => {
         const cruiserStyle = getComputedStyle(cruiser);
 
         expect(cruiserStyle.background).toContain(
-          'url("highlightedcruiser.png")',
+          'url("highlighted-cruiser.png")',
         );
 
         const button9 = within(playerBoard).getByTestId('9');
@@ -611,11 +645,11 @@ describe('App', () => {
         await user.click(button8);
         await user.unhover(button8);
         const button8Style = getComputedStyle(button8);
-        expect(button8Style.background).toContain('url("cruiser0left.png")');
+        expect(button8Style.background).toContain('url("cruiser-0-left.png")');
 
         const button9Style = getComputedStyle(button9);
 
-        expect(button9Style.background).toContain('url("cruiser1left.png")');
+        expect(button9Style.background).toContain('url("cruiser-1-left.png")');
       });
 
       test('Placing a ship on non valid locations does nothing', async () => {
@@ -644,40 +678,40 @@ describe('App', () => {
           'rgba(0, 0, 0, 0)',
         );
         expect(allBoardSquares[36].style.background).toContain(
-          'url("carrier1right.png")',
+          'url("carrier-1-right.png")',
         );
         expect(allBoardSquares[37].style.background).toContain(
-          'url("carrier2right.png")',
+          'url("carrier-2-right.png")',
         );
         expect(allBoardSquares[38].style.background).toContain(
-          'url("carrier3right.png")',
+          'url("carrier-3-right.png")',
         );
         expect(allBoardSquares[39].style.background).toContain(
-          'url("carrier4right.png")',
+          'url("carrier-4-right.png")',
         );
         expect(allBoardSquares[45].style.background).toContain(
-          'url("carrier1down.png")',
+          'url("carrier-1-down.png")',
         );
         expect(allBoardSquares[55].style.background).toContain(
-          'url("carrier2down.png")',
+          'url("carrier-2-down.png")',
         );
         expect(allBoardSquares[65].style.background).toContain(
-          'url("carrier3down.png")',
+          'url("carrier-3-down.png")',
         );
         expect(allBoardSquares[75].style.background).toContain(
-          'url("carrier4down.png")',
+          'url("carrier-4-down.png")',
         );
         expect(allBoardSquares[34].style.background).toContain(
-          'url("carrier3left.png")',
+          'url("carrier-1-left.png")',
         );
         expect(allBoardSquares[33].style.background).toContain(
-          'url("carrier2left.png")',
+          'url("carrier-2-left.png")',
         );
         expect(allBoardSquares[32].style.background).toContain(
-          'url("carrier1left.png")',
+          'url("carrier-3-left.png")',
         );
         expect(allBoardSquares[31].style.background).toContain(
-          'url("carrier0left.png")',
+          'url("carrier-4-left.png")',
         );
         expect(nonValidSquare67.style.background).toEqual('rgba(0, 0, 0, 0)');
       });
@@ -721,22 +755,22 @@ describe('App', () => {
         await user.click(square34);
         await user.click(square35);
 
-        expect(square34.style.background).toContain('cruiser0right.png');
-        expect(square35.style.background).toContain('cruiser1right.png');
+        expect(square34.style.background).toContain('cruiser-0-right.png');
+        expect(square35.style.background).toContain('cruiser-1-right.png');
 
         await user.dblClick(square34);
 
         expect(square34.style.background).toEqual('rgba(0, 0, 0, 0)');
         expect(square35.style.background).toEqual('rgba(0, 0, 0, 0)');
         expect(cruiserButton.style.background).toContain(
-          'highlightedcruiser.png',
+          'highlighted-cruiser.png',
         );
 
         await user.click(square78);
         await user.click(square79);
 
-        expect(square78.style.background).toContain('cruiser0right.png');
-        expect(square79.style.background).toContain('cruiser1right.png');
+        expect(square78.style.background).toContain('cruiser-0-right.png');
+        expect(square79.style.background).toContain('cruiser-1-right.png');
       });
 
       test('moving a placed ship while another is selected, will change the selected ship to the last placed ship', async () => {
@@ -766,22 +800,22 @@ describe('App', () => {
           expect(button.style.background).toEqual('rgba(0, 0, 0, 0)');
         });
         expect(cruiserButton.style.background).toContain(
-          'highlightedcruiser.png',
+          'highlighted-cruiser.png',
         );
 
         await user.click(square67);
         await user.click(square68);
 
-        expect(square67.style.background).toContain('cruiser0right.png');
-        expect(square68.style.background).toContain('cruiser1right.png');
+        expect(square67.style.background).toContain('cruiser-0-right.png');
+        expect(square68.style.background).toContain('cruiser-1-right.png');
 
         await user.click(destroyerButton);
         await user.click(square23);
         await user.click(square25);
 
-        expect(square23.style.background).toContain('destroyer0right.png');
-        expect(square24.style.background).toContain('destroyer1right.png');
-        expect(square25.style.background).toContain('destroyer2right.png');
+        expect(square23.style.background).toContain('destroyer-0-right.png');
+        expect(square24.style.background).toContain('destroyer-1-right.png');
+        expect(square25.style.background).toContain('destroyer-2-right.png');
       });
 
       test('double click will do nothing if no ship is placed on the square', async () => {
@@ -801,10 +835,10 @@ describe('App', () => {
         await user.click(square32);
         await user.dblClick(square99);
 
-        expect(square33.style.background).toContain('cruiser1right.png');
-        expect(square31.style.background).toContain('cruiser0left.png');
-        expect(square42.style.background).toContain('cruiser1down.png');
-        expect(square22.style.background).toContain('cruiser0up.png');
+        expect(square33.style.background).toContain('cruiser-1-right.png');
+        expect(square31.style.background).toContain('cruiser-1-left.png');
+        expect(square42.style.background).toContain('cruiser-1-down.png');
+        expect(square22.style.background).toContain('cruiser-1-up.png');
       });
     });
 
@@ -1358,19 +1392,19 @@ describe('App', () => {
 
       test('a sunk ship will render on ai game board', async () => {
         const user = userEvent.setup();
-        const square45BGRight = 'cruiser0right-sunk.png';
-        const square46BGRight = 'cruiser1right-sunk.png';
-        const square45BGLeft = 'cruiser0left-sunk.png';
-        const square46BGLeft = 'cruiser1left-sunk.png';
-        player2.board.forEach((square) => {
-          if (square.id !== 45 && square.id !== 46) {
-            square.ship = player2.props.allShips[0];
-          }
-        });
+        const square45BGRight = 'cruiser-0-right-sunk.png';
+        const square46BGRight = 'cruiser-1-right-sunk.png';
+        aiGameBoard.board[45].ship = aiGameBoard.props.allShips[4];
+        aiGameBoard.board[45].imageDirection = 'right';
+        player2.board[45].imageNumber = 0;
+        aiGameBoard.board[46].ship = player2.props.allShips[4];
+        aiGameBoard.board[46].imageDirection = 'right';
+        aiGameBoard.board[46].imageNumber = 1;
         player2.props.allShips[0].props.isPlaced = true;
         player2.props.allShips[1].props.isPlaced = true;
         player2.props.allShips[2].props.isPlaced = true;
         player2.props.allShips[3].props.isPlaced = true;
+        aiGameBoard.props.allShips[4].props.isPlaced = true;
         player1.props.allShips[0].props.isPlaced = true;
         player1.props.allShips[1].props.isPlaced = true;
         player1.props.allShips[2].props.isPlaced = true;
@@ -1402,19 +1436,14 @@ describe('App', () => {
         expect(aiBoardButtonStyle.background).toContain('hit.png');
 
         await user.click(aiBoardButton46);
-        aiBoardButtonStyle = getComputedStyle(aiBoardButton46);
-        const isRightLeft45 =
-          aiBoardButtonStyle.background.includes(square46BGLeft) ||
-          aiBoardButtonStyle.background.includes(square46BGRight);
 
-        expect(isRightLeft45).toBe(true);
+        aiBoardButtonStyle = getComputedStyle(aiBoardButton46);
+
+        expect(aiBoardButtonStyle.background).toContain(square46BGRight);
 
         aiBoardButtonStyle = getComputedStyle(aiBoardButton45);
-        const isRightLeft46 =
-          aiBoardButtonStyle.background.includes(square45BGLeft) ||
-          aiBoardButtonStyle.background.includes(square45BGRight);
 
-        expect(isRightLeft46).toBe(true);
+        expect(aiBoardButtonStyle.background).toContain(square45BGRight);
       });
     });
 
@@ -1647,11 +1676,11 @@ describe('App', () => {
         const playerBoard46Style = getComputedStyle(playerBoard46);
 
         expect(playerBoard45Style.background).toContain(
-          'cruiser0right-sunk.png',
+          'cruiser-0-right-sunk.png',
         );
 
         expect(playerBoard46Style.background).toContain(
-          'cruiser1right-sunk.png',
+          'cruiser-1-right-sunk.png',
         );
       });
     });
