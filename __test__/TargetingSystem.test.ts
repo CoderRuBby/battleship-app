@@ -1,29 +1,14 @@
 import { describe, it, beforeEach, expect, vi, afterEach } from 'vitest';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
-import type { shipInterface } from '~/utils/ship';
-import ship from '~/utils/ship';
 import type { targetingSystemInterface } from '~/utils/targetingSystem';
 import targetingSystem from '~/utils/targetingSystem';
+import { createPlayer1 } from './testData';
 
 describe('AdjacentSquares', () => {
-  let carrier: shipInterface;
-  let destroyer: shipInterface;
-  let submarine: shipInterface;
-  let battleship: shipInterface;
-  let cruiser: shipInterface;
-  let shipsArray: shipInterface[];
-  let Player: gameBoardInterface;
+  let player1: ReturnType<typeof createPlayer1>;
   let NewTargetingSystem: targetingSystemInterface;
 
   beforeEach(() => {
-    carrier = ship('carrier', 5);
-    destroyer = ship('destroyer', 3);
-    submarine = ship('submarine', 3);
-    battleship = ship('battleship', 4);
-    cruiser = ship('cruiser', 2);
-    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
-    Player = gameBoard(shipsArray);
+    player1 = createPlayer1();
     NewTargetingSystem = targetingSystem();
   });
 
@@ -34,7 +19,7 @@ describe('AdjacentSquares', () => {
   describe('randomAttackLocation', () => {
     it('will return a possible square to be attacked', () => {
       const randomLocation = NewTargetingSystem.randomAttackLocation(
-        Player,
+        player1,
         100,
       );
 
@@ -44,10 +29,10 @@ describe('AdjacentSquares', () => {
     it('will not get a location that has a miss', () => {
       const testLocation = 45;
 
-      Player.board[testLocation].isMiss = true;
+      player1.board[testLocation].isMiss = true;
 
       const randomLocation = NewTargetingSystem.randomAttackLocation(
-        Player,
+        player1,
         100,
         testLocation,
       );
@@ -58,10 +43,10 @@ describe('AdjacentSquares', () => {
     it('will not get a location that has a hit', () => {
       const testLocation = 45;
 
-      Player.board[testLocation].isHit = true;
+      player1.board[testLocation].isHit = true;
 
       const randomLocation = NewTargetingSystem.randomAttackLocation(
-        Player,
+        player1,
         100,
         testLocation,
       );
@@ -75,7 +60,7 @@ describe('AdjacentSquares', () => {
       const attackedSquare = 23;
       const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
-        Player,
+        player1,
       );
 
       expect(adjacentSquares).toContain(24);
@@ -90,7 +75,7 @@ describe('AdjacentSquares', () => {
 
       const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
-        Player,
+        player1,
       );
 
       expect(adjacentSquares).toContain(1);
@@ -101,14 +86,14 @@ describe('AdjacentSquares', () => {
     });
 
     it('will not return squares that have hit/miss', () => {
-      Player.board[57].isHit = true;
-      Player.board[55].isMiss = true;
+      player1.board[57].isHit = true;
+      player1.board[55].isMiss = true;
 
       const attackedSquare = 56;
 
       const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
-        Player,
+        player1,
       );
 
       expect(adjacentSquares).toContain(46);
@@ -121,11 +106,11 @@ describe('AdjacentSquares', () => {
     it('will return squares that have an opponents ship, not hit', () => {
       const attackedSquare = 55;
 
-      Player.board[56].ship = Player.props.allShips[3];
+      player1.board[56].ship = player1.props.allShips[3];
 
       const adjacentSquares = NewTargetingSystem.getSquares(
         attackedSquare,
-        Player,
+        player1,
       );
 
       expect(adjacentSquares).toContain(54);
@@ -160,20 +145,21 @@ describe('AdjacentSquares', () => {
 
   describe('getMorePossibleAttacks', () => {
     it('will get new possibilities for possibleAttacks', () => {
-      Player.board[44].isHit = true;
-      Player.board[47].isHit = true;
+      player1.board[44].isHit = true;
+      player1.board[47].isHit = true;
 
-      Player.board[45].ship = Player.props.allShips[3];
-      Player.props.allShips[3].isHit(45);
-      Player.board[45].isHit = true;
-      NewTargetingSystem.props.hitShips.add(Player.props.allShips[3]);
+      player1.board[45].ship = player1.props.allShips[3];
+      player1.props.allShips[3].isHit(45);
+      player1.board[45].isHit = true;
+      NewTargetingSystem.props.hitShips.add(player1.props.allShips[3]);
 
-      Player.board[46].ship = Player.props.allShips[0];
-      Player.props.allShips[0].isHit(46);
-      Player.board[46].isHit = true;
-      NewTargetingSystem.props.hitShips.add(Player.props.allShips[0]);
+      player1.board[46].ship = player1.props.allShips[0];
+      player1.props.allShips[0].isHit(46);
+      player1.board[46].isHit = true;
+      NewTargetingSystem.props.hitShips.add(player1.props.allShips[0]);
 
-      const possibleAttacks = NewTargetingSystem.getMorePossibleAttacks(Player);
+      const possibleAttacks =
+        NewTargetingSystem.getMorePossibleAttacks(player1);
 
       expect(possibleAttacks.size).toBe(4);
       expect(possibleAttacks).toContain(35);
@@ -189,7 +175,7 @@ describe('AdjacentSquares', () => {
       it('will attack random locations that can result in a miss', () => {
         const attackSpy = vi.spyOn(NewTargetingSystem, 'randomAttackLocation');
 
-        NewTargetingSystem.attackLogic(Player);
+        NewTargetingSystem.attackLogic(player1);
 
         expect(attackSpy).toHaveBeenCalled();
       });
@@ -199,9 +185,9 @@ describe('AdjacentSquares', () => {
           const attackLocation = 45;
           const attackSpy = vi.spyOn(NewTargetingSystem, 'getSquares');
 
-          Player.board[attackLocation].isHit = true;
+          player1.board[attackLocation].isHit = true;
 
-          NewTargetingSystem.attackLogic(Player, attackLocation);
+          NewTargetingSystem.attackLogic(player1, attackLocation);
 
           expect(attackSpy).toHaveBeenCalled();
         });
@@ -209,13 +195,13 @@ describe('AdjacentSquares', () => {
         it('will add hit ship to hitShips set', () => {
           const attackLocation = 45;
 
-          Player.board[attackLocation].ship = Player.props.allShips[3];
-          Player.board[attackLocation].isHit = true;
+          player1.board[attackLocation].ship = player1.props.allShips[3];
+          player1.board[attackLocation].isHit = true;
 
-          NewTargetingSystem.attackLogic(Player, attackLocation);
+          NewTargetingSystem.attackLogic(player1, attackLocation);
 
           expect(NewTargetingSystem.props.hitShips).toEqual(
-            new Set().add(Player.props.allShips[3]),
+            new Set().add(player1.props.allShips[3]),
           );
         });
       });
@@ -227,9 +213,9 @@ describe('AdjacentSquares', () => {
         const attackSpy = vi.spyOn(NewTargetingSystem, 'randomAttackLocation');
 
         NewTargetingSystem.props.possibleAttacks = new Set([4, 5, 6, 7]);
-        NewTargetingSystem.props.hitShips.add(Player.props.allShips[3]);
+        NewTargetingSystem.props.hitShips.add(player1.props.allShips[3]);
 
-        NewTargetingSystem.attackLogic(Player);
+        NewTargetingSystem.attackLogic(player1);
 
         expect(attackSpy).toHaveBeenCalled();
       });
@@ -238,10 +224,10 @@ describe('AdjacentSquares', () => {
         it('will remove the attacked location from adjSquares property', () => {
           const attackLocation = 45;
 
-          Player.board[attackLocation].ship = Player.props.allShips[3];
+          player1.board[attackLocation].ship = player1.props.allShips[3];
 
-          NewTargetingSystem.attackLogic(Player, attackLocation);
-          const secondAttack = NewTargetingSystem.attackLogic(Player);
+          NewTargetingSystem.attackLogic(player1, attackLocation);
+          const secondAttack = NewTargetingSystem.attackLogic(player1);
 
           expect(NewTargetingSystem.props.possibleAttacks).not.toContain(
             secondAttack,
@@ -257,16 +243,16 @@ describe('AdjacentSquares', () => {
             const thirdAttack = 65;
             const fourthAttack = 35;
 
-            Player.board[firstAttack].ship = Player.props.allShips[3];
-            Player.board[firstAttack].ship.isHit(firstAttack);
-            Player.board[secondAttack].ship = Player.props.allShips[3];
-            Player.board[secondAttack].ship.isHit(secondAttack);
-            Player.board[thirdAttack].ship = Player.props.allShips[3];
-            Player.board[thirdAttack].ship.isHit(thirdAttack);
-            Player.board[fourthAttack].ship = Player.props.allShips[3];
-            Player.board[fourthAttack].ship.isHit(fourthAttack);
+            player1.board[firstAttack].ship = player1.props.allShips[3];
+            player1.board[firstAttack].ship.isHit(firstAttack);
+            player1.board[secondAttack].ship = player1.props.allShips[3];
+            player1.board[secondAttack].ship.isHit(secondAttack);
+            player1.board[thirdAttack].ship = player1.props.allShips[3];
+            player1.board[thirdAttack].ship.isHit(thirdAttack);
+            player1.board[fourthAttack].ship = player1.props.allShips[3];
+            player1.board[fourthAttack].ship.isHit(fourthAttack);
 
-            NewTargetingSystem.attackLogic(Player, fourthAttack);
+            NewTargetingSystem.attackLogic(player1, fourthAttack);
 
             expect(attackSpy).toHaveBeenCalled();
           });
@@ -277,15 +263,15 @@ describe('AdjacentSquares', () => {
             const thirdAttack = 65;
             const fourthAttack = 35;
 
-            Player.board[firstAttack].ship = Player.props.allShips[3];
-            Player.board[secondAttack].ship = Player.props.allShips[3];
-            Player.board[thirdAttack].ship = Player.props.allShips[3];
-            Player.board[fourthAttack].ship = Player.props.allShips[3];
+            player1.board[firstAttack].ship = player1.props.allShips[3];
+            player1.board[secondAttack].ship = player1.props.allShips[3];
+            player1.board[thirdAttack].ship = player1.props.allShips[3];
+            player1.board[fourthAttack].ship = player1.props.allShips[3];
 
-            NewTargetingSystem.attackLogic(Player, firstAttack);
-            NewTargetingSystem.attackLogic(Player, secondAttack);
-            NewTargetingSystem.attackLogic(Player, thirdAttack);
-            NewTargetingSystem.attackLogic(Player, fourthAttack);
+            NewTargetingSystem.attackLogic(player1, firstAttack);
+            NewTargetingSystem.attackLogic(player1, secondAttack);
+            NewTargetingSystem.attackLogic(player1, thirdAttack);
+            NewTargetingSystem.attackLogic(player1, fourthAttack);
 
             expect(NewTargetingSystem.props.possibleAttacks.size).toBe(0);
             expect(NewTargetingSystem.props.initialHitSquare).toBe(0);
@@ -301,13 +287,13 @@ describe('AdjacentSquares', () => {
             );
             const attackLocation = 45;
 
-            Player.board[attackLocation].ship = Player.props.allShips[3];
-            Player.board[attackLocation].isHit = true;
+            player1.board[attackLocation].ship = player1.props.allShips[3];
+            player1.board[attackLocation].isHit = true;
 
-            NewTargetingSystem.props.hitShips.add(Player.props.allShips[3]);
+            NewTargetingSystem.props.hitShips.add(player1.props.allShips[3]);
             NewTargetingSystem.props.possibleAttacks = new Set();
 
-            NewTargetingSystem.attackLogic(Player, attackLocation);
+            NewTargetingSystem.attackLogic(player1, attackLocation);
 
             expect(attackSpy).toHaveBeenCalled();
           });

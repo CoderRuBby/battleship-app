@@ -2,35 +2,23 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ShipButton } from '~/components/ShipButton';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
-import ship, { type shipInterface } from '~/utils/ship';
+import { createPlayer1 } from './testData';
 
 describe('ShipButton', () => {
   let onClick: () => void;
-  let carrier: shipInterface;
-  let destroyer: shipInterface;
-  let submarine: shipInterface;
-  let battleship: shipInterface;
-  let cruiser: shipInterface;
-  let shipsArray: shipInterface[];
-  let playerOne: gameBoardInterface;
+  let player1: ReturnType<typeof createPlayer1>;
+  let component: React.ReactElement;
 
   beforeEach(() => {
     onClick = vi.fn();
-    carrier = ship('carrier', 5);
-    destroyer = ship('destroyer', 3);
-    submarine = ship('submarine', 3);
-    battleship = ship('battleship', 4);
-    cruiser = ship('cruiser', 2);
-    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
-    playerOne = gameBoard(shipsArray);
+    player1 = createPlayer1();
+    component = (
+      <ShipButton testId='carrier' shipOnClick={onClick} player={player1} />
+    );
   });
 
   it('will render a button with a carrier.png background', () => {
-    render(
-      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
-    );
+    render(component);
 
     const buttonElement = screen.getByTestId('carrier');
     const style = getComputedStyle(buttonElement);
@@ -42,9 +30,7 @@ describe('ShipButton', () => {
   it('will call the onClick function when clicked', async () => {
     const user = userEvent.setup();
 
-    render(
-      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
-    );
+    render(component);
 
     const buttonElement = screen.getByTestId('carrier');
     await user.click(buttonElement);
@@ -53,10 +39,9 @@ describe('ShipButton', () => {
   });
 
   it('will render a button with a highlightedcarrier.png background', () => {
-    playerOne.props.selectedShip = carrier;
-    render(
-      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
-    );
+    player1.props.selectedShip = player1.props.allShips[0];
+
+    render(component);
 
     const buttonElement = screen.getByTestId('carrier');
     const style = getComputedStyle(buttonElement);
@@ -65,10 +50,9 @@ describe('ShipButton', () => {
   });
 
   it('will render a button with an outline background image', () => {
-    playerOne.props.allShips[0].props.isPlaced = true;
-    render(
-      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
-    );
+    player1.props.allShips[0].props.isPlaced = true;
+
+    render(component);
 
     const buttonElement = screen.getByTestId('carrier');
     const style = getComputedStyle(buttonElement);
@@ -78,11 +62,9 @@ describe('ShipButton', () => {
 
   it('will not be able to be selected after ship is placed on the gameboard', async () => {
     const user = userEvent.setup();
-    playerOne.props.allShips[0].props.isPlaced = true;
+    player1.props.allShips[0].props.isPlaced = true;
 
-    render(
-      <ShipButton testId='carrier' shipOnClick={onClick} player={playerOne} />,
-    );
+    render(component);
 
     const cruiserButton = screen.getByTestId('carrier');
 

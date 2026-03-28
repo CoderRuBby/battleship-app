@@ -1,29 +1,14 @@
 import { describe, it, beforeEach, expect } from 'vitest';
 import type { aiShipPlacementSystemInterface } from '~/utils/aiShipPlacementSystem';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
-import type { shipInterface } from '~/utils/ship';
-import ship from '~/utils/ship';
+import { createPlayer2 } from './testData';
 
 describe('AiPlaceShips', () => {
-  let carrier: shipInterface;
-  let destroyer: shipInterface;
-  let submarine: shipInterface;
-  let battleship: shipInterface;
-  let cruiser: shipInterface;
-  let shipsArray: shipInterface[];
-  let Ai: gameBoardInterface;
+  let Ai: ReturnType<typeof createPlayer2>;
   let AiPlayerPlaceShips: aiShipPlacementSystemInterface;
 
   beforeEach(() => {
-    carrier = ship('carrier', 5);
-    destroyer = ship('destroyer', 3);
-    submarine = ship('submarine', 3);
-    battleship = ship('battleship', 4);
-    cruiser = ship('cruiser', 2);
-    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
-    Ai = gameBoard(shipsArray);
+    Ai = createPlayer2();
     AiPlayerPlaceShips = aiShipPlacementSystem();
   });
 

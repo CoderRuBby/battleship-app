@@ -1,29 +1,14 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
-import type { shipInterface } from '~/utils/ship';
-import ship from '~/utils/ship';
 import type { aiAttackInterface } from '~/utils/aiAttack';
 import aiAttack from '~/utils/aiAttack';
+import { createPlayer1 } from './testData';
 
 describe('aiAttack', () => {
-  let carrier: shipInterface;
-  let destroyer: shipInterface;
-  let submarine: shipInterface;
-  let battleship: shipInterface;
-  let cruiser: shipInterface;
-  let shipsArray: shipInterface[];
-  let Opponent: gameBoardInterface;
+  let Opponent: ReturnType<typeof createPlayer1>;
   let newAiAttackSystem: aiAttackInterface;
 
   beforeEach(() => {
-    carrier = ship('carrier', 5);
-    destroyer = ship('destroyer', 3);
-    submarine = ship('submarine', 3);
-    battleship = ship('battleship', 4);
-    cruiser = ship('cruiser', 2);
-    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
-    Opponent = gameBoard(shipsArray);
+    Opponent = createPlayer1();
     newAiAttackSystem = aiAttack();
   });
 

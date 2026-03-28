@@ -1,54 +1,18 @@
 import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it, test } from 'vitest';
-import type { shipInterface } from '~/utils/ship';
-import ship from '~/utils/ship';
 import { AppComponent } from '~/components/AppComponent';
 import userEvent from '@testing-library/user-event';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
+import { createPlayer1, createPlayer2 } from './testData';
 
 describe('App', () => {
-  let carrier: shipInterface;
-  let destroyer: shipInterface;
-  let submarine: shipInterface;
-  let battleship: shipInterface;
-  let cruiser: shipInterface;
-  let shipsArray: shipInterface[];
-  let playerGameBoard: gameBoardInterface;
   let component: React.ReactElement;
-  let aiCarrier: shipInterface;
-  let aiDestroyer: shipInterface;
-  let aiSubmarine: shipInterface;
-  let aiBattleship: shipInterface;
-  let aiCruiser: shipInterface;
-  let aiShipsArray: shipInterface[];
-  let aiGameBoard: gameBoardInterface;
+  let player1: ReturnType<typeof createPlayer1>;
+  let player2: ReturnType<typeof createPlayer2>;
 
   beforeEach(() => {
-    carrier = ship('carrier', 5);
-    destroyer = ship('destroyer', 3);
-    submarine = ship('submarine', 3);
-    battleship = ship('battleship', 4);
-    cruiser = ship('cruiser', 2);
-    shipsArray = [carrier, destroyer, submarine, battleship, cruiser];
-    playerGameBoard = gameBoard(shipsArray);
-    aiCarrier = ship('carrier', 5);
-    aiDestroyer = ship('destroyer', 3);
-    aiSubmarine = ship('submarine', 3);
-    aiBattleship = ship('battleship', 4);
-    aiCruiser = ship('cruiser', 2);
-    aiShipsArray = [
-      aiCarrier,
-      aiDestroyer,
-      aiSubmarine,
-      aiBattleship,
-      aiCruiser,
-    ];
-    aiGameBoard = gameBoard(aiShipsArray, true);
-
-    component = (
-      <AppComponent player1Board={playerGameBoard} player2Board={aiGameBoard} />
-    );
+    player1 = createPlayer1();
+    player2 = createPlayer2();
+    component = <AppComponent player1Board={player1} player2Board={player2} />;
   });
 
   describe('initial render', () => {
@@ -132,6 +96,8 @@ describe('App', () => {
       const user = userEvent.setup();
 
       render(component);
+
+      screen.debug();
 
       const playerBoard = screen.getByRole('region', {
         name: 'The Game Board',
@@ -945,7 +911,7 @@ describe('App', () => {
         await user.click(button8);
         await user.unhover(button8);
 
-        expect(aiGameBoard.props.allShipsPlaced).toBe(true);
+        expect(player2.props.allShipsPlaced).toBe(true);
       });
     });
   });
@@ -1352,16 +1318,14 @@ describe('App', () => {
         const button23 = within(aiBoard).getByTestId('23');
         await user.click(button23);
 
-        expect(
-          aiGameBoard.board[23].isHit || aiGameBoard.board[23].isMiss,
-        ).toBe(true);
+        expect(player2.board[23].isHit || player2.board[23].isMiss).toBe(true);
       });
 
       test('verify a hit renders on the ai gameboard', async () => {
         const user = userEvent.setup();
-        aiGameBoard.board[23].ship = aiGameBoard.props.allShips[0];
-        aiGameBoard.props.allShipsPlaced = true;
-        playerGameBoard.props.allShipsPlaced = true;
+        player2.board[23].ship = player2.props.allShips[0];
+        player2.props.allShipsPlaced = true;
+        player1.props.allShipsPlaced = true;
 
         render(component);
 
@@ -1377,8 +1341,8 @@ describe('App', () => {
 
       test('verify a miss will render on the ai game board', async () => {
         const user = userEvent.setup();
-        aiGameBoard.props.allShipsPlaced = true;
-        playerGameBoard.props.allShipsPlaced = true;
+        player2.props.allShipsPlaced = true;
+        player1.props.allShipsPlaced = true;
 
         render(component);
 
@@ -1398,19 +1362,19 @@ describe('App', () => {
         const square46BGRight = 'cruiser1right-sunk.png';
         const square45BGLeft = 'cruiser0left-sunk.png';
         const square46BGLeft = 'cruiser1left-sunk.png';
-        aiGameBoard.board.forEach((square) => {
+        player2.board.forEach((square) => {
           if (square.id !== 45 && square.id !== 46) {
-            square.ship = aiGameBoard.props.allShips[0];
+            square.ship = player2.props.allShips[0];
           }
         });
-        aiGameBoard.props.allShips[0].props.isPlaced = true;
-        aiGameBoard.props.allShips[1].props.isPlaced = true;
-        aiGameBoard.props.allShips[2].props.isPlaced = true;
-        aiGameBoard.props.allShips[3].props.isPlaced = true;
-        playerGameBoard.props.allShips[0].props.isPlaced = true;
-        playerGameBoard.props.allShips[1].props.isPlaced = true;
-        playerGameBoard.props.allShips[2].props.isPlaced = true;
-        playerGameBoard.props.allShips[3].props.isPlaced = true;
+        player2.props.allShips[0].props.isPlaced = true;
+        player2.props.allShips[1].props.isPlaced = true;
+        player2.props.allShips[2].props.isPlaced = true;
+        player2.props.allShips[3].props.isPlaced = true;
+        player1.props.allShips[0].props.isPlaced = true;
+        player1.props.allShips[1].props.isPlaced = true;
+        player1.props.allShips[2].props.isPlaced = true;
+        player1.props.allShips[3].props.isPlaced = true;
 
         render(component);
 
@@ -1576,10 +1540,10 @@ describe('App', () => {
 
       test('verify a hit will render on the player game board', async () => {
         const user = userEvent.setup();
-        aiGameBoard.props.allShipsPlaced = true;
-        playerGameBoard.props.allShipsPlaced = true;
-        playerGameBoard.board.forEach((square) => {
-          square.ship = playerGameBoard.props.allShips[0];
+        player2.props.allShipsPlaced = true;
+        player1.props.allShipsPlaced = true;
+        player1.board.forEach((square) => {
+          square.ship = player1.props.allShips[0];
         });
 
         render(component);
@@ -1607,8 +1571,8 @@ describe('App', () => {
 
       test('verify a miss will render on the player game board', async () => {
         const user = userEvent.setup();
-        aiGameBoard.props.allShipsPlaced = true;
-        playerGameBoard.props.allShipsPlaced = true;
+        player2.props.allShipsPlaced = true;
+        player1.props.allShipsPlaced = true;
 
         render(component);
 
@@ -1635,22 +1599,22 @@ describe('App', () => {
       });
 
       test('a sunk ship will render on user game board', async () => {
-        playerGameBoard.props.allShips[0].props.isPlaced = true;
-        playerGameBoard.props.allShips[1].props.isPlaced = true;
-        playerGameBoard.props.allShips[2].props.isPlaced = true;
-        playerGameBoard.props.allShips[3].props.isPlaced = true;
-        playerGameBoard.props.allShips[0].props.sunk = true;
-        playerGameBoard.props.allShips[1].props.sunk = true;
-        playerGameBoard.props.allShips[2].props.sunk = true;
-        playerGameBoard.props.allShips[3].props.sunk = true;
+        player1.props.allShips[0].props.isPlaced = true;
+        player1.props.allShips[1].props.isPlaced = true;
+        player1.props.allShips[2].props.isPlaced = true;
+        player1.props.allShips[3].props.isPlaced = true;
+        player1.props.allShips[0].props.sunk = true;
+        player1.props.allShips[1].props.sunk = true;
+        player1.props.allShips[2].props.sunk = true;
+        player1.props.allShips[3].props.sunk = true;
         const string45 = '45';
         const string46 = '46';
-        playerGameBoard.board.forEach((square) => {
+        player1.board.forEach((square) => {
           if (
             square.id !== Number(string45) &&
             square.id !== Number(string46)
           ) {
-            playerGameBoard.board[square.id].isMiss = true;
+            player1.board[square.id].isMiss = true;
           }
         });
         const user = userEvent.setup();
@@ -1697,14 +1661,14 @@ describe('App', () => {
     describe('game over menu', () => {
       it('renders with you win', async () => {
         const user = userEvent.setup();
-        playerGameBoard.props.allShipsPlaced = true;
-        aiGameBoard.props.allShipsPlaced = true;
-        aiGameBoard.props.allShips[0].props.sunk = true;
-        aiGameBoard.props.allShips[1].props.sunk = true;
-        aiGameBoard.props.allShips[2].props.sunk = true;
-        aiGameBoard.props.allShips[3].props.sunk = true;
-        aiGameBoard.board[53].ship = aiGameBoard.props.allShips[4];
-        aiGameBoard.board[54].ship = aiGameBoard.props.allShips[4];
+        player1.props.allShipsPlaced = true;
+        player2.props.allShipsPlaced = true;
+        player2.props.allShips[0].props.sunk = true;
+        player2.props.allShips[1].props.sunk = true;
+        player2.props.allShips[2].props.sunk = true;
+        player2.props.allShips[3].props.sunk = true;
+        player2.board[53].ship = player2.props.allShips[4];
+        player2.board[54].ship = player2.props.allShips[4];
 
         render(component);
 
@@ -1724,22 +1688,22 @@ describe('App', () => {
 
       it('renders with you lose', async () => {
         const user = userEvent.setup();
-        playerGameBoard.props.allShips[0].props.isPlaced = true;
-        playerGameBoard.props.allShips[1].props.isPlaced = true;
-        playerGameBoard.props.allShips[2].props.isPlaced = true;
-        playerGameBoard.props.allShips[3].props.isPlaced = true;
-        playerGameBoard.props.allShips[0].props.sunk = true;
-        playerGameBoard.props.allShips[1].props.sunk = true;
-        playerGameBoard.props.allShips[2].props.sunk = true;
-        playerGameBoard.props.allShips[3].props.sunk = true;
+        player1.props.allShips[0].props.isPlaced = true;
+        player1.props.allShips[1].props.isPlaced = true;
+        player1.props.allShips[2].props.isPlaced = true;
+        player1.props.allShips[3].props.isPlaced = true;
+        player1.props.allShips[0].props.sunk = true;
+        player1.props.allShips[1].props.sunk = true;
+        player1.props.allShips[2].props.sunk = true;
+        player1.props.allShips[3].props.sunk = true;
         const string45 = '45';
         const string46 = '46';
-        playerGameBoard.board.forEach((square) => {
+        player1.board.forEach((square) => {
           if (
             square.id !== Number(string45) &&
             square.id !== Number(string46)
           ) {
-            playerGameBoard.board[square.id].isMiss = true;
+            player1.board[square.id].isMiss = true;
           }
         });
 
@@ -1775,22 +1739,22 @@ describe('App', () => {
       describe('play again button', () => {
         it('allows another game to be played', async () => {
           const user = userEvent.setup();
-          playerGameBoard.props.allShips[0].props.isPlaced = true;
-          playerGameBoard.props.allShips[1].props.isPlaced = true;
-          playerGameBoard.props.allShips[2].props.isPlaced = true;
-          playerGameBoard.props.allShips[3].props.isPlaced = true;
-          playerGameBoard.props.allShips[0].props.sunk = true;
-          playerGameBoard.props.allShips[1].props.sunk = true;
-          playerGameBoard.props.allShips[2].props.sunk = true;
-          playerGameBoard.props.allShips[3].props.sunk = true;
+          player1.props.allShips[0].props.isPlaced = true;
+          player1.props.allShips[1].props.isPlaced = true;
+          player1.props.allShips[2].props.isPlaced = true;
+          player1.props.allShips[3].props.isPlaced = true;
+          player1.props.allShips[0].props.sunk = true;
+          player1.props.allShips[1].props.sunk = true;
+          player1.props.allShips[2].props.sunk = true;
+          player1.props.allShips[3].props.sunk = true;
           const string45 = '45';
           const string46 = '46';
-          playerGameBoard.board.forEach((square) => {
+          player1.board.forEach((square) => {
             if (
               square.id !== Number(string45) &&
               square.id !== Number(string46)
             ) {
-              playerGameBoard.board[square.id].isMiss = true;
+              player1.board[square.id].isMiss = true;
             }
           });
 

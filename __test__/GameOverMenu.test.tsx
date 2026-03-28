@@ -7,7 +7,7 @@ describe('GameOverMenu', () => {
   let component: React.ReactElement;
 
   beforeEach(() => {
-    component = <GameOverMenu winLoseText={text} />;
+    component = <GameOverMenu winLoseText={text} resetGame={() => {}} />;
   });
 
   it('has a container', () => {

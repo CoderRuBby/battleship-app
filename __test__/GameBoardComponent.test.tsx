@@ -1,22 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GameBoardComponent } from '~/components/GameBoardComponent';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
-import type { shipInterface } from '~/utils/ship';
-import ship from '~/utils/ship';
+import { createPlayer1 } from './testData';
 
 describe('GameBoardComponent', () => {
-  let playerGameBoard: gameBoardInterface;
-  let shipObject: shipInterface;
+  let player1: ReturnType<typeof createPlayer1>;
   let component: React.ReactElement;
 
   beforeEach(() => {
-    shipObject = ship('foo', 3);
-    playerGameBoard = gameBoard([shipObject]);
+    player1 = createPlayer1();
     component = (
       <GameBoardComponent
-        player={playerGameBoard}
+        player={player1}
         handleOnClick={() => {}}
         handleMouseEnter={() => {}}
         handleMouseLeave={() => {}}

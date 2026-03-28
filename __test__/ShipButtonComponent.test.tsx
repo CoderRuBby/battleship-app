@@ -1,28 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { ShipButtonComponent } from '~/components/ShipButtonComponent';
-import type { gameBoardInterface } from '~/utils/gameBoard';
-import gameBoard from '~/utils/gameBoard';
-import type { shipInterface } from '~/utils/ship';
-import ship from '~/utils/ship';
+import { createPlayer1 } from './testData';
 
 describe('ShipButtonComponent', () => {
-  let carrier: shipInterface;
-  let destroyer: shipInterface;
-  let submarine: shipInterface;
-  let buttons: shipInterface[];
+  let player1: ReturnType<typeof createPlayer1>;
   let component: React.ReactElement;
-  let player: gameBoardInterface;
 
   beforeEach(() => {
-    carrier = ship('carrier', 5);
-    destroyer = ship('destroyer', 3);
-    submarine = ship('submarine', 3);
-    buttons = [carrier, destroyer, submarine];
-    player = gameBoard(buttons);
+    player1 = createPlayer1();
 
     component = (
-      <ShipButtonComponent player={player} handleSelectShip={() => {}} />
+      <ShipButtonComponent player={player1} handleSelectShip={() => {}} />
     );
   });
 
