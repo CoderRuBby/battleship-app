@@ -267,9 +267,17 @@ export function AppComponent({
   };
 
   return (
-    <div className="bg-[center_top_2rem] bg-cover w-full h-screen bg-no-repeat bg-[url('/images/ship-control-room-mobile.png')] flex justify-center items-center">
+    <div
+      className="
+        flex justify-center items-center
+        bg-[url('/images/ship-control-room-mobile.png')] 
+        w-full h-screen bg-cover bg-no-repeat bg-[center_top_2rem]
+        sm:bg-[url('/images/ship-control-room-v8.png')]
+        sm:bg-center
+      "
+    >
       <div>
-        <main className="h-142 w-90 bg-[10%] bg-[url('/images/ship-container.svg')] flex flex-col-reverse justify-center items-center gap-6 border-1 border-b-0 pl-8.5 pr-8.5 mb-70">
+        <main className="h-142 w-90 sm:w-130 bg-[10%] bg-[url('/images/ship-container.svg')] flex flex-col-reverse justify-center items-center gap-6 border-1 border-b-0 pl-8.5 pr-8.5 mb-70 sm:mb-50">
           {isThereAWinner() && (
             <GameOverMenu
               winLoseText={winnerLoserText()}
