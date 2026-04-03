@@ -22,7 +22,7 @@ export function GameBoardComponent({
     <section
       role='region'
       aria-label={label}
-      className="bg-[url('/images/game-board-final.svg')] bg-center grid grid-cols-[repeat(10,_1fr)] grid-rows-[repeat(10,_1fr)] w-fit"
+      className='grid grid-cols-[repeat(10,_1fr)] grid-rows-[repeat(10,_1fr)]'
     >
       {player.board.map((square) => (
         <GameBoardButton

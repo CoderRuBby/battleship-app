@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- smooth base -->
+    <linearGradient id="panelFill" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#2569D9"/>
+      <stop offset="50%" stop-color="#4FC3FF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#2F7EF0"/>
+      <animateTransform attributeName="gradientTransform"
+        type="translate"
+        values="0,0.2; 0,-0.2"
+        dur="30s"
+        repeatCount="indefinite"/>
+    </linearGradient>
+
+    <!-- blur -->
+    <filter id="streakBlur">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+
+    <!-- MANY tracers (dense like original) -->
+    <g id="tracers">
+      <!-- generate lots of staggered lines -->
+      
+      <g>
+        <rect x="120" y="800" width="0.6" height="40"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="820;100"
+            dur="3.0s" begin="0.0s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="3.0s" begin="0.0s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="120" y="800" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="820;100"
+            dur="3.0s" begin="0.0s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.0s" begin="0.0s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="180" y="760" width="0.6" height="60"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="780;100"
+            dur="3.6s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="3.6s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="180" y="760" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="780;100"
+            dur="3.6s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.6s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="240" y="720" width="0.6" height="80"
+          fill="#D8FFFF" opacity="0.32" filter="url(#streakBlur)">
+          <animate attributeName="y" values="740;100"
+            dur="4.2s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.32;0"
+            dur="4.2s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="240" y="720" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="740;100"
+            dur="4.2s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.2s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="300" y="680" width="0.6" height="100"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="700;100"
+            dur="4.8s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="4.8s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="300" y="680" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="700;100"
+            dur="4.8s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.8s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="360" y="640" width="0.6" height="40"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="660;100"
+            dur="3.0s" begin="1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="3.0s" begin="1.2s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="360" y="640" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="660;100"
+            dur="3.0s" begin="1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.0s" begin="1.2s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="420" y="800" width="0.6" height="60"
+          fill="#D8FFFF" opacity="0.32" filter="url(#streakBlur)">
+          <animate attributeName="y" values="820;100"
+            dur="3.6s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.32;0"
+            dur="3.6s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="420" y="800" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="820;100"
+            dur="3.6s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.6s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="480" y="760" width="0.6" height="80"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="780;100"
+            dur="4.2s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="4.2s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="480" y="760" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="780;100"
+            dur="4.2s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.2s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="540" y="720" width="0.6" height="100"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="740;100"
+            dur="4.8s" begin="0.0s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="4.8s" begin="0.0s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="540" y="720" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="740;100"
+            dur="4.8s" begin="0.0s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.8s" begin="0.0s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="600" y="680" width="0.6" height="40"
+          fill="#D8FFFF" opacity="0.32" filter="url(#streakBlur)">
+          <animate attributeName="y" values="700;100"
+            dur="3.0s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.32;0"
+            dur="3.0s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="600" y="680" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="700;100"
+            dur="3.0s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.0s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="660" y="640" width="0.6" height="60"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="660;100"
+            dur="3.6s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="3.6s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="660" y="640" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="660;100"
+            dur="3.6s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.6s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="720" y="800" width="0.6" height="80"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="820;100"
+            dur="4.2s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="4.2s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="720" y="800" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="820;100"
+            dur="4.2s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.2s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="780" y="760" width="0.6" height="100"
+          fill="#D8FFFF" opacity="0.32" filter="url(#streakBlur)">
+          <animate attributeName="y" values="780;100"
+            dur="4.8s" begin="1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.32;0"
+            dur="4.8s" begin="1.2s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="780" y="760" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="780;100"
+            dur="4.8s" begin="1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.8s" begin="1.2s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="840" y="720" width="0.6" height="40"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="740;100"
+            dur="3.0s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="3.0s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="840" y="720" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="740;100"
+            dur="3.0s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.0s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="900" y="680" width="0.6" height="60"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="700;100"
+            dur="3.6s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="3.6s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="900" y="680" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="700;100"
+            dur="3.6s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.6s" begin="1.7999999999999998s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="960" y="640" width="0.6" height="80"
+          fill="#D8FFFF" opacity="0.32" filter="url(#streakBlur)">
+          <animate attributeName="y" values="660;100"
+            dur="4.2s" begin="0.0s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.32;0"
+            dur="4.2s" begin="0.0s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="960" y="640" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="660;100"
+            dur="4.2s" begin="0.0s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.2s" begin="0.0s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="1020" y="800" width="0.6" height="100"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="820;100"
+            dur="4.8s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="4.8s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="1020" y="800" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="820;100"
+            dur="4.8s" begin="0.3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.8s" begin="0.3s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="1080" y="760" width="0.6" height="40"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="780;100"
+            dur="3.0s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="3.0s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="1080" y="760" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="780;100"
+            dur="3.0s" begin="0.6s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.0s" begin="0.6s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="1140" y="720" width="0.6" height="60"
+          fill="#D8FFFF" opacity="0.32" filter="url(#streakBlur)">
+          <animate attributeName="y" values="740;100"
+            dur="3.6s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.32;0"
+            dur="3.6s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="1140" y="720" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="740;100"
+            dur="3.6s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="3.6s" begin="0.8999999999999999s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="1200" y="680" width="0.6" height="80"
+          fill="#D8FFFF" opacity="0.22" filter="url(#streakBlur)">
+          <animate attributeName="y" values="700;100"
+            dur="4.2s" begin="1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.22;0"
+            dur="4.2s" begin="1.2s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="1200" y="680" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="700;100"
+            dur="4.2s" begin="1.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.2s" begin="1.2s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+
+      <g>
+        <rect x="1260" y="640" width="0.6" height="100"
+          fill="#D8FFFF" opacity="0.27" filter="url(#streakBlur)">
+          <animate attributeName="y" values="660;100"
+            dur="4.8s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.27;0"
+            dur="4.8s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+
+        <!-- crisp head -->
+        <rect x="1260" y="640" width="0.6" height="4" fill="#FFFFFF" opacity="0">
+          <animate attributeName="y" values="660;100"
+            dur="4.8s" begin="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0;0.9;0"
+            dur="4.8s" begin="1.5s" repeatCount="indefinite"/>
+        </rect>
+      </g>
+        
+    </g>
+
+    <!-- subtle grid -->
+    <pattern id="grid" width="14" height="14" patternUnits="userSpaceOnUse">
+      <path d="M14 0 L0 0 0 14" fill="none" stroke="#BFE8FF" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+
+    <!-- noise -->
+    <pattern id="noise" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect x="0" y="0" width="2" height="2" fill="#DFFFFF" opacity="0.03"/>
+      <animate attributeName="patternTransform"
+        type="translate"
+        values="0,0; 1,1; -1,1; 0,0"
+        dur="1.2s"
+        repeatCount="indefinite"/>
+    </pattern>
+
+    <!-- border glow -->
+    <filter id="softBorder">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <!-- base -->
+  <rect x="80" y="80" width="1240" height="740" fill="url(#panelFill)"/>
+
+  <!-- tracers -->
+  <use href="#tracers"/>
+
+  <!-- overlays -->
+  <rect x="80" y="80" width="1240" height="740" fill="url(#noise)"/>
+  <rect x="80" y="80" width="1240" height="740" fill="url(#grid)"/>
+
+  <!-- soft transparent border -->
+  <rect x="80" y="80" width="1240" height="740"
+        fill="none"
+        stroke="#A8F5FF"
+        stroke-width="2"
+        opacity="0.2"/>
+
+  <rect x="80" y="80" width="1240" height="740"
+        fill="none"
+        stroke="#7FDFFF"
+        stroke-width="12"
+        opacity="0.08"
+        filter="url(#softBorder)"/>
+</svg>

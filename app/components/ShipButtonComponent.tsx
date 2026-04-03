@@ -15,7 +15,7 @@ export function ShipButtonComponent({
     <section
       role='region'
       aria-label='The ship buttons'
-      className='ship-button-container'
+      className='ship-button-container flex flex-wrap justify-around items-center border-1'
     >
       {player.props.allShips.map((ship) => (
         <ShipButton

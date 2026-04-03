@@ -267,34 +267,41 @@ export function AppComponent({
   };
 
   return (
-    <main className="bg-center bg-cover w-full h-screen bg-no-repeat bg-[url('/images/ship-control-room-mobile.png')]">
-      {isThereAWinner() && (
-        <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
-      )}
-      {!player1.props.allShipsPlaced && (
-        <ShipButtonComponent
-          player={player1}
-          handleSelectShip={handleSelectShip}
-        />
-      )}
-      {player1.props.allShipsPlaced && (
-        <GameBoardComponent
-          player={player2}
-          handleMouseEnter={handleMouseEnter}
-          handleMouseLeave={handleMouseLeave}
-          handleOnClick={aiGameBoardOnClick}
-          label='Ai Game Board'
-          dblClick={() => {}}
-        />
-      )}
-      <GameBoardComponent
-        player={player1}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-        handleOnClick={gameBoardOnClick}
-        label='The Game Board'
-        dblClick={dblClick}
-      />
-    </main>
+    <div className="bg-[center_top_2rem] bg-cover w-full h-screen bg-no-repeat bg-[url('/images/ship-control-room-mobile.png')] flex justify-center items-center">
+      <div>
+        <main className="h-142 w-90 bg-[10%] bg-[url('/images/ship-container.svg')] flex flex-col-reverse justify-center items-center gap-6 border-1 border-b-0 pl-8.5 pr-8.5 mb-70">
+          {isThereAWinner() && (
+            <GameOverMenu
+              winLoseText={winnerLoserText()}
+              resetGame={resetGame}
+            />
+          )}
+          {!player1.props.allShipsPlaced && (
+            <ShipButtonComponent
+              player={player1}
+              handleSelectShip={handleSelectShip}
+            />
+          )}
+          {player1.props.allShipsPlaced && (
+            <GameBoardComponent
+              player={player2}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              handleOnClick={aiGameBoardOnClick}
+              label='Ai Game Board'
+              dblClick={() => {}}
+            />
+          )}
+          <GameBoardComponent
+            player={player1}
+            handleMouseEnter={handleMouseEnter}
+            handleMouseLeave={handleMouseLeave}
+            handleOnClick={gameBoardOnClick}
+            label='The Game Board'
+            dblClick={dblClick}
+          />
+        </main>
+      </div>
+    </div>
   );
 }

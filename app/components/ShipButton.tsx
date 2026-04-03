@@ -11,12 +11,12 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
     (ship) => ship.props.name === testId,
   );
   const buttonStyle = {
-    background:
+    backgroundImage:
       player.props.selectedShip?.props.name === testId
-        ? `url("highlighted-${testId}.png")`
+        ? `url("/images/highlighted-${testId}.png")`
         : player.props.allShips[shipIndex].props.isPlaced === true
-          ? `url("outline-${testId}.png")`
-          : `url("${testId}.png")`,
+          ? `url("/images/outline-${testId}.png")`
+          : `url("/images/${testId}.png")`,
   };
 
   const isDisabled = () => {
@@ -28,7 +28,7 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
   };
   return (
     <button
-      className={`ship-button ${testId}`}
+      className={`ship-button ${testId} border-1 h-20 bg-center bg-cover bg-no-repeat`}
       data-testid={testId}
       style={buttonStyle}
       onClick={shipOnClick}
