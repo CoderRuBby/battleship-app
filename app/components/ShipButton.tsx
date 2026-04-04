@@ -28,7 +28,8 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
   };
   return (
     <button
-      className={`ship-button ${testId} border-1 h-20 bg-center bg-cover bg-no-repeat`}
+      className={`ship-button ${testId} h-13 bg-center bg-cover bg-no-repeat
+      `}
       data-testid={testId}
       style={buttonStyle}
       onClick={shipOnClick}

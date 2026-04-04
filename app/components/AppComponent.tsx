@@ -274,10 +274,19 @@ export function AppComponent({
         w-full h-screen bg-cover bg-no-repeat bg-[center_top_2rem]
         sm:bg-[url('/images/ship-control-room-v8.png')]
         sm:bg-center
+        md:bg-[url('/images/ship-control-room-v8.png')]
       "
     >
       <div>
-        <main className="h-142 w-90 sm:w-130 bg-[10%] bg-[url('/images/ship-container.svg')] flex flex-col-reverse justify-center items-center gap-6 border-1 border-b-0 pl-8.5 pr-8.5 mb-70 sm:mb-50">
+        <main
+          className="
+          flex flex-col-reverse justify-center items-center gap-6
+          bg-[url('/images/ship-container.svg')]
+          h-142 w-90 bg-[10%] border-1 border-b-0 pl-8.5 pr-8.5 mb-70
+          sm:w-130 sm:mb-50
+          md:h-auto md:w-fit md:bg-[15%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
+        "
+        >
           {isThereAWinner() && (
             <GameOverMenu
               winLoseText={winnerLoserText()}
