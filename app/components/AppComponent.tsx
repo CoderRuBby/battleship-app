@@ -280,7 +280,8 @@ export function AppComponent({
           className="
           flex flex-col-reverse justify-center items-center gap-6
           bg-[url('/images/ship-container.svg')]
-          h-142 w-90 bg-[10%] border-1 border-b-0 pl-8.5 pr-8.5 mb-70
+          shadow-[0px_0px_0px_24px_rgba(44,94,444,.2),0px_-5px_0px_10px_rgba(4,94,844,.2),0px_-6px_0px_13px_rgba(3,78,933,.17),0px_-3px_0px_18px_rgba(33,334,943,.1)]
+          h-auto w-fit bg-[10%] p-1 mb-55 backdrop-blur-[4px]
           sm:w-130 sm:mb-50
           md:h-auto md:w-fit md:bg-[15%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
         "
