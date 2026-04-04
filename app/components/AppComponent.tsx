@@ -271,10 +271,8 @@ export function AppComponent({
       className="
         flex justify-center items-center
         bg-[url('/images/ship-control-room-mobile.png')] 
-        w-full h-screen bg-cover bg-no-repeat bg-[center_top_2rem]
-        sm:bg-[url('/images/ship-control-room-v8.png')]
-        sm:bg-center
-        md:bg-[url('/images/ship-control-room-v8.png')]
+        w-full h-screen bg-cover bg-no-repeat bg-center
+        md:bg-[url('/images/ship-control-room-v8-md.png')]
       "
     >
       <div>
