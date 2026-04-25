@@ -46,7 +46,8 @@ describe('GameBoardButton', () => {
     const button = screen.getByTestId('1');
     const style = getComputedStyle(button);
 
-    expect(style.background).toContain('url("carrier-1-up.png")');
+    expect(style.background).toContain('carrier-1.png');
+    expect(button).toHaveClass('up');
   });
 
   it('will render a button with a hit image', () => {
@@ -68,7 +69,7 @@ describe('GameBoardButton', () => {
     const button = screen.getByTestId('1');
     const style = getComputedStyle(button);
 
-    expect(style.background).toContain('url("hit.png")');
+    expect(style.background).toContain('hit.png');
   });
 
   it('will render a button with a miss image', () => {
@@ -90,6 +91,6 @@ describe('GameBoardButton', () => {
     const button = screen.getByTestId('1');
     const style = getComputedStyle(button);
 
-    expect(style.background).toContain('url("miss.png")');
+    expect(style.background).toContain('miss.png');
   });
 });
