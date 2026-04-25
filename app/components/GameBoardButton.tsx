@@ -24,27 +24,38 @@ export function GameBoardButton({
   const selectedShipName = player.props.selectedShip?.props.name;
   const isAi = player.props.aiPlayer;
   const isShipSunk = boardNumber?.ship?.props.sunk;
-  const buttonStyle = {
-    background:
-      isShipSunk === true
-        ? `url("${shipName}-${imgNumber}-${imgDirection}-sunk.png")`
-        : boardNumber?.isHit === true
-          ? 'url("hit.png")'
-          : boardNumber?.isMiss === true
-            ? 'url("miss.png")'
-            : boardNumber?.ship !== null && isAi === false
-              ? `url("${shipName}-${imgNumber}-${imgDirection}.png")`
-              : imgNumber !== null && isAi === false
-                ? `url("${selectedShipName}-${imgNumber}-${imgDirection}.png")`
-                : 'rgba(0, 0, 0, 0)',
+  const imageBackground = () => {
+    let image: string | null = null;
+    if (isShipSunk === true) {
+      image = `${shipName}-${imgNumber}-sunk`;
+    } else if (boardNumber?.isHit === true) {
+      image = 'hit';
+    } else if (boardNumber?.isMiss) {
+      image = 'miss';
+    } else if (boardNumber?.ship != null && isAi === false) {
+      image = `${shipName}-${imgNumber}`;
+    } else if (imgNumber != null && isAi === false) {
+      image = `${selectedShipName}-${imgNumber}`;
+    }
+    return image ? `url('/images/${image}.png')` : 'rgba(0, 0, 0, 0)';
+  };
+  const imageDirectionClass = () => {
+    if (imgDirection !== null && imgDirection !== 'right') {
+      return imgDirection;
+    } else {
+      return null;
+    }
   };
   return (
     <button
-      className='
+      className={`
+        ${imageDirectionClass() ? imageDirectionClass() : ''}
         w-[clamp(1.7rem,2vw,2.5rem)] h-[clamp(1.7rem,2vw,2.5rem)] border-1
-      '
+      `}
+      style={{
+        background: imageBackground(),
+      }}
       data-testid={testId}
-      style={buttonStyle}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => handleOnClick(Number(testId))}
