@@ -18,7 +18,7 @@ export function ShipButtonComponent({
       className='
         ship-button-container
         flex flex-wrap justify-around items-center
-        w-[clamp(17rem,18vw,20rem)] h-[clamp(16.8rem,20vw,24rem)]
+        w-[clamp(17rem,18vw,20rem)]
       '
     >
       {player.props.allShips.map((ship) => (

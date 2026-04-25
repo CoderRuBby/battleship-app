@@ -281,8 +281,7 @@ export function AppComponent({
           flex flex-col-reverse justify-center items-center gap-6
           bg-[url('/images/ship-container.svg')]
           shadow-[0px_0px_3px_5px_rgba(44,943,444,.1),0px_-5px_4px_10px_rgba(23,94,844,.3),0px_-6px_20px_33px_rgba(3,78,933,.3),0px_-3px_6px_18px_rgba(33,334,943,.75)]
-          h-auto w-fit bg-[10%] p-1 mb-55 backdrop-blur-[4px]
-          sm:w-130 sm:mb-50
+          h-auto w-fit bg-[10%] p-1 mb-30 backdrop-blur-[4px]
           md:h-auto md:w-fit md:bg-[15%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
         "
         >
