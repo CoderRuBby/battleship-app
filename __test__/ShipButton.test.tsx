@@ -17,14 +17,13 @@ describe('ShipButton', () => {
     );
   });
 
-  it('will render a button with a carrier.png background', () => {
+  it('will render a button with a carrier class', () => {
     render(component);
 
     const buttonElement = screen.getByTestId('carrier');
-    const style = getComputedStyle(buttonElement);
 
     expect(buttonElement).toBeInTheDocument();
-    expect(style.backgroundImage).toContain('carrier.png');
+    expect(buttonElement).toHaveClass('carrier');
   });
 
   it('will call the onClick function when clicked', async () => {
@@ -38,26 +37,14 @@ describe('ShipButton', () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-  it('will render a button with a highlightedcarrier.png background', () => {
+  it('will render a button with a ship-outline class', () => {
     player1.props.selectedShip = player1.props.allShips[0];
 
     render(component);
 
     const buttonElement = screen.getByTestId('carrier');
-    const style = getComputedStyle(buttonElement);
 
-    expect(style.backgroundImage).toContain('highlighted-carrier.png');
-  });
-
-  it('will render a button with an outline background image', () => {
-    player1.props.allShips[0].props.isPlaced = true;
-
-    render(component);
-
-    const buttonElement = screen.getByTestId('carrier');
-    const style = getComputedStyle(buttonElement);
-
-    expect(style.backgroundImage).toContain('outline-carrier.png');
+    expect(buttonElement).toHaveClass('ship-outline');
   });
 
   it('will not be able to be selected after ship is placed on the gameboard', async () => {
@@ -71,6 +58,6 @@ describe('ShipButton', () => {
     await user.click(cruiserButton);
 
     expect(onClick).not.toBeCalled();
-    expect(cruiserButton.style.background).toContain('outline-carrier.png');
+    expect(cruiserButton).not.toHaveClass('ship-outline');
   });
 });

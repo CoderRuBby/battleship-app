@@ -427,35 +427,17 @@ describe('App', () => {
         render(component);
 
         const buttonOne = screen.getByTestId('carrier');
-        const styleOne = getComputedStyle(buttonOne);
-
-        expect(styleOne.background).toContain('url("/images/carrier.png")');
 
         await user.click(buttonOne);
 
-        const newStyleOne = getComputedStyle(buttonOne);
-
-        expect(newStyleOne.background).toContain(
-          'url("/images/highlighted-carrier.png")',
-        );
+        expect(buttonOne).toHaveClass('ship-outline');
 
         const buttonTwo = screen.getByTestId('destroyer');
-        const styleTwo = getComputedStyle(buttonTwo);
-
-        expect(styleTwo.background).toContain('url("/images/destroyer.png")');
 
         await user.click(buttonTwo);
 
-        const newStyleTwo = getComputedStyle(buttonTwo);
-        const buttonOneAgain = screen.getByTestId('carrier');
-        const styleOneAgain = getComputedStyle(buttonOneAgain);
-
-        expect(newStyleTwo.background).toContain(
-          'url("/images/highlighted-destroyer.png")',
-        );
-        expect(styleOneAgain.background).toContain(
-          'url("/images/carrier.png")',
-        );
+        expect(buttonOne).not.toHaveClass('ship-outline');
+        expect(buttonTwo).toHaveClass('ship-outline');
       });
 
       test('selecting the same button twice deselects it', async () => {
@@ -464,21 +446,14 @@ describe('App', () => {
         render(component);
 
         const buttonOne = screen.getByTestId('carrier');
-        let style = getComputedStyle(buttonOne);
 
         await user.click(buttonOne);
 
-        style = getComputedStyle(buttonOne);
-
-        expect(style.background).toContain(
-          'url("/images/highlighted-carrier.png")',
-        );
+        expect(buttonOne).toHaveClass('ship-outline');
 
         await user.click(buttonOne);
 
-        style = getComputedStyle(buttonOne);
-
-        expect(style.background).toContain('url("/images/carrier.png")');
+        expect(buttonOne).not.toHaveClass('ship-outline');
       });
 
       test('verify user interface renders a placed ship on the gameboard', async () => {
@@ -493,11 +468,7 @@ describe('App', () => {
         const destroyer = screen.getByTestId('destroyer');
         await user.click(destroyer);
 
-        const destroyerStyle = getComputedStyle(destroyer);
-
-        expect(destroyerStyle.background).toContain(
-          'url("/images/highlighted-destroyer.png")',
-        );
+        expect(destroyer).toHaveClass('ship-outline');
 
         const button45 = within(playerBoard).getByTestId('45');
         await user.hover(button45);
@@ -545,13 +516,10 @@ describe('App', () => {
         });
 
         const destroyer = screen.getByTestId('destroyer');
+
         await user.click(destroyer);
 
-        const destroyerStyle = getComputedStyle(destroyer);
-
-        expect(destroyerStyle.background).toContain(
-          'url("/images/highlighted-destroyer.png")',
-        );
+        expect(destroyer).toHaveClass('ship-outline');
 
         const button45 = within(playerBoard).getByTestId('45');
         await user.hover(button45);
@@ -582,13 +550,10 @@ describe('App', () => {
         );
 
         const carrier = screen.getByTestId('carrier');
+
         await user.click(carrier);
 
-        const carrierStyle = getComputedStyle(carrier);
-
-        expect(carrierStyle.background).toContain(
-          'url("/images/highlighted-carrier.png")',
-        );
+        expect(carrier).toHaveClass('ship-outline');
 
         const button55 = within(playerBoard).getByTestId('55');
         await user.hover(button55);
@@ -635,12 +600,10 @@ describe('App', () => {
         );
 
         const battleship = screen.getByTestId('battleship');
-        await user.click(battleship);
-        const battleshipStyle = getComputedStyle(battleship);
 
-        expect(battleshipStyle.background).toContain(
-          'url("/images/highlighted-battleship.png")',
-        );
+        await user.click(battleship);
+
+        expect(battleship).toHaveClass('ship-outline');
 
         const button0 = within(playerBoard).getByTestId('0');
         await user.hover(button0);
@@ -683,13 +646,10 @@ describe('App', () => {
         expect(button0).toHaveClass('down');
 
         const submarine = screen.getByTestId('submarine');
+
         await user.click(submarine);
 
-        const submarineStyle = getComputedStyle(submarine);
-
-        expect(submarineStyle.background).toContain(
-          'url("/images/highlighted-submarine.png")',
-        );
+        expect(submarine).toHaveClass('ship-outline');
 
         const button99 = within(playerBoard).getByTestId('99');
         await user.hover(button99);
@@ -723,13 +683,10 @@ describe('App', () => {
         expect(button99).toHaveClass('up');
 
         const cruiser = screen.getByTestId('cruiser');
+
         await user.click(cruiser);
 
-        const cruiserStyle = getComputedStyle(cruiser);
-
-        expect(cruiserStyle.background).toContain(
-          'url("/images/highlighted-cruiser.png")',
-        );
+        expect(cruiser).toHaveClass('ship-outline');
 
         const button9 = within(playerBoard).getByTestId('9');
         await user.hover(button9);
@@ -872,9 +829,7 @@ describe('App', () => {
 
         expect(square34.style.background).toEqual('rgba(0, 0, 0, 0)');
         expect(square35.style.background).toEqual('rgba(0, 0, 0, 0)');
-        expect(cruiserButton.style.background).toContain(
-          'highlighted-cruiser.png',
-        );
+        expect(cruiserButton).toHaveClass('ship-outline');
 
         await user.click(square78);
         await user.click(square79);
@@ -909,9 +864,7 @@ describe('App', () => {
         allButtons.forEach((button) => {
           expect(button.style.background).toEqual('rgba(0, 0, 0, 0)');
         });
-        expect(cruiserButton.style.background).toContain(
-          'highlighted-cruiser.png',
-        );
+        expect(cruiserButton).toHaveClass('ship-outline');
 
         await user.click(square67);
         await user.click(square68);
