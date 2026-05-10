@@ -10,11 +10,16 @@ export default function attack() {
     opponent: gameBoardInterface,
   ): gameBoardInterface => {
     const newBoard = { ...opponent };
+    const attackedSquare = newBoard.board[square];
     const hasShip = opponent.board[square].ship !== null;
+    const shipStartSquare = attackedSquare.ship?.props.shipStartPoint;
     switch (hasShip) {
       case true:
-        newBoard.board[square].isHit = true;
-        newBoard.board[square].ship?.isHit(square);
+        attackedSquare.isHit = true;
+        attackedSquare.ship?.isHit(square);
+        if (attackedSquare.ship?.isSunk() && shipStartSquare) {
+          newBoard.board[shipStartSquare].displayShipImage = true;
+        }
         break;
       case false:
         newBoard.board[square].isMiss = true;

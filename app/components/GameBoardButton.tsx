@@ -18,48 +18,68 @@ export function GameBoardButton({
   dblClick,
 }: GameBoardButtonProps) {
   const boardNumber = player.board[Number(testId)];
-  const shipName = boardNumber?.ship?.props.name;
-  const imgNumber = boardNumber?.imageNumber;
-  const imgDirection = boardNumber?.imageDirection;
-  const selectedShipName = player.props.selectedShip?.props.name;
-  const isAi = player.props.aiPlayer;
-  const isShipSunk = boardNumber?.ship?.props.sunk;
-  const imageBackground = () => {
-    let image: string | null = null;
-    if (isShipSunk === true) {
-      image = `${shipName}-${imgNumber}-sunk`;
-    } else if (boardNumber?.isHit === true) {
-      image = 'hit';
+  const isHitOrMiss = () => {
+    if (boardNumber.isHit || boardNumber.isMiss) {
+      return true;
+    }
+  };
+  const returnHitOrMiss = () => {
+    if (boardNumber?.isHit === true) {
+      return 'hit';
     } else if (boardNumber?.isMiss) {
-      image = 'miss';
-    } else if (boardNumber?.ship != null && isAi === false) {
-      image = `${shipName}-${imgNumber}`;
-    } else if (imgNumber != null && isAi === false) {
-      image = `${selectedShipName}-${imgNumber}`;
+      return 'miss';
     }
-    return image ? `url('/images/${image}.png')` : 'rgba(0, 0, 0, 0)';
   };
-  const imageDirectionClass = () => {
-    if (imgDirection !== null && imgDirection !== 'right') {
-      return imgDirection;
+  const imageDirectionClass = (direction: string) => {
+    if (direction !== null) {
+      return direction;
     } else {
-      return null;
+      return '';
     }
   };
+
+  const divBackgroundClass = () => {
+    if (player.props.selectedShip !== null) {
+      return `board-${player.props.selectedShip.props.name}`;
+    } else if (player.board[Number(testId)].ship) {
+      return `board-${player.board[Number(testId)].ship?.props.name}`;
+    } else {
+      return '';
+    }
+  };
+
+  const showShipImage = () => {
+    if (boardNumber.displayShipImage || boardNumber.ship?.props.sunk) {
+      return true;
+    }
+  };
+
   return (
     <button
-      className={`
-        ${imageDirectionClass() ? imageDirectionClass() : ''}
-        w-[clamp(1.7rem,2vw,2.5rem)] h-[clamp(1.7rem,2vw,2.5rem)] border-1
-      `}
-      style={{
-        background: imageBackground(),
-      }}
+      className='
+        w-[clamp(1.7rem,2vw,2.5rem)] h-[clamp(1.7rem,2vw,2.5rem)] border-1'
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => handleOnClick(Number(testId))}
       onDoubleClick={() => dblClick(Number(testId))}
-    ></button>
+    >
+      {isHitOrMiss() && (
+        <div
+          data-testid={returnHitOrMiss()}
+          className={returnHitOrMiss()}
+        ></div>
+      )}
+      {showShipImage() &&
+        player.board[Number(testId)].classDirections.map((direction, index) => {
+          return (
+            <div
+              key={`${direction}-${index}`}
+              data-testid={direction}
+              className={`${imageDirectionClass(direction)} ${divBackgroundClass()}`}
+            />
+          );
+        })}
+    </button>
   );
 }

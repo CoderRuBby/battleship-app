@@ -253,11 +253,14 @@ export default function shipPlacementSystem(): shipPlacementSystemInterface {
       board,
     );
     ship.props.placedLocations = path.array;
-    path.array.forEach((location, index) => {
+    path.array.forEach((location) => {
       board.board[location].ship = ship;
-      board.board[location].imageNumber = index;
-      board.board[location].imageDirection = path.direction;
     });
+
+    if (path.direction) {
+      board.board[shipStartPoint].classDirections.push(path.direction);
+      board.board[shipStartPoint].displayShipImage = true;
+    }
 
     ship.props.isPlaced = true;
 
@@ -283,6 +286,14 @@ export default function shipPlacementSystem(): shipPlacementSystemInterface {
 
     if (canPlaceShip(squareNumber, board.props.selectedShip, board) === true) {
       board.props.selectedShip.addShipEndPoint(squareNumber);
+
+      board.board.forEach((square) => {
+        if (square.ship === null) {
+          square.displayShipImage = false;
+          square.classDirections = [];
+        }
+      });
+
       placeShipOnGameBoard(
         board.props.selectedShip,
         board.props.selectedShip.props.shipStartPoint,

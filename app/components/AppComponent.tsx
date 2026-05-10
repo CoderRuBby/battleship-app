@@ -110,41 +110,29 @@ export function AppComponent({
     return lose;
   };
 
-  const updateBoard = (
-    id: number,
-    square: number,
-    index: number,
-    direction: string,
-  ) => {
-    const newBoard = { ...player1 };
-    if (
-      newBoard.board[square]?.id !== id ||
-      newBoard.board[square].ship !== null
-    ) {
-      newBoard.board[square].imageNumber = index;
-      newBoard.board[square].imageDirection = direction;
-    }
-
-    setPlayer1(newBoard);
-  };
-
   const handleMouseEnter = (id: number) => {
+    const newBoard = { ...player1 };
+
     if (player1.props.selectedShip?.props.shipStartPoint !== null) {
       return;
     }
+
+    newBoard.board[id].displayShipImage = true;
 
     const paths = getShipPaths(
       player1.props.selectedShip!.props.length,
       id,
       player1,
     );
+
     if (paths) {
       paths.forEach((path) => {
-        path.array.forEach((square, squareIndex) => {
-          updateBoard(id, square, squareIndex, path.direction!);
-        });
+        if (path.direction !== null)
+          newBoard.board[id].classDirections?.push(path.direction);
       });
     }
+
+    setPlayer1(newBoard);
   };
 
   const handleMouseLeave = () => {
@@ -157,8 +145,8 @@ export function AppComponent({
     const updatedPlayer1 = { ...player1 };
     updatedPlayer1.board.map((square) => {
       if (square.ship === null) {
-        square.imageNumber = null;
-        square.imageDirection = null;
+        square.displayShipImage = false;
+        square.classDirections = [];
       }
     });
 
@@ -184,8 +172,8 @@ export function AppComponent({
   const resetPlayer = (player: gameBoardInterface) => {
     const newPlayer = { ...player };
     const board = newPlayer.board.map((square) => {
-      square.imageDirection = null;
-      square.imageNumber = null;
+      square.classDirections = [];
+      square.displayShipImage = false;
       square.isHit = false;
       square.isMiss = false;
       square.ship = null;
@@ -242,8 +230,8 @@ export function AppComponent({
       newBoard.board.forEach((square) => {
         if (square.ship === shipAtSquare) {
           square.ship = null;
-          square.imageDirection = null;
-          square.imageNumber = null;
+          square.classDirections = [];
+          square.displayShipImage = false;
         }
       });
       newBoard.props.selectedShip = shipAtSquare;
@@ -258,8 +246,8 @@ export function AppComponent({
 
     newBoard.board.forEach((square) => {
       if (square.ship === null) {
-        square.imageNumber = null;
-        square.imageDirection = null;
+        square.displayShipImage = false;
+        square.classDirections = [];
       }
     });
 

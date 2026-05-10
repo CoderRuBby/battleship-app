@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GameBoardButton } from '~/components/GameBoardButton';
 import { createPlayer1 } from './testData';
@@ -13,7 +13,7 @@ describe('GameBoardButton', () => {
   it('will render a default button', () => {
     render(
       <GameBoardButton
-        testId='button'
+        testId='1'
         player={player1}
         onMouseEnter={() => {}}
         onMouseLeave={() => {}}
@@ -22,16 +22,16 @@ describe('GameBoardButton', () => {
       />,
     );
 
-    const button = screen.getByTestId('button');
-    const buttonStyle = getComputedStyle(button);
+    const button = screen.getByTestId('1');
+    const divImages = button.querySelector('div');
 
-    expect(buttonStyle.background).toContain('rgba(0, 0, 0, 0)');
+    expect(divImages).toBeNull();
   });
 
   it('will render a button with a ship image', async () => {
     player1.props.selectedShip = player1.props.allShips[0];
-    player1.board[1].imageNumber = 1;
-    player1.board[1].imageDirection = 'up';
+    player1.board[1].displayShipImage = true;
+    player1.board[1].classDirections = ['down'];
     render(
       <GameBoardButton
         testId='1'
@@ -44,17 +44,16 @@ describe('GameBoardButton', () => {
     );
 
     const button = screen.getByTestId('1');
-    const style = getComputedStyle(button);
+    const shipDiv_1 = within(button).getByTestId('down');
 
-    expect(style.background).toContain('carrier-1.png');
-    expect(button).toHaveClass('up');
+    expect(shipDiv_1).toBeInTheDocument();
+    expect(shipDiv_1).toHaveClass('down');
+    expect(shipDiv_1).toHaveClass('board-carrier');
   });
 
   it('will render a button with a hit image', () => {
     player1.board[1].isHit = true;
-    player1.props.selectedShip = player1.props.allShips[0];
-    player1.board[1].imageNumber = 1;
-    player1.board[1].imageDirection = 'up';
+
     render(
       <GameBoardButton
         testId='1'
@@ -67,16 +66,14 @@ describe('GameBoardButton', () => {
     );
 
     const button = screen.getByTestId('1');
-    const style = getComputedStyle(button);
+    const hitDiv = within(button).getByTestId('hit');
 
-    expect(style.background).toContain('hit.png');
+    expect(hitDiv).toBeInTheDocument();
   });
 
   it('will render a button with a miss image', () => {
     player1.board[1].isMiss = true;
-    player1.props.selectedShip = player1.props.allShips[0];
-    player1.board[1].imageNumber = 1;
-    player1.board[1].imageDirection = 'up';
+
     render(
       <GameBoardButton
         testId='1'
@@ -89,8 +86,8 @@ describe('GameBoardButton', () => {
     );
 
     const button = screen.getByTestId('1');
-    const style = getComputedStyle(button);
+    const missDiv = within(button).getByTestId('miss');
 
-    expect(style.background).toContain('miss.png');
+    expect(missDiv).toBeInTheDocument();
   });
 });

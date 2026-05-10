@@ -6,8 +6,8 @@ export interface gameBoardInterface {
     isHit: boolean;
     isMiss: boolean;
     ship: shipInterface | null;
-    imageNumber: number | null;
-    imageDirection: string | null;
+    displayShipImage: boolean;
+    classDirections: string[];
   }[];
   props: {
     allShipsPlaced: boolean;
@@ -28,8 +28,8 @@ export default function gameBoard(
     isHit: false,
     isMiss: false,
     ship: null,
-    imageNumber: null,
-    imageDirection: null,
+    displayShipImage: false,
+    classDirections: [],
   }));
   const props: gameBoardInterface['props'] = {
     allShipsPlaced: false,
