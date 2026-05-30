@@ -57,7 +57,7 @@ export function GameBoardButton({
   return (
     <button
       className='
-        w-[clamp(1.7rem,2vw,2.5rem)] h-[clamp(1.7rem,2vw,2.5rem)] border-1'
+        w-[clamp(1.7rem,2vw,2.5rem)] h-[clamp(1.7rem,2vw,2.5rem)] border-1 relative'
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
@@ -74,9 +74,12 @@ export function GameBoardButton({
         player.board[Number(testId)].classDirections.map((direction, index) => {
           return (
             <div
+              className={`
+                ${imageDirectionClass(direction)} ${divBackgroundClass()}
+                 h-[clamp(1.7rem,2vw,2.5rem)] absolute md:h-[clamp(1.9rem,2vw,2.5rem)]
+                `}
               key={`${direction}-${index}`}
               data-testid={direction}
-              className={`${imageDirectionClass(direction)} ${divBackgroundClass()}`}
             />
           );
         })}
