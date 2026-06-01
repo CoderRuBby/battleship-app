@@ -1,4 +1,5 @@
 import type { gameBoardInterface } from '~/utils/gameBoard';
+import shipPlacementSystem from '~/utils/shipPlacementSystem';
 
 interface GameBoardButtonProps {
   testId: string;
@@ -7,6 +8,7 @@ interface GameBoardButtonProps {
   onMouseLeave: () => void;
   handleOnClick: (id: number) => void;
   dblClick: (id: number) => void;
+  hoverId: number | null;
 }
 
 export function GameBoardButton({
@@ -16,7 +18,9 @@ export function GameBoardButton({
   onMouseLeave,
   handleOnClick,
   dblClick,
+  hoverId,
 }: GameBoardButtonProps) {
+  const { getShipPaths } = shipPlacementSystem();
   const boardNumber = player.board[Number(testId)];
   const isHitOrMiss = () => {
     if (boardNumber.isHit || boardNumber.isMiss) {
@@ -30,7 +34,7 @@ export function GameBoardButton({
       return 'miss';
     }
   };
-  const imageDirectionClass = (direction: string) => {
+  const imageDirectionClass = (direction: string | null) => {
     if (direction !== null) {
       return direction;
     } else {
@@ -49,9 +53,38 @@ export function GameBoardButton({
   };
 
   const showShipImage = () => {
-    if (boardNumber.displayShipImage || boardNumber.ship?.props.sunk) {
+    // Never show placed ships on AI boards (unless sunk)
+    if (player.props.aiPlayer) {
+      return boardNumber.ship?.props.sunk === true;
+    }
+
+    // Show possible placement when a ship is selected and hovering
+    if (player.props.selectedShip && hoverId === Number(testId)) {
       return true;
     }
+
+    // Show placed ship image only for the start square or if sunk
+    if (boardNumber.ship?.props.isPlaced || boardNumber.ship?.props.sunk) {
+      return true;
+    }
+  };
+
+  const getPaths = () => {
+    const selectedShip = player.props.selectedShip;
+    // Return ship direction when a ship has been placed or sunk
+    if (
+      (boardNumber.ship?.props.isPlaced &&
+        boardNumber.ship.props.shipStartPoint === Number(testId)) ||
+      boardNumber.ship?.props.sunk
+    ) {
+      return [{ direction: boardNumber.ship.props.direction }];
+    }
+    // Compute ship paths when a ship is selected (for hover preview)
+    if (selectedShip) {
+      return getShipPaths(selectedShip.props.length, Number(testId), player);
+    }
+
+    return [];
   };
 
   return (
@@ -71,15 +104,15 @@ export function GameBoardButton({
         ></div>
       )}
       {showShipImage() &&
-        player.board[Number(testId)].classDirections.map((direction, index) => {
+        getPaths().map((path, index) => {
           return (
             <div
               className={`
-                ${imageDirectionClass(direction)} ${divBackgroundClass()}
-                 h-[clamp(1.7rem,2vw,2.5rem)] absolute md:h-[clamp(1.9rem,2vw,2.5rem)]
+                ${imageDirectionClass(path.direction)} ${divBackgroundClass()}
+                 h-[clamp(1.7rem,2vw,2.5rem)] absolute md:h-[clamp(1.9rem,2vw,2.5rem)] pointer-events-none
                 `}
-              key={`${direction}-${index}`}
-              data-testid={direction}
+              key={`${path.direction}-${index}`}
+              data-testid={path.direction}
             />
           );
         })}

@@ -617,7 +617,7 @@ describe('App', () => {
       test('a sunk ship will render on ai game board', async () => {
         const user = userEvent.setup();
         player2.board[45].ship = player2.props.allShips[4];
-        player2.board[45].classDirections = ['right'];
+        player2.board[45].ship.props.direction = 'right';
         player2.board[46].ship = player2.props.allShips[4];
         player1.props.allShipsPlaced = true;
         player2.props.allShipsPlaced = true;
@@ -708,7 +708,7 @@ describe('App', () => {
         player2.props.allShipsPlaced = true;
         player1.props.allShipsPlaced = true;
         player1.board[Number(string45)].ship = player1.props.allShips[4];
-        player1.board[Number(string45)].classDirections = ['right'];
+        player1.board[Number(string45)].ship!.props.direction = 'right';
         player1.board[Number(string46)].ship = player1.props.allShips[4];
         player1.board.forEach((square) => {
           if (square.id !== Number(string45)) {

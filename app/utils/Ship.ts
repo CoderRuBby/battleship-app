@@ -9,6 +9,7 @@ export interface shipInterface {
     isPlaced: boolean;
     placedLocations: number[];
     hitLocations: number[];
+    direction: string | null;
   };
   isHit: (location: number) => void;
   isSunk: () => void;
@@ -28,6 +29,7 @@ export default function ship(name: string, length: number): shipInterface {
     isPlaced: false,
     placedLocations: [] as number[],
     hitLocations: [] as number[],
+    direction: null,
   };
   const isHit = (location: number) => {
     props.hitLocations.push(location);

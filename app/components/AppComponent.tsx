@@ -20,6 +20,7 @@ export function AppComponent({
 }: appComponentProps) {
   const [player1, setPlayer1] = useState<gameBoardInterface>(player1Board);
   const [player2, setPlayer2] = useState<gameBoardInterface>(player2Board);
+  const [hoverId, setHoverId] = useState<number | null>(null);
 
   const { getShipPaths, shipPlacementLogic } = shipPlacementSystem();
 
@@ -67,6 +68,7 @@ export function AppComponent({
       const updatedPlayer1 = {
         ...shipPlacementLogic(id, player1),
       };
+
       setPlayer1(updatedPlayer1);
     }
 
@@ -111,46 +113,26 @@ export function AppComponent({
   };
 
   const handleMouseEnter = (id: number) => {
-    const newBoard = { ...player1 };
-
-    if (player1.props.selectedShip?.props.shipStartPoint !== null) {
+    if (
+      player1.props.selectedShip &&
+      player1.props.selectedShip.props.shipStartPoint !== null
+    ) {
       return;
     }
 
-    newBoard.board[id].displayShipImage = true;
-
-    const paths = getShipPaths(
-      player1.props.selectedShip!.props.length,
-      id,
-      player1,
-    );
-
-    if (paths) {
-      paths.forEach((path) => {
-        if (path.direction !== null)
-          newBoard.board[id].classDirections?.push(path.direction);
-      });
-    }
-
-    setPlayer1(newBoard);
+    setHoverId(id);
   };
 
   const handleMouseLeave = () => {
     if (
-      player1.props.selectedShip?.props.shipStartPoint !== null &&
-      player1.props.selectedShip?.props.shipEndPoint === null
+      player1.props.selectedShip &&
+      player1.props.selectedShip.props.shipStartPoint !== null &&
+      player1.props.selectedShip.props.shipEndPoint === null
     ) {
       return;
     }
-    const updatedPlayer1 = { ...player1 };
-    updatedPlayer1.board.map((square) => {
-      if (square.ship === null) {
-        square.displayShipImage = false;
-        square.classDirections = [];
-      }
-    });
 
-    setPlayer1(updatedPlayer1);
+    setHoverId(null);
   };
 
   const winnerLoserText = () => {
@@ -172,8 +154,6 @@ export function AppComponent({
   const resetPlayer = (player: gameBoardInterface) => {
     const newPlayer = { ...player };
     const board = newPlayer.board.map((square) => {
-      square.classDirections = [];
-      square.displayShipImage = false;
       square.isHit = false;
       square.isMiss = false;
       square.ship = null;
@@ -230,8 +210,6 @@ export function AppComponent({
       newBoard.board.forEach((square) => {
         if (square.ship === shipAtSquare) {
           square.ship = null;
-          square.classDirections = [];
-          square.displayShipImage = false;
         }
       });
       newBoard.props.selectedShip = shipAtSquare;
@@ -244,12 +222,7 @@ export function AppComponent({
       newBoard.props.selectedShip.props.shipStartPoint = null;
     }
 
-    newBoard.board.forEach((square) => {
-      if (square.ship === null) {
-        square.displayShipImage = false;
-        square.classDirections = [];
-      }
-    });
+    setHoverId(null);
 
     setPlayer1(newBoard);
   };
@@ -293,6 +266,7 @@ export function AppComponent({
               handleOnClick={aiGameBoardOnClick}
               label='Ai Game Board'
               dblClick={() => {}}
+              hoverId={hoverId}
             />
           )}
           <GameBoardComponent
@@ -302,6 +276,7 @@ export function AppComponent({
             handleOnClick={gameBoardOnClick}
             label='The Game Board'
             dblClick={dblClick}
+            hoverId={hoverId}
           />
         </main>
       </div>

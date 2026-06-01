@@ -19,6 +19,7 @@ describe('GameBoardButton', () => {
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
         dblClick={() => {}}
+        hoverId={null}
       />,
     );
 
@@ -30,8 +31,6 @@ describe('GameBoardButton', () => {
 
   it('will render a button with a ship image', async () => {
     player1.props.selectedShip = player1.props.allShips[0];
-    player1.board[1].displayShipImage = true;
-    player1.board[1].classDirections = ['down'];
     render(
       <GameBoardButton
         testId='1'
@@ -40,6 +39,7 @@ describe('GameBoardButton', () => {
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
         dblClick={() => {}}
+        hoverId={1}
       />,
     );
 
@@ -62,6 +62,7 @@ describe('GameBoardButton', () => {
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
         dblClick={() => {}}
+        hoverId={null}
       />,
     );
 
@@ -82,6 +83,7 @@ describe('GameBoardButton', () => {
         onMouseLeave={() => {}}
         handleOnClick={() => {}}
         dblClick={() => {}}
+        hoverId={null}
       />,
     );
 

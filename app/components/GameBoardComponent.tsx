@@ -8,6 +8,7 @@ interface GameBoardComponentProps {
   handleOnClick: (id: number) => void;
   label: string;
   dblClick: (id: number) => void;
+  hoverId: number | null;
 }
 
 export function GameBoardComponent({
@@ -17,6 +18,7 @@ export function GameBoardComponent({
   handleMouseLeave,
   label,
   dblClick,
+  hoverId,
 }: GameBoardComponentProps) {
   return (
     <section
@@ -33,6 +35,7 @@ export function GameBoardComponent({
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           dblClick={dblClick}
+          hoverId={hoverId}
         />
       ))}
     </section>
