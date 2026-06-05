@@ -24,10 +24,6 @@ body {
     width: 7.5rem;
   }
 
-  .battleship {
-    width: 10rem;
-  }
-
   .ship-outline {
     box-shadow: 0px 0px 4px 2px white;
   }
@@ -175,6 +171,39 @@ body {
   .submarine-down {
     top: 27px;
     right: -30px;
+  }
+
+  .battleship {
+    width: 8rem;
+    background-position: center;
+    border: 1px solid black;
+  }
+
+  .board-battleship {
+    background-color: white;
+    border: red 1px solid;
+    width: clamp(7rem, 2vw, 2.5rem);
+    height: clamp(1.8rem, 2vw, 2.5rem);
+  }
+
+  .battleship-right {
+    left: -2px;
+    bottom: -2px;
+  }
+
+  .battleship-left {
+    right: -2px;
+    bottom: -2px;
+  }
+
+  .battleship-up {
+    bottom: 38px;
+    right: -43px;
+  }
+
+  .battleship-down {
+    top: 38px;
+    right: -43px;
   }
 
   @media (min-width: 768px) {
