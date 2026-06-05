@@ -43,10 +43,10 @@ export function GameBoardButton({
   };
 
   const divBackgroundClass = () => {
-    if (player.props.selectedShip !== null) {
-      return `board-${player.props.selectedShip.props.name}`;
-    } else if (player.board[Number(testId)].ship) {
-      return `board-${player.board[Number(testId)].ship?.props.name}`;
+    if (player.board[Number(testId)].ship) {
+      return `${player.board[Number(testId)].ship?.props.name}`;
+    } else if (player.props.selectedShip !== null) {
+      return `${player.props.selectedShip.props.name}`;
     } else {
       return '';
     }
@@ -108,7 +108,9 @@ export function GameBoardButton({
           return (
             <div
               className={`
-                ${imageDirectionClass(path.direction)} ${divBackgroundClass()}
+                ${imageDirectionClass(path.direction)}
+                ${divBackgroundClass()}-${imageDirectionClass(path.direction)} 
+                board-${divBackgroundClass()}
                  h-[clamp(1.7rem,2vw,2.5rem)] absolute md:h-[clamp(1.9rem,2vw,2.5rem)] pointer-events-none
                 `}
               key={`${path.direction}-${index}`}

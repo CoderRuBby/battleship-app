@@ -20,10 +20,6 @@ body {
     background: url('/public/images/carrier.webp') no-repeat center / cover;
   }
 
-  .destroyer {
-    width: 8.5rem;
-  }
-
   .submarine {
     width: 8.5rem;
     background-position: center;
@@ -42,8 +38,6 @@ body {
   }
 
   .right {
-    left: -1px;
-    bottom: -1px;
     -webkit-mask-image: linear-gradient(
       to left,
       rgba(0, 0, 0, 1) 0%,
@@ -56,8 +50,6 @@ body {
   }
 
   .left {
-    right: -1px;
-    bottom: -1px;
     transform: rotate(180deg);
     -webkit-mask-image: linear-gradient(
       to left,
@@ -71,8 +63,6 @@ body {
   }
 
   .up {
-    bottom: 53px;
-    right: -56px;
     transform: rotate(270deg);
     -webkit-mask-image: linear-gradient(
       to left,
@@ -87,8 +77,6 @@ body {
   }
 
   .down {
-    top: 53px;
-    right: -55px;
     transform: rotate(90deg);
     -webkit-mask-image: linear-gradient(
       to left,
@@ -106,6 +94,59 @@ body {
     width: clamp(8.5rem, 2vw, 2.5rem);
     height: clamp(1.7rem, 2vw, 2.5rem);
     background: url('/public/images/carrier.webp') no-repeat center / cover;
+  }
+
+  .carrier-right {
+    left: -1px;
+    bottom: -1px;
+  }
+
+  .carrier-left {
+    right: -1px;
+    bottom: -1px;
+  }
+
+  .carrier-up {
+    bottom: 53px;
+    right: -56px;
+  }
+
+  .carrier-down {
+    top: 53px;
+    right: -55px;
+  }
+
+  .destroyer {
+    height: clamp(1.8rem, 2vw, 2.5rem);
+    width: 6rem;
+    border: 1px solid black;
+  }
+
+  .board-destroyer {
+    background-color: white;
+    border: red 1px solid;
+    width: clamp(5.2rem, 2vw, 2.5rem);
+    height: clamp(1.8rem, 2vw, 2.5rem);
+  }
+
+  .destroyer-right {
+    left: -1px;
+    bottom: -2px;
+  }
+
+  .destroyer-left {
+    right: -2px;
+    bottom: -2px;
+  }
+
+  .destroyer-up {
+    bottom: 26px;
+    right: -29px;
+  }
+
+  .destroyer-down {
+    top: 27px;
+    right: -30px;
   }
 
   @media (min-width: 768px) {
