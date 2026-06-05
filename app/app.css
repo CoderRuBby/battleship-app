@@ -44,24 +44,61 @@ body {
   .right {
     left: -1px;
     bottom: -1px;
+    -webkit-mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to left rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .left {
     right: -1px;
     bottom: -1px;
     transform: rotate(180deg);
+    -webkit-mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to left rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .up {
     bottom: 53px;
     right: -56px;
     transform: rotate(270deg);
+    -webkit-mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .down {
     top: 53px;
     right: -55px;
     transform: rotate(90deg);
+    -webkit-mask-image: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to left rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .board-carrier {
