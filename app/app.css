@@ -20,11 +20,6 @@ body {
     background: url('/public/images/carrier.webp') no-repeat center / cover;
   }
 
-  .submarine {
-    width: 8.5rem;
-    background-position: center;
-  }
-
   .cruiser {
     width: 7.5rem;
   }
@@ -145,6 +140,39 @@ body {
   }
 
   .destroyer-down {
+    top: 27px;
+    right: -30px;
+  }
+
+  .submarine {
+    width: 6rem;
+    background-position: center;
+    border: 1px solid black;
+  }
+
+  .board-submarine {
+    background-color: white;
+    border: red 1px solid;
+    width: clamp(5.2rem, 2vw, 2.5rem);
+    height: clamp(1.8rem, 2vw, 2.5rem);
+  }
+
+  .submarine-right {
+    left: -1px;
+    bottom: -2px;
+  }
+
+  .submarine-left {
+    right: -2px;
+    bottom: -2px;
+  }
+
+  .submarine-up {
+    bottom: 26px;
+    right: -29px;
+  }
+
+  .submarine-down {
     top: 27px;
     right: -30px;
   }
