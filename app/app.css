@@ -235,9 +235,6 @@ body {
     right: -15px;
   }
 
-  @media (min-width: 1024px) {
-  }
-
   @media (min-width: 1536px) {
     .right {
       left: 0px;
