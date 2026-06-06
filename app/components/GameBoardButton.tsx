@@ -90,7 +90,9 @@ export function GameBoardButton({
   return (
     <button
       className='
-        w-[1.7rem] h-[1.7rem] border-1 relative'
+        w-[1.7rem] h-[1.7rem] border-1 relative
+        xl:w-[2.5rem] xl:h-[2.5rem]
+        '
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
@@ -111,7 +113,7 @@ export function GameBoardButton({
                 ${imageDirectionClass(path.direction)}
                 ${divBackgroundClass()}-${imageDirectionClass(path.direction)} 
                 board-${divBackgroundClass()}
-                 h-[1.7rem] absolute pointer-events-none
+                 h-[1.7rem] absolute pointer-events-none xl:h-[2.6rem]
                 `}
               key={`${path.direction}-${index}`}
               data-testid={path.direction}

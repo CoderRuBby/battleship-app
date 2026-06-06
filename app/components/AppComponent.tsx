@@ -236,7 +236,7 @@ export function AppComponent({
         md:bg-[url('/images/ship-control-room-v8-md.png')]
       "
     >
-      <div>
+      <div className='xl:mt-[-87px]'>
         <main
           className="
           flex flex-col-reverse justify-center items-center gap-6
