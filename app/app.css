@@ -14,12 +14,6 @@ body {
     color-scheme: dark;
   }
 
-  .carrier {
-    height: clamp(5rem, 2vw, 2.5rem);
-    width: 22rem;
-    background: url('/public/images/carrier.webp') no-repeat center / cover;
-  }
-
   .ship-outline {
     box-shadow: 0px 0px 4px 2px white;
   }
@@ -74,6 +68,12 @@ body {
       to left rgba(0, 0, 0, 1) 0%,
       rgba(0, 0, 0, 0) 100%
     );
+  }
+
+  .carrier {
+    height: clamp(5rem, 2vw, 2.5rem);
+    width: 22rem;
+    background: url('/public/images/carrier.webp') no-repeat center / cover;
   }
 
   .board-carrier {
@@ -235,55 +235,7 @@ body {
     right: -15px;
   }
 
-  @media (min-width: 768px) {
-    .right {
-      left: 0px;
-      bottom: -3px;
-    }
-
-    .left {
-      right: -1px;
-      bottom: -3px;
-    }
-
-    .up {
-      bottom: 52px;
-      right: -57px;
-    }
-
-    .down {
-      top: 53px;
-      right: -55px;
-    }
-
-    .board-carrier {
-      border: black 1px solid;
-      width: clamp(8.5rem, 2vw, 2.5rem);
-      height: clamp(1.9rem, 2vw, 2.5rem);
-      background: url('/public/images/carrier.webp') no-repeat center / cover;
-    }
-  }
-
   @media (min-width: 1024px) {
-    .right {
-      left: -1px;
-      bottom: -1px;
-    }
-
-    .left {
-      right: -1px;
-      bottom: -1px;
-    }
-
-    .up {
-      bottom: 77px;
-      right: -78px;
-    }
-
-    .down {
-      top: 77px;
-      right: -79px;
-    }
   }
 
   @media (min-width: 1536px) {
