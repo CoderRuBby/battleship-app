@@ -325,10 +325,10 @@ describe('App', () => {
 
         await user.dblClick(square45);
 
-        expect(cruiserDiv_1).not.toBeInTheDocument();
-        expect(cruiserDiv_2).not.toBeInTheDocument();
-        expect(cruiserDiv_3).not.toBeInTheDocument();
-        expect(cruiserDiv_4).not.toBeInTheDocument();
+        expect(cruiserDiv_1).toBeInTheDocument();
+        expect(cruiserDiv_2).toBeInTheDocument();
+        expect(cruiserDiv_3).toBeInTheDocument();
+        expect(cruiserDiv_4).toBeInTheDocument();
       });
 
       test('double clicking a placed ship allows it to be moved', async () => {
@@ -352,7 +352,7 @@ describe('App', () => {
 
         await user.dblClick(square34);
 
-        expect(shipDiv_1).not.toBeInTheDocument();
+        expect(shipDiv_1).toBeInTheDocument();
 
         await user.click(square78);
         await user.click(square79);
@@ -382,10 +382,17 @@ describe('App', () => {
         await user.dblClick(square34);
 
         const square35Divs = square35.querySelector('div');
-        const square23Divs = square23.querySelector('div');
+        const cruiserDiv_1 = within(square23).getByTestId('up');
+        const cruiserDiv_2 = within(square23).getByTestId('down');
+        const cruiserDiv_3 = within(square23).getByTestId('left');
+        const cruiserDiv_4 = within(square23).getByTestId('right');
 
         expect(square35Divs).toBeNull();
-        expect(square23Divs).toBeNull();
+        expect(cruiserDiv_1).toBeInTheDocument();
+        expect(cruiserDiv_2).toBeInTheDocument();
+        expect(cruiserDiv_3).toBeInTheDocument();
+        expect(cruiserDiv_4).toBeInTheDocument();
+
         expect(cruiserButton).toHaveClass('ship-outline');
       });
 
