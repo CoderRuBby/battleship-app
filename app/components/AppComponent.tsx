@@ -222,8 +222,6 @@ export function AppComponent({
       newBoard.props.selectedShip.props.shipStartPoint = null;
     }
 
-    setHoverId(null);
-
     setPlayer1(newBoard);
   };
 
