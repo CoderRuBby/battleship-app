@@ -63,13 +63,36 @@ export function AppComponent({
     }
     if (
       player1.props.allShipsPlaced === false &&
-      player1.props.selectedShip?.props.shipStartPoint !== id
+      !player1.props.selectedShip?.props.shipStartPoint
     ) {
       const updatedPlayer1 = {
         ...shipPlacementLogic(id, player1),
       };
 
       setPlayer1(updatedPlayer1);
+    }
+
+    if (
+      player1.props.selectedShip?.props.shipStartPoint &&
+      player1.props.selectedShip.props.shipStartPoint !== id
+    ) {
+      let endPoint: number;
+      const paths = getShipPaths(
+        player1.props.selectedShip.props.length,
+        player1.props.selectedShip.props.shipStartPoint!,
+        player1,
+      );
+
+      for (let x = 0; x < paths.length; x++) {
+        if (paths[x].array.includes(id)) {
+          console.log(paths[x].array);
+          endPoint = paths[x].array[paths[x].array.length - 1];
+          const updatedPlayer1 = {
+            ...shipPlacementLogic(endPoint, player1),
+          };
+          setPlayer1(updatedPlayer1);
+        }
+      }
     }
 
     if (
