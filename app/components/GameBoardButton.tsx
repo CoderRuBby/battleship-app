@@ -87,6 +87,17 @@ export function GameBoardButton({
     return [];
   };
 
+  const getGradientDirection = (direction: string | null) => {
+    if (
+      player.props.selectedShip?.props.isPlaced === false &&
+      direction !== null
+    ) {
+      return `${direction}-gradient-mask`;
+    } else {
+      return '';
+    }
+  };
+
   return (
     <button
       className='
@@ -112,6 +123,7 @@ export function GameBoardButton({
               className={`
                 ${imageDirectionClass(path.direction)}
                 ${divBackgroundClass()}-${imageDirectionClass(path.direction)} 
+                ${getGradientDirection(path.direction)}
                 board-${divBackgroundClass()}
                  h-[1.7rem] absolute pointer-events-none xl:h-[2.6rem]
                 `}
