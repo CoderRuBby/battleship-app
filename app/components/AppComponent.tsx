@@ -85,7 +85,6 @@ export function AppComponent({
 
       for (let x = 0; x < paths.length; x++) {
         if (paths[x].array.includes(id)) {
-          console.log(paths[x].array);
           endPoint = paths[x].array[paths[x].array.length - 1];
           const updatedPlayer1 = {
             ...shipPlacementLogic(endPoint, player1),
