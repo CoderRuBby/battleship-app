@@ -126,6 +126,7 @@ export function GameBoardButton({
                 ${getGradientDirection(path.direction)}
                 board-${divBackgroundClass()}
                  h-[1.7rem] absolute pointer-events-none xl:h-[2.6rem]
+                 z-[1]
                 `}
               key={`${path.direction}-${index}`}
               data-testid={path.direction}
