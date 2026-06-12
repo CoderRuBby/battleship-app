@@ -28,7 +28,7 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
   };
   return (
     <button
-      className={`ship-button ${testId} ${isSelected()} h-[clamp(1.7rem,2vw,2.5rem)]`}
+      className={`ship-button ${testId} ${isSelected()} h-[clamp(1.7rem,2vw,2.5rem)] xl:h-[2.5rem]`}
       data-testid={testId}
       onClick={shipOnClick}
       disabled={isDisabled()}

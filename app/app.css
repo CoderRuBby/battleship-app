@@ -71,8 +71,8 @@ body {
   }
 
   .carrier {
-    height: clamp(5rem, 2vw, 2.5rem);
-    width: 22rem;
+    border: black 1px solid;
+    width: 9.5rem;
     background: url('/public/images/carrier.webp') no-repeat center / cover;
   }
 
@@ -103,7 +103,6 @@ body {
   }
 
   .destroyer {
-    height: clamp(1.8rem, 2vw, 2.5rem);
     width: 6rem;
     border: 1px solid black;
   }
@@ -231,6 +230,10 @@ body {
   }
 
   @media (min-width: 1280px) {
+    .carrier {
+      width: 13rem;
+    }
+
     .board-carrier {
       width: 12.5rem;
     }
@@ -253,6 +256,10 @@ body {
     .carrier-down {
       top: 78px;
       right: -80px;
+    }
+
+    .destroyer.submarine {
+      width: 8rem;
     }
 
     .board-destroyer {
@@ -303,6 +310,10 @@ body {
       right: -42px;
     }
 
+    .battleship {
+      width: 10rem;
+    }
+
     .board-battleship {
       width: 10.1rem;
     }
@@ -329,6 +340,10 @@ body {
 
     .board-cruiser {
       width: 5.1rem;
+    }
+
+    .cruiser {
+      width: 5rem;
     }
 
     .cruiser-right {
