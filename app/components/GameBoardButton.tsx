@@ -89,8 +89,8 @@ export function GameBoardButton({
 
   const getGradientDirection = (direction: string | null) => {
     if (
-      player.props.selectedShip?.props.isPlaced === false &&
-      direction !== null
+      !boardNumber.ship?.props.shipEndPoint &&
+      !player.props.selectedShip?.props.isPlaced
     ) {
       return `${direction}-gradient-mask`;
     } else {
