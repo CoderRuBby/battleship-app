@@ -113,7 +113,7 @@ export function GameBoardButton({
       {isHitOrMiss() && (
         <div
           data-testid={returnHitOrMiss()}
-          className={returnHitOrMiss()}
+          className={`${returnHitOrMiss()} z-[2] absolute`}
         ></div>
       )}
       {showShipImage() &&
