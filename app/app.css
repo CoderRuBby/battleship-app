@@ -237,6 +237,15 @@ body {
     top: 12px;
     right: -15px;
   }
+  .ocean-1 {
+    background: url('/public/images/ocean-background-1.png') no-repeat center /
+      cover;
+  }
+
+  .ocean-2 {
+    background: url('/public/images/ocean-background-2.png') no-repeat center /
+      cover;
+  }
 
   @media (min-width: 1280px) {
     .carrier {

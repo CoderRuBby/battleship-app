@@ -20,11 +20,19 @@ export function GameBoardComponent({
   dblClick,
   hoverId,
 }: GameBoardComponentProps) {
+  const backgroundClass = () => {
+    if (player.props.aiPlayer) {
+      return 'ocean-2';
+    } else return 'ocean-1';
+  };
+
   return (
     <section
       role='region'
       aria-label={label}
-      className='grid grid-cols-[repeat(10,_1fr)] grid-rows-[repeat(10,_1fr)]'
+      className={`
+        ${backgroundClass()}
+        grid grid-cols-[repeat(10,_1fr)] grid-rows-[repeat(10,_1fr)]`}
     >
       {player.board.map((square) => (
         <GameBoardButton
