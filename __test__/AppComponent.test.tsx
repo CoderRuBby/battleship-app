@@ -626,6 +626,8 @@ describe('App', () => {
         player2.board[45].ship = player2.props.allShips[4];
         player2.board[45].ship.props.direction = 'right';
         player2.board[46].ship = player2.props.allShips[4];
+        player2.board[45].ship.props.shipStartPoint = 45;
+        player2.board[45].ship.props.shipEndPoint = 46;
         player1.props.allShipsPlaced = true;
         player2.props.allShipsPlaced = true;
 
@@ -637,6 +639,8 @@ describe('App', () => {
 
         await user.click(aiBoardButton45);
         await user.click(aiBoardButton46);
+
+        screen.debug(aiBoardButton45);
 
         const button45ShipDiv = within(aiBoardButton45).getByTestId('right');
         const button45HitDiv = within(aiBoardButton45).getByTestId('hit');
