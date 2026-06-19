@@ -55,7 +55,10 @@ export function GameBoardButton({
   const showShipImage = () => {
     // Never show placed ships on AI boards (unless sunk)
     if (player.props.aiPlayer) {
-      return boardNumber.ship?.props.sunk === true;
+      return (
+        boardNumber.ship?.props.sunk === true &&
+        boardNumber.ship.props.shipStartPoint === Number(testId)
+      );
     }
 
     // Show possible placement when a ship is selected and hovering
