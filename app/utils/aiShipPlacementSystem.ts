@@ -70,11 +70,10 @@ export default function aiShipPlacementSystem() {
           ship.addShipEndPoint(endPointLeft);
         }
 
-        chosenPath.array.forEach((location, index) => {
+        chosenPath.array.forEach((location) => {
           ship.props.placedLocations.push(location);
           board.board[location].ship = ship;
-          board.board[location].imageDirection = chosenPath.direction;
-          board.board[location].imageNumber = index;
+          board.board[location].ship.props.direction = chosenPath.direction;
         });
 
         ship.props.isPlaced = true;
