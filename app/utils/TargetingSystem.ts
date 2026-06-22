@@ -1,5 +1,6 @@
 import type { gameBoardInterface } from './gameBoard';
 import type { shipInterface } from './ship';
+import shipPlacementSystem from './shipPlacementSystem';
 
 export interface targetingSystemInterface {
   props: {
@@ -7,17 +8,14 @@ export interface targetingSystemInterface {
     initialHitSquare: number;
     attackOrientation: string;
     hitShips: Set<shipInterface>;
+    secondInitialHit: number;
+    useSecondInitialHit: boolean;
   };
   isOpponentSquareAvailable: (
     square: number,
     opponent: gameBoardInterface,
   ) => boolean;
   isAvailableSquare: (square: number, opponent: gameBoardInterface) => boolean;
-  possibleShipEndPoints: (
-    initialSquare: number,
-    shipLength: number,
-    opponent: gameBoardInterface,
-  ) => number[];
   getSquares: (square: number, opponent: gameBoardInterface) => Set<number>;
   removeAdjacentSquare: (square: number) => void;
   setAttackOrientation: (square: number) => void;
@@ -25,21 +23,20 @@ export interface targetingSystemInterface {
   isColAttack: (square: number, adjacentSquare: number) => boolean;
   getAttackPath: (square: number) => Set<number>;
   resetProperties: () => void;
-  randomAttackLocation: (
-    player: gameBoardInterface,
-    max: number,
-    testNumber?: number,
-  ) => number;
   getMorePossibleAttacks: (opponent: gameBoardInterface) => Set<number>;
   attackLogic: (opponent: gameBoardInterface, testNumber?: number) => number;
 }
 
 export default function targetingSystem() {
+  const newShipPlacementSystem = shipPlacementSystem();
+
   const props: targetingSystemInterface['props'] = {
     possibleAttacks: new Set<number>(),
     initialHitSquare: 0,
     attackOrientation: 'none',
     hitShips: new Set<shipInterface>(),
+    secondInitialHit: 0,
+    useSecondInitialHit: false,
   };
   const isOpponentSquareAvailable = (
     square: number,
@@ -57,58 +54,17 @@ export default function targetingSystem() {
   ): boolean => {
     return !opponent.board[square].isHit && !opponent.board[square].isMiss;
   };
-  const possibleShipEndPoints = (
-    initialSquare: number,
-    shipLength: number,
-    opponent: gameBoardInterface,
-  ): number[] => {
-    const possibleEndPoints: number[] = [];
-    const row = Math.floor(initialSquare / 10);
-    const col = initialSquare % 10;
-    let endPoint: number;
-
-    // Check right direction
-    if (col + shipLength - 1 < 10) {
-      endPoint = initialSquare + (shipLength - 1);
-      if (isAvailableSquare(endPoint, opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    // Check left direction
-    if (col - (shipLength - 1) >= 0) {
-      endPoint = initialSquare - (shipLength - 1);
-      if (isAvailableSquare(endPoint, opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    // Check down direction
-    if (row + shipLength - 1 < 10) {
-      endPoint = initialSquare + (shipLength - 1) * 10;
-      if (isAvailableSquare(endPoint, opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    // Check up direction
-    if (row - (shipLength - 1) >= 0) {
-      endPoint = initialSquare - (shipLength - 1) * 10;
-      if (isAvailableSquare(endPoint, opponent) === true) {
-        possibleEndPoints.push(endPoint);
-      }
-    }
-
-    return possibleEndPoints;
-  };
 
   const getSquares = (
     square: number,
     opponent: gameBoardInterface,
   ): Set<number> => {
     const availableSquares: Set<number> = new Set();
-    const squares = possibleShipEndPoints(square, 2, opponent);
-
+    const squares = newShipPlacementSystem.possibleShipEndPoints(
+      square,
+      2,
+      opponent,
+    );
     squares.forEach((s) => {
       const available = isOpponentSquareAvailable(s, opponent);
       if (available) {
@@ -124,9 +80,14 @@ export default function targetingSystem() {
   };
 
   const setAttackOrientation = (square: number) => {
+    let firstHit;
+    if (props.secondInitialHit) {
+      firstHit = props.secondInitialHit;
+    } else firstHit = props.initialHitSquare;
+
     if (
-      square - props.initialHitSquare! === 10 ||
-      props.initialHitSquare! - square === 10
+      (square - firstHit!) % 10 === 0 ||
+      ((firstHit! - square) * 1) % 10 === 0
     ) {
       props.attackOrientation = 'column';
     } else {
@@ -168,29 +129,13 @@ export default function targetingSystem() {
   };
 
   const resetProperties = () => {
+    if (props.useSecondInitialHit!) {
+      props.initialHitSquare = 0;
+    }
     props.possibleAttacks.clear();
-    props.initialHitSquare = 0;
     props.attackOrientation = 'none';
-  };
-
-  const randomAttackLocation = (
-    player: gameBoardInterface,
-    max: number,
-    testNumber?: number,
-  ): number => {
-    let location;
-
-    if (testNumber) {
-      location = testNumber;
-    } else {
-      location = Math.floor(Math.random() * max);
-    }
-
-    if (player.board[location].isHit || player.board[location].isMiss) {
-      return randomAttackLocation(player, 100);
-    }
-
-    return location;
+    props.secondInitialHit = 0;
+    props.useSecondInitialHit = false;
   };
 
   const getMorePossibleAttacks = (
@@ -205,6 +150,7 @@ export default function targetingSystem() {
         });
       });
     });
+
     return possibleAttacks;
   };
 
@@ -216,44 +162,14 @@ export default function targetingSystem() {
 
     if (props.hitShips.size > 0 && props.possibleAttacks.size === 0) {
       props.possibleAttacks = api.getMorePossibleAttacks(opponent);
+      props.useSecondInitialHit = true;
     }
 
     if (testNumber) {
       attackLocation = testNumber;
-    } else if (props.hitShips.size > 0) {
-      const array = [...props.possibleAttacks];
-      attackLocation =
-        array[api.randomAttackLocation(opponent, props.possibleAttacks.size)];
     } else {
-      attackLocation = api.randomAttackLocation(opponent, 100);
-    }
-
-    if (props.possibleAttacks.size > 0) {
-      api.removeAdjacentSquare(attackLocation);
-    }
-
-    if (opponent.board[attackLocation].ship?.props.sunk) {
-      props.hitShips.delete(opponent.board[attackLocation].ship!);
-      api.resetProperties();
-      return attackLocation;
-    }
-
-    if (opponent.board[attackLocation].isHit && props.hitShips.size > 0) {
-      api.setAttackOrientation(attackLocation);
-      const squares = api.getSquares(attackLocation, opponent);
-      squares.forEach((square) => {
-        props.possibleAttacks.add(square);
-      });
-      const attackPath = api.getAttackPath(attackLocation);
-      props.possibleAttacks = attackPath;
-      props.hitShips.add(opponent.board[attackLocation].ship!);
-    }
-
-    if (opponent.board[attackLocation].isHit && props.hitShips.size === 0) {
-      const squares = api.getSquares(attackLocation, opponent);
-      props.possibleAttacks = squares;
-      props.hitShips.add(opponent.board[attackLocation].ship!);
-      props.initialHitSquare = attackLocation;
+      const array = [...props.possibleAttacks];
+      attackLocation = array[Math.floor(Math.random() * array.length)];
     }
 
     return attackLocation;
@@ -263,7 +179,6 @@ export default function targetingSystem() {
     props,
     isOpponentSquareAvailable,
     isAvailableSquare,
-    possibleShipEndPoints,
     getSquares,
     removeAdjacentSquare,
     setAttackOrientation,
@@ -271,7 +186,6 @@ export default function targetingSystem() {
     isColAttack,
     getAttackPath,
     resetProperties,
-    randomAttackLocation,
     getMorePossibleAttacks,
     attackLogic,
   };
