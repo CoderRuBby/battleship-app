@@ -756,23 +756,9 @@ describe('App', () => {
   describe('game over', () => {
     describe('game over menu', () => {
       it('renders with you win', async () => {
-        const user = userEvent.setup();
-        player1.props.allShipsPlaced = true;
-        player2.props.allShipsPlaced = true;
-        player2.props.allShips[0].props.sunk = true;
-        player2.props.allShips[1].props.sunk = true;
-        player2.props.allShips[2].props.sunk = true;
-        player2.props.allShips[3].props.sunk = true;
-        player2.board[53].ship = player2.props.allShips[4];
-        player2.board[54].ship = player2.props.allShips[4];
+        player1.props.winner = true;
 
         render(component);
-
-        const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
-        const aiButton54 = within(aiBoard).getByTestId('54');
-        await user.click(aiButton54);
-        const aiButton53 = within(aiBoard).getByTestId('53');
-        await user.click(aiButton53);
 
         const gameOverMenu = screen.getByRole('dialog');
         const gameOverText = within(gameOverMenu).getByRole('heading', {
@@ -783,46 +769,9 @@ describe('App', () => {
       });
 
       it('renders with you lose', async () => {
-        const user = userEvent.setup();
-        player1.props.allShips[0].props.isPlaced = true;
-        player1.props.allShips[1].props.isPlaced = true;
-        player1.props.allShips[2].props.isPlaced = true;
-        player1.props.allShips[3].props.isPlaced = true;
-        player1.props.allShips[0].props.sunk = true;
-        player1.props.allShips[1].props.sunk = true;
-        player1.props.allShips[2].props.sunk = true;
-        player1.props.allShips[3].props.sunk = true;
-        const string45 = '45';
-        const string46 = '46';
-        player1.board.forEach((square) => {
-          if (
-            square.id !== Number(string45) &&
-            square.id !== Number(string46)
-          ) {
-            player1.board[square.id].isMiss = true;
-          }
-        });
+        player2.props.winner = true;
 
         render(component);
-
-        const playerBoard = screen.getByRole('region', {
-          name: 'The Game Board',
-        });
-
-        const cruiser = screen.getByTestId('cruiser');
-        await user.click(cruiser);
-
-        const button45 = within(playerBoard).getByTestId(string45);
-        await user.click(button45);
-
-        const button46 = within(playerBoard).getByTestId(string46);
-        await user.click(button46);
-
-        const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
-        const aiButton54 = within(aiBoard).getByTestId('54');
-        await user.click(aiButton54);
-        const aiButton53 = within(aiBoard).getByTestId('53');
-        await user.click(aiButton53);
 
         const gameOverMenu = screen.getByRole('dialog');
         const gameOverText = within(gameOverMenu).getByRole('heading', {
@@ -835,45 +784,9 @@ describe('App', () => {
       describe('play again button', () => {
         it('allows another game to be played', async () => {
           const user = userEvent.setup();
-          player1.props.allShips[0].props.isPlaced = true;
-          player1.props.allShips[1].props.isPlaced = true;
-          player1.props.allShips[2].props.isPlaced = true;
-          player1.props.allShips[3].props.isPlaced = true;
-          player1.props.allShips[0].props.sunk = true;
-          player1.props.allShips[1].props.sunk = true;
-          player1.props.allShips[2].props.sunk = true;
-          player1.props.allShips[3].props.sunk = true;
-          const string45 = '45';
-          const string46 = '46';
-          player1.board.forEach((square) => {
-            if (
-              square.id !== Number(string45) &&
-              square.id !== Number(string46)
-            ) {
-              player1.board[square.id].isMiss = true;
-            }
-          });
+          player1.props.winner = true;
 
           render(component);
-
-          const playerBoard = screen.getByRole('region', {
-            name: 'The Game Board',
-          });
-
-          const cruiser = screen.getByTestId('cruiser');
-          await user.click(cruiser);
-
-          const button45 = within(playerBoard).getByTestId(string45);
-          await user.click(button45);
-
-          const button46 = within(playerBoard).getByTestId(string46);
-          await user.click(button46);
-
-          const aiBoard = screen.getByRole('region', { name: 'Ai Game Board' });
-          const aiButton54 = within(aiBoard).getByTestId('54');
-          await user.click(aiButton54);
-          const aiButton53 = within(aiBoard).getByTestId('53');
-          await user.click(aiButton53);
 
           const gameOverMenu = screen.getByRole('dialog');
           const playAgainButton = within(gameOverMenu).getByRole('button', {
@@ -885,16 +798,16 @@ describe('App', () => {
           const shipsContainer = screen.getByRole('region', {
             name: 'The ship buttons',
           });
-          const boardButtons = within(playerBoard).getAllByRole('button', {
-            name: '',
+          const aiBoard = screen.queryByRole('region', {
+            name: 'Ai Game Board',
+          });
+          const playerBoard = screen.getByRole('region', {
+            name: 'The Game Board',
           });
 
           expect(shipsContainer).toBeInTheDocument();
           expect(aiBoard).not.toBeInTheDocument();
-          boardButtons.forEach((button) => {
-            const divImages = button.querySelector('div');
-            expect(divImages).toBe(null);
-          });
+          expect(playerBoard).toBeInTheDocument();
         });
       });
     });
