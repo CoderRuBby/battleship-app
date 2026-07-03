@@ -67,7 +67,10 @@ export function GameBoardButton({
     }
 
     // Show placed ship image only for the start square or if sunk
-    if (boardNumber.ship?.props.isPlaced || boardNumber.ship?.props.sunk) {
+    if (
+      boardNumber.ship?.props.shipStartPoint === Number(testId) &&
+      boardNumber.ship?.props.isPlaced
+    ) {
       return true;
     }
   };
