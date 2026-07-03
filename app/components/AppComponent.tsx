@@ -107,6 +107,10 @@ export function AppComponent({
   };
 
   const aiGameBoardOnClick = (id: number) => {
+    if (player2.board[id].isHit || player2.board[id].isMiss) {
+      return;
+    }
+
     // player attacks, setting opponents board
     const updatedPlayer2 = logic(id, player2);
     setPlayer2(updatedPlayer2);
