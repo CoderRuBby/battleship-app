@@ -218,6 +218,10 @@ export function AppComponent({
   };
 
   const dblClick = (id: number) => {
+    if (player1.props.allShipsPlaced && player2.props.allShipsPlaced) {
+      return;
+    }
+
     const newBoard = { ...player1 };
     const selectedShip = newBoard.props.selectedShip;
     const shipAtSquare = newBoard.board[id].ship;
