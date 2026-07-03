@@ -16,6 +16,11 @@ export interface targetingSystemInterface {
     opponent: gameBoardInterface,
   ) => boolean;
   isAvailableSquare: (square: number, opponent: gameBoardInterface) => boolean;
+  possibleShipEndPoints: (
+    initialSquare: number,
+    shipLength: number,
+    board: gameBoardInterface,
+  ) => number[];
   getSquares: (square: number, opponent: gameBoardInterface) => Set<number>;
   removeAdjacentSquare: (square: number) => void;
   setAttackOrientation: (square: number) => void;
@@ -55,16 +60,57 @@ export default function targetingSystem() {
     return !opponent.board[square].isHit && !opponent.board[square].isMiss;
   };
 
+  const possibleShipEndPoints = (
+    initialSquare: number,
+    shipLength: number,
+    board: gameBoardInterface,
+  ): number[] => {
+    const possibleEndPoints: number[] = [];
+    const row = Math.floor(initialSquare / 10);
+    const col = initialSquare % 10;
+    let endPoint: number;
+
+    // Check right direction
+    if (col + shipLength - 1 < 10) {
+      endPoint = initialSquare + (shipLength - 1);
+      if (isAvailableSquare(endPoint, board) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    // Check left direction
+    if (col - (shipLength - 1) >= 0) {
+      endPoint = initialSquare - (shipLength - 1);
+      if (isAvailableSquare(endPoint, board) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    // Check down direction
+    if (row + shipLength - 1 < 10) {
+      endPoint = initialSquare + (shipLength - 1) * 10;
+      if (isAvailableSquare(endPoint, board) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    // Check up direction
+    if (row - (shipLength - 1) >= 0) {
+      endPoint = initialSquare - (shipLength - 1) * 10;
+      if (isAvailableSquare(endPoint, board) === true) {
+        possibleEndPoints.push(endPoint);
+      }
+    }
+
+    return possibleEndPoints;
+  };
+
   const getSquares = (
     square: number,
     opponent: gameBoardInterface,
   ): Set<number> => {
     const availableSquares: Set<number> = new Set();
-    const squares = newShipPlacementSystem.possibleShipEndPoints(
-      square,
-      2,
-      opponent,
-    );
+    const squares = api.possibleShipEndPoints(square, 2, opponent);
     squares.forEach((s) => {
       const available = isOpponentSquareAvailable(s, opponent);
       if (available) {
@@ -179,6 +225,7 @@ export default function targetingSystem() {
     props,
     isOpponentSquareAvailable,
     isAvailableSquare,
+    possibleShipEndPoints,
     getSquares,
     removeAdjacentSquare,
     setAttackOrientation,
