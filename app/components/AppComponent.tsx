@@ -271,9 +271,11 @@ export function AppComponent({
     <div
       className={`
         mobile-background-image 
-        flex justify-center items-center sm:relative
+        flex justify-center items-center relative
+        bg-[length:clamp(47rem,69rem,73rem)] bg-[position:50%_5px]
         bg-[url('/images/ship-control-room-mobile.png')]
-        w-full h-screen bg-cover bg-no-repeat bg-center
+        xs:static xs:bg-cover xs:bg-center
+        w-full h-screen bg-no-repeat
         md:bg-[url('/images/ship-control-room-v8-md.png')]
       `}
     >
