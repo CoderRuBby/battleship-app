@@ -3,14 +3,9 @@
   <defs>
     <!-- smooth base -->
     <linearGradient id="panelFill" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="#2569D9"/>
-      <stop offset="50%" stop-color="#4FC3FF" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#2F7EF0"/>
-      <animateTransform attributeName="gradientTransform"
-        type="translate"
-        values="0,0.2; 0,-0.2"
-        dur="30s"
-        repeatCount="indefinite"/>
+      <stop offset="0%" stop-color="#4FC3FF" stop-opacity="0.5"/>
+      <stop offset="50%" stop-color="#2F7EF0" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#2F7EF0" stop-opacity="0.9"/>
     </linearGradient>
 
     <!-- blur -->
