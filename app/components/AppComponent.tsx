@@ -259,23 +259,36 @@ export function AppComponent({
     setPlayer1(newBoard);
   };
 
+  const setBoardStyle = () => {
+    if (player1.props.allShipsPlaced && player2.props.allShipsPlaced) {
+      return 'board-attack-stage';
+    } else {
+      return 'board-placement-stage';
+    }
+  };
+
   return (
     <div
-      className="
-        flex justify-center items-center
-        bg-[url('/images/ship-control-room-mobile.png')] 
+      className={`
+        mobile-background-image 
+        flex justify-center items-center sm:relative
+        bg-[url('/images/ship-control-room-mobile.png')]
         w-full h-screen bg-cover bg-no-repeat bg-center
         md:bg-[url('/images/ship-control-room-v8-md.png')]
-      "
+      `}
     >
       <div className='xl:mt-[-87px]'>
         <main
-          className="
-          flex flex-col-reverse justify-center items-center gap-6
+          className={`
+          ${setBoardStyle()}
+          relative
+          flex flex-col justify-center items-center
           bg-[url('/images/ship-container.svg')]
            shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
+          h-auto w-fit bg-[10%] backdrop-blur-[4px]
+          md:static
           md:h-auto md:w-fit md:bg-[17%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
-        "
+        `}
         >
           {isThereAWinner() && (
             <GameOverMenu
@@ -283,32 +296,62 @@ export function AppComponent({
               resetGame={resetGame}
             />
           )}
+          {player1.props.allShipsPlaced && (
+            <section className='player-boards flex items-center flex-col'>
+              <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(255,0,0,1)]'>
+                Enemy Board
+              </h2>
+              <GameBoardComponent
+                player={player2}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                handleOnClick={aiGameBoardOnClick}
+                label='Ai Game Board'
+                dblClick={() => {}}
+                hoverId={hoverId}
+              />
+            </section>
+          )}
+          {player1.props.allShipsPlaced && (
+            <div className='flex gap-[35px] justify-center items-center'>
+              <div className='flex justify-center items-center gap-[3px] pl-[5px] pr-[5px]'>
+                <h2>Miss = </h2>
+                <img
+                  src='/images/miss.png'
+                  alt='miss'
+                  className='w-[2rem] h-[2rem'
+                />
+              </div>
+              <div className='flex justify-center items-center gap-[3px] pl-[5px] pr-[5px]'>
+                <h2>Hit = </h2>
+                <img
+                  src='/images/hit.png'
+                  alt='hit'
+                  className='w-[2rem] h-[2rem]'
+                />
+              </div>
+            </div>
+          )}
+          <section className='player-boards flex items-center flex-col'>
+            <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(0,255,2,1)]'>
+              My Board
+            </h2>
+            <GameBoardComponent
+              player={player1}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              handleOnClick={gameBoardOnClick}
+              label='The Game Board'
+              dblClick={dblClick}
+              hoverId={hoverId}
+            />
+          </section>
           {!player1.props.allShipsPlaced && (
             <ShipButtonComponent
               player={player1}
               handleSelectShip={handleSelectShip}
             />
           )}
-          {player1.props.allShipsPlaced && (
-            <GameBoardComponent
-              player={player2}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
-              handleOnClick={aiGameBoardOnClick}
-              label='Ai Game Board'
-              dblClick={() => {}}
-              hoverId={hoverId}
-            />
-          )}
-          <GameBoardComponent
-            player={player1}
-            handleMouseEnter={handleMouseEnter}
-            handleMouseLeave={handleMouseLeave}
-            handleOnClick={gameBoardOnClick}
-            label='The Game Board'
-            dblClick={dblClick}
-            hoverId={hoverId}
-          />
         </main>
       </div>
     </div>

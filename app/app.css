@@ -14,6 +14,45 @@ body {
     color-scheme: dark;
   }
 
+  .board-text {
+    padding: 1px;
+    padding-right: 5px;
+    padding-left: 5px;
+    color: black;
+  }
+
+  .player-boards {
+    box-shadow: 0px 0px 9px -1px black;
+    padding: 8px;
+    padding-left: 15px;
+    padding-right: 15px;
+    gap: 4px;
+  }
+
+  .mobile-background-image {
+    background-size: 256%;
+    background-position-x: 50%;
+    background-position-y: 5px;
+  }
+
+  .board-placement-stage {
+    bottom: -58px;
+    gap: 56px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 15px;
+    padding-bottom: 30px;
+  }
+
+  .board-attack-stage {
+    bottom: 4px;
+    gap: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
   .ship-outline {
     box-shadow: 0px 0px 4px 2px white;
   }
@@ -80,78 +119,74 @@ body {
   }
 
   .carrier {
-    border: black 1px solid;
     width: 9.5rem;
     background: url('/public/images/carrier.webp') no-repeat center / cover;
   }
 
   .board-carrier {
-    border: black 1px solid;
-    width: clamp(8.5rem, 2vw, 2.5rem);
+    width: clamp(8rem, 2vw, 2.5rem);
     background: url('/public/images/carrier.webp') no-repeat center / cover;
   }
 
   .carrier-right {
-    left: -1px;
-    bottom: -1px;
+    left: -3px;
+    bottom: -2px;
   }
 
   .carrier-left {
-    right: -1px;
+    right: -2px;
     bottom: -1px;
   }
 
   .carrier-up {
-    bottom: 53px;
-    right: -56px;
+    bottom: 49px;
+    right: -52.9px;
   }
 
   .carrier-down {
-    top: 53px;
-    right: -55px;
+    top: 50px;
+    right: -52px;
   }
 
   .destroyer {
     width: 6rem;
-    border: 1px solid black;
+    background-color: antiquewhite;
   }
 
   .board-destroyer {
     background-color: white;
-    border: red 1px solid;
-    width: clamp(5.2rem, 2vw, 2.5rem);
+    width: clamp(4.7rem, 2vw, 2.5rem);
   }
 
   .destroyer-right {
-    left: -1px;
+    left: 0px;
     bottom: -2px;
   }
 
   .destroyer-left {
-    right: -2px;
-    bottom: -2px;
+    right: -0.1px;
+    bottom: -1px;
   }
 
   .destroyer-up {
-    bottom: 26px;
-    right: -29px;
+    bottom: 25px;
+    right: -26px;
   }
 
   .destroyer-down {
-    top: 27px;
-    right: -30px;
+    top: 24px;
+    right: -27px;
   }
 
   .submarine {
     width: 6rem;
     background-position: center;
-    border: 1px solid black;
+    background-color: antiquewhite;
   }
 
   .board-submarine {
     background-color: white;
-    border: red 1px solid;
-    width: clamp(5.2rem, 2vw, 2.5rem);
+    width: clamp(4.8rem, 2vw, 2.5rem);
   }
 
   .submarine-right {
@@ -165,92 +200,90 @@ body {
   }
 
   .submarine-up {
-    bottom: 26px;
-    right: -29px;
+    bottom: 22px;
+    right: -27px;
   }
 
   .submarine-down {
-    top: 27px;
-    right: -30px;
+    top: 23px;
+    right: -27px;
   }
 
   .battleship {
     width: 8rem;
     background-position: center;
-    border: 1px solid black;
+    background-color: antiquewhite;
   }
 
   .board-battleship {
     background-color: white;
-    border: red 1px solid;
-    width: clamp(7rem, 2vw, 2.5rem);
+    width: clamp(6.3rem, 2vw, 2.5rem);
   }
 
   .battleship-right {
-    left: -2px;
+    left: -1px;
     bottom: -2px;
   }
 
   .battleship-left {
-    right: -2px;
+    right: 0px;
     bottom: -2px;
   }
 
   .battleship-up {
-    bottom: 38px;
-    right: -43px;
+    bottom: 37px;
+    right: -38px;
   }
 
   .battleship-down {
-    top: 38px;
-    right: -43px;
+    top: 36px;
+    right: -40px;
   }
 
   .cruiser {
     width: 4rem;
     background-position: center;
-    border: 1px solid black;
+    background-color: antiquewhite;
   }
 
   .board-cruiser {
     background-color: white;
-    border: red 1px solid;
-    width: clamp(3.5rem, 2vw, 2.5rem);
+    width: clamp(3.3rem, 2vw, 2.5rem);
   }
 
   .cruiser-right {
-    left: -2px;
+    left: -1px;
     bottom: -2px;
   }
 
   .cruiser-left {
-    right: -1px;
+    right: -3px;
     bottom: -2px;
   }
 
   .cruiser-up {
-    bottom: 12px;
+    bottom: 9px;
     right: -15px;
   }
 
   .cruiser-down {
-    top: 12px;
-    right: -15px;
+    top: 9px;
+    right: -14px;
   }
 
   .hit {
     width: 1.5rem;
     height: 1.5rem;
-    top: 0.9px;
-    left: 0.9px;
+    top: 0px;
+    left: -0.5px;
     background: url('/public/images/hit.png') no-repeat center/ cover;
   }
 
   .miss {
     width: 1.5rem;
     height: 1.5rem;
-    top: 0.9px;
-    left: 0.9px;
+    top: 0px;
+    left: -0.5px;
     background: url('/public/images/miss.png') no-repeat center / cover;
   }
 
