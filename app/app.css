@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@config '../tailwind.config.mjs';
 
 @theme {
   --font-sans:
@@ -27,12 +28,6 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     gap: 4px;
-  }
-
-  .mobile-background-image {
-    background-size: 256%;
-    background-position-x: 50%;
-    background-position-y: 5px;
   }
 
   .board-placement-stage {
@@ -295,6 +290,26 @@ body {
   .ocean-2 {
     background: url('/public/images/ocean-background-2.png') no-repeat center /
       cover;
+  }
+
+  @media (min-width: 400px) {
+    .board-placement-stage {
+      bottom: 42px;
+      gap: 56px;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 15px;
+      padding-bottom: 30px;
+    }
+
+    .board-attack-stage {
+      bottom: 113px;
+      gap: 5px;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+    }
   }
 
   @media (min-width: 1280px) {
