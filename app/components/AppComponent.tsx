@@ -1,7 +1,7 @@
 import type { shipInterface } from '~/utils/ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
@@ -22,13 +22,16 @@ export function AppComponent({
   const [player2, setPlayer2] = useState<gameBoardInterface>(player2Board);
   const [hoverId, setHoverId] = useState<number | null>(null);
 
-  const { getShipPaths, shipPlacementLogic } = shipPlacementSystem();
+  const { getShipPaths, shipPlacementLogic } = useMemo(
+    () => shipPlacementSystem(),
+    [],
+  );
 
-  const { placeShipOnGameBoard } = aiShipPlacementSystem();
+  const { placeShipOnGameBoard } = useMemo(() => aiShipPlacementSystem(), []);
 
-  const { logic } = attack();
+  const { logic } = useMemo(() => attack(), []);
 
-  const { aiAttackLogic } = aiAttack();
+  const { aiAttackLogic } = useMemo(() => aiAttack(), []);
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newPlayer1 = { ...player1 };
@@ -90,6 +93,7 @@ export function AppComponent({
             ...shipPlacementLogic(endPoint, player1),
           };
           setPlayer1(updatedPlayer1);
+          break;
         }
       }
     }
@@ -103,6 +107,10 @@ export function AppComponent({
   };
 
   const aiGameBoardOnClick = (id: number) => {
+    if (player2.board[id].isHit || player2.board[id].isMiss) {
+      return;
+    }
+
     // player attacks, setting opponents board
     const updatedPlayer2 = logic(id, player2);
     setPlayer2(updatedPlayer2);
@@ -113,9 +121,9 @@ export function AppComponent({
       return;
     }
     // ai attacks setting the players board
-    const [num, obj] = aiAttackLogic(player1);
-    setPlayer1(obj);
-    if (isLoser(obj)) {
+    const [num, updatedPlayer1] = aiAttackLogic(player1);
+    setPlayer1(updatedPlayer1);
+    if (isLoser(updatedPlayer1)) {
       const updatedPlayer2 = { ...player2 };
       updatedPlayer2.props.winner = true;
       setPlayer2(updatedPlayer2);
@@ -210,6 +218,10 @@ export function AppComponent({
   };
 
   const dblClick = (id: number) => {
+    if (player1.props.allShipsPlaced && player2.props.allShipsPlaced) {
+      return;
+    }
+
     const newBoard = { ...player1 };
     const selectedShip = newBoard.props.selectedShip;
     const shipAtSquare = newBoard.board[id].ship;
@@ -263,7 +275,7 @@ export function AppComponent({
           bg-[url('/images/ship-container.svg')]
           shadow-[0px_0px_3px_5px_rgba(44,943,444,.1),0px_-5px_4px_10px_rgba(23,94,844,.3),0px_-6px_20px_33px_rgba(3,78,933,.3),0px_-3px_6px_18px_rgba(33,334,943,.75)]
           h-auto w-fit bg-[10%] p-1 mb-30 backdrop-blur-[4px]
-          md:h-auto md:w-fit md:bg-[15%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
+          md:h-auto md:w-fit md:bg-[17%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
         "
         >
           {isThereAWinner() && (
