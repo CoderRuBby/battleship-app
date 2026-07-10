@@ -31,7 +31,6 @@ body {
   }
 
   .board-placement-stage {
-    bottom: -58px;
     gap: 56px;
     padding-left: 25px;
     padding-right: 25px;
@@ -40,7 +39,6 @@ body {
   }
 
   .board-attack-stage {
-    bottom: 4px;
     gap: 5px;
     padding-left: 25px;
     padding-right: 25px;
@@ -294,7 +292,6 @@ body {
 
   @media (min-width: 400px) {
     .board-placement-stage {
-      bottom: 42px;
       gap: 56px;
       padding-left: 25px;
       padding-right: 25px;
@@ -303,12 +300,166 @@ body {
     }
 
     .board-attack-stage {
-      bottom: 113px;
       gap: 5px;
       padding-left: 25px;
       padding-right: 25px;
       padding-top: 5px;
       padding-bottom: 5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .board-placement-stage {
+      gap: 56px;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 15px;
+      padding-bottom: 30px;
+    }
+
+    .board-attack-stage {
+      gap: 64px;
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-top: 100px;
+      padding-bottom: 35px;
+    }
+
+    .hit {
+      width: 2rem;
+      height: 2rem;
+      top: -3px;
+      left: -2.5px;
+      background: url('/public/images/hit.png') no-repeat center/ cover;
+    }
+
+    .miss {
+      width: 2rem;
+      height: 2rem;
+      top: -3px;
+      left: -2.5px;
+      background: url('/public/images/miss.png') no-repeat center / cover;
+    }
+
+    .board-text {
+      padding: 1px;
+      padding-right: 5px;
+      padding-left: 5px;
+      color: black;
+      font-size: 2.2rem;
+      margin-bottom: 8px;
+    }
+
+    .carrier {
+      width: 9.1rem;
+    }
+
+    .board-carrier {
+      width: 9.1rem;
+    }
+
+    .carrier-right {
+      left: -2px;
+      bottom: -0.77px;
+    }
+
+    .carrier-left {
+      right: -3px;
+      bottom: 1px;
+    }
+
+    .carrier-up {
+      bottom: 57px;
+      right: -60.1px;
+    }
+
+    .carrier-down {
+      top: 57px;
+      right: -58.2px;
+    }
+
+    .destroyer,
+    .submarine {
+      width: 5.3rem;
+    }
+
+    .board-destroyer,
+    .board-submarine {
+      width: 5.3rem;
+    }
+
+    .destroyer-right,
+    .submarine-right {
+      left: 0px;
+      bottom: 0px;
+    }
+
+    .destroyer-left,
+    .submarine-left {
+      right: 0px;
+      bottom: -0.9px;
+    }
+
+    .destroyer-up,
+    .submarine-up {
+      bottom: 30px;
+      right: -28.9px;
+    }
+
+    .destroyer-down,
+    .submarine-down {
+      top: 30px;
+      right: -29px;
+    }
+
+    .battleship,
+    .board-battleship {
+      width: 7.2rem;
+    }
+
+    .battleship-right {
+      left: -2px;
+      bottom: 0px;
+    }
+
+    .battleship-left {
+      right: -1px;
+      bottom: 0.2px;
+    }
+
+    .battleship-up {
+      bottom: 43px;
+      right: -44px;
+    }
+
+    .battleship-down {
+      top: 42px;
+      right: -43.7px;
+    }
+
+    .board-cruiser,
+    .cruiser {
+      width: 3.6rem;
+    }
+
+    .cruiser-right {
+      left: -2px;
+      bottom: 0px;
+    }
+
+    .cruiser-left {
+      right: -2px;
+      bottom: 0px;
+    }
+
+    .cruiser-up {
+      bottom: 14px;
+      right: -16px;
+    }
+
+    .cruiser-down {
+      top: 14px;
+      right: -15.1px;
     }
   }
 

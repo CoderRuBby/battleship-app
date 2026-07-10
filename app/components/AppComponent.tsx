@@ -274,22 +274,20 @@ export function AppComponent({
         flex justify-center items-center relative
         bg-[length:clamp(47rem,69rem,73rem)] bg-[position:50%_5px]
         bg-[url('/images/ship-control-room-mobile.png')]
-        xs:static xs:bg-cover xs:bg-center
         w-full h-screen bg-no-repeat
-        md:bg-[url('/images/ship-control-room-v8-md.png')]
+        md:bg-[length:97rem] md:bg-[position:50%_1px]
       `}
     >
-      <div className='xl:mt-[-87px]'>
+      <div className='h-screen w-fit top-[5px] xs:top-[12px] absolute md:top-[420px] xl:mt-[-87px]'>
         <main
           className={`
           ${setBoardStyle()}
-          relative
+          relative h-[40rem]
           flex flex-col justify-center items-center
           bg-[url('/images/ship-container.svg')]
            shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
-          h-auto w-fit bg-[10%] backdrop-blur-[4px]
-          md:static
-          md:h-auto md:w-fit md:bg-[17%] md:flex-row md:p-5 md:pb-15 md:pt-20 md:m-0 md:gap-[clamp(1rem,25vw,4rem)]
+          w-fit bg-[10%] backdrop-blur-[4px]
+          md:h-[32rem] md:w-[750px] md:bg-[17%] md:flex-row md:gap-[clamp(1rem,25vw,4rem)]
         `}
         >
           {isThereAWinner() && (
@@ -315,13 +313,13 @@ export function AppComponent({
             </section>
           )}
           {player1.props.allShipsPlaced && (
-            <div className='flex gap-[35px] justify-center items-center'>
+            <div className='flex gap-[35px] justify-center items-center md:absolute whitespace-nowrap md:top-[21px] md:text-[2rem] rounded-lg md:p-[6px] md:pl-[20px] md:pr-[20px] md:shadow-[0px_4px_79px_4px_rgba(0,0,0,1)_inset,0px_0px_8px_3px_rgba(0,0,0,1)]'>
               <div className='flex justify-center items-center gap-[3px] pl-[5px] pr-[5px]'>
                 <h2>Miss = </h2>
                 <img
                   src='/images/miss.png'
                   alt='miss'
-                  className='w-[2rem] h-[2rem'
+                  className='w-[2rem] h-[2rem] md:w-[2.7rem] md:h-[2.7rem]'
                 />
               </div>
               <div className='flex justify-center items-center gap-[3px] pl-[5px] pr-[5px]'>
@@ -329,7 +327,7 @@ export function AppComponent({
                 <img
                   src='/images/hit.png'
                   alt='hit'
-                  className='w-[2rem] h-[2rem]'
+                  className='w-[2rem] h-[2rem] md:w-[2.7rem] md:h-[2.7rem]'
                 />
               </div>
             </div>

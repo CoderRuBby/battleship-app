@@ -108,6 +108,7 @@ export function GameBoardButton({
     <button
       className='
         w-[1.6rem] h-[1.6rem] border-1 relative
+        md:h-[1.8rem] md:w-[1.8rem]
         xl:w-[2.5rem] xl:h-[2.5rem]
         '
       data-testid={testId}
