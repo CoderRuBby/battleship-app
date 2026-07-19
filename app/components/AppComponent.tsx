@@ -274,8 +274,6 @@ export function AppComponent({
         flex flex-col justify-end items-center
         bg-[url('/images/ship-control-room.png')]
         bg-no-repeat bg-cover bg-center
-        md:bg-[url('/images/ship-control-room-v8-md.png')]
-        md:bg-[length:97rem] md:bg-[position:50%_1px]
       `}
     >
       <div
@@ -285,8 +283,8 @@ export function AppComponent({
         bg-[url('/images/hologram-table-square.png')]
         bg-cover bg-[position:50%_6rem] bg-no-repeat
         xs:bg-[position:50%_1rem]
-        md:top-[130px] 
-        xl:mt-[-87px]
+        md:h-[23rem]
+        md:bg-[position:50%_4rem] md:bg-[length:67rem_20rem]
         "
       >
         <main
@@ -298,7 +296,7 @@ export function AppComponent({
           bg-[10%] backdrop-blur-[4px]
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
           xs:mb-[6rem]
-          md:h-[32rem] md:w-[750px] md:bg-[17%] md:flex-row md:gap-[clamp(1rem,25vw,4rem)]
+          md:h-fit md:w-[750px] md:mb-[12rem] md:bg-[17%] md:flex-row
         `}
         >
           {isThereAWinner() && (
@@ -330,7 +328,13 @@ export function AppComponent({
             </section>
           )}
           {player1.props.allShipsPlaced && (
-            <div className='flex gap-[35px] justify-center items-center md:absolute whitespace-nowrap md:top-[21px] md:text-[2rem] rounded-lg md:p-[6px] md:pl-[20px] md:pr-[20px] md:shadow-[0px_4px_79px_4px_rgba(0,0,0,1)_inset,0px_0px_8px_3px_rgba(0,0,0,1)]'>
+            <div
+              className='
+              flex gap-[35px] justify-center items-center
+              whitespace-nowrap rounded-lg
+              md:absolute md:top-[45px] md:text-[2rem] md:p-[6px] md:pl-[20px] md:pr-[20px] md:shadow-[0px_4px_79px_4px_rgba(0,0,0,1)_inset,0px_0px_8px_3px_rgba(0,0,0,1)]
+            '
+            >
               <div className='flex justify-center items-center gap-[3px] pl-[5px] pr-[5px]'>
                 <h2>Miss = </h2>
                 <img
