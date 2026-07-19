@@ -284,7 +284,7 @@ export function AppComponent({
         flex flex-col justify-end items-center
         bg-[url('/images/hologram-table-square.png')]
         bg-cover bg-[position:50%_6rem] bg-no-repeat
-        xs:top-[12px] 
+        xs:bg-[position:50%_1rem]
         md:top-[130px] 
         xl:mt-[-87px]
         "
@@ -297,6 +297,7 @@ export function AppComponent({
           bg-[url('/images/ship-container.svg')]
           bg-[10%] backdrop-blur-[4px]
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
+          xs:mb-[6rem]
           md:h-[32rem] md:w-[750px] md:bg-[17%] md:flex-row md:gap-[clamp(1rem,25vw,4rem)]
         `}
         >
