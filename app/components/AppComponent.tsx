@@ -270,24 +270,33 @@ export function AppComponent({
   return (
     <div
       className={`
-        mobile-background-image 
-        flex justify-center items-center relative
-        bg-[length:clamp(47rem,69rem,73rem)] bg-[position:50%_5px]
-        bg-[url('/images/ship-control-room-mobile.png')]
-        w-full h-screen bg-no-repeat
+        w-full h-screen
+        flex flex-col justify-end items-center
+        bg-[url('/images/ship-control-room.png')]
+        bg-no-repeat bg-cover bg-center
         md:bg-[url('/images/ship-control-room-v8-md.png')]
         md:bg-[length:97rem] md:bg-[position:50%_1px]
       `}
     >
-      <div className='h-screen w-fit top-[5px] xs:top-[12px] absolute md:top-[130px] xl:mt-[-87px]'>
+      <div
+        className="
+        w-full h-[13rem] overflow-visible
+        flex flex-col justify-end items-center
+        bg-[url('/images/hologram-table-square.png')]
+        bg-cover bg-[position:50%_6rem] bg-no-repeat
+        xs:top-[12px] 
+        md:top-[130px] 
+        xl:mt-[-87px]
+        "
+      >
         <main
           className={`
           ${setBoardStyle()}
-          relative h-[40rem]
+          w-fit mb-[1rem] relative
           flex flex-col justify-center items-center
           bg-[url('/images/ship-container.svg')]
-           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
-          w-fit bg-[10%] backdrop-blur-[4px]
+          bg-[10%] backdrop-blur-[4px]
+          shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
           md:h-[32rem] md:w-[750px] md:bg-[17%] md:flex-row md:gap-[clamp(1rem,25vw,4rem)]
         `}
         >
@@ -298,7 +307,13 @@ export function AppComponent({
             />
           )}
           {player1.props.allShipsPlaced && (
-            <section className='player-boards flex items-center flex-col'>
+            <section
+              className="
+              player-boards flex items-center flex-col 
+              bg-[url('/images/ship-container.svg')]
+              bg-[10%]
+            "
+            >
               <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(255,0,0,1)]'>
                 Enemy Board
               </h2>
@@ -333,7 +348,13 @@ export function AppComponent({
               </div>
             </div>
           )}
-          <section className='player-boards flex items-center flex-col'>
+          <section
+            className="
+              player-boards flex items-center flex-col
+              bg-[url('/images/ship-container.svg')]
+              bg-[10%]
+            "
+          >
             <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(0,255,2,1)]'>
               My Board
             </h2>
