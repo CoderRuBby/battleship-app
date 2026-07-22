@@ -108,6 +108,8 @@ export function GameBoardButton({
     <button
       className='
         w-[1.6rem] h-[1.6rem] border-1 relative
+        landscape:h-[1.6rem] landscape:w-[1.6rem]
+        md:landscape:h-[1.8rem] md:landscape:w-[1.8rem]
         md:h-[1.8rem] md:w-[1.8rem]
         xl:w-[2.5rem] xl:h-[2.5rem]
         '
