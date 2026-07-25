@@ -276,8 +276,7 @@ export function AppComponent({
         landscape:bg-[url('/images/ship-control-room.png')]
         landscape:justify-center landscape:p-2
         bg-no-repeat bg-cover bg-center
-        md:portrait:bg-size-[60rem_80rem] md:portrait:bg-position-[50%_-8rem]
-        lg:portrait:bg-size-[70rem_80rem] lg:portrait:bg-center
+        md:portrait:bg-cover md:portrait:bg-position-[50%_-9rem]
       `}
     >
       <div
@@ -287,17 +286,15 @@ export function AppComponent({
         landscape:justify-center
         portrait:bg-[url('/images/hologram-table-square.png')]
         bg-cover bg-position-[50%_6rem] bg-no-repeat
-        xs:bg-position-[50%_1rem]
-        sm:portrait:h-72
-        md:bg-center md:bg-size-[67rem_20rem]
-        md:portrait:h-100 md:portrait:bg-size-[67rem_24rem]
-        lg:portrait:h-92 lg:bg-size-[70rem_15rem]
+        xs:bg-position-[50%_0rem]
+        md:portrait:w-fit md:portrait:p-40
+        md:portrait:bg-bottom md:portrait:bg-contain
         "
       >
         <main
           className={`
           ${setBoardStyle()}
-          relative flex
+          relative flex bg-no-repeat
           landscape:w-full
           justify-center items-center
           portrait:gap-[.2rem]
@@ -311,13 +308,13 @@ export function AppComponent({
           landscape:bg-position-[20%]
           landscape:gap-2
           landscape:p-2
-          portrait:bg-position-[20%]
+          portrait:bg-position-[50%]
+          bg-size-[150rem_90rem]
           xs:portrait:gap-4
-          xs:portrait:mb-24
-          sm:portrait:mb-40
-          md:portrait:mb-60
+          xs:portrait:mb-30
+          sm:portrait:mb-0
           md:portrait:gap-4
-          lg:portrait:mb-52
+          lg:portrait:mb-5
         `}
         >
           {isThereAWinner() && (
@@ -332,11 +329,9 @@ export function AppComponent({
               player-boards flex items-center flex-col 
               bg-[url('/images/ship-container.svg')]
               bg-position-[10%]
+              portrait:flex-row
             "
             >
-              <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(255,0,0,1)]'>
-                Enemy Board
-              </h2>
               <GameBoardComponent
                 player={player2}
                 handleMouseEnter={handleMouseEnter}
@@ -358,11 +353,14 @@ export function AppComponent({
               landscape:text-[1rem] landscape:w-13
               md:landscape:w-fit
               md:landscape:p-8 md:landscape:text-[2rem]
+              md:portrait:text-2xl md:portrait:gap-10
+              md:portrait:p-2.5
             '
             >
               <div
                 className='
                 flex items-center flex-wrap landscape:justify-center
+                md:portrait:gap-1
                 '
               >
                 <h2>Miss = </h2>
@@ -372,7 +370,7 @@ export function AppComponent({
                   className='w-8 h-8 md:w-[2.7rem] md:h-[2.7rem]'
                 />
               </div>
-              <div className='flex items-center flex-wrap landscape:justify-center'>
+              <div className='flex items-center flex-wrap landscape:justify-center md:portrait:gap-1'>
                 <h2>Hit = </h2>
                 <img
                   src='/images/hit.png'
@@ -387,11 +385,9 @@ export function AppComponent({
               player-boards flex items-center flex-col
               bg-[url('/images/ship-container.svg')]
               bg-position-[10%]
+              portrait:flex-row
             "
           >
-            <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(0,255,2,1)]'>
-              My Board
-            </h2>
             <GameBoardComponent
               player={player1}
               handleMouseEnter={handleMouseEnter}
