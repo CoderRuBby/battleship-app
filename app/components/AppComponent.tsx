@@ -274,7 +274,7 @@ export function AppComponent({
         flex flex-col justify-end items-center
         portrait:bg-[url('/images/ship-control-room.png')]
         landscape:bg-[url('/images/ship-control-room.png')]
-        landscape:justify-center
+        landscape:justify-center landscape:p-2
         bg-no-repeat bg-cover bg-center
         md:portrait:bg-size-[60rem_80rem] md:portrait:bg-position-[50%_-8rem]
         lg:portrait:bg-size-[70rem_80rem] lg:portrait:bg-center
@@ -283,36 +283,35 @@ export function AppComponent({
       <div
         className="
         w-full portrait:h-52 overflow-visible
-        flex flex-col justify-end items-center
+        flex flex-col portrait:justify-end items-center
+        landscape:justify-center
         portrait:bg-[url('/images/hologram-table-square.png')]
         bg-cover bg-position-[50%_6rem] bg-no-repeat
-        landscape:p-8
         xs:bg-position-[50%_1rem]
         sm:portrait:h-72
         md:bg-center md:bg-size-[67rem_20rem]
         md:portrait:h-100 md:portrait:bg-size-[67rem_24rem]
-        lg:portrait:h-92 lg:bg-size-[70rem_15rem] 
+        lg:portrait:h-92 lg:bg-size-[70rem_15rem]
         "
       >
         <main
           className={`
           ${setBoardStyle()}
-          landscape:w-full relative flex
-          xs:landscape:w-fit
+          relative flex
+          landscape:w-full
           justify-center items-center
           portrait:gap-[.2rem]
           portrait:mb-4
           portrait:p-4
-          landscape:pb-8 landscape:pt-8
           portrait:flex-col 
           bg-[url('/images/ship-container.svg')]
           backdrop-blur-xs
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
           landscape:flex-row
           landscape:bg-position-[20%]
-          landscape:gap-4
+          landscape:gap-2
+          landscape:p-2
           portrait:bg-position-[20%]
-          xs:landscape:p-4
           xs:portrait:gap-4
           xs:portrait:mb-24
           sm:portrait:mb-40
@@ -352,18 +351,18 @@ export function AppComponent({
           {player1.props.allShipsPlaced && (
             <div
               className='
-              flex items-center
+              flex
               whitespace-nowrap rounded-lg
               shadow-[0px_4px_79px_4px_rgba(0,0,0,1)_inset,0px_0px_8px_3px_rgba(0,0,0,1)]
               landscape:flex-col landscape:gap-4
-              landscape:text-[1.3rem] landscape:p-[1.4rem]
+              landscape:text-[1rem] landscape:w-13
+              md:landscape:w-fit
               md:landscape:p-8 md:landscape:text-[2rem]
             '
             >
               <div
                 className='
-                flex justify-center items-center
-                landscape:gap-0.5
+                flex items-center flex-wrap landscape:justify-center
                 '
               >
                 <h2>Miss = </h2>
@@ -373,7 +372,7 @@ export function AppComponent({
                   className='w-8 h-8 md:w-[2.7rem] md:h-[2.7rem]'
                 />
               </div>
-              <div className='flex justify-center items-center gap-0.75 pl-1.25 pr-1.25'>
+              <div className='flex items-center flex-wrap landscape:justify-center'>
                 <h2>Hit = </h2>
                 <img
                   src='/images/hit.png'
