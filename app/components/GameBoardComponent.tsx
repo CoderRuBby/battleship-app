@@ -32,7 +32,7 @@ export function GameBoardComponent({
       aria-label={label}
       className={`
         ${backgroundClass()}
-        grid grid-cols-[repeat(10,_1fr)] grid-rows-[repeat(10,_1fr)]`}
+        grid grid-cols-[repeat(10,1fr)] grid-rows-[repeat(10,1fr)]`}
     >
       {player.board.map((square) => (
         <GameBoardButton

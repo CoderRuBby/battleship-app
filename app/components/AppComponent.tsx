@@ -276,22 +276,22 @@ export function AppComponent({
         landscape:bg-[url('/images/ship-control-room.png')]
         landscape:justify-center
         bg-no-repeat bg-cover bg-center
-        md:portrait:bg-[length:60rem_80rem] md:portrait:bg-[position:50%_-8rem]
-        lg:portrait:bg-[length:70rem_80rem] lg:portrait:bg-center
+        md:portrait:bg-size-[60rem_80rem] md:portrait:bg-position-[50%_-8rem]
+        lg:portrait:bg-size-[70rem_80rem] lg:portrait:bg-center
       `}
     >
       <div
         className="
-        w-full portrait:h-[13rem] overflow-visible
+        w-full portrait:h-52 overflow-visible
         flex flex-col justify-end items-center
         portrait:bg-[url('/images/hologram-table-square.png')]
-        bg-cover bg-[position:50%_6rem] bg-no-repeat
-        landscape:p-[2rem]
-        xs:bg-[position:50%_1rem]
-        sm:portrait:h-[18rem]
-        md:bg-center md:bg-[length:67rem_20rem]
-        md:portrait:h-[25rem] md:portrait:bg-[length:67rem_24rem]
-        lg:portrait:h-[23rem] lg:bg-[length:70rem_15rem] 
+        bg-cover bg-position-[50%_6rem] bg-no-repeat
+        landscape:p-8
+        xs:bg-position-[50%_1rem]
+        sm:portrait:h-72
+        md:bg-center md:bg-size-[67rem_20rem]
+        md:portrait:h-100 md:portrait:bg-size-[67rem_24rem]
+        lg:portrait:h-92 lg:bg-size-[70rem_15rem] 
         "
       >
         <main
@@ -301,24 +301,24 @@ export function AppComponent({
           xs:landscape:w-fit
           justify-center items-center
           portrait:gap-[.2rem]
-          portrait:mb-[1rem]
-          portrait:p-[1rem]
-          landscape:pb-[2rem] landscape:pt-[2rem]
+          portrait:mb-4
+          portrait:p-4
+          landscape:pb-8 landscape:pt-8
           portrait:flex-col 
           bg-[url('/images/ship-container.svg')]
-          backdrop-blur-[4px]
+          backdrop-blur-xs
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
           landscape:flex-row
-          landscape:bg-[20%]
-          landscape:gap-[1rem]
-          portrait:bg-[20%]
-          xs:landscape:p-[1rem]
-          xs:portrait:gap-[1rem]
-          xs:portrait:mb-[6rem]
-          sm:portrait:mb-[10rem]
-          md:portrait:mb-[15rem]
-          md:portrait:gap-[1rem]
-          lg:portrait:mb-[13rem]
+          landscape:bg-position-[20%]
+          landscape:gap-4
+          portrait:bg-position-[20%]
+          xs:landscape:p-4
+          xs:portrait:gap-4
+          xs:portrait:mb-24
+          sm:portrait:mb-40
+          md:portrait:mb-60
+          md:portrait:gap-4
+          lg:portrait:mb-52
         `}
         >
           {isThereAWinner() && (
@@ -332,7 +332,7 @@ export function AppComponent({
               className="
               player-boards flex items-center flex-col 
               bg-[url('/images/ship-container.svg')]
-              bg-[10%]
+              bg-position-[10%]
             "
             >
               <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(255,0,0,1)]'>
@@ -355,30 +355,30 @@ export function AppComponent({
               flex items-center
               whitespace-nowrap rounded-lg
               shadow-[0px_4px_79px_4px_rgba(0,0,0,1)_inset,0px_0px_8px_3px_rgba(0,0,0,1)]
-              landscape:flex-col landscape:gap-[1rem]
+              landscape:flex-col landscape:gap-4
               landscape:text-[1.3rem] landscape:p-[1.4rem]
-              md:landscape:p-[2rem] md:landscape:text-[2rem]
+              md:landscape:p-8 md:landscape:text-[2rem]
             '
             >
               <div
                 className='
                 flex justify-center items-center
-                landscape:gap-[2px]
+                landscape:gap-0.5
                 '
               >
                 <h2>Miss = </h2>
                 <img
                   src='/images/miss.png'
                   alt='miss'
-                  className='w-[2rem] h-[2rem] md:w-[2.7rem] md:h-[2.7rem]'
+                  className='w-8 h-8 md:w-[2.7rem] md:h-[2.7rem]'
                 />
               </div>
-              <div className='flex justify-center items-center gap-[3px] pl-[5px] pr-[5px]'>
+              <div className='flex justify-center items-center gap-0.75 pl-1.25 pr-1.25'>
                 <h2>Hit = </h2>
                 <img
                   src='/images/hit.png'
                   alt='hit'
-                  className='w-[2rem] h-[2rem] md:w-[2.7rem] md:h-[2.7rem]'
+                  className='w-8 h-8 md:w-[2.7rem] md:h-[2.7rem]'
                 />
               </div>
             </div>
@@ -387,7 +387,7 @@ export function AppComponent({
             className="
               player-boards flex items-center flex-col
               bg-[url('/images/ship-container.svg')]
-              bg-[10%]
+              bg-position-[10%]
             "
           >
             <h2 className='board-text shadow-[0px_1px_.5px_0px_rgba(0,255,2,1)]'>

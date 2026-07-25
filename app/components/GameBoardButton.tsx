@@ -107,11 +107,11 @@ export function GameBoardButton({
   return (
     <button
       className='
-        w-[1.6rem] h-[1.6rem] border-1 relative
+        w-[1.6rem] h-[1.6rem] border relative
         landscape:h-[1.6rem] landscape:w-[1.6rem]
         md:landscape:h-[1.8rem] md:landscape:w-[1.8rem]
         md:h-[1.8rem] md:w-[1.8rem]
-        xl:w-[2.5rem] xl:h-[2.5rem]
+        xl:w-10 xl:h-10
         '
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
@@ -122,7 +122,7 @@ export function GameBoardButton({
       {isHitOrMiss() && (
         <div
           data-testid={returnHitOrMiss()}
-          className={`${returnHitOrMiss()} z-[2] absolute`}
+          className={`${returnHitOrMiss()} z-2 absolute`}
         ></div>
       )}
       {showShipImage() &&
@@ -135,7 +135,7 @@ export function GameBoardButton({
                 ${getGradientDirection(path.direction)}
                 board-${divBackgroundClass()}
                  h-[1.7rem] absolute pointer-events-none xl:h-[2.6rem]
-                 z-[1]
+                 z-1
                 `}
               key={`${path.direction}-${index}`}
               data-testid={path.direction}

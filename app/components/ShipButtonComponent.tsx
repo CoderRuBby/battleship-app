@@ -17,10 +17,10 @@ export function ShipButtonComponent({
       aria-label='The ship buttons'
       className="
         ship-button-container 
-        max-w-[285.94px] p-[1rem] gap-[30px] 
+        max-w-[285.94px] p-4 gap-7.5 
         flex flex-wrap justify-around items-center
         bg-[url('/images/ship-container.svg')]
-        bg-[10%] shadow-[0px_0px_9px_-1px_black]
+        bg-position-[10%] shadow-[0px_0px_9px_-1px_black]
         md:w-[20rem] md:p-[3.6rem]
       "
     >
