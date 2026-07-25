@@ -8,6 +8,7 @@ import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
 import attack from '~/utils/attack';
 import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
+import { Legend } from './Legend';
 
 export interface appComponentProps {
   player1Board: gameBoardInterface;
@@ -276,14 +277,18 @@ export function AppComponent({
         landscape:bg-[url('/images/ship-control-room.png')]
         landscape:justify-center landscape:p-2
         bg-no-repeat bg-cover bg-center
-        md:portrait:bg-cover md:portrait:bg-position-[50%_-9rem]
+        md:portrait:bg-cover md:portrait:bg-position-[50%_-6rem]
       `}
     >
+      {isThereAWinner() && (
+        <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
+      )}
+
       <div
         className="
         w-full portrait:h-52 overflow-visible
         flex flex-col portrait:justify-end items-center
-        landscape:justify-center
+        landscape:justify-center landscape:w-min
         portrait:bg-[url('/images/hologram-table-square.png')]
         bg-cover bg-position-[50%_6rem] bg-no-repeat
         xs:bg-position-[50%_0rem]
@@ -294,116 +299,88 @@ export function AppComponent({
         <main
           className={`
           ${setBoardStyle()}
-          relative flex bg-no-repeat
+          relative flex bg-no-repeat flex-col
           landscape:w-full
           justify-center items-center
-          portrait:gap-[.2rem]
           portrait:mb-4
           portrait:p-4
-          portrait:flex-col 
           bg-[url('/images/ship-container.svg')]
           backdrop-blur-xs
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
-          landscape:flex-row
           landscape:bg-position-[20%]
-          landscape:gap-2
-          landscape:p-2
+          landscape:gap-4
+          landscape:p-3
           portrait:bg-position-[50%]
           bg-size-[150rem_90rem]
-          xs:portrait:gap-4
           xs:portrait:mb-30
           sm:portrait:mb-0
-          md:portrait:gap-4
           lg:portrait:mb-5
+          lg:landscape:gap-8 lg:landscape:p-7
         `}
         >
-          {isThereAWinner() && (
-            <GameOverMenu
-              winLoseText={winnerLoserText()}
-              resetGame={resetGame}
-            />
-          )}
-          {player1.props.allShipsPlaced && (
+          <div>
+            {player1.props.allShipsPlaced && (
+              <div className='hidden landscape:inline'>
+                <Legend />
+              </div>
+            )}
+          </div>
+          <div
+            className='
+            flex portrait:flex-col justify-center items-center
+            portrait:gap-4 landscape:gap-8
+            '
+          >
+            {player1.props.allShipsPlaced && (
+              <section
+                className="
+              player-boards flex items-center flex-col 
+              bg-[url('/images/ship-container.svg')]
+              bg-position-[10%]
+              portrait:flex-row
+            "
+              >
+                <GameBoardComponent
+                  player={player2}
+                  handleMouseEnter={handleMouseEnter}
+                  handleMouseLeave={handleMouseLeave}
+                  handleOnClick={aiGameBoardOnClick}
+                  label='Ai Game Board'
+                  dblClick={() => {}}
+                  hoverId={hoverId}
+                />
+              </section>
+            )}
+            {player1.props.allShipsPlaced && (
+              <div className='landscape:hidden'>
+                <Legend />
+              </div>
+            )}
             <section
               className="
-              player-boards flex items-center flex-col 
+              player-boards flex items-center flex-col
               bg-[url('/images/ship-container.svg')]
               bg-position-[10%]
               portrait:flex-row
             "
             >
               <GameBoardComponent
-                player={player2}
+                player={player1}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
-                handleOnClick={aiGameBoardOnClick}
-                label='Ai Game Board'
-                dblClick={() => {}}
+                handleOnClick={gameBoardOnClick}
+                label='The Game Board'
+                dblClick={dblClick}
                 hoverId={hoverId}
               />
             </section>
-          )}
-          {player1.props.allShipsPlaced && (
-            <div
-              className='
-              flex
-              whitespace-nowrap rounded-lg
-              shadow-[0px_4px_79px_4px_rgba(0,0,0,1)_inset,0px_0px_8px_3px_rgba(0,0,0,1)]
-              landscape:flex-col landscape:gap-4
-              landscape:text-[1rem] landscape:w-13
-              md:landscape:w-fit
-              md:landscape:p-8 md:landscape:text-[2rem]
-              md:portrait:text-2xl md:portrait:gap-10
-              md:portrait:p-2.5
-            '
-            >
-              <div
-                className='
-                flex items-center flex-wrap landscape:justify-center
-                md:portrait:gap-1
-                '
-              >
-                <h2>Miss = </h2>
-                <img
-                  src='/images/miss.png'
-                  alt='miss'
-                  className='w-8 h-8 md:w-[2.7rem] md:h-[2.7rem]'
-                />
-              </div>
-              <div className='flex items-center flex-wrap landscape:justify-center md:portrait:gap-1'>
-                <h2>Hit = </h2>
-                <img
-                  src='/images/hit.png'
-                  alt='hit'
-                  className='w-8 h-8 md:w-[2.7rem] md:h-[2.7rem]'
-                />
-              </div>
-            </div>
-          )}
-          <section
-            className="
-              player-boards flex items-center flex-col
-              bg-[url('/images/ship-container.svg')]
-              bg-position-[10%]
-              portrait:flex-row
-            "
-          >
-            <GameBoardComponent
-              player={player1}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
-              handleOnClick={gameBoardOnClick}
-              label='The Game Board'
-              dblClick={dblClick}
-              hoverId={hoverId}
-            />
-          </section>
-          {!player1.props.allShipsPlaced && (
-            <ShipButtonComponent
-              player={player1}
-              handleSelectShip={handleSelectShip}
-            />
-          )}
+            {!player1.props.allShipsPlaced && (
+              <ShipButtonComponent
+                player={player1}
+                handleSelectShip={handleSelectShip}
+              />
+            )}
+          </div>
         </main>
       </div>
     </div>

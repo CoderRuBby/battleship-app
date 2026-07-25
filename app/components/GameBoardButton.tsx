@@ -109,11 +109,12 @@ export function GameBoardButton({
       className='
         w-[1.6rem] h-[1.6rem] border relative
         landscape:h-[1.6rem] landscape:w-[1.6rem]
-        md:landscape:h-[1.8rem] md:landscape:w-[1.8rem]
         md:portrait:w-[clamp(2rem,4dvw,3rem)]
         md:portrait:h-[clamp(2rem,3dvh,3rem)]
         md:h-[1.8rem] md:w-[1.8rem]
         xl:w-10 xl:h-10
+        md:landscape:h-[clamp(1.8rem,4.5dvh,3rem)]
+        md:landscape:w-[clamp(1.8rem,4.5dvh,3rem)]
         '
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
