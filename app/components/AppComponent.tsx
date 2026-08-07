@@ -271,13 +271,16 @@ export function AppComponent({
   return (
     <div
       className={`
-        w-full h-screen
+        w-full h-screen overflow-hidden
         flex flex-col justify-end items-center
         portrait:bg-[url('/images/ship-control-room.png')]
         landscape:bg-[url('/images/ship-control-room.png')]
         landscape:justify-center landscape:p-2
         bg-no-repeat bg-cover bg-center
-        md:portrait:bg-cover md:portrait:bg-position-[50%_-6rem]
+        md:portrait:bg-cover md:portrait:bg-center
+        md:landscape:bg-[url('/images/ship-control-room-lg.png')]
+        md:portrait:bg-[url('/images/ship-control-room-lg.png')]
+        lg:landscape:flex-row lg:landscape:items-end lg:landscape:p-0
       `}
     >
       {isThereAWinner() && (
@@ -292,8 +295,16 @@ export function AppComponent({
         portrait:bg-[url('/images/hologram-table-square.png')]
         bg-cover bg-position-[50%_6rem] bg-no-repeat
         xs:bg-position-[50%_0rem]
-        md:portrait:w-fit md:portrait:p-40
-        md:portrait:bg-bottom md:portrait:bg-contain
+        sm:portrait:w-fit sm:portrait:p-30
+        sm:portrait:bg-bottom sm:portrait:bg-contain
+        md:portrait:p-35
+        lg:portrait:p-50
+        lg:landscape:bg-[url('/images/hologram-table-square.png')]
+        lg:landscape:bg-bottom lg:landscape:bg-size-[64rem_15rem]
+        lg:landscape:h-80 lg:landscape:w-max
+        lg:landscape:p-48 lg:landscape:justify-end
+        xl:landscape:p-52 xl:landscape:bg-size-[85rem_22rem]
+        xl:landscape:w-screen
         "
       >
         <main
@@ -313,9 +324,10 @@ export function AppComponent({
           portrait:bg-position-[50%]
           bg-size-[150rem_90rem]
           xs:portrait:mb-30
-          sm:portrait:mb-0
-          lg:portrait:mb-5
-          lg:landscape:gap-8 lg:landscape:p-7
+          sm:portrait:mb-3
+          lg:landscape:gap-8
+          lg:landscape:-mb-12
+          xl:landscape:-mb-2
         `}
         >
           <div>

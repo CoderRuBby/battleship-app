@@ -21,7 +21,7 @@ export function ShipButtonComponent({
         flex flex-wrap justify-around items-center
         bg-[url('/images/ship-container.svg')]
         bg-position-[10%] shadow-[0px_0px_9px_-1px_black]
-        md:w-[20rem] md:p-[3.6rem]
+        xs:p-8
       "
     >
       {player.props.allShips.map((ship) => (
