@@ -273,14 +273,28 @@ export function AppComponent({
       className={`
         w-full h-screen overflow-hidden
         flex flex-col justify-end items-center
+        bg-no-repeat bg-cover bg-center
+
         portrait:bg-[url('/images/ship-control-room.png')]
+
         landscape:bg-[url('/images/ship-control-room.png')]
         landscape:justify-center landscape:p-2
-        bg-no-repeat bg-cover bg-center
-        md:portrait:bg-cover md:portrait:bg-center
-        md:landscape:bg-[url('/images/ship-control-room-lg.png')]
+
         md:portrait:bg-[url('/images/ship-control-room-lg.png')]
-        lg:landscape:flex-row lg:landscape:items-end lg:landscape:p-0
+        md:portrait:bg-cover md:portrait:bg-center
+
+        md:landscape:bg-[url('/images/ship-control-room-lg.png')]
+        md:landscape:p-0
+
+        lg:landscape:justify-end
+
+        pointer-coarse:lg:landscape:bg-size-[103rem_70rem]
+        pointer-coarse:xl:landscape:bg-size-[115rem_67rem]
+        
+        pointer-fine:md:justify-end 
+        pointer-fine:md:landscape:bg-size-[95rem_67rem]
+        pointer-fine:lg:landscape:bg-size-[104rem_60rem]
+        pointer-fine:xl:landscape:bg-size-[120rem_60rem]
       `}
     >
       {isThereAWinner() && (
@@ -289,45 +303,69 @@ export function AppComponent({
 
       <div
         className="
-        w-full portrait:h-52 overflow-visible
-        flex flex-col portrait:justify-end items-center
-        landscape:justify-center landscape:w-min
-        portrait:bg-[url('/images/hologram-table-square.png')]
+        w-full overflow-visible
+        flex flex-col items-center
         bg-cover bg-position-[50%_6rem] bg-no-repeat
+
+        portrait:h-52 portrait:justify-end
+        portrait:bg-[url('/images/hologram-table-square.png')]
+
+        landscape:justify-center landscape:w-min
+        
         xs:bg-position-[50%_0rem]
+
         sm:portrait:w-fit sm:portrait:p-30
         sm:portrait:bg-bottom sm:portrait:bg-contain
+
         md:portrait:p-35
+
         lg:portrait:p-50
+
+        md:landscape:p-48 md:landscape:justify-end md:landscape:w-max
+        md:landscape:bg-bottom md:landscape:bg-size-[64rem_15rem]
+
         lg:landscape:bg-[url('/images/hologram-table-square.png')]
-        lg:landscape:bg-bottom lg:landscape:bg-size-[64rem_15rem]
-        lg:landscape:h-80 lg:landscape:w-max
-        lg:landscape:p-48 lg:landscape:justify-end
-        xl:landscape:p-52 xl:landscape:bg-size-[85rem_22rem]
-        xl:landscape:w-screen
+        
+        pointer-coarse:xl:landscape:p-52 
+        pointer-coarse:xl:landscape:bg-size-[85rem_19rem]
+        pointer-coarse:xl:landscape:w-screen
+        
+        pointer-fine:md:landscape:h-80 
+        pointer-fine:md:landscape:w-fit
+        pointer-fine:md:bg-[url('/images/hologram-table-square.png')]
+        pointer-fine:md:landscape:bg-size-[57rem_15rem]
+        pointer-fine:lg:landscape:bg-size-[63rem_15rem]
+        pointer-fine:xl:landscape:bg-size-[80rem_17rem]
+        pointer-fine:xl:landscape:p-55
         "
       >
         <main
           className={`
           ${setBoardStyle()}
-          relative flex bg-no-repeat flex-col
-          landscape:w-full
-          justify-center items-center
-          portrait:mb-4
-          portrait:p-4
-          bg-[url('/images/ship-container.svg')]
+          relative flex flex-col justify-center items-center
+          bg-size-[150rem_90rem] bg-no-repeat
           backdrop-blur-xs
+          bg-[url('/images/ship-container.svg')]
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
+          
+          portrait:mb-4 portrait:p-4
+          portrait:bg-position-[50%]
+
+          landscape:w-full
           landscape:bg-position-[20%]
           landscape:gap-4
           landscape:p-3
-          portrait:bg-position-[50%]
-          bg-size-[150rem_90rem]
+          
           xs:portrait:mb-30
+
           sm:portrait:mb-3
+
           lg:landscape:gap-8
           lg:landscape:-mb-12
-          xl:landscape:-mb-2
+
+          pointer-fine:md:landscape:-mb-12
+          pointer-fine:xl:landscape:min-w-218.75
+          pointer-coarse:xl:landscape:-mb-7
         `}
         >
           <div>

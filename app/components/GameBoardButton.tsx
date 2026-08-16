@@ -109,13 +109,18 @@ export function GameBoardButton({
       className='
         w-[1.6rem] h-[1.6rem] border relative
         landscape:h-[1.6rem] landscape:w-[1.6rem]
-        md:portrait:w-[clamp(1rem,3.5dvw,3rem)]
-        md:portrait:h-[clamp(1rem,3dvh,3rem)]
+        md:portrait:w-[1.6rem]
+        md:portrait:h-[1.6rem]
         md:h-[1.8rem] md:w-[1.8rem]
         xl:w-10 xl:h-10
-        md:landscape:h-[clamp(1.8rem,4.5dvh,3rem)]
-        md:landscape:w-[clamp(1.8rem,4.5dvh,3rem)]
-        lg:landscape:w-[clamp(1.8rem,3.5dvh,3rem)]
+        pointer-coarse:md:landscape:h-[1.8rem]
+        pointer-coarse:md:landscape:w-[1.8rem]
+        pointer-fine:md:landscape:w-[1.6rem]
+        pointer-fine:md:landscape:h-8
+        pointer-fine:lg:landscape:w-7
+        pointer-fine:lg:landscape:h-9
+        pointer-fine:xl:landscape:w-9.5
+        pointer-fine:xl:landscape:h-11
         lg:landscape:h-w-[clamp(1.8rem,3.5dvh,3rem)]
         '
       data-testid={testId}
