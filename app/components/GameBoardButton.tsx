@@ -109,6 +109,7 @@ export function GameBoardButton({
       className='
         w-[1.6rem] h-[1.6rem] border relative
         landscape:h-[1.6rem] landscape:w-[1.6rem]
+        [@media(max-height:700px)]:h-[1.6rem]
         md:portrait:w-[1.6rem]
         md:portrait:h-[1.6rem]
         md:h-[1.8rem] md:w-[1.8rem]

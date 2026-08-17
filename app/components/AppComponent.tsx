@@ -271,20 +271,17 @@ export function AppComponent({
   return (
     <div
       className={`
-        w-full h-screen overflow-hidden
-        flex flex-col justify-end items-center
+        w-full h-screen overflow-hidden p-2
+        flex flex-col justify-center items-center
         bg-no-repeat bg-cover bg-center
+        bg-[url('/images/ship-control-room.png')]
+        [@media(max-height:700px)]:justify-center
 
-        portrait:bg-[url('/images/ship-control-room.png')]
+        portrait:justify-end portrait:p-0
 
-        landscape:bg-[url('/images/ship-control-room.png')]
-        landscape:justify-center landscape:p-2
-
-        md:portrait:bg-[url('/images/ship-control-room-lg.png')]
-        md:portrait:bg-cover md:portrait:bg-center
-
-        md:landscape:bg-[url('/images/ship-control-room-lg.png')]
-        md:landscape:p-0
+        md:bg-[url('/images/ship-control-room-lg.png')]
+        md:p-0
+        md:portrait:bg-cover
 
         lg:landscape:justify-end
 
@@ -306,6 +303,9 @@ export function AppComponent({
         w-full overflow-visible
         flex flex-col items-center
         bg-cover bg-position-[50%_6rem] bg-no-repeat
+        [@media(max-height:700px)]:bg-none
+        [@media(max-height:700px)]:justify-center
+        [@media(max-height:700px)]:mb-0
 
         portrait:h-52 portrait:justify-end
         portrait:bg-[url('/images/hologram-table-square.png')]
@@ -347,6 +347,8 @@ export function AppComponent({
           backdrop-blur-xs
           bg-[url('/images/ship-container.svg')]
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
+          [@media(max-height:700px)]:mb-0
+
           
           portrait:mb-4 portrait:p-4
           portrait:bg-position-[50%]
