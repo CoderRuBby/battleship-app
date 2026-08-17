@@ -16,12 +16,22 @@ export function ShipButtonComponent({
       role='region'
       aria-label='The ship buttons'
       className="
-        ship-button-container 
-        max-w-[285.94px] p-4 gap-7.5 
+        ship-button-container h-68
+        w-[285.94px] p-4 gap-3  
         flex flex-wrap justify-around items-center
         bg-[url('/images/ship-container.svg')]
         bg-position-[10%] shadow-[0px_0px_9px_-1px_black]
+        [@media(max-height:700px)]:h-68
+
         xs:p-8
+        
+        md:w-79.5 md:h-76 md:gap-7.5
+
+        pointer-fine:md:h-84
+        pointer-fine:lg:w-77.5
+        pointer-fine:lg:h-94
+        pointer-fine:xl:w-102.5
+        pointer-fine:xl:h-114
       "
     >
       {player.props.allShips.map((ship) => (
