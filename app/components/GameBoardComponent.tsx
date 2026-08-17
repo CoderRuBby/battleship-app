@@ -27,25 +27,35 @@ export function GameBoardComponent({
   };
 
   return (
-    <section
-      role='region'
-      aria-label={label}
-      className={`
-        ${backgroundClass()}
-        grid grid-cols-[repeat(10,1fr)] grid-rows-[repeat(10,1fr)]`}
+    <div
+      className="
+        player-boards flex items-center flex-col
+        bg-[url('/images/ship-container.svg')]
+        bg-position-[10%]
+        portrait:flex-row
+      "
     >
-      {player.board.map((square) => (
-        <GameBoardButton
-          key={square.id}
-          testId={square.id.toString()}
-          player={player}
-          handleOnClick={handleOnClick}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-          dblClick={dblClick}
-          hoverId={hoverId}
-        />
-      ))}
-    </section>
+      <section
+        role='region'
+        aria-label={label}
+        className={`
+        ${backgroundClass()}
+        grid grid-cols-[repeat(10,1fr)] grid-rows-[repeat(10,1fr)]
+      `}
+      >
+        {player.board.map((square) => (
+          <GameBoardButton
+            key={square.id}
+            testId={square.id.toString()}
+            player={player}
+            handleOnClick={handleOnClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            dblClick={dblClick}
+            hoverId={hoverId}
+          />
+        ))}
+      </section>
+    </div>
   );
 }

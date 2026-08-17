@@ -8,7 +8,7 @@ import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
 import attack from '~/utils/attack';
 import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
-import { Legend } from './Legend';
+import { Legend } from './Legend/Legend';
 
 export interface appComponentProps {
   player1Board: gameBoardInterface;
@@ -341,9 +341,9 @@ export function AppComponent({
       >
         <main
           className={`
-          ${setBoardStyle()}
-          relative flex flex-col justify-center items-center
-          bg-size-[150rem_90rem] bg-no-repeat
+            ${setBoardStyle()}
+            relative flex flex-col justify-center items-center
+            bg-size-[150rem_90rem] bg-no-repeat
           backdrop-blur-xs
           bg-[url('/images/ship-container.svg')]
           shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
@@ -352,14 +352,14 @@ export function AppComponent({
           
           portrait:mb-4 portrait:p-4
           portrait:bg-position-[50%]
-
+          
           landscape:w-full
           landscape:bg-position-[20%]
           landscape:gap-4
           landscape:p-3
           
           xs:portrait:mb-30
-
+          
           sm:portrait:mb-3
 
           lg:landscape:gap-8
@@ -370,12 +370,8 @@ export function AppComponent({
           pointer-coarse:xl:landscape:-mb-7
         `}
         >
-          <div>
-            {player1.props.allShipsPlaced && (
-              <div className='hidden landscape:inline'>
-                <Legend />
-              </div>
-            )}
+          <div className='portrait:hidden'>
+            <Legend />
           </div>
           <div
             className='
@@ -383,55 +379,36 @@ export function AppComponent({
             portrait:gap-4 landscape:gap-8
             '
           >
-            {player1.props.allShipsPlaced && (
-              <section
-                className="
-              player-boards flex items-center flex-col 
-              bg-[url('/images/ship-container.svg')]
-              bg-position-[10%]
-              portrait:flex-row
-            "
-              >
-                <GameBoardComponent
-                  player={player2}
-                  handleMouseEnter={handleMouseEnter}
-                  handleMouseLeave={handleMouseLeave}
-                  handleOnClick={aiGameBoardOnClick}
-                  label='Ai Game Board'
-                  dblClick={() => {}}
-                  hoverId={hoverId}
-                />
-              </section>
-            )}
-            {player1.props.allShipsPlaced && (
-              <div className='landscape:hidden'>
-                <Legend />
-              </div>
-            )}
-            <section
-              className="
-              player-boards flex items-center flex-col
-              bg-[url('/images/ship-container.svg')]
-              bg-position-[10%]
-              portrait:flex-row
-            "
-            >
-              <GameBoardComponent
-                player={player1}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
-                handleOnClick={gameBoardOnClick}
-                label='The Game Board'
-                dblClick={dblClick}
-                hoverId={hoverId}
-              />
-            </section>
             {!player1.props.allShipsPlaced && (
               <ShipButtonComponent
                 player={player1}
                 handleSelectShip={handleSelectShip}
               />
             )}
+            {player1.props.allShipsPlaced && (
+              <GameBoardComponent
+                player={player2}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                handleOnClick={aiGameBoardOnClick}
+                label='Ai Game Board'
+                dblClick={() => {}}
+                hoverId={hoverId}
+              />
+            )}
+            <div className='landscape:hidden'>
+              <Legend />
+            </div>
+
+            <GameBoardComponent
+              player={player1}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              handleOnClick={gameBoardOnClick}
+              label='The Game Board'
+              dblClick={dblClick}
+              hoverId={hoverId}
+            />
           </div>
         </main>
       </div>
