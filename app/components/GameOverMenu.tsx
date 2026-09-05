@@ -10,7 +10,12 @@ export function GameOverMenu({
   return (
     <div
       role='dialog'
-      className="w-full h-full flex items-center justify-center bg-black landscape:min-w-150 portrait:bg-[url('/images/game-over-menu-portrait-bg.png')] bg-cover bg-center bg-no-repeat"
+      className="
+        w-full h-full flex items-center justify-center landscape:min-w-150 bg-center bg-no-repeat bg-cover
+        portrait:bg-[url('/images/game-over-menu-portrait-bg.png')]
+        landscape:bg-[url('/images/game-over-menu-landscape-bg.png')]
+        landscape:bg-contain 
+      "
     >
       <div
         className='
