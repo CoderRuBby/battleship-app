@@ -108,6 +108,13 @@ export function AppComponent({
   };
 
   const aiGameBoardOnClick = (id: number) => {
+    //! for testing purposes only, delete after game over menu is completed
+    const player = { ...player1 };
+    player.props.winner = true;
+    setPlayer1(player);
+    return;
+    //!
+
     if (player2.board[id].isHit || player2.board[id].isMiss) {
       return;
     }
@@ -294,10 +301,6 @@ export function AppComponent({
         pointer-fine:xl:landscape:bg-size-[120rem_60rem]
       `}
     >
-      {isThereAWinner() && (
-        <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
-      )}
-
       <div
         className="
         w-full overflow-visible
@@ -344,35 +347,43 @@ export function AppComponent({
             ${setBoardStyle()}
             relative flex flex-col justify-center items-center
             bg-size-[150rem_90rem] bg-no-repeat
-          backdrop-blur-xs
-          bg-[url('/images/ship-container.svg')]
-          shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
-          [@media(max-height:700px)]:mb-0
+            backdrop-blur-xs min-h-164
+            bg-[url('/images/ship-container.svg')]
+            shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
+            [@media(max-height:700px)]:mb-0
 
           
-          portrait:mb-4 portrait:p-4
-          portrait:bg-position-[50%]
+            portrait:mb-4 portrait:p-4 portrait:min-w-85
+            portrait:bg-position-[50%]
           
-          landscape:w-full
-          landscape:bg-position-[20%]
-          landscape:gap-4
-          landscape:p-3
+            landscape:w-full
+            landscape:bg-position-[20%]
+            landscape:gap-4
+            landscape:p-3
           
-          xs:portrait:mb-30
+            xs:portrait:mb-30
           
-          sm:portrait:mb-3
+            sm:portrait:mb-3
 
-          lg:landscape:gap-8
-          lg:landscape:-mb-12
+            lg:landscape:gap-8
+            lg:landscape:-mb-12
 
-          pointer-fine:md:landscape:-mb-12
-          pointer-fine:xl:landscape:min-w-218.75
-          pointer-coarse:xl:landscape:-mb-7
-        `}
+            pointer-fine:md:landscape:-mb-12
+            pointer-fine:xl:landscape:min-w-218.75
+            pointer-coarse:xl:landscape:-mb-7
+          `}
         >
-          <div className='portrait:hidden'>
-            <Legend />
-          </div>
+          {isThereAWinner() && (
+            <GameOverMenu
+              winLoseText={winnerLoserText()}
+              resetGame={resetGame}
+            />
+          )}
+          {!isThereAWinner() && (
+            <div className='portrait:hidden'>
+              <Legend />
+            </div>
+          )}
           <div
             className='
             flex portrait:flex-col justify-center items-center
@@ -385,7 +396,7 @@ export function AppComponent({
                 handleSelectShip={handleSelectShip}
               />
             )}
-            {player1.props.allShipsPlaced && (
+            {player1.props.allShipsPlaced && !isThereAWinner() && (
               <GameBoardComponent
                 player={player2}
                 handleMouseEnter={handleMouseEnter}
@@ -396,19 +407,23 @@ export function AppComponent({
                 hoverId={hoverId}
               />
             )}
-            <div className='landscape:hidden'>
-              <Legend />
-            </div>
+            {!isThereAWinner() && (
+              <div className='landscape:hidden'>
+                <Legend />
+              </div>
+            )}
 
-            <GameBoardComponent
-              player={player1}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
-              handleOnClick={gameBoardOnClick}
-              label='The Game Board'
-              dblClick={dblClick}
-              hoverId={hoverId}
-            />
+            {!isThereAWinner() && (
+              <GameBoardComponent
+                player={player1}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                handleOnClick={gameBoardOnClick}
+                label='The Game Board'
+                dblClick={dblClick}
+                hoverId={hoverId}
+              />
+            )}
           </div>
         </main>
       </div>
