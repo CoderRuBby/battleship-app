@@ -351,6 +351,7 @@ export function AppComponent({
             bg-[url('/images/ship-container.svg')]
             shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
             [@media(max-height:700px)]:mb-0
+            [@media(max-height:700px)]:landscape:min-w-160
 
           
             portrait:mb-4 portrait:p-4 portrait:min-w-85
@@ -369,6 +370,7 @@ export function AppComponent({
             lg:landscape:-mb-12
 
             pointer-fine:md:landscape:-mb-12
+            pointer-fine:md:landscape:min-w-160
             pointer-fine:xl:landscape:min-w-218.75
             pointer-coarse:xl:landscape:-mb-7
           `}

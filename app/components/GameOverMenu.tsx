@@ -10,11 +10,12 @@ export function GameOverMenu({
   return (
     <div
       role='dialog'
-      className='w-full h-full flex items-center justify-center bg-black'
+      className='w-full h-full flex items-center justify-center bg-black landscape:min-w-150'
     >
       <div
         className='
-          h-fit flex flex-col items-center justify-center gap-6 bg-blue-800 rounded-xl p-5
+          h-fit flex flex-col items-center justify-center gap-6 bg-blue-800 rounded-xl p-5 text-center
+          pointer-fine:lg:landscape:w-[clamp(20rem,25vw,25rem)]
         '
       >
         <h1 className='text-5xl'>You {winLoseText}</h1>
