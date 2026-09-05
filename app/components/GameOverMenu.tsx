@@ -7,15 +7,25 @@ export function GameOverMenu({
   winLoseText,
   resetGame,
 }: gameOverMenuInterface) {
+  const isWinningBg = () => {
+    if (winLoseText === 'Win') {
+      return true;
+    }
+  };
+
+  const isLosingBg = () => {
+    if (winLoseText === 'Lose') {
+      return true;
+    }
+  };
+
   return (
     <div
       role='dialog'
-      className="
-        w-full h-full flex items-center justify-center landscape:min-w-150 bg-center bg-no-repeat bg-cover
-        portrait:bg-[url('/images/game-over-menu-portrait-bg.png')]
-        landscape:bg-[url('/images/game-over-menu-landscape-bg.png')]
-        landscape:bg-contain 
-      "
+      className={`
+        ${isWinningBg() || isLosingBg() ? "portrait:bg-[url('/images/winning-menu-portrait-bg.png')] landscape:bg-[url('/images/winning-menu-landscape-bg.png')]" : "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')]"}
+        w-full h-full flex items-center justify-center landscape:min-w-150 bg-center bg-no-repeat bg-contain portrait:bg-cover
+      `}
     >
       <div
         className='
