@@ -108,13 +108,6 @@ export function AppComponent({
   };
 
   const aiGameBoardOnClick = (id: number) => {
-    //! for testing purposes only, delete after game over menu is completed
-    const player = { ...player1 };
-    player.props.winner = true;
-    setPlayer1(player);
-    return;
-    //!
-
     if (player2.board[id].isHit || player2.board[id].isMiss) {
       return;
     }
@@ -275,6 +268,26 @@ export function AppComponent({
     }
   };
 
+  const isWinningBg = () => {
+    if (player1.props.winner === true) {
+      return true;
+    }
+  };
+
+  const isLosingBg = () => {
+    if (player2.props.winner === true) {
+      return true;
+    }
+  };
+
+  const winningBgStyle =
+    "portrait:bg-[url('/images/winning-menu-portrait-bg.png')] landscape:bg-[url('/images/winning-menu-landscape-bg.png')] landscape:bg-position-[20%] landscape:bg-size-[60rem_41rem] portrait:bg-cover";
+
+  const losingBgStyle =
+    "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')] landscape:bg-position-[20%] landscape:bg-size-[60rem_41rem] portrait:bg-cover";
+
+  const hologramBg = "bg-[url('/images/ship-container.svg')] bg-auto";
+
   return (
     <div
       className={`
@@ -344,21 +357,19 @@ export function AppComponent({
       >
         <main
           className={`
+            ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : hologramBg}
             ${setBoardStyle()}
             relative flex flex-col justify-center items-center
-            bg-size-[150rem_90rem] bg-no-repeat
+            bg-no-repeat bg-center
             backdrop-blur-xs min-h-164
-            bg-[url('/images/ship-container.svg')]
             shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
             [@media(max-height:700px)]:mb-0
             [@media(max-height:700px)]:landscape:min-w-160
 
           
             portrait:mb-4 portrait:p-4 portrait:min-w-85
-            portrait:bg-position-[50%]
           
             landscape:w-full
-            landscape:bg-position-[20%]
             landscape:gap-4
             landscape:p-3
           
