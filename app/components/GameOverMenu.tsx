@@ -29,14 +29,14 @@ export function GameOverMenu({
     >
       <div
         className='
-          h-fit flex flex-col items-center justify-center gap-6 bg-blue-800 rounded-xl p-5 text-center
+          h-fit flex flex-col items-center justify-center gap-6 bg-[rgb(6,6,6,.93)] rounded-xl p-5 text-center
           pointer-fine:lg:landscape:w-[clamp(20rem,25vw,25rem)]
         '
       >
         <h1 className='text-5xl'>You {winLoseText}</h1>
         <button
           onClick={resetGame}
-          className='text-3xl p-3 shadow-[0px_0px_0px_6px_rgba(3,3,0,.2)] rounded-2xl'
+          className='text-3xl p-3 shadow-[0px_0px_0px_6px_rgba(3,3,0,.2)] rounded-2xl animate-bg-transition'
         >
           Play Again
         </button>
