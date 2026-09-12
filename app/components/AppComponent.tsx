@@ -311,7 +311,7 @@ export function AppComponent({
         pointer-fine:md:justify-end 
         pointer-fine:md:landscape:bg-size-[95rem_67rem]
         pointer-fine:lg:landscape:bg-size-[104rem_60rem]
-        pointer-fine:xl:landscape:bg-size-[120rem_60rem]
+        pointer-fine:xl:landscape:bg-size-[120rem_62rem]
       `}
     >
       <div
