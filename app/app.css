@@ -15,6 +15,32 @@ body {
     color-scheme: dark;
   }
 
+  .right {
+    justify-content: flex-end;
+  }
+
+  .left {
+    justify-content: flex-start;
+  }
+
+  .down {
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .up {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .start {
+    justify-content: flex-start;
+  }
+
+  .end {
+    justify-content: flex-end;
+  }
+
   .player-boards {
     box-shadow: 0px 0px 9px -1px black;
     padding: 8px;
@@ -30,231 +56,94 @@ body {
   .right-gradient-mask {
     -webkit-mask-image: linear-gradient(
       to left,
-      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
     mask-image: linear-gradient(
-      to left rgba(0, 0, 0, 1) 0%,
+      to left rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
   }
 
   .left-gradient-mask {
     -webkit-mask-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1) 0%,
+      to right,
+      rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
     mask-image: linear-gradient(
-      to left rgba(0, 0, 0, 1) 0%,
+      to right rgba(0, 0, 0, 1) 0%,
       rgba(0, 0, 0, 0) 100%
     );
-  }
-
-  .left {
-    transform: rotate(180deg);
   }
 
   .up-gradient-mask {
     -webkit-mask-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1) 0%,
+      to bottom,
+      rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
     mask-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1) 0%,
+      to bottom,
+      rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
   }
 
   .down-gradient-mask {
     -webkit-mask-image: linear-gradient(
-      to left,
-      rgba(0, 0, 0, 1) 0%,
+      to top,
+      rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
     mask-image: linear-gradient(
-      to left rgba(0, 0, 0, 1) 0%,
+      to top rgba(0, 0, 0, 1) 60%,
       rgba(0, 0, 0, 0) 100%
     );
-  }
-
-  .up {
-    transform: rotate(270deg);
-  }
-
-  .down {
-    transform: rotate(90deg);
   }
 
   .carrier {
     width: 9.5rem;
-    background: url('/public/images/carrier.webp') no-repeat center / cover;
-  }
-
-  .board-carrier {
-    width: clamp(8rem, 2vw, 2.5rem);
-    background: url('/public/images/carrier.webp') no-repeat center / cover;
-  }
-
-  .carrier-right {
-    left: -3px;
-    bottom: -2px;
-  }
-
-  .carrier-left {
-    right: -2px;
-    bottom: -1px;
-  }
-
-  .carrier-up {
-    bottom: 49px;
-    right: -52.9px;
-  }
-
-  .carrier-down {
-    top: 50px;
-    right: -52px;
+    background: url('/public/images/carrier-left.png') no-repeat center /
+      contain;
   }
 
   .destroyer {
     width: 6rem;
-    background-color: antiquewhite;
-  }
-
-  .board-destroyer {
-    background-color: white;
-    width: clamp(4.7rem, 2vw, 2.5rem);
-  }
-
-  .destroyer-right {
-    left: 0px;
-    bottom: -2px;
-  }
-
-  .destroyer-left {
-    right: -0.1px;
-    bottom: -1px;
-  }
-
-  .destroyer-up {
-    bottom: 25px;
-    right: -26px;
-  }
-
-  .destroyer-down {
-    top: 24px;
-    right: -27px;
+    height: 2rem;
+    background: url('/public/images/destroyer-left.png') no-repeat center /
+      contain;
   }
 
   .submarine {
     width: 6rem;
     background-position: center;
-    background-color: antiquewhite;
-  }
-
-  .board-submarine {
-    background-color: white;
-    width: clamp(4.8rem, 2vw, 2.5rem);
-  }
-
-  .submarine-right {
-    left: -1px;
-    bottom: -2px;
-  }
-
-  .submarine-left {
-    right: -2px;
-    bottom: -2px;
-  }
-
-  .submarine-up {
-    bottom: 22px;
-    right: -27px;
-  }
-
-  .submarine-down {
-    top: 23px;
-    right: -27px;
+    background: url('/public/images/submarine-left.png') no-repeat center /
+      contain;
   }
 
   .battleship {
     width: 8rem;
     background-position: center;
-    background-color: antiquewhite;
-  }
-
-  .board-battleship {
-    background-color: white;
-    width: clamp(6.3rem, 2vw, 2.5rem);
-  }
-
-  .battleship-right {
-    left: -1px;
-    bottom: -2px;
-  }
-
-  .battleship-left {
-    right: 0px;
-    bottom: -2px;
-  }
-
-  .battleship-up {
-    bottom: 37px;
-    right: -38px;
-  }
-
-  .battleship-down {
-    top: 36px;
-    right: -40px;
+    background: url('/public/images/battleship-left.png') no-repeat center /
+      contain;
   }
 
   .cruiser {
     width: 4rem;
     background-position: center;
-    background-color: antiquewhite;
-  }
-
-  .board-cruiser {
-    background-color: white;
-    width: clamp(3.3rem, 2vw, 2.5rem);
-  }
-
-  .cruiser-right {
-    left: -1px;
-    bottom: -2px;
-  }
-
-  .cruiser-left {
-    right: -3px;
-    bottom: -2px;
-  }
-
-  .cruiser-up {
-    bottom: 9px;
-    right: -15px;
-  }
-
-  .cruiser-down {
-    top: 9px;
-    right: -14px;
+    background: url('/public/images/cruiser-left.png') no-repeat center /
+      contain;
   }
 
   .hit {
-    width: 1.5rem;
-    height: 1.5rem;
-    top: 0px;
-    left: -0.5px;
     background: url('/public/images/hit.png') no-repeat center/ cover;
+    z-index: 2;
   }
 
   .miss {
-    width: 1.5rem;
-    height: 1.5rem;
-    top: 0px;
-    left: -0.5px;
     background: url('/public/images/miss.png') no-repeat center / cover;
+    z-index: 2;
   }
 
   .ocean-1 {
@@ -271,57 +160,8 @@ body {
   }
 
   @media (min-width: 768px) {
-    .hit {
-      width: 2rem;
-      height: 2rem;
-      top: -3px;
-      left: -2.5px;
-      background: url('/public/images/hit.png') no-repeat center/ cover;
-    }
-
-    .miss {
-      width: 2rem;
-      height: 2rem;
-      top: -3px;
-      left: -2.5px;
-      background: url('/public/images/miss.png') no-repeat center / cover;
-    }
-
-    .board-text {
-      padding: 1px;
-      padding-right: 5px;
-      padding-left: 5px;
-      color: black;
-      font-size: 2.2rem;
-      margin-bottom: 8px;
-    }
-
     .carrier {
       width: 9.1rem;
-    }
-
-    .board-carrier {
-      width: 9.1rem;
-    }
-
-    .carrier-right {
-      left: -2px;
-      bottom: -0.77px;
-    }
-
-    .carrier-left {
-      right: -3px;
-      bottom: 1px;
-    }
-
-    .carrier-up {
-      bottom: 57px;
-      right: -60.1px;
-    }
-
-    .carrier-down {
-      top: 57px;
-      right: -58.2px;
     }
 
     .destroyer,
@@ -329,83 +169,8 @@ body {
       width: 5.3rem;
     }
 
-    .board-destroyer,
-    .board-submarine {
-      width: 5.3rem;
-    }
-
-    .destroyer-right,
-    .submarine-right {
-      left: 0px;
-      bottom: 0px;
-    }
-
-    .destroyer-left,
-    .submarine-left {
-      right: 0px;
-      bottom: -0.9px;
-    }
-
-    .destroyer-up,
-    .submarine-up {
-      bottom: 30px;
-      right: -28.9px;
-    }
-
-    .destroyer-down,
-    .submarine-down {
-      top: 30px;
-      right: -29px;
-    }
-
-    .battleship,
-    .board-battleship {
+    .battleship {
       width: 7.2rem;
-    }
-
-    .battleship-right {
-      left: -2px;
-      bottom: 0px;
-    }
-
-    .battleship-left {
-      right: -1px;
-      bottom: 0.2px;
-    }
-
-    .battleship-up {
-      bottom: 43px;
-      right: -44px;
-    }
-
-    .battleship-down {
-      top: 42px;
-      right: -43.7px;
-    }
-
-    .board-cruiser,
-    .cruiser {
-      width: 3.6rem;
-    }
-
-    .cruiser-right {
-      left: -2px;
-      bottom: 0px;
-    }
-
-    .cruiser-left {
-      right: -2px;
-      bottom: 0px;
-    }
-
-    .cruiser-up {
-      bottom: 14px;
-      right: -16px;
-    }
-
-    .cruiser-down {
-      top: 14px;
-      right: -15.1px;
     }
   }
 
@@ -414,150 +179,16 @@ body {
       width: 13rem;
     }
 
-    .board-carrier {
-      width: 12.5rem;
-    }
-
-    .carrier-right {
-      left: -1px;
-      bottom: -1px;
-    }
-
-    .carrier-left {
-      right: -1px;
-      bottom: -1px;
-    }
-
-    .carrier-up {
-      bottom: 79px;
-      right: -81px;
-    }
-
-    .carrier-down {
-      top: 78px;
-      right: -80px;
-    }
-
     .destroyer.submarine {
       width: 8rem;
-    }
-
-    .board-destroyer {
-      width: 7.5rem;
-    }
-
-    .destroyer-right {
-      left: -1px;
-      bottom: -2px;
-    }
-
-    .destroyer-left {
-      right: 0px;
-      bottom: -2px;
-    }
-
-    .destroyer-up {
-      bottom: 39px;
-      right: -40px;
-    }
-
-    .destroyer-down {
-      top: 39px;
-      right: -42px;
-    }
-
-    .board-submarine {
-      width: 7.5rem;
-    }
-
-    .submarine-right {
-      left: -1px;
-      bottom: -2px;
-    }
-
-    .submarine-left {
-      right: 0px;
-      bottom: -2px;
-    }
-
-    .submarine-up {
-      bottom: 39px;
-      right: -40px;
-    }
-
-    .submarine-down {
-      top: 39px;
-      right: -42px;
     }
 
     .battleship {
       width: 10rem;
     }
 
-    .board-battleship {
-      width: 10.1rem;
-    }
-
-    .battleship-right {
-      left: -2px;
-      bottom: -2px;
-    }
-
-    .battleship-left {
-      right: -2px;
-      bottom: -2px;
-    }
-
-    .battleship-up {
-      bottom: 58px;
-      right: -62px;
-    }
-
-    .battleship-down {
-      top: 57px;
-      right: -62px;
-    }
-
-    .board-cruiser {
-      width: 5.1rem;
-    }
-
     .cruiser {
       width: 5rem;
-    }
-
-    .cruiser-right {
-      left: -2px;
-      bottom: -2px;
-    }
-
-    .cruiser-left {
-      right: -1px;
-      bottom: -2px;
-    }
-
-    .cruiser-up {
-      bottom: 17px;
-      right: -22px;
-    }
-
-    .cruiser-down {
-      top: 17px;
-      right: -22px;
-    }
-
-    .hit {
-      width: 2.5rem;
-      height: 2.6rem;
-      top: -1px;
-      left: -1px;
-    }
-
-    .miss {
-      width: 2.5rem;
-      height: 2.6rem;
-      top: -1px;
-      left: -1px;
     }
   }
 }

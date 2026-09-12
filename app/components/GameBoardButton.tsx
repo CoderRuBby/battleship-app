@@ -22,23 +22,12 @@ export function GameBoardButton({
 }: GameBoardButtonProps) {
   const { getShipPaths } = shipPlacementSystem();
   const boardNumber = player.board[Number(testId)];
-  const isHitOrMiss = () => {
-    if (boardNumber.isHit || boardNumber.isMiss) {
-      return true;
-    }
-  };
-  const returnHitOrMiss = () => {
-    if (boardNumber?.isHit === true) {
+
+  const returnHitOrMiss = (id: number) => {
+    if (player.board[id].isHit === true) {
       return 'hit';
-    } else if (boardNumber?.isMiss) {
+    } else if (player.board[id].isMiss) {
       return 'miss';
-    }
-  };
-  const imageDirectionClass = (direction: string | null) => {
-    if (direction !== null) {
-      return direction;
-    } else {
-      return '';
     }
   };
 
@@ -62,8 +51,17 @@ export function GameBoardButton({
     }
 
     // Show possible placement when a ship is selected and hovering
-    if (player.props.selectedShip && hoverId === Number(testId)) {
-      return true;
+    if (player.props.selectedShip && hoverId !== null) {
+      const array: number[] = [];
+      const paths = getShipPaths(
+        player.props.selectedShip.props.length,
+        hoverId,
+        player,
+      );
+      paths.forEach((path) => {
+        array.push(path.array[path.array.length - 1]);
+      });
+      if (array.includes(Number(testId))) return true;
     }
 
     // Show placed ship image only for the start square or if sunk
@@ -75,84 +73,112 @@ export function GameBoardButton({
     }
   };
 
-  const getPaths = () => {
-    const selectedShip = player.props.selectedShip;
-    // Return ship direction when a ship has been placed or sunk
-    if (
-      (boardNumber.ship?.props.isPlaced &&
-        boardNumber.ship.props.shipStartPoint === Number(testId)) ||
-      boardNumber.ship?.props.sunk
-    ) {
-      return [{ direction: boardNumber.ship.props.direction }];
-    }
-    // Compute ship paths when a ship is selected (for hover preview)
-    if (selectedShip) {
-      return getShipPaths(selectedShip.props.length, Number(testId), player);
-    }
-
-    return [];
-  };
-
   const getGradientDirection = (direction: string | null) => {
     if (
       !boardNumber.ship?.props.shipEndPoint &&
       !player.props.selectedShip?.props.isPlaced
     ) {
       return `${direction}-gradient-mask`;
-    } else {
-      return '';
     }
   };
 
+  const getPathObject = () => {
+    if (player.props.selectedShip && hoverId !== null) {
+      const paths = getShipPaths(
+        player.props.selectedShip.props.length,
+        hoverId,
+        player,
+      );
+      const index = paths.findIndex((n) => n.array.includes(Number(testId)));
+      return paths[index];
+    } else return null;
+  };
+
+  const getDirection = () => {
+    const pathObject = getPathObject();
+    if (
+      (boardNumber.ship?.props.isPlaced &&
+        boardNumber.ship.props.shipStartPoint === Number(testId)) ||
+      boardNumber.ship?.props.sunk
+    ) {
+      return boardNumber.ship.props.direction;
+    }
+    if (pathObject?.direction) {
+      return pathObject?.direction;
+    } else {
+      return null;
+    }
+  };
+
+  const getShipImage = () => {
+    const ship = divBackgroundClass();
+    const direction = getDirection();
+    const imageURL = `url('/public/images/${ship}-${direction}.png')`;
+    return { backgroundImage: imageURL };
+  };
+
+  const reverseDirection = (direction: string | null) => {
+    if (boardNumber.ship?.props.isPlaced) {
+      if (direction === 'left' || direction === 'up') {
+        return 'end';
+      }
+      if (direction === 'right' || direction === 'down') {
+        return 'start';
+      }
+    }
+  };
+
+  const buttonClass =
+    'w-[1.6rem] h-[1.6rem] border flex landscape:h-[1.6rem] landscape:w-[1.6rem] [@media(max-height:700px)]:h-[1.6rem] md:portrait:w-[1.6rem] md:portrait:h-[1.6rem] md:h-[1.8rem] md:w-[1.8rem] xl:w-10 xl:h-10 pointer-coarse:md:landscape:h-[1.8rem] pointer-coarse:md:landscape:w-[1.8rem] pointer-fine:md:landscape:w-[1.6rem] pointer-fine:md:landscape:h-8 pointer-fine:lg:landscape:w-7 pointer-fine:lg:landscape:h-9 pointer-fine:xl:landscape:w-9.5 pointer-fine:xl:landscape:h-11 lg:landscape:h-w-[clamp(1.8rem,3.5dvh,3rem)]';
+
+  const shipDiv = () => {
+    let pathObj;
+    let pathArray;
+    if (boardNumber.ship !== null) {
+      pathArray = boardNumber.ship.props.placedLocations;
+    } else {
+      pathObj = getPathObject();
+      pathArray = pathObj?.array;
+    }
+    return (
+      <div
+        style={getShipImage()}
+        className={`
+          ${getDirection()}
+          ${divBackgroundClass()}-${getDirection()} 
+          ${boardNumber.ship ?? getGradientDirection(getDirection())}
+          flex bg-center bg-contain bg-no-repeat
+          pointer-events-none
+          z-1
+        `}
+        key={`${getDirection()}-${testId}`}
+        data-testid={getDirection()}
+      >
+        {pathArray?.map((square) => (
+          <div
+            key={square}
+            data-testid={square}
+            className={`${returnHitOrMiss(Number(square))} ${buttonClass} border-0`}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
-    <button
-      className='
-        w-[1.6rem] h-[1.6rem] border relative
-        landscape:h-[1.6rem] landscape:w-[1.6rem]
-        [@media(max-height:700px)]:h-[1.6rem]
-        md:portrait:w-[1.6rem]
-        md:portrait:h-[1.6rem]
-        md:h-[1.8rem] md:w-[1.8rem]
-        xl:w-10 xl:h-10
-        pointer-coarse:md:landscape:h-[1.8rem]
-        pointer-coarse:md:landscape:w-[1.8rem]
-        pointer-fine:md:landscape:w-[1.6rem]
-        pointer-fine:md:landscape:h-8
-        pointer-fine:lg:landscape:w-7
-        pointer-fine:lg:landscape:h-9
-        pointer-fine:xl:landscape:w-9.5
-        pointer-fine:xl:landscape:h-11
-        lg:landscape:h-w-[clamp(1.8rem,3.5dvh,3rem)]
-        '
+    <div
+      className={buttonClass}
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => handleOnClick(Number(testId))}
       onDoubleClick={() => dblClick(Number(testId))}
     >
-      {isHitOrMiss() && (
-        <div
-          data-testid={returnHitOrMiss()}
-          className={`${returnHitOrMiss()} z-2 absolute`}
-        ></div>
-      )}
-      {showShipImage() &&
-        getPaths().map((path, index) => {
-          return (
-            <div
-              className={`
-                ${imageDirectionClass(path.direction)}
-                ${divBackgroundClass()}-${imageDirectionClass(path.direction)} 
-                ${getGradientDirection(path.direction)}
-                board-${divBackgroundClass()}
-                 h-[1.7rem] absolute pointer-events-none xl:h-[2.6rem]
-                 z-1
-                `}
-              key={`${path.direction}-${index}`}
-              data-testid={path.direction}
-            />
-          );
-        })}
-    </button>
+      <button
+        className={`${getDirection()} ${reverseDirection(getDirection())} ${returnHitOrMiss(Number(testId))} w-[inherit] h-[inherit] flex`}
+      >
+        {showShipImage() && shipDiv()}
+      </button>
+    </div>
   );
 }

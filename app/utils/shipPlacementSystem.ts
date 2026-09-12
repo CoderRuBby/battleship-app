@@ -233,21 +233,12 @@ export default function shipPlacementSystem(): shipPlacementSystemInterface {
   const areAllShipsPlaced = (shipsArray: shipInterface[]) => {
     let placed = true;
 
-    /*
     shipsArray.forEach((ship) => {
       if (ship.props.isPlaced === false) {
         placed = false;
       }
     });
 
-    */
-
-    //! delete, for testing
-    if (!shipsArray[0].props.isPlaced) {
-      placed = false;
-    }
-
-    //* keep this
     return placed;
   };
 
