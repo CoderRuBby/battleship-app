@@ -297,93 +297,33 @@ export function AppComponent({
         bg-[url('/images/ship-control-room.png')]
         [@media(max-height:700px)]:justify-center
 
-        portrait:justify-end portrait:p-0
-
         md:bg-[url('/images/ship-control-room-lg.png')]
-        md:p-0
         md:portrait:bg-cover
-
-        lg:landscape:justify-end
 
         pointer-coarse:lg:landscape:bg-size-[103rem_70rem]
         pointer-coarse:xl:landscape:bg-size-[115rem_67rem]
         
-        pointer-fine:md:justify-end 
         pointer-fine:md:landscape:bg-size-[95rem_67rem]
         pointer-fine:lg:landscape:bg-size-[104rem_60rem]
         pointer-fine:xl:landscape:bg-size-[120rem_62rem]
       `}
     >
-      <div
-        className="
-        w-full overflow-visible
-        flex flex-col items-center
-        bg-cover bg-position-[50%_6rem] bg-no-repeat
-        [@media(max-height:700px)]:bg-none
-        [@media(max-height:700px)]:justify-center
-        [@media(max-height:700px)]:mb-0
-
-        portrait:h-52 portrait:justify-end
-        portrait:bg-[url('/images/hologram-table-square.png')]
-
-        landscape:justify-center landscape:w-min
-        
-        xs:bg-position-[50%_0rem]
-
-        sm:portrait:w-fit sm:portrait:p-30
-        sm:portrait:bg-bottom sm:portrait:bg-contain
-
-        md:portrait:p-35
-
-        lg:portrait:p-50
-
-        md:landscape:p-48 md:landscape:justify-end md:landscape:w-max
-        md:landscape:bg-bottom md:landscape:bg-size-[64rem_15rem]
-
-        lg:landscape:bg-[url('/images/hologram-table-square.png')]
-        
-        pointer-coarse:xl:landscape:p-52 
-        pointer-coarse:xl:landscape:bg-size-[85rem_19rem]
-        pointer-coarse:xl:landscape:w-screen
-        
-        pointer-fine:md:landscape:h-80 
-        pointer-fine:md:landscape:w-fit
-        pointer-fine:md:bg-[url('/images/hologram-table-square.png')]
-        pointer-fine:md:landscape:bg-size-[57rem_15rem]
-        pointer-fine:lg:landscape:bg-size-[63rem_15rem]
-        pointer-fine:xl:landscape:bg-size-[80rem_17rem]
-        pointer-fine:xl:landscape:p-55
-        "
-      >
+      <div>
         <main
           className={`
             ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : hologramBg}
             ${setBoardStyle()}
+            
             relative flex flex-col justify-center items-center
             bg-no-repeat bg-center
-            backdrop-blur-xs min-h-164
+            backdrop-blur-xs
             shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
-            [@media(max-height:700px)]:mb-0
-            [@media(max-height:700px)]:landscape:min-w-160
 
-          
-            portrait:mb-4 portrait:p-4 portrait:min-w-85
-          
-            landscape:w-full
-            landscape:gap-4
-            landscape:p-3
-          
-            xs:portrait:mb-30
-          
-            sm:portrait:mb-3
+            portrait:p-2 portrait:xs:p-4 portrait:sm:p-5
 
-            lg:landscape:gap-8
-            lg:landscape:-mb-12
-
-            pointer-fine:md:landscape:-mb-12
-            pointer-fine:md:landscape:min-w-160
-            pointer-fine:xl:landscape:min-w-218.75
-            pointer-coarse:xl:landscape:-mb-7
+            landscape:w-full landscape:gap-4 landscape:p-3
+          
+            lg:landscape:gap-8 landscape:xl:p-10
           `}
         >
           {isThereAWinner() && (
@@ -400,7 +340,7 @@ export function AppComponent({
           <div
             className='
             flex portrait:flex-col justify-center items-center
-            portrait:gap-4 landscape:gap-8
+            portrait:gap-4 landscape:gap-8 landscape:xl:gap-15
             '
           >
             {!player1.props.allShipsPlaced && (

@@ -17,20 +17,24 @@ body {
 
   .right {
     justify-content: flex-end;
+    align-items: center;
   }
 
   .left {
     justify-content: flex-start;
+    align-items: center;
   }
 
   .down {
     flex-direction: column;
     justify-content: flex-end;
+    align-items: center;
   }
 
   .up {
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
   }
 
   .start {

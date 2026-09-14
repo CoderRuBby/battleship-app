@@ -1,3 +1,4 @@
+import { BoardContainer } from './BoardContainer';
 import { GameBoardButton } from './GameBoardButton';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 
@@ -27,20 +28,11 @@ export function GameBoardComponent({
   };
 
   return (
-    <div
-      className="
-        player-boards flex items-center flex-col
-        bg-[url('/images/ship-container.svg')]
-        bg-position-[10%]
-        portrait:flex-row
-      "
-    >
-      <section
-        role='region'
-        aria-label={label}
+    <BoardContainer label={label}>
+      <div
         className={`
         ${backgroundClass()}
-        grid grid-cols-[repeat(10,1fr)] grid-rows-[repeat(10,1fr)]
+        grid grid-cols-10 grid-rows-10 w-full h-full 
       `}
       >
         {player.board.map((square) => (
@@ -55,7 +47,7 @@ export function GameBoardComponent({
             hoverId={hoverId}
           />
         ))}
-      </section>
-    </div>
+      </div>
+    </BoardContainer>
   );
 }

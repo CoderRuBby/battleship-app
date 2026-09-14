@@ -129,7 +129,7 @@ export function GameBoardButton({
   };
 
   const buttonClass =
-    'w-[1.6rem] h-[1.6rem] border flex landscape:h-[1.6rem] landscape:w-[1.6rem] [@media(max-height:700px)]:h-[1.6rem] md:portrait:w-[1.6rem] md:portrait:h-[1.6rem] md:h-[1.8rem] md:w-[1.8rem] xl:w-10 xl:h-10 pointer-coarse:md:landscape:h-[1.8rem] pointer-coarse:md:landscape:w-[1.8rem] pointer-fine:md:landscape:w-[1.6rem] pointer-fine:md:landscape:h-8 pointer-fine:lg:landscape:w-7 pointer-fine:lg:landscape:h-9 pointer-fine:xl:landscape:w-9.5 pointer-fine:xl:landscape:h-11 lg:landscape:h-w-[clamp(1.8rem,3.5dvh,3rem)]';
+    'w-[1.75rem] h-[1.75rem] pointer-coarse:portrait:xs:w-[2.25rem] pointer-coarse:portrait:xs:h-[2.25rem] portrait:sm:w-[2rem] portrait:sm:h-[2rem] pointer-coarse:portrait:md:w-[2.625rem] pointer-coarse:portrait:md:h-[2.625rem] pointer-coarse:portrait:lg:w-[3.5rem] pointer-coarse:portrait:lg:h-[3.5rem] portrait:md:w-8.5 portrait:md:h-8.5 pointer-fine:landscape:md:w-9.5 pointer-fine:landscape:md:h-9.5 landscape:lg:w-11.5 landscape:lg:h-11.5 landscape:xl:w-15 landscape:xl:h-15';
 
   const shipDiv = () => {
     let pathObj;
@@ -140,6 +140,7 @@ export function GameBoardButton({
       pathObj = getPathObject();
       pathArray = pathObj?.array;
     }
+
     return (
       <div
         style={getShipImage()}
@@ -147,8 +148,8 @@ export function GameBoardButton({
           ${getDirection()}
           ${divBackgroundClass()}-${getDirection()} 
           ${boardNumber.ship ?? getGradientDirection(getDirection())}
-          flex bg-center bg-contain bg-no-repeat
-          pointer-events-none
+          h-fit w-fit flex bg-center bg-contain bg-no-repeat
+          pointer-events-none 
           z-1
         `}
         key={`${getDirection()}-${testId}`}
@@ -158,7 +159,7 @@ export function GameBoardButton({
           <div
             key={square}
             data-testid={square}
-            className={`${returnHitOrMiss(Number(square))} ${buttonClass} border-0`}
+            className={`${returnHitOrMiss(Number(square))} ${buttonClass} border-0 shadow-[0px_0px_0px_1px_violet]`}
           />
         ))}
       </div>
@@ -166,19 +167,15 @@ export function GameBoardButton({
   };
 
   return (
-    <div
-      className={buttonClass}
+    <button
+      className={`${returnHitOrMiss(Number(testId))} ${showShipImage() && getDirection()} ${showShipImage() && reverseDirection(getDirection())} shadow-[0px_0px_3px_1px_black] flex w-[inherit] h-[inherit]`}
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
       onClick={() => handleOnClick(Number(testId))}
       onDoubleClick={() => dblClick(Number(testId))}
     >
-      <button
-        className={`${getDirection()} ${reverseDirection(getDirection())} ${returnHitOrMiss(Number(testId))} w-[inherit] h-[inherit] flex`}
-      >
-        {showShipImage() && shipDiv()}
-      </button>
-    </div>
+      {showShipImage() && shipDiv()}
+    </button>
   );
 }
