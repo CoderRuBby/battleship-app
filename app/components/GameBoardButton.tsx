@@ -129,7 +129,7 @@ export function GameBoardButton({
   };
 
   const buttonClass =
-    'w-[1.75rem] h-[1.75rem] pointer-coarse:portrait:xs:w-[2.25rem] pointer-coarse:portrait:xs:h-[2.25rem] portrait:sm:w-[2rem] portrait:sm:h-[2rem] pointer-coarse:portrait:md:w-[2.625rem] pointer-coarse:portrait:md:h-[2.625rem] pointer-coarse:portrait:lg:w-[3.5rem] pointer-coarse:portrait:lg:h-[3.5rem] portrait:md:w-8.5 portrait:md:h-8.5 pointer-fine:landscape:md:w-9.5 pointer-fine:landscape:md:h-9.5 landscape:lg:w-11.5 landscape:lg:h-11.5 landscape:xl:w-15 landscape:xl:h-15';
+    'w-[1.75rem] h-[1.75rem] pointer-coarse:portrait:xs:w-[2.25rem] [@media(max-height:700px)]:h-7 [@media(max-height:700px)]:w-7 pointer-coarse:portrait:xs:h-[2.25rem] portrait:sm:w-[2rem] portrait:sm:h-[2rem] pointer-coarse:portrait:md:w-[2.625rem] pointer-coarse:portrait:md:h-[2.625rem] pointer-coarse:portrait:lg:w-[3.5rem] pointer-coarse:portrait:lg:h-[3.5rem] portrait:md:w-8.5 portrait:md:h-8.5 landscape:md:w-9.5 landscape:md:h-9.5 landscape:lg:w-11.5 landscape:lg:h-11.5 landscape:xl:w-15 landscape:xl:h-15';
 
   const shipDiv = () => {
     let pathObj;
