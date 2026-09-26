@@ -146,6 +146,7 @@ export function GameBoardButton({
         style={getShipImage()}
         className={`
           ${getDirection()}
+          ${divBackgroundClass()}
           ${divBackgroundClass()}-${getDirection()} 
           ${boardNumber.ship ?? getGradientDirection(getDirection())}
           h-fit w-fit flex bg-center bg-contain bg-no-repeat
@@ -159,7 +160,7 @@ export function GameBoardButton({
           <div
             key={square}
             data-testid={square}
-            className={`${returnHitOrMiss(Number(square))} ${buttonClass} border-0 shadow-[0px_0px_0px_1px_violet]`}
+            className={`${returnHitOrMiss(Number(square))} ${buttonClass}`}
           />
         ))}
       </div>

@@ -103,29 +103,64 @@ body {
     );
   }
 
+  .carrier-button {
+    background: url('/public/images/carrier-left.png') no-repeat center;
+  }
+
+  .destroyer-button {
+    background: url('/public/images/destroyer-left.png') no-repeat center;
+  }
+
+  .submarine-button {
+    background: url('/public/images/submarine-left.png') no-repeat center;
+  }
+
+  .battleship-button {
+    background: url('/public/images/battleship-left.png') no-repeat center;
+  }
+
+  .cruiser-button {
+    background: url('/public/images/cruiser-left.png') no-repeat center;
+  }
+
   .carrier {
-    background: url('/public/images/carrier-left.png') no-repeat center /
-      contain;
+    background-size: 100% 100%;
   }
 
   .destroyer {
-    background: url('/public/images/destroyer-left.png') no-repeat center /
-      contain;
+    background-size: 100% 64%;
+  }
+
+  .destroyer-up,
+  .destroyer-down {
+    background-size: 64% 100%;
   }
 
   .submarine {
-    background: url('/public/images/submarine-left.png') no-repeat center /
-      contain;
+    background-size: 100% 78%;
+  }
+
+  .submarine-up,
+  .submarine-down {
+    background-size: 78% 100%;
   }
 
   .battleship {
-    background: url('/public/images/battleship-left.png') no-repeat center /
-      contain;
+    background-size: 100% 75%;
+  }
+
+  .battleship-up,
+  .battleship-down {
+    background-size: 75% 100%;
   }
 
   .cruiser {
-    background: url('/public/images/cruiser-left.png') no-repeat center /
-      contain;
+    background-size: 100% 61%;
+  }
+
+  .cruiser-up,
+  .cruiser-down {
+    background-size: 61% 100%;
   }
 
   .hit {

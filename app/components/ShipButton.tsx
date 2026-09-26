@@ -43,7 +43,7 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
 
   return (
     <button
-      className={`ship-button ${testId} ${isSelected()} flex row`}
+      className={`ship-button ${testId}-button ${testId} ${isSelected()} flex row`}
       data-testid={testId}
       onClick={shipOnClick}
       disabled={isDisabled()}
