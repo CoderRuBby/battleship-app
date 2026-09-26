@@ -281,39 +281,41 @@ export function AppComponent({
   };
 
   const winningBgStyle =
-    "portrait:bg-[url('/images/winning-menu-portrait-bg.png')] landscape:bg-[url('/images/winning-menu-landscape-bg.png')] landscape:bg-position-[20%] landscape:bg-size-[60rem_41rem] portrait:bg-cover";
+    "portrait:bg-[url('/images/winning-menu-portrait-bg.png')] landscape:bg-[url('/images/winning-menu-landscape-bg.png')] ";
 
   const losingBgStyle =
-    "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')] landscape:bg-position-[20%] landscape:bg-size-[60rem_41rem] portrait:bg-cover";
+    "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')]";
 
-  const hologramBg = "bg-[url('/images/ship-container.svg')] bg-cover";
-
-  return (
-    <div
-      className={`
-        w-full h-screen overflow-hidden p-2
-        flex flex-col justify-center items-center
-        bg-no-repeat bg-cover bg-center
-        bg-[url('/images/ship-control-room.png')]
-        [@media(max-height:700px)]:justify-center
-
-        md:bg-[url('/images/ship-control-room-lg.png')]
-        md:portrait:bg-cover
+  const controlRoomBg = `
+        bg-[url('/images/ship-control-room.png')] 
+        md:bg-[url('/images/ship-control-room-lg.png')] md:portrait:bg-cover
 
         pointer-coarse:lg:landscape:bg-size-[103rem_70rem]
         pointer-coarse:xl:landscape:bg-size-[115rem_67rem]
         
         pointer-fine:md:landscape:bg-size-[95rem_67rem]
         pointer-fine:lg:landscape:bg-size-[104rem_60rem]
-        pointer-fine:xl:landscape:bg-size-[120rem_62rem]
+        pointer-fine:xl:landscape:bg-size-[120rem_62rem]`;
+
+  return (
+    <div
+      className={`
+        ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : controlRoomBg}
+        w-full h-screen overflow-hidden p-2
+        flex flex-col justify-center items-center
+        bg-no-repeat bg-cover bg-center
+        [@media(max-height:700px)]:justify-center
       `}
     >
       <div>
-        <main
-          className={`
-            ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : hologramBg}
+        {isThereAWinner() && (
+          <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
+        )}
+        {!isThereAWinner() && (
+          <main
+            className={`
             ${setBoardStyle()}
-            
+            bg-[url('/images/ship-container.svg')] bg-cover
             relative flex flex-col justify-center items-center
             bg-no-repeat bg-center
             backdrop-blur-xs
@@ -325,60 +327,55 @@ export function AppComponent({
           
             lg:landscape:gap-8 landscape:xl:p-10
           `}
-        >
-          {isThereAWinner() && (
-            <GameOverMenu
-              winLoseText={winnerLoserText()}
-              resetGame={resetGame}
-            />
-          )}
-          {!isThereAWinner() && (
-            <div className='portrait:hidden'>
-              <Legend />
-            </div>
-          )}
-          <div
-            className='
-            flex portrait:flex-col justify-center items-center
-            portrait:gap-4 landscape:gap-8 landscape:xl:gap-15
-            '
           >
-            {!player1.props.allShipsPlaced && (
-              <ShipButtonComponent
-                player={player1}
-                handleSelectShip={handleSelectShip}
-              />
-            )}
-            {player1.props.allShipsPlaced && !isThereAWinner() && (
-              <GameBoardComponent
-                player={player2}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
-                handleOnClick={aiGameBoardOnClick}
-                label='Ai Game Board'
-                dblClick={() => {}}
-                hoverId={hoverId}
-              />
-            )}
             {!isThereAWinner() && (
-              <div className='landscape:hidden'>
+              <div className='portrait:hidden'>
                 <Legend />
               </div>
             )}
+            <div
+              className='
+            flex portrait:flex-col justify-center items-center
+            portrait:gap-4 landscape:gap-8 landscape:xl:gap-15
+            '
+            >
+              {!player1.props.allShipsPlaced && (
+                <ShipButtonComponent
+                  player={player1}
+                  handleSelectShip={handleSelectShip}
+                />
+              )}
+              {player1.props.allShipsPlaced && !isThereAWinner() && (
+                <GameBoardComponent
+                  player={player2}
+                  handleMouseEnter={handleMouseEnter}
+                  handleMouseLeave={handleMouseLeave}
+                  handleOnClick={aiGameBoardOnClick}
+                  label='Ai Game Board'
+                  dblClick={() => {}}
+                  hoverId={hoverId}
+                />
+              )}
+              {!isThereAWinner() && (
+                <div className='landscape:hidden'>
+                  <Legend />
+                </div>
+              )}
 
-            {!isThereAWinner() && (
-              <GameBoardComponent
-                player={player1}
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
-                handleOnClick={gameBoardOnClick}
-                label='The Game Board'
-                dblClick={dblClick}
-                hoverId={hoverId}
-              />
-            )}
-          </div>
-        </main>
+              {!isThereAWinner() && (
+                <GameBoardComponent
+                  player={player1}
+                  handleMouseEnter={handleMouseEnter}
+                  handleMouseLeave={handleMouseLeave}
+                  handleOnClick={gameBoardOnClick}
+                  label='The Game Board'
+                  dblClick={dblClick}
+                  hoverId={hoverId}
+                />
+              )}
+            </div>
+          </main>
+        )}
       </div>
     </div>
   );
