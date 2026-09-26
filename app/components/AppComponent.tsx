@@ -37,13 +37,34 @@ export function AppComponent({
   const handleSelectShip = (shipName: shipInterface) => {
     const newPlayer1 = { ...player1 };
 
-    if (newPlayer1.props.selectedShip === shipName) {
+    if (shipName.props.isPlaced) {
+      const ship = newPlayer1.props.allShips.find(
+        (ship) => ship.props.name === shipName.props.name,
+      );
+      ship?.props.placedLocations.forEach((location) => {
+        newPlayer1.board[location].ship = null;
+      });
+      ship!.props.direction = null;
+      ship!.props.isPlaced = false;
+      ship!.props.placedLocations = [];
+      ship!.props.shipEndPoint = null;
+      ship!.props.shipStartPoint = null;
+      setPlayer1(newPlayer1);
+    }
+
+    if (newPlayer1.props.selectedShip === null) {
+      newPlayer1.props.selectedShip = shipName;
+      setPlayer1(newPlayer1);
+    } else if (newPlayer1.props.selectedShip === shipName) {
       newPlayer1.props.selectedShip.props.shipStartPoint = null;
       newPlayer1.props.selectedShip = null;
     } else {
+      newPlayer1.props.selectedShip!.props.shipStartPoint = null;
+      console.log(newPlayer1.props.selectedShip.props.shipStartPoint);
       newPlayer1.props.selectedShip = shipName;
     }
 
+    setHoverId(null);
     setPlayer1(newPlayer1);
   };
 
@@ -63,6 +84,10 @@ export function AppComponent({
       player1.props.selectedShip?.props.shipStartPoint &&
       isNumberInPaths(id) === false
     ) {
+      const updatedPlayer1 = { ...player1 };
+      updatedPlayer1.props.selectedShip!.props.shipStartPoint = id;
+      setPlayer1(updatedPlayer1);
+      setHoverId(id);
       return;
     }
     if (
@@ -104,6 +129,7 @@ export function AppComponent({
       player2.props.allShipsPlaced === false
     ) {
       setPlayer2(placeShipOnGameBoard);
+      setHoverId(null);
     }
   };
 

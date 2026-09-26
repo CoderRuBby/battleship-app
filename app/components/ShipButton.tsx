@@ -19,7 +19,7 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
     }
   };
 
-  const isDisabled = () => {
+  const isPlaced = () => {
     if (player.props.allShips[shipIndex].props.isPlaced) {
       return true;
     } else {
@@ -43,10 +43,11 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
 
   return (
     <button
-      className={`ship-button ${testId}-button ${testId} ${isSelected()} flex row`}
+      className={`
+          ${isPlaced() ? 'shadow-[0px_0px_0px_2px_rgba(0,193,44,1)]' : 'shadow-[0px_0px_0px_2px_rgba(155,27,27,1)]'} ship-button ${testId}-button ${testId} ${isSelected()} flex row
+        `}
       data-testid={testId}
       onClick={shipOnClick}
-      disabled={isDisabled()}
     >
       <>{shipDiv()}</>
     </button>
