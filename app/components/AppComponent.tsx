@@ -286,7 +286,7 @@ export function AppComponent({
   const losingBgStyle =
     "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')] landscape:bg-position-[20%] landscape:bg-size-[60rem_41rem] portrait:bg-cover";
 
-  const hologramBg = "bg-[url('/images/ship-container.svg')] bg-auto";
+  const hologramBg = "bg-[url('/images/ship-container.svg')] bg-cover";
 
   return (
     <div
