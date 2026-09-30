@@ -60,7 +60,6 @@ export function AppComponent({
       newPlayer1.props.selectedShip = null;
     } else {
       newPlayer1.props.selectedShip!.props.shipStartPoint = null;
-      console.log(newPlayer1.props.selectedShip.props.shipStartPoint);
       newPlayer1.props.selectedShip = shipName;
     }
 
