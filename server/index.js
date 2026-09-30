@@ -63,7 +63,7 @@ function handleRequest(request, responseStatusCode, responseHeaders, routerConte
 }
 //#endregion
 //#region app/app.css?url
-var app_default = "/assets/app-Bm9hlviZ.css";
+var app_default = "/battleship-app/assets/app-DEoiCrs7.css";
 //#endregion
 //#region app/root.tsx
 var root_exports = /* @__PURE__ */ __exportAll({
@@ -111,8 +111,8 @@ var ErrorBoundary = UNSAFE_withErrorBoundaryProps(function ErrorBoundary({ error
 //#region \0virtual:react-router/server-manifest
 var server_manifest_default = {
 	"entry": {
-		"module": "/assets/entry.client-R9FIy3Qv.js",
-		"imports": ["/assets/jsx-runtime-DfmHc088.js", "/assets/errorBoundaries-C8Q64G2t.js"],
+		"module": "/battleship-appassets/entry.client-Dh1EmjXf.js",
+		"imports": ["/battleship-appassets/jsx-runtime-DfmHc088.js", "/battleship-appassets/errorBoundaries-CnaKd-Sx.js"],
 		"css": []
 	},
 	"routes": {
@@ -129,8 +129,8 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": true,
-			"module": "/assets/root-DY0UCd4p.js",
-			"imports": ["/assets/jsx-runtime-DfmHc088.js", "/assets/errorBoundaries-C8Q64G2t.js"],
+			"module": "/battleship-appassets/root-DVm2Djrz.js",
+			"imports": ["/battleship-appassets/jsx-runtime-DfmHc088.js", "/battleship-appassets/errorBoundaries-CnaKd-Sx.js"],
 			"css": [],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
@@ -150,8 +150,8 @@ var server_manifest_default = {
 			"hasClientMiddleware": false,
 			"hasDefaultExport": true,
 			"hasErrorBoundary": false,
-			"module": "/assets/index-DkkuSmvW.js",
-			"imports": ["/assets/jsx-runtime-DfmHc088.js"],
+			"module": "/battleship-appassets/index-DkkuSmvW.js",
+			"imports": ["/battleship-appassets/jsx-runtime-DfmHc088.js"],
 			"css": [],
 			"clientActionModule": void 0,
 			"clientLoaderModule": void 0,
@@ -159,15 +159,15 @@ var server_manifest_default = {
 			"hydrateFallbackModule": void 0
 		}
 	},
-	"url": "/assets/manifest-ca2d1550.js",
-	"version": "ca2d1550",
+	"url": "/battleship-appassets/manifest-c65b09a6.js",
+	"version": "c65b09a6",
 	"sri": void 0
 };
 //#endregion
 //#region \0virtual:react-router/server-build
 var route1 = { default: () => null };
 var assetsBuildDirectory = "build\\client";
-var basename = "/";
+var basename = "/battleship-app";
 var future = {
 	"unstable_enableNodeReadableStream": false,
 	"unstable_optimizeDeps": false
@@ -176,7 +176,7 @@ var ssr = false;
 var isSpaMode = true;
 var prerender = [];
 var routeDiscovery = { "mode": "initial" };
-var publicPath = "/";
+var publicPath = "/battleship-app";
 var entry = { module: entry_server_node_exports };
 var routes = {
 	"root": {
