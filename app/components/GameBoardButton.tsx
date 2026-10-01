@@ -113,7 +113,7 @@ export function GameBoardButton({
   const getShipImage = () => {
     const ship = divBackgroundClass();
     const direction = getDirection();
-    const imageURL = `url('/public/images/${ship}-${direction}.png')`;
+    const imageURL = `url('${import.meta.env.BASE_URL}images/${ship}-${direction}.png')`;
     return { backgroundImage: imageURL };
   };
 

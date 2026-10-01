@@ -5,7 +5,7 @@ interface IconBlockProps {
 }
 
 export function IconBlock({ iconName }: IconBlockProps) {
-  const imageSrc = `/images/${iconName}.png`;
+  const imageSrc = `${import.meta.env.BASE_URL}images/${iconName}.png`;
   const capitalIconName = iconName.charAt(0).toUpperCase() + iconName.slice(1);
 
   return (

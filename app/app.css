@@ -104,23 +104,23 @@ body {
   }
 
   .carrier-button {
-    background: url('/public/images/carrier-left.png') no-repeat center;
+    background: url('/images/carrier-left.png') no-repeat center;
   }
 
   .destroyer-button {
-    background: url('/public/images/destroyer-left.png') no-repeat center;
+    background: url('/images/destroyer-left.png') no-repeat center;
   }
 
   .submarine-button {
-    background: url('/public/images/submarine-left.png') no-repeat center;
+    background: url('/images/submarine-left.png') no-repeat center;
   }
 
   .battleship-button {
-    background: url('/public/images/battleship-left.png') no-repeat center;
+    background: url('/images/battleship-left.png') no-repeat center;
   }
 
   .cruiser-button {
-    background: url('/public/images/cruiser-left.png') no-repeat center;
+    background: url('/images/cruiser-left.png') no-repeat center;
   }
 
   .carrier {
@@ -164,22 +164,20 @@ body {
   }
 
   .hit {
-    background: url('/public/images/hit.png') no-repeat center/ cover;
+    background: url('/images/hit.png') no-repeat center/ cover;
     z-index: 2;
   }
 
   .miss {
-    background: url('/public/images/miss.png') no-repeat center / cover;
+    background: url('/images/miss.png') no-repeat center / cover;
     z-index: 2;
   }
 
   .ocean-1 {
-    background: url('/public/images/ocean-background-1.png') no-repeat center /
-      cover;
+    background: url('/images/ocean-background-1.png') no-repeat center / cover;
   }
 
   .ocean-2 {
-    background: url('/public/images/ocean-background-2.png') no-repeat center /
-      cover;
+    background: url('/images/ocean-background-2.png') no-repeat center / cover;
   }
 }
