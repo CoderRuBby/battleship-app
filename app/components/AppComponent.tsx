@@ -343,7 +343,7 @@ export function AppComponent({
   return (
     <div
       className={`
-        ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : controlRoomBg}
+        ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : controlRoomBg} animate-fade-in
         w-full h-screen overflow-hidden p-2
         flex flex-col justify-center items-center
         bg-no-repeat bg-cover bg-center
