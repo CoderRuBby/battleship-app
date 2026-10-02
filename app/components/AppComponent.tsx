@@ -10,6 +10,20 @@ import aiAttack from '~/utils/aiAttack';
 import { GameOverMenu } from './GameOverMenu';
 import { Legend } from './Legend/Legend';
 
+const preloadedShipImages = new Set<string>();
+
+const preloadShipImages = (shipName: string) => {
+  ['up', 'down', 'left', 'right'].forEach((direction) => {
+    const imageUrl = `${import.meta.env.BASE_URL}images/${shipName}-${direction}.png`;
+    if (preloadedShipImages.has(imageUrl)) return;
+
+    preloadedShipImages.add(imageUrl);
+    const image = new Image();
+    image.fetchPriority = 'high';
+    image.src = imageUrl;
+  });
+};
+
 export interface appComponentProps {
   player1Board: gameBoardInterface;
   player2Board: gameBoardInterface;
@@ -36,6 +50,10 @@ export function AppComponent({
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newPlayer1 = { ...player1 };
+
+    if (newPlayer1.props.selectedShip !== shipName) {
+      preloadShipImages(shipName.props.name);
+    }
 
     if (shipName.props.isPlaced) {
       const ship = newPlayer1.props.allShips.find(
