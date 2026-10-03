@@ -26,7 +26,7 @@ export function GameOverMenu({
       role='dialog'
       className={`
         ${isWinningBg() ? winningBgStyle : losingBgStyle}
-        landscape:min-w-150 ${isFading ? 'animate-fade-out' : 'animate-fade-in'}
+        landscape:min-w-150 ${isFading ? 'animate-menu-fade-out' : 'animate-fade-in'}
         w-screen h-screen
         flex flex-col justify-center items-center
         bg-no-repeat bg-cover bg-center
@@ -58,7 +58,7 @@ export function GameOverMenu({
         <button
           onClick={() => {
             setIsFading(true);
-            setTimeout(resetGame, 3000);
+            setTimeout(resetGame, 2000);
           }}
           disabled={isFading}
           className='text-3xl p-3 shadow-[0px_0px_0px_6px_rgba(3,3,0,.2)] rounded-2xl animate-bg-transition

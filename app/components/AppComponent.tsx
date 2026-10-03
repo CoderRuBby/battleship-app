@@ -58,7 +58,7 @@ export function AppComponent({
     }
 
     setDelay(false);
-    const timer = setTimeout(() => setDelay(true), 3000);
+    const timer = setTimeout(() => setDelay(true), 5000);
 
     return () => clearTimeout(timer);
   }, [player1.props.winner, player2.props.winner]);

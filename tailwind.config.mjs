@@ -26,7 +26,8 @@ export default {
       },
       animation: {
         'fade-in': 'fadeIn 3s ease-in-out forwards',
-        'fade-out': 'fadeOut 3s ease-in-out forwards',
+        'menu-fade-out': 'fadeOut 2s ease-in-out forwards',
+        'fade-out': 'fadeOut 9s ease-in-out forwards',
         'sunk-ship': 'blink ease-in-out 2s 2 forwards',
         'bg-transition': 'endGameButton 4s ease-in-out infinite',
       },
