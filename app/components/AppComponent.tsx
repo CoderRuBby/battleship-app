@@ -1,7 +1,7 @@
 import type { shipInterface } from '~/utils/ship';
 import { ShipButtonComponent } from './ShipButtonComponent';
 import { GameBoardComponent } from './GameBoardComponent';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import shipPlacementSystem from '~/utils/shipPlacementSystem';
 import type { gameBoardInterface } from '~/utils/gameBoard';
 import aiShipPlacementSystem from '~/utils/aiShipPlacementSystem';
@@ -36,6 +36,7 @@ export function AppComponent({
   const [player1, setPlayer1] = useState<gameBoardInterface>(player1Board);
   const [player2, setPlayer2] = useState<gameBoardInterface>(player2Board);
   const [hoverId, setHoverId] = useState<number | null>(null);
+  const [delay, setDelay] = useState<boolean>(false);
 
   const { getShipPaths, shipPlacementLogic } = useMemo(
     () => shipPlacementSystem(),
@@ -47,6 +48,20 @@ export function AppComponent({
   const { logic } = useMemo(() => attack(), []);
 
   const { aiAttackLogic } = useMemo(() => aiAttack(), []);
+
+  useEffect(() => {
+    const hasWinner = player1.props.winner || player2.props.winner;
+
+    if (!hasWinner) {
+      setDelay(false);
+      return;
+    }
+
+    setDelay(false);
+    const timer = setTimeout(() => setDelay(true), 3000);
+
+    return () => clearTimeout(timer);
+  }, [player1.props.winner, player2.props.winner]);
 
   const handleSelectShip = (shipName: shipInterface) => {
     const newPlayer1 = { ...player1 };
@@ -165,7 +180,7 @@ export function AppComponent({
       return;
     }
     // ai attacks setting the players board
-    const [num, updatedPlayer1] = aiAttackLogic(player1);
+    const [, updatedPlayer1] = aiAttackLogic(player1);
     setPlayer1(updatedPlayer1);
     if (isLoser(updatedPlayer1)) {
       const updatedPlayer2 = { ...player2 };
@@ -218,11 +233,7 @@ export function AppComponent({
   };
 
   const isThereAWinner = () => {
-    if (player1.props.winner === true || player2.props.winner === true) {
-      return true;
-    } else {
-      return false;
-    }
+    return player1.props.winner === true || player2.props.winner === true;
   };
 
   const resetPlayer = (player: gameBoardInterface) => {
@@ -311,24 +322,6 @@ export function AppComponent({
     }
   };
 
-  const isWinningBg = () => {
-    if (player1.props.winner === true) {
-      return true;
-    }
-  };
-
-  const isLosingBg = () => {
-    if (player2.props.winner === true) {
-      return true;
-    }
-  };
-
-  const winningBgStyle =
-    "portrait:bg-[url('/images/winning-menu-portrait-bg.png')] landscape:bg-[url('/images/winning-menu-landscape-bg.png')] ";
-
-  const losingBgStyle =
-    "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')]";
-
   const controlRoomBg = `
         bg-[url('/images/ship-control-room.png')] 
         md:bg-[url('/images/ship-control-room-lg.png')] md:portrait:bg-cover
@@ -341,22 +334,23 @@ export function AppComponent({
         pointer-fine:xl:landscape:bg-size-[120rem_62rem]`;
 
   return (
-    <div
-      className={`
-        ${isWinningBg() ? winningBgStyle : isLosingBg() ? losingBgStyle : controlRoomBg} animate-fade-in
-        w-full h-screen overflow-hidden p-2
-        flex flex-col justify-center items-center
+    <>
+      {delay && (
+        <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
+      )}
+      {!delay && (
+        <div
+          className={`
+        ${controlRoomBg} ${isThereAWinner() ? 'animate-fade-out' : 'animate-fade-in'}
+        w-full h-screen flex flex-col justify-center items-center
         bg-no-repeat bg-cover bg-center
         [@media(max-height:700px)]:justify-center
       `}
-    >
-      <div>
-        {isThereAWinner() && (
-          <GameOverMenu winLoseText={winnerLoserText()} resetGame={resetGame} />
-        )}
-        {!isThereAWinner() && (
-          <main
-            className={`
+        >
+          <div>
+            {!delay && (
+              <main
+                className={`
             ${setBoardStyle()}
             bg-[url('/images/ship-container.svg')] bg-cover
             relative flex flex-col justify-center items-center
@@ -370,56 +364,52 @@ export function AppComponent({
           
             lg:landscape:gap-8 landscape:xl:p-10
           `}
-          >
-            {!isThereAWinner() && (
-              <div className='portrait:hidden'>
-                <Legend />
-              </div>
-            )}
-            <div
-              className='
+              >
+                <div className='portrait:hidden'>
+                  <Legend />
+                </div>
+                <div
+                  className='
             flex portrait:flex-col justify-center items-center
             portrait:gap-4 landscape:gap-8 landscape:xl:gap-15
             '
-            >
-              {!player1.props.allShipsPlaced && (
-                <ShipButtonComponent
-                  player={player1}
-                  handleSelectShip={handleSelectShip}
-                />
-              )}
-              {player1.props.allShipsPlaced && !isThereAWinner() && (
-                <GameBoardComponent
-                  player={player2}
-                  handleMouseEnter={handleMouseEnter}
-                  handleMouseLeave={handleMouseLeave}
-                  handleOnClick={aiGameBoardOnClick}
-                  label='Ai Game Board'
-                  dblClick={() => {}}
-                  hoverId={hoverId}
-                />
-              )}
-              {!isThereAWinner() && (
-                <div className='landscape:hidden'>
-                  <Legend />
-                </div>
-              )}
+                >
+                  {!player1.props.allShipsPlaced && (
+                    <ShipButtonComponent
+                      player={player1}
+                      handleSelectShip={handleSelectShip}
+                    />
+                  )}
+                  {player1.props.allShipsPlaced && (
+                    <GameBoardComponent
+                      player={player2}
+                      handleMouseEnter={handleMouseEnter}
+                      handleMouseLeave={handleMouseLeave}
+                      handleOnClick={aiGameBoardOnClick}
+                      label='Ai Game Board'
+                      dblClick={() => {}}
+                      hoverId={hoverId}
+                    />
+                  )}
+                  <div className='landscape:hidden'>
+                    <Legend />
+                  </div>
 
-              {!isThereAWinner() && (
-                <GameBoardComponent
-                  player={player1}
-                  handleMouseEnter={handleMouseEnter}
-                  handleMouseLeave={handleMouseLeave}
-                  handleOnClick={gameBoardOnClick}
-                  label='The Game Board'
-                  dblClick={dblClick}
-                  hoverId={hoverId}
-                />
-              )}
-            </div>
-          </main>
-        )}
-      </div>
-    </div>
+                  <GameBoardComponent
+                    player={player1}
+                    handleMouseEnter={handleMouseEnter}
+                    handleMouseLeave={handleMouseLeave}
+                    handleOnClick={gameBoardOnClick}
+                    label='The Game Board'
+                    dblClick={dblClick}
+                    hoverId={hoverId}
+                  />
+                </div>
+              </main>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

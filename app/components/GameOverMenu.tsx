@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 export interface gameOverMenuInterface {
   winLoseText: string;
   resetGame: () => void;
@@ -7,11 +9,28 @@ export function GameOverMenu({
   winLoseText,
   resetGame,
 }: gameOverMenuInterface) {
+  const [isFading, setIsFading] = useState(false);
+
+  const isWinningBg = () => {
+    return winLoseText === 'Win';
+  };
+
+  const winningBgStyle =
+    "portrait:bg-[url('/images/winning-menu-portrait-bg.png')] landscape:bg-[url('/images/winning-menu-landscape-bg.png')] ";
+
+  const losingBgStyle =
+    "portrait:bg-[url('/images/losing-menu-portrait-bg.png')] landscape:bg-[url('/images/losing-menu-landscape-bg.png')]";
+
   return (
     <div
       role='dialog'
       className={`
-        w-full h-full flex items-center justify-center landscape:min-w-150
+        ${isWinningBg() ? winningBgStyle : losingBgStyle}
+        landscape:min-w-150 ${isFading ? 'animate-fade-out' : 'animate-fade-in'}
+        w-screen h-screen
+        flex flex-col justify-center items-center
+        bg-no-repeat bg-cover bg-center
+        [@media(max-height:700px)]:justify-center
       `}
     >
       <div
@@ -37,7 +56,11 @@ export function GameOverMenu({
           You {winLoseText}
         </h1>
         <button
-          onClick={resetGame}
+          onClick={() => {
+            setIsFading(true);
+            setTimeout(resetGame, 3000);
+          }}
+          disabled={isFading}
           className='text-3xl p-3 shadow-[0px_0px_0px_6px_rgba(3,3,0,.2)] rounded-2xl animate-bg-transition
           lg:text-5xl pointer-fine:lg:text-6xl
           '
