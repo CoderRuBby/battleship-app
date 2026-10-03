@@ -149,6 +149,7 @@ export function GameBoardButton({
           ${divBackgroundClass()}
           ${divBackgroundClass()}-${getDirection()} 
           ${boardNumber.ship ?? getGradientDirection(getDirection())}
+          ${boardNumber.ship?.props.sunk && 'animate-sunk-ship'}
           h-fit w-fit flex bg-center bg-contain bg-no-repeat
           pointer-events-none 
           z-1
