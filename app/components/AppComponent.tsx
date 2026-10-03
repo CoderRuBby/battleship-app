@@ -166,7 +166,8 @@ export function AppComponent({
   };
 
   const aiGameBoardOnClick = (id: number) => {
-    if (player2.board[id].isHit || player2.board[id].isMiss) {
+    const winner = player1.props.winner || player2.props.winner;
+    if (player2.board[id].isHit || player2.board[id].isMiss || winner) {
       return;
     }
 
