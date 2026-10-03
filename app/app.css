@@ -164,13 +164,13 @@ body {
   }
 
   .hit {
-    background: url('/images/hit.png') no-repeat center/ cover;
-    z-index: 2;
+    background: url('/images/hit.png') no-repeat center;
+    background-size: 70%;
   }
 
   .miss {
-    background: url('/images/miss.png') no-repeat center / cover;
-    z-index: 2;
+    background: url('/images/miss.png') no-repeat center;
+    background-size: 70%;
   }
 
   .ocean-1 {
