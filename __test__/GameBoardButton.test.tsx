@@ -5,13 +5,11 @@ import { createPlayer1 } from './testData';
 
 describe('GameBoardButton', () => {
   let player1: ReturnType<typeof createPlayer1>;
+  let component: React.ReactElement;
 
   beforeEach(() => {
     player1 = createPlayer1();
-  });
-
-  it('will render a default button', () => {
-    render(
+    component = (
       <GameBoardButton
         testId='1'
         player={player1}
@@ -20,8 +18,12 @@ describe('GameBoardButton', () => {
         handleOnClick={() => {}}
         dblClick={() => {}}
         hoverId={null}
-      />,
+      />
     );
+  });
+
+  it('will render a default button', () => {
+    render(component);
 
     const button = screen.getByTestId('1');
     const divImages = button.querySelector('div');
@@ -31,17 +33,7 @@ describe('GameBoardButton', () => {
 
   it('will render a button with a ship image', async () => {
     player1.props.selectedShip = player1.props.allShips[0];
-    render(
-      <GameBoardButton
-        testId='1'
-        player={player1}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        handleOnClick={() => {}}
-        dblClick={() => {}}
-        hoverId={1}
-      />,
-    );
+    render(component);
 
     const button = screen.getByTestId('1');
     const shipDiv_1 = within(button).getByTestId('down');
@@ -54,17 +46,7 @@ describe('GameBoardButton', () => {
   it('will render a button with a hit image', () => {
     player1.board[1].isHit = true;
 
-    render(
-      <GameBoardButton
-        testId='1'
-        player={player1}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        handleOnClick={() => {}}
-        dblClick={() => {}}
-        hoverId={null}
-      />,
-    );
+    render(component);
 
     const button = screen.getByTestId('1');
     const hitDiv = within(button).getByTestId('hit');
@@ -75,17 +57,7 @@ describe('GameBoardButton', () => {
   it('will render a button with a miss image', () => {
     player1.board[1].isMiss = true;
 
-    render(
-      <GameBoardButton
-        testId='1'
-        player={player1}
-        onMouseEnter={() => {}}
-        onMouseLeave={() => {}}
-        handleOnClick={() => {}}
-        dblClick={() => {}}
-        hoverId={null}
-      />,
-    );
+    render(component);
 
     const button = screen.getByTestId('1');
     const missDiv = within(button).getByTestId('miss');
