@@ -14,10 +14,15 @@ export default {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
-        blink: {
+        blinkRed: {
           '0%': { backgroundColor: 'rgba(163, 12, 2, .4)' },
           '50%': { backgroundColor: 'rgba(163, 0, 2, 1)' },
           '100%': { backgroundColor: 'rgba(163, 12, 2, .5)' },
+        },
+        blinkGreen: {
+          '0%': { backgroundColor: 'rgba(15, 142, 2, .4)' },
+          '50%': { backgroundColor: 'rgba(15, 142, 2, 1)' },
+          '100%': { backgroundColor: 'rgba(15, 142, 2, .5)' },
         },
         endGameButton: {
           '0%, 100%': { backgroundColor: 'rgba(6, 6, 6, .93)' },
@@ -50,10 +55,11 @@ export default {
         'fade-in': 'fadeIn 3s ease-in-out forwards',
         'menu-fade-out': 'fadeOut 2s ease-in-out forwards',
         'fade-out': 'fadeOut 9s ease-in-out forwards',
-        'sunk-ship': 'blink ease-in-out 2s 2 forwards',
+        'sunk-ship-red': 'blinkRed ease-in-out 1.5s 2 forwards',
+        'sunk-ship-green': 'blinkGreen ease-in-out 1.5s 2 forwards',
         'bg-transition': 'endGameButton 4s ease-in-out infinite',
-        'player-two-sunk': 'boxShadowGreen 2s linear',
-        'player-one-sunk': 'boxShadowRed 2s linear',
+        'player-two-sunk': 'boxShadowGreen 1.5s 2 linear',
+        'player-one-sunk': 'boxShadowRed 1.5s 2 linear',
         'loser-blink': 'blinkLoser ease-in-out 1.5s infinite',
         'winner-blink': 'blinkWinner ease-in-out 1.5s infinite',
       },
