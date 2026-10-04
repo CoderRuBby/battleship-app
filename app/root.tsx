@@ -24,6 +24,13 @@ export default function Layout() {
           property='og:image'
           content='https://coderrubby.github.io/battleship-app/images/og-battleship.png'
         />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta name='twitter:title' content='Battleship' />
+        <meta name='twitter:description' content='Play Battleship online.' />
+        <meta
+          name='twitter:image'
+          content='https://coderrubby.github.io/battleship-app/images/og-battleship.png'
+        />
         <link rel='stylesheet' href={appStylesHref} />
         <link
           rel='icon'
