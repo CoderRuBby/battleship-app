@@ -348,15 +348,12 @@ export function AppComponent({
         [@media(max-height:700px)]:justify-center
       `}
         >
-          <div>
+          <div className="bg-[url('/images/ship-container.svg')] bg-cover bg-no-repeat bg-center backdrop-blur-xs">
             {!delay && (
               <main
                 className={`
-            ${setBoardStyle()}
-            bg-[url('/images/ship-container.svg')] bg-cover
+            ${setBoardStyle()} ${player1.props.winner ? 'animate-winner-blink' : player2.props.winner && 'animate-loser-blink'}
             relative flex flex-col justify-center items-center
-            bg-no-repeat bg-center
-            backdrop-blur-xs
             shadow-[0px_0px_8px_0px_rgba(44,255,255,.1),0px_19px_9px_1px_rgba(23,94,210,.3),0px_-3px_5px_3px_rgba(3,78,255,.3),0px_1px_7px_2px_rgba(33,255,255,.75)]
 
             portrait:p-2 portrait:xs:p-4 portrait:sm:p-5

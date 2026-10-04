@@ -37,6 +37,14 @@ export default {
           '75%': { boxShadow: '0px 22px 20px 0px rgba(163, 12, 2, .8)' },
           '100%': { boxShadow: '22px 0px 20px 0px rgba(163, 12, 2, .8)' },
         },
+        blinkLoser: {
+          '0%, 100%': { backgroundColor: 'transparent' },
+          '50%': { backgroundColor: 'rgba(163, 12, 2, .5)' },
+        },
+        blinkWinner: {
+          '0%, 100%': { backgroundColor: 'transparent' },
+          '50%': { backgroundColor: 'rgba(15, 142, 2, .8)' },
+        },
       },
       animation: {
         'fade-in': 'fadeIn 3s ease-in-out forwards',
@@ -46,6 +54,8 @@ export default {
         'bg-transition': 'endGameButton 4s ease-in-out infinite',
         'player-two-sunk': 'boxShadowGreen 2s linear',
         'player-one-sunk': 'boxShadowRed 2s linear',
+        'loser-blink': 'blinkLoser ease-in-out 1.5s infinite',
+        'winner-blink': 'blinkWinner ease-in-out 1.5s infinite',
       },
     },
   },
