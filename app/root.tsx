@@ -14,6 +14,11 @@ export default function Layout() {
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='stylesheet' href={appStylesHref} />
+        <link
+          rel='icon'
+          type='image/png'
+          href={`${import.meta.env.BASE_URL}images/favicon.png`}
+        />
       </head>
       <body>
         <Outlet />
