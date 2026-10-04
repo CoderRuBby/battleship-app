@@ -47,7 +47,7 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
   return (
     <button
       className={`
-          ${isPlaced() ? 'shadow-[0px_0px_0px_2px_rgba(0,193,44,1)]' : 'shadow-[0px_0px_0px_2px_rgba(155,27,27,1)]'} ship-button ${testId}-button ${testId} ${isSelected()} flex row
+          ${isPlaced() ? 'shadow-[0px_0px_0px_2px_rgba(0,193,44,1)]' : 'shadow-[0px_0px_0px_2px_rgba(155,27,27,1)]'} ship-button ${testId}-button ${testId} ${isSelected()} flex row 
         `}
       data-testid={testId}
       onClick={shipOnClick}
