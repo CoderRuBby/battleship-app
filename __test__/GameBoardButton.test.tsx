@@ -80,9 +80,8 @@ describe('GameBoardButton', () => {
     render(component);
 
     const button = screen.getByTestId('1');
-    const hitDiv = within(button).getByTestId('hit');
 
-    expect(hitDiv).toBeInTheDocument();
+    expect(button).toHaveClass('hit');
   });
 
   it('will render a button with a miss image', () => {
@@ -91,8 +90,7 @@ describe('GameBoardButton', () => {
     render(component);
 
     const button = screen.getByTestId('1');
-    const missDiv = within(button).getByTestId('miss');
 
-    expect(missDiv).toBeInTheDocument();
+    expect(button).toHaveClass('miss');
   });
 });
