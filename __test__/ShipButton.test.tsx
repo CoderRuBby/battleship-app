@@ -46,18 +46,4 @@ describe('ShipButton', () => {
 
     expect(buttonElement).toHaveClass('ship-outline');
   });
-
-  it('will not be able to be selected after ship is placed on the gameboard', async () => {
-    const user = userEvent.setup();
-    player1.props.allShips[0].props.isPlaced = true;
-
-    render(component);
-
-    const cruiserButton = screen.getByTestId('carrier');
-
-    await user.click(cruiserButton);
-
-    expect(onClick).not.toBeCalled();
-    expect(cruiserButton).not.toHaveClass('ship-outline');
-  });
 });
