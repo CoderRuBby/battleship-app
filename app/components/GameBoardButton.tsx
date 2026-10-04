@@ -170,7 +170,7 @@ export function GameBoardButton({
 
   return (
     <button
-      className={`${returnHitOrMiss(Number(testId))} ${showShipImage() && getDirection()} ${showShipImage() && reverseDirection(getDirection())} shadow-[0px_0px_3px_1px_black] flex w-[inherit] h-[inherit]`}
+      className={`${returnHitOrMiss(Number(testId))} ${showShipImage() && getDirection()} ${showShipImage() && reverseDirection(getDirection())} shadow-[0px_0px_3px_1px_black] flex w-[inherit] h-[inherit] board-button`}
       data-testid={testId}
       onMouseEnter={() => onMouseEnter(Number(testId))}
       onMouseLeave={() => onMouseLeave()}
