@@ -13,6 +13,17 @@ export default function Layout() {
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta property='og:type' content='website' />
+        <meta
+          property='og:url'
+          content='https://coderrubby.github.io/battleship-app/'
+        />
+        <meta property='og:title' content='Battleship' />
+        <meta property='og:description' content='Battleship the game.' />
+        <meta
+          property='og:image'
+          content='https://coderrubby.github.io/battleship-app/images/og-battleship.png'
+        />
         <link rel='stylesheet' href={appStylesHref} />
         <link
           rel='icon'
