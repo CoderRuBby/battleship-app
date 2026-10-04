@@ -35,7 +35,10 @@ export function ShipButton({ testId, shipOnClick, player }: ShipButtonProps) {
       (i) => i.props.name === testId,
     );
     const ship = player.props.allShips[shipIndex];
-    const array: number[] = Array.from({ length: ship.props.length });
+    const array: number[] = [];
+    for (let i = 0; i < ship.props.length; i++) {
+      array.push(i);
+    }
     return array.map((arr) => {
       return <div key={arr} className={divClass} />;
     });
